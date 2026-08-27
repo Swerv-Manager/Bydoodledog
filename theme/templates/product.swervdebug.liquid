@@ -1,0 +1,81 @@
+{%- layout none -%}
+{%- comment -%}
+  SWERV DEBUG PROBE - midlertidig fejlsoegningsfil.
+  Inert: renderes kun naar man selv skriver ?view=swervdebug bag paa en produkt-URL.
+  Roerer ingen eksisterende fil og er usynlig for kunder.
+  SLETTES igen naar maalingen er taget.
+{%- endcomment -%}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+
+  comment
+    Genberegning af den praecise beslutning fra snippets/buy-buttons.liquid
+  endcomment
+  assign check_against_inventory = true
+  if v.inventory_management != 'shopify' or v.inventory_policy == 'continue'
+    assign check_against_inventory = false
+  endif
+  assign quantity_rule_soldout = false
+  if v.quantity_rule.min > v.inventory_quantity and check_against_inventory
+    assign quantity_rule_soldout = true
+  endif
+  assign show_sold_out_button = false
+  if v.available == false or quantity_rule_soldout
+    assign show_sold_out_button = true
+  endif
+
+  comment
+    Server-side sandhed: render den RIGTIGE snippet og se om den selv skriver "Udsolgt".
+    Ingen JavaScript koerer paa denne side, saa alt herunder er ren Liquid.
+  endcomment
+  assign sold_out_text = 'products.product.sold_out' | t
+  capture real_snippet
+    render 'buy-buttons', product: product, product_form_id: 'swervdebug-form'
+  endcapture
+-%}
+SWERV-DEBUG
+====================================================================
+handle={{ product.handle }}
+product_id={{ product.id }}
+variant_id={{ v.id }}
+variant_is_nil={% if v == nil %}JA{% else %}NEJ{% endif %}
+
+-- DE FIRE FELTER DER AFGOER SAGEN --------------------------------
+variant_available=[{{ v.available }}]
+product_available=[{{ product.available }}]
+inventory_policy=[{{ v.inventory_policy }}]
+inventory_management=[{{ v.inventory_management }}]
+inventory_quantity=[{{ v.inventory_quantity }}]
+quantity_rule_min=[{{ v.quantity_rule.min }}]
+quantity_rule_max=[{{ v.quantity_rule.max }}]
+quantity_rule_increment=[{{ v.quantity_rule.increment }}]
+
+-- GENBEREGNET BESLUTNING -----------------------------------------
+check_against_inventory={{ check_against_inventory }}
+quantity_rule_soldout={{ quantity_rule_soldout }}
+SHOW_SOLD_OUT_BUTTON={{ show_sold_out_button }}
+
+-- SERVER-SIDE FACIT (ingen JS paa denne side) --------------------
+sold_out_oversaettelse=[{{ sold_out_text }}]
+RIGTIG_SNIPPET_SKRIVER_UDSOLGT={% if real_snippet contains sold_out_text %}JA{% else %}NEJ{% endif %}
+
+-- KONTEKST -------------------------------------------------------
+has_only_default_variant={{ product.has_only_default_variant }}
+variants_size={{ product.variants.size }}
+first_available_variant_id={{ product.first_available_variant.id }}
+selected_variant_id={{ product.selected_variant.id }}
+leveringstid={{ v.metafields.shophelten.leveringstid.value }}
+design_mode={{ request.design_mode }}
+host={{ request.host }}
+locale={{ request.locale.iso_code }}
+market_handle={{ localization.market.handle }}
+country={{ localization.country.iso_code }}
+currency={{ cart.currency.iso_code }}
+
+-- ALLE VARIANTER -------------------------------------------------
+{% for variant in product.variants -%}
+[{{ forloop.index }}] id={{ variant.id }} title=[{{ variant.title }}] available=[{{ variant.available }}] policy=[{{ variant.inventory_policy }}] mgmt=[{{ variant.inventory_management }}] qty=[{{ variant.inventory_quantity }}] min=[{{ variant.quantity_rule.min }}]
+{% endfor %}
+-- RAA HTML FRA DEN RIGTIGE SNIPPET -------------------------------
+{{ real_snippet | escape }}
+END
