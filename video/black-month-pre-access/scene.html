@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<title>Black Month pre-access</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    --espresso:#0E0A07; --ink:#1B130E; --cream:#F4EBDD; --sand:#E8DAC5;
+    --caramel:#C8915A; --gold:#E6BC80; --velvet:#6B4430; --brown:#8A5A3C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:var(--espresso)}
+  body{font-family:'Inter Tight',sans-serif;color:var(--cream);-webkit-font-smoothing:antialiased}
+  #stage{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:var(--espresso)}
+  #cam{position:absolute;inset:0;will-change:transform}
+  .layer{position:absolute;inset:0}
+  .abs{position:absolute}
+  .center{left:0;right:0;text-align:center}
+  .serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  .heavy{font-weight:900;letter-spacing:-0.045em;line-height:.9}
+  .word{display:inline-block;will-change:transform,opacity}
+  .mask{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .02em}
+  .mask>span{display:inline-block}
+
+  /* background */
+  #bgDark{background:radial-gradient(120% 70% at 50% 38%, #2A1C13 0%, #140E0A 45%, #0B0806 100%)}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+  #blob1{width:900px;height:900px;background:#8A5A3C;opacity:.32}
+  #blob2{width:700px;height:700px;background:#C8915A}
+  #blob2wrap{opacity:.16}
+  #bgCream{background:radial-gradient(110% 70% at 50% 45%, #F7F0E5 0%, #EFE3D2 60%, #E4D3BC 100%)}
+  #bgHook{background:var(--cream)}
+  #bgDark2{background:radial-gradient(120% 70% at 50% 40%, #2A1C13 0%, #120C09 55%, #0A0705 100%)}
+  #grain{position:absolute;inset:0;background-size:540px 960px;opacity:.10;mix-blend-mode:overlay;pointer-events:none}
+  #vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.38) 100%);pointer-events:none}
+  #flash{position:absolute;inset:0;background:#FFF6EA;opacity:0;pointer-events:none}
+
+  /* scene 1 hook */
+  #s1l1{top:640px;font-size:150px}
+  #s1l2{top:800px;font-size:190px;color:var(--caramel)}
+  #s1big{top:560px;font-size:560px;color:var(--ink);font-weight:900;letter-spacing:-0.07em;line-height:1}
+  #s1big .pct{font-size:.55em;vertical-align:.62em;letter-spacing:-0.02em;margin-left:.02em}
+  #s1sub{top:1150px;font-size:96px;color:var(--ink)}
+
+  /* scene 2 title */
+  #s2kicker{top:560px;font-size:44px;font-weight:600;letter-spacing:.02em;color:var(--sand);opacity:.85}
+  #s2black{top:640px;font-size:270px}
+  #s2month{top:870px;font-size:300px;line-height:1.05;padding:0 30px}
+  #s2month .mask>span{background:linear-gradient(180deg,#F6DAAE 0%,#D9A56A 55%,#A8733F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #s2month .mask{padding:0 .07em;margin:0 -.07em}
+  #s2line{top:1230px;left:240px;width:600px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform-origin:center}
+  .pill{display:inline-flex;align-items:center;gap:22px;padding:26px 46px;border-radius:999px;font-weight:700;font-size:54px;letter-spacing:-0.01em}
+  #s2pill{top:1290px}
+  #s2pill .pill{background:var(--cream);color:var(--ink)}
+
+  /* scene 3 question */
+  #s3a{top:480px;font-size:160px}
+  #s3b{top:640px;font-size:160px}
+  #s3c{top:790px;font-size:210px;color:var(--gold)}
+  #s3under{top:1010px;left:300px;width:520px;height:60px}
+  #lock{top:1080px;left:410px;width:260px;height:300px}
+  #s3chip{top:1410px}
+  #s3chip .pill{background:rgba(230,188,128,.14);border:2px solid rgba(230,188,128,.55);color:var(--gold);font-size:48px;padding:20px 40px}
+  #lockGlow{top:1060px;left:290px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(230,188,128,.55),rgba(230,188,128,0) 65%)}
+  #ring{top:1130px;left:390px;width:300px;height:300px;border-radius:50%;border:6px solid var(--gold)}
+
+  /* scene 4 products */
+  #s4head{top:250px;font-size:128px;color:var(--ink)}
+  #s4head .serif{color:var(--velvet);font-size:1.12em}
+  #s4disc{top:560px;left:130px;width:820px;height:820px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#D9A874 0%,#C8915A 55%,#A8733F 100%)}
+  #s4disc2{top:600px;left:170px;width:740px;height:740px;border-radius:50%;border:3px dashed rgba(255,246,234,.45)}
+  .prod{position:absolute;left:90px;top:640px;width:900px;height:640px;display:flex;align-items:center;justify-content:center}
+  .prod svg{width:900px;height:600px;overflow:visible}
+  .label{position:absolute;left:0;right:0;top:1440px;text-align:center;font-size:104px;font-weight:900;letter-spacing:-0.04em;color:var(--ink)}
+  .sticker{position:absolute;left:700px;top:560px;width:250px;height:250px;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:88px;letter-spacing:-0.05em;box-shadow:0 18px 40px rgba(40,20,5,.35)}
+  .sticker::after{content:'';position:absolute;inset:12px;border-radius:50%;border:3px dashed rgba(244,235,221,.35)}
+  .icongrid{position:absolute;left:150px;top:640px;width:780px;height:640px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;align-content:center;justify-items:center}
+  .icon{width:210px;height:210px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 34px rgba(60,30,10,.25)}
+  .icon svg{width:130px;height:130px}
+
+  /* scene 5 pillars */
+  .row{position:absolute;left:110px;display:flex;align-items:center;gap:40px;font-size:100px;font-weight:900;letter-spacing:-0.045em}
+  .check{width:124px;height:124px;border-radius:50%;background:var(--caramel);display:flex;align-items:center;justify-content:center;flex:none}
+  .check svg{width:76px;height:76px}
+  #r1{top:640px} #r2{top:860px} #r3{top:1080px}
+  #s5cap{top:1360px;font-size:92px;color:var(--gold)}
+
+  /* scene 6 contest */
+  #s6top{top:330px;font-size:84px;font-weight:700;letter-spacing:-0.02em}
+  #cardWrap{top:500px;left:170px;width:740px;height:470px;perspective:1600px}
+  .gcard{position:absolute;inset:0;border-radius:40px;overflow:hidden;background:linear-gradient(135deg,#E9C28C 0%,#C8915A 45%,#8E5E36 100%);box-shadow:0 40px 80px rgba(0,0,0,.55), inset 0 0 0 2px rgba(255,240,220,.35);transform-style:preserve-3d}
+  .gcard .shine{position:absolute;top:-50%;width:220px;height:200%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,248,235,.65),rgba(255,255,255,0));transform:rotate(20deg)}
+  .gcard .gk{position:absolute;left:52px;top:46px;font-size:40px;font-weight:700;color:rgba(30,18,10,.8);letter-spacing:.01em}
+  .gcard .wm{position:absolute;right:52px;top:46px;font-size:40px;font-weight:800;color:rgba(30,18,10,.8);letter-spacing:-0.02em}
+  .gcard .amt{position:absolute;left:52px;bottom:40px;font-size:150px;font-weight:900;color:#1B130E;letter-spacing:-0.05em;line-height:1}
+  .gcard .amt small{font-size:.42em;letter-spacing:-0.02em;margin-left:10px}
+  .gcard .paw{position:absolute;right:46px;bottom:46px;width:120px;height:120px;opacity:.28}
+  .gcard.back{box-shadow:0 20px 40px rgba(0,0,0,.4)}
+  #s6big{top:1040px;font-size:230px}
+  #s6big .serif{color:var(--gold)}
+  #s6txt{top:1110px;font-size:88px;font-weight:800;letter-spacing:-0.035em;line-height:1.08}
+  #s6txt .hl{color:var(--gold)}
+  #s6live{top:1470px}
+  #s6live .pill{background:#F4EBDD;color:var(--ink);font-size:52px}
+  .dot{width:26px;height:26px;border-radius:50%;background:#E0483A;box-shadow:0 0 0 0 rgba(224,72,58,.6)}
+
+  /* scene 7 phone */
+  #s7cap1{top:250px;font-size:120px}
+  #s7cap2{top:390px;font-size:108px;color:var(--gold)}
+  #phone{top:600px;left:250px;width:580px;height:1160px;border-radius:84px;background:#0A0706;box-shadow:0 0 0 12px #2B211B, 0 50px 120px rgba(0,0,0,.6);overflow:hidden}
+  #screen{position:absolute;inset:22px;border-radius:64px;background:linear-gradient(180deg,#F6EEE2,#EADBC6);overflow:hidden;color:var(--ink)}
+  #notch{position:absolute;top:18px;left:190px;width:200px;height:52px;border-radius:30px;background:#0A0706}
+  .scr-kick{position:absolute;top:130px;left:0;right:0;text-align:center;font-size:30px;font-weight:700;color:var(--velvet)}
+  .scr-title{position:absolute;top:175px;left:0;right:0;text-align:center;font-size:92px;font-weight:900;letter-spacing:-0.05em;line-height:.92}
+  .scr-title .serif{color:var(--brown);font-size:1.08em}
+  .scr-copy{position:absolute;top:420px;left:50px;right:50px;text-align:center;font-size:31px;line-height:1.3;font-weight:500;color:#4A382C}
+  .scr-input{position:absolute;top:600px;left:44px;right:44px;height:104px;border-radius:24px;background:#fff;border:3px solid #D8C6AE;display:flex;align-items:center;padding:0 34px;font-size:38px;font-weight:600;color:#1B130E}
+  .caret{display:inline-block;width:3px;height:44px;background:#1B130E;margin-left:4px}
+  .scr-btn{position:absolute;top:734px;left:44px;right:44px;height:112px;border-radius:24px;background:#1B130E;color:#F4EBDD;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;overflow:hidden}
+  .ripple{position:absolute;width:60px;height:60px;border-radius:50%;background:rgba(244,235,221,.45)}
+  .scr-ok{position:absolute;top:880px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;font-size:36px;font-weight:800;color:#2E6B3F}
+  .scr-ok .okc{width:54px;height:54px;border-radius:50%;background:#2E6B3F;display:flex;align-items:center;justify-content:center}
+  #finger{position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.35);border:4px solid rgba(255,255,255,.9)}
+
+  /* scene 8 cta */
+  #s8kick{top:430px;font-size:54px;font-weight:600;color:var(--sand)}
+  #s8a{top:520px;font-size:220px}
+  #s8b{top:730px;font-size:205px;line-height:1;color:var(--gold)}
+  #s8c{top:1030px;font-size:62px;font-weight:600;color:var(--sand)}
+  #s8url{top:1120px}
+  #ctaGlow{top:900px;left:90px;width:900px;height:640px;border-radius:50%;background:radial-gradient(closest-side,rgba(230,188,128,.35),rgba(230,188,128,0));filter:blur(10px)}
+  #s8url .pill{background:var(--cream);color:var(--ink);font-size:78px;font-weight:900;letter-spacing:-0.03em;padding:34px 64px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  #s8fine{top:1300px;font-size:40px;font-weight:600;color:rgba(244,235,221,.92);line-height:1.35;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+  #s8sign{top:1420px;font-size:84px;color:#F2CF98;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+  #wordmark{top:170px;font-size:56px;font-weight:800;letter-spacing:-0.03em;display:flex;justify-content:center;align-items:center;gap:14px}
+  #wordmark svg{width:52px;height:52px}
+  #cursor{position:absolute;width:70px;height:70px}
+</style>
+</head>
+<body>
+<div id="stage">
+ <div id="cam">
+  <!-- backgrounds -->
+  <div class="layer" id="bgDark"><div class="blob" id="blob1"></div><div id="blob2wrap"><div class="blob" id="blob2"></div></div></div>
+  <div class="layer" id="bgHook"></div>
+  <div class="layer" id="bgCream"></div>
+  <div class="layer" id="bgDark2"></div>
+
+  <!-- SCENE 1: hook -->
+  <div class="layer" id="s1">
+    <div class="abs center heavy" id="s1l1"><span class="word">Hele</span> <span class="word">shoppen</span></div>
+    <div class="abs center serif" id="s1l2"><span class="word">sat</span> <span class="word">ned</span></div>
+    <div class="abs center" id="s1big"><span id="s1num">-20</span><span class="pct">%</span></div>
+    <div class="abs center heavy" id="s1sub"><span class="word">på</span> <span class="word">alt</span></div>
+  </div>
+
+  <!-- SCENE 2: Black Month -->
+  <div class="layer" id="s2">
+    <div class="abs center" id="s2kicker">ByDoodleDog præsenterer</div>
+    <div class="abs center heavy" id="s2black" data-split>Black</div>
+    <div class="abs center serif" id="s2month" data-split>Month</div>
+    <div class="abs" id="s2line"></div>
+    <div class="abs center" id="s2pill"><span class="pill">
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#1B130E" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      Åbner lørdag 31.10</span></div>
+  </div>
+
+  <!-- SCENE 3: pre-access -->
+  <div class="layer" id="s3">
+    <div class="abs center heavy" id="s3a"><span class="word">Vil</span> <span class="word">du</span> <span class="word">ind</span></div>
+    <div class="abs center heavy" id="s3b"><span class="word">før</span> <span class="word">alle</span></div>
+    <div class="abs center serif" id="s3c"><span class="word">andre?</span></div>
+    <svg class="abs" id="s3under" viewBox="0 0 520 60" fill="none"><path id="underPath" d="M10 38 C 120 12, 260 10, 360 26 S 480 44, 510 20" stroke="#E6BC80" stroke-width="10" stroke-linecap="round"/></svg>
+    <div class="abs" id="lockGlow"></div>
+    <div class="abs" id="ring"></div>
+    <svg class="abs" id="lock" viewBox="0 0 260 300">
+      <g id="shackle"><path d="M62 140 V92 a68 68 0 0 1 136 0 V140" fill="none" stroke="#E6BC80" stroke-width="30" stroke-linecap="round"/></g>
+      <rect x="20" y="128" width="220" height="168" rx="38" fill="#E6BC80"/>
+      <rect x="20" y="128" width="220" height="168" rx="38" fill="url(#lockg)"/>
+      <circle cx="130" cy="200" r="22" fill="#1B130E"/><rect x="120" y="205" width="20" height="46" rx="10" fill="#1B130E"/>
+      <defs><linearGradient id="lockg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".15"/></linearGradient></defs>
+    </svg>
+    <div class="abs center" id="s3chip"><span class="pill">Pre-access</span></div>
+  </div>
+
+  <!-- SCENE 4: products -->
+  <div class="layer" id="s4">
+    <div class="abs center heavy" id="s4head">Alt er <span class="serif">sat ned</span></div>
+    <div class="abs" id="s4disc"></div>
+    <div class="abs" id="s4disc2"></div>
+
+    <!-- bed -->
+    <div class="prod" id="p1">
+      <svg viewBox="0 0 900 600">
+        <defs>
+          <radialGradient id="bedOuter" cx="50%" cy="30%" r="75%"><stop offset="0" stop-color="#9C6A48"/><stop offset="1" stop-color="#5E3B26"/></radialGradient>
+          <radialGradient id="bedInner" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#7A4F34"/><stop offset="1" stop-color="#4E3020"/></radialGradient>
+          <radialGradient id="fur" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#F3E1C3"/><stop offset="1" stop-color="#D2B28A"/></radialGradient>
+        </defs>
+        <ellipse cx="450" cy="520" rx="380" ry="46" fill="rgba(60,30,10,.28)"/>
+        <ellipse cx="450" cy="380" rx="380" ry="170" fill="url(#bedOuter)"/>
+        <g id="ribs" stroke="rgba(0,0,0,.16)" stroke-width="4" fill="none"></g>
+        <ellipse cx="450" cy="352" rx="265" ry="105" fill="url(#bedInner)"/>
+        <ellipse cx="450" cy="366" rx="240" ry="86" fill="#8A5A3C"/>
+        <ellipse cx="450" cy="340" rx="378" ry="150" fill="none" stroke="rgba(255,235,210,.18)" stroke-width="6"/>
+        <!-- curled doodle -->
+        <g id="dogBed">
+          <g fill="url(#fur)">
+            <circle cx="360" cy="330" r="62"/><circle cx="430" cy="315" r="70"/><circle cx="510" cy="320" r="68"/><circle cx="570" cy="345" r="55"/>
+            <circle cx="400" cy="370" r="58"/><circle cx="480" cy="375" r="62"/><circle cx="550" cy="380" r="50"/>
+            <circle cx="620" cy="360" r="36"/><circle cx="650" cy="345" r="26"/>
+          </g>
+          <g fill="rgba(160,120,80,.35)">
+            <circle cx="420" cy="300" r="10"/><circle cx="470" cy="330" r="9"/><circle cx="520" cy="300" r="10"/><circle cx="560" cy="360" r="9"/><circle cx="440" cy="370" r="10"/><circle cx="500" cy="395" r="8"/><circle cx="390" cy="340" r="9"/>
+          </g>
+          <!-- head -->
+          <g fill="url(#fur)">
+            <circle cx="300" cy="352" r="70"/><circle cx="260" cy="320" r="34"/><circle cx="330" cy="300" r="36"/><circle cx="290" cy="300" r="34"/>
+          </g>
+          <ellipse cx="338" cy="360" rx="44" ry="80" fill="#B88D62" transform="rotate(-18 338 360)"/>
+          <circle cx="352" cy="330" r="16" fill="#B88D62"/><circle cx="345" cy="410" r="18" fill="#B88D62"/>
+          <ellipse cx="248" cy="382" rx="40" ry="30" fill="#EAD5B5"/>
+          <ellipse cx="226" cy="376" rx="16" ry="12" fill="#1B130E"/>
+          <path d="M262 348 q16 10 32 0" stroke="#1B130E" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M296 344 q14 9 28 0" stroke="#1B130E" stroke-width="6" fill="none" stroke-linecap="round" opacity="0"/>
+        </g>
+        <!-- front bolster over dog -->
+        <path d="M70 380 A380 170 0 0 0 830 380 A380 120 0 0 1 70 380 Z" fill="url(#bedOuter)"/>
+        <g id="ribsFront" stroke="rgba(0,0,0,.16)" stroke-width="4" fill="none"></g>
+        <path d="M110 430 A360 130 0 0 0 790 430" stroke="rgba(255,235,210,.22)" stroke-width="8" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- car seat -->
+    <div class="prod" id="p2">
+      <svg viewBox="0 0 900 600">
+        <defs>
+          <linearGradient id="seatF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9A6A47"/><stop offset="1" stop-color="#6A432B"/></linearGradient>
+          <linearGradient id="carSeat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B2C23"/><stop offset="1" stop-color="#241A14"/></linearGradient>
+        </defs>
+        <ellipse cx="450" cy="560" rx="360" ry="34" fill="rgba(60,30,10,.28)"/>
+        <!-- car back seat silhouette -->
+        <path d="M150 90 q0-50 50-50 h500 q50 0 50 50 v330 h-600 z" fill="url(#carSeat)" opacity=".9"/>
+        <path d="M110 420 h680 q30 0 30 30 v90 h-740 v-90 q0-30 30-30z" fill="#2A1F18"/>
+        <rect x="260" y="10" width="100" height="70" rx="20" fill="#3B2C23"/><rect x="540" y="10" width="100" height="70" rx="20" fill="#3B2C23"/>
+        <!-- straps -->
+        <path d="M300 120 L330 300" stroke="#15100C" stroke-width="18" stroke-linecap="round"/>
+        <path d="M600 120 L570 300" stroke="#15100C" stroke-width="18" stroke-linecap="round"/>
+        <rect x="316" y="160" width="34" height="46" rx="8" fill="#C9B79E"/><rect x="552" y="160" width="34" height="46" rx="8" fill="#C9B79E"/>
+        <!-- dog head peeking -->
+        <g id="dogSeat">
+          <g fill="url(#fur)"><circle cx="450" cy="250" r="86"/><circle cx="400" cy="190" r="40"/><circle cx="450" cy="175" r="44"/><circle cx="500" cy="190" r="40"/></g>
+          <ellipse cx="372" cy="270" rx="36" ry="70" fill="#B88D62" transform="rotate(12 372 270)"/>
+          <ellipse cx="528" cy="270" rx="36" ry="70" fill="#B88D62" transform="rotate(-12 528 270)"/>
+          <ellipse cx="450" cy="290" rx="44" ry="34" fill="#EAD5B5"/>
+          <ellipse cx="450" cy="278" rx="18" ry="13" fill="#1B130E"/>
+          <circle cx="418" cy="236" r="11" fill="#1B130E"/><circle cx="482" cy="236" r="11" fill="#1B130E"/>
+          <circle cx="421" cy="232" r="3.5" fill="#fff"/><circle cx="485" cy="232" r="3.5" fill="#fff"/>
+          <path d="M440 306 q10 18 20 0" fill="#D86A6A"/>
+        </g>
+        <!-- seat box -->
+        <rect x="200" y="300" width="500" height="230" rx="56" fill="url(#seatF)"/>
+        <rect x="200" y="300" width="500" height="60" rx="30" fill="#A87752"/>
+        <g stroke="rgba(0,0,0,.14)" stroke-width="4" id="seatRibs"></g>
+        <path d="M240 330 h420" stroke="rgba(255,235,210,.3)" stroke-width="6" stroke-linecap="round"/>
+        <rect x="415" y="470" width="70" height="26" rx="8" fill="#D9C7AE" opacity=".8"/>
+      </svg>
+    </div>
+
+    <!-- stairs -->
+    <div class="prod" id="p3">
+      <svg viewBox="0 0 900 600">
+        <defs><linearGradient id="stepTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B98E68"/><stop offset="1" stop-color="#9D7250"/></linearGradient>
+        <linearGradient id="stepFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7E5639"/><stop offset="1" stop-color="#5E3E28"/></linearGradient></defs>
+        <ellipse cx="450" cy="560" rx="360" ry="34" fill="rgba(60,30,10,.28)"/>
+        <!-- step 3 (top back) -->
+        <rect x="520" y="110" width="260" height="440" rx="34" fill="url(#stepFront)"/>
+        <rect x="520" y="90" width="260" height="60" rx="28" fill="url(#stepTop)"/>
+        <!-- step 2 -->
+        <rect x="320" y="250" width="260" height="300" rx="34" fill="url(#stepFront)"/>
+        <rect x="320" y="230" width="260" height="60" rx="28" fill="url(#stepTop)"/>
+        <!-- step 1 -->
+        <rect x="120" y="390" width="260" height="160" rx="34" fill="url(#stepFront)"/>
+        <rect x="120" y="370" width="260" height="60" rx="28" fill="url(#stepTop)"/>
+        <g stroke="rgba(0,0,0,.12)" stroke-width="4" id="stairRibs"></g>
+        <!-- paw trail -->
+        <g id="pawTrail" fill="#F4EBDD"></g>
+      </svg>
+    </div>
+
+    <!-- everything else -->
+    <div class="icongrid" id="p4">
+      <div class="icon"><svg viewBox="0 0 64 64"><path d="M8 30h48a24 18 0 0 1-48 0z" fill="#8A5A3C"/><rect x="6" y="26" width="52" height="7" rx="3.5" fill="#C8915A"/><circle cx="24" cy="22" r="4" fill="#6B4430"/><circle cx="32" cy="19" r="4" fill="#6B4430"/><circle cx="40" cy="22" r="4" fill="#6B4430"/></svg></div>
+      <div class="icon"><svg viewBox="0 0 64 64"><g fill="#C8915A"><circle cx="16" cy="22" r="8"/><circle cx="12" cy="32" r="8"/><circle cx="48" cy="32" r="8"/><circle cx="52" cy="42" r="8"/><rect x="14" y="24" width="36" height="14" rx="7" transform="rotate(10 32 32)"/></g></svg></div>
+      <div class="icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#C8915A"/><path d="M12 26c10 6 30 6 40 0M12 40c10-6 30-6 40 0" stroke="#F4EBDD" stroke-width="4" fill="none"/></svg></div>
+      <div class="icon"><svg viewBox="0 0 64 64" fill="none" stroke="#8A5A3C" stroke-width="5" stroke-linecap="round"><circle cx="20" cy="18" r="10"/><path d="M27 25 L50 50"/><rect x="44" y="44" width="12" height="12" rx="3" fill="#C8915A" stroke="none"/></svg></div>
+      <div class="icon"><svg viewBox="0 0 64 64"><path d="M22 10l-12 8 5 10 5-3v29h24V25l5 3 5-10-12-8c-2 5-6 7-10 7s-8-2-10-7z" fill="#C8915A"/><path d="M20 34h24M20 42h24" stroke="#F4EBDD" stroke-width="3"/></svg></div>
+      <div class="icon"><svg viewBox="0 0 64 64"><path d="M14 12 C 14 40, 50 40, 50 12" stroke="#6B4430" stroke-width="5" fill="none"/><path d="M10 30 h44 v12 a14 14 0 0 1-14 14 h-16 a14 14 0 0 1-14-14z" fill="#8A5A3C"/><path d="M14 36h36" stroke="#C8915A" stroke-width="3"/></svg></div>
+    </div>
+
+    <div class="label" id="lab"><span class="mask"><span id="labTxt">Hundekurve</span></span></div>
+    <div class="sticker" id="stk">-20%</div>
+  </div>
+
+  <!-- SCENE 5: pillars -->
+  <div class="layer" id="s5">
+    <div class="row" id="r1"><div class="check"><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1B130E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Æstetik</span></div>
+    <div class="row" id="r2"><div class="check"><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1B130E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Komfort</span></div>
+    <div class="row" id="r3"><div class="check"><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1B130E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>Nemt vedligehold</span></div>
+    <div class="abs center serif" id="s5cap">Til hunden. Og til dit hjem.</div>
+  </div>
+
+  <!-- SCENE 6: contest -->
+  <div class="layer" id="s6">
+    <div class="abs center" id="s6top">Vind et gavekort på</div>
+    <div class="abs" id="cardWrap"></div>
+    <div class="abs center heavy" id="s6big"><span id="s6count">5.000</span> <span class="serif">kr</span></div>
+    <div class="abs center" id="s6txt">
+      <div><span class="word">20</span> <span class="word">vindere</span> <span class="word">blandt</span></div>
+      <div><span class="word">de</span> <span class="word">første</span> <span class="word hl">200</span> <span class="word hl">kunder</span></div>
+      <div><span class="word">på</span> <span class="word">åbningsdagen</span></div>
+    </div>
+    <div class="abs center" id="s6live"><span class="pill"><span class="dot" id="liveDot"></span>Live lodtrækning 31.10</span></div>
+  </div>
+
+  <!-- SCENE 7: signup -->
+  <div class="layer" id="s7">
+    <div class="abs center heavy" id="s7cap1">Skriv dig op</div>
+    <div class="abs center serif" id="s7cap2">og få besked først</div>
+    <div class="abs" id="phone">
+      <div id="screen">
+        <div class="scr-kick">Black Month hos ByDoodleDog</div>
+        <div class="scr-title">Få <span class="serif">pre-access</span></div>
+        <div class="scr-copy">Vi giver dig besked, før alle andre, når Black Month åbner lørdag 31.10.</div>
+        <div class="scr-input"><span id="typed"></span><span class="caret" id="caret"></span></div>
+        <div class="scr-btn" id="btn"><span id="btnTxt">Skriv mig op</span><div class="ripple" id="ripple"></div></div>
+        <div class="scr-ok" id="ok"><span class="okc"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Du er på listen</div>
+      </div>
+      <div id="notch"></div>
+      <div id="finger"></div>
+    </div>
+  </div>
+
+  <!-- SCENE 8: CTA -->
+  <div class="layer" id="s8">
+    <div class="abs" id="ctaGlow"></div>
+    <div class="abs" id="wordmark" style="left:0;right:0"><svg viewBox="0 0 64 64" id="wmPaw"></svg>ByDoodleDog</div>
+    <div class="abs center" id="s8kick">Black Month · 31.10</div>
+    <div class="abs center heavy" id="s8a"><span class="word">Få</span></div>
+    <div class="abs center serif" id="s8b"><span class="word">pre-access</span></div>
+    <div class="abs center" id="s8c">Skriv dig op gratis på</div>
+    <div class="abs center" id="s8url"><span class="pill" id="urlPill">bydoodledog.dk</span></div>
+    <div class="abs center" id="s8fine">20% på hele shoppen i hele november.<br>Besked et par timer før alle andre.</div>
+    <div class="abs center serif" id="s8sign">Vi ses på shoppen</div>
+    <svg id="cursor" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#1B130E" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  </div>
+ </div>
+ <div id="grain"></div>
+ <div id="vignette"></div>
+ <div id="flash"></div>
+</div>
+
+<script>
+const BPM = 132, BEAT = 60 / BPM;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const P = (B, a, d) => clamp((B - a) / d);
+const E = {
+  lin: t => t,
+  outExpo: t => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  inExpo: t => t <= 0 ? 0 : Math.pow(2, 10 * t - 10),
+  outCubic: t => 1 - Math.pow(1 - t, 3),
+  inCubic: t => t * t * t,
+  inOutCubic: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  outBack: t => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
+  outQuint: t => 1 - Math.pow(1 - t, 5),
+};
+function T(el, o = {}) {
+  if (typeof el === 'string') el = $(el);
+  const { x = 0, y = 0, s = 1, sx = 1, sy = 1, r = 0, o: op = 1, blur = 0, rx = 0, ry = 0, ox, oy } = o;
+  el.style.transform = `translate(${x}px,${y}px) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${r}deg) scale(${s * sx},${s * sy})`;
+  el.style.opacity = op;
+  if ('blur' in o) el.style.filter = blur > 0.05 ? `blur(${blur}px)` : 'none';
+}
+const show = (el, v) => { (typeof el === 'string' ? $(el) : el).style.display = v ? '' : 'none'; };
+
+// ---------- build helpers ----------
+$$('[data-split]').forEach(el => {
+  const txt = el.textContent; el.textContent = '';
+  [...txt].forEach(ch => { const m = document.createElement('span'); m.className = 'mask'; const i = document.createElement('span'); i.textContent = ch; m.appendChild(i); el.appendChild(m); });
+});
+const PAW = '<g fill="currentColor"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="14" cy="28" rx="6" ry="8"/><ellipse cx="25" cy="18" rx="6" ry="8"/><ellipse cx="39" cy="18" rx="6" ry="8"/><ellipse cx="50" cy="28" rx="6" ry="8"/></g>';
+$('#wmPaw').innerHTML = PAW; $('#wmPaw').style.color = '#E6BC80';
+
+// corduroy ribs on bed bolster
+(function () {
+  const g = $('#ribs'), gf = $('#ribsFront'); let s = '', sf = '';
+  for (let i = 0; i < 64; i++) {
+    const a = (i / 64) * Math.PI * 2;
+    const x1 = 450 + Math.cos(a) * 270, y1 = 352 + Math.sin(a) * 110;
+    const x2 = 450 + Math.cos(a) * 375, y2 = 380 + Math.sin(a) * 166;
+    const d = `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} Q ${((x1 + x2) / 2 + Math.cos(a) * 12).toFixed(1)} ${((y1 + y2) / 2 - 14).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
+    if (Math.sin(a) > 0.05) sf += d; else s += d;
+  }
+  g.innerHTML = s; gf.innerHTML = sf;
+  let r = ''; for (let x = 230; x <= 670; x += 22) r += `<path d="M${x} 312 V520"/>`; $('#seatRibs').innerHTML = r;
+  let st = ''; [[120, 390, 160], [320, 250, 300], [520, 110, 440]].forEach(([x, y, h]) => { for (let k = x + 24; k < x + 250; k += 22) st += `<path d="M${k} ${y + 30} V${y + h - 10}"/>`; });
+  $('#stairRibs').innerHTML = st;
+  const paws = [[230, 385], [290, 372], [430, 245], [490, 232], [630, 105], [690, 92]];
+  $('#pawTrail').innerHTML = paws.map(([x, y], i) => `<g class="pp" transform="translate(${x - 22},${y - 30}) scale(.7)">${PAW.replace('currentColor', '#F4EBDD')}</g>`).join('');
+})();
+
+// gift cards (1 hero + fan)
+(function () {
+  const w = $('#cardWrap'); let h = '';
+  for (let i = 0; i < 7; i++) h += `<div class="gcard back fan" data-i="${i}"><div class="gk">Gavekort</div><div class="wm">ByDoodleDog</div><div class="amt">5.000<small>kr</small></div></div>`;
+  h += `<div class="gcard" id="hero"><div class="shine" id="shine"></div><div class="gk">Gavekort</div><div class="wm">ByDoodleDog</div><div class="amt"><span id="cardAmt">5.000</span><small>kr</small></div><svg class="paw" viewBox="0 0 64 64" style="color:#1B130E">${PAW}</svg></div>`;
+  w.innerHTML = h;
+})();
+
+// grain frames
+const grainFrames = [];
+(function () {
+  const c = document.createElement('canvas'); c.width = 540; c.height = 960; const x = c.getContext('2d');
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let f = 0; f < 6; f++) {
+    const id = x.createImageData(540, 960);
+    for (let i = 0; i < id.data.length; i += 4) { const v = rnd() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+    x.putImageData(id, 0, 0); grainFrames.push(`url(${c.toDataURL('image/jpeg', .7)})`);
+  }
+})();
+
+// fit text blocks to max width
+function fit(sel, max) { const el = $(sel); el.style.display = 'block'; let fs = parseFloat(getComputedStyle(el).fontSize); const span = document.createElement('span'); span.style.display = 'inline-block'; span.innerHTML = el.innerHTML; el.innerHTML = ''; el.appendChild(span); while (span.getBoundingClientRect().width > max && fs > 20) { fs -= 2; el.style.fontSize = fs + 'px'; } el.innerHTML = span.innerHTML; }
+
+const IMPACTS = [[0, .5], [2, 1.3], [4, 1.1], [12, .8], [20, .6], [24, 1.1], [36, 1.3]];
+const FLASHES = [[2, .55], [4, .35], [24, .3], [36, .5]];
+
+function words(sel, starts, dur = .3, from = 1.6) {
+  $$(sel + ' .word').forEach((w, i) => {
+    const p = P(B_, starts[i] ?? 99, dur); const e = E.outExpo(p);
+    T(w, { s: lerp(from, 1, e), y: lerp(40, 0, e), o: clamp(p * 3), blur: (1 - e) * 10 });
+  });
+}
+let B_ = 0;
+
+function renderAt(t, frameIdx = 0) {
+  const B = t / BEAT; B_ = B;
+  // ---- camera shake + flash ----
+  let sx = 0, sy = 0, rot = 0;
+  IMPACTS.forEach(([b, a]) => { if (B >= b) { const d = (B - b) * BEAT; const k = Math.exp(-d * 9) * a; sx += Math.sin(d * 70) * 16 * k; sy += Math.cos(d * 55) * 12 * k; rot += Math.sin(d * 40) * .6 * k; } });
+  let pulse = 0; if ((B > 4 && B < 32) || (B > 36 && B < 42)) pulse = Math.exp(-(B % 1) * 5);
+  const zoomPulse = 1 + pulse * 0.012;
+  $('#cam').style.transform = `translate(${sx}px,${sy}px) rotate(${rot}deg) scale(${zoomPulse})`;
+  let fl = 0; FLASHES.forEach(([b, a]) => { if (B >= b) fl += a * Math.exp(-(B - b) * 7); });
+  $('#flash').style.opacity = clamp(fl);
+  $('#grain').style.backgroundImage = grainFrames[frameIdx % grainFrames.length];
+
+  // ---- backgrounds ----
+  T('#blob1', { x: 90 + Math.sin(t * .6) * 120, y: 300 + Math.cos(t * .45) * 160 });
+  T('#blob2', { x: 300 + Math.cos(t * .5) * 180, y: 1000 + Math.sin(t * .7) * 140, o: B > 36 ? lerp(1, .45, E.outCubic(P(B, 36, 2))) : 1 });
+  // hook cream: on at B2, iris out at 3.55-4
+  show('#bgHook', B >= 2 && B < 4.05);
+  if (B >= 2) { const p = E.inExpo(P(B, 3.5, .5)); $('#bgHook').style.clipPath = `circle(${lerp(1500, 0, p)}px at 540px 900px)`; }
+  // cream product bg: iris from lock 11.35-12, slide off 19.55-20
+  const cOn = B >= 11.3 && B < 20.1; show('#bgCream', cOn);
+  if (cOn) { const p = E.inOutCubic(P(B, 11.35, .65)); $('#bgCream').style.clipPath = `circle(${lerp(0, 2300, p)}px at 540px 1230px)`; }
+  // dark2 slides up to cover products 19.55-20
+  const d2 = B >= 19.5 && B < 20.2; show('#bgDark2', d2);
+  if (d2) { const p = E.outExpo(P(B, 19.55, .45)); T('#bgDark2', { y: lerp(1920, 0, p) }); }
+
+  // ---- SCENE 1 ----
+  const s1 = B < 4.05; show('#s1', s1);
+  if (s1) {
+    const out1 = E.inExpo(P(B, 1.85, .2));
+    words('#s1l1', [-0.12, 0.5], .28); words('#s1l2', [1, 1.5], .28);
+    T('#s1l1', { y: -out1 * 500, o: 1 - out1, blur: out1 * 20 }); T('#s1l2', { y: out1 * 500, o: 1 - out1, blur: out1 * 20 });
+    show('#s1big', B >= 2); show('#s1sub', B >= 2);
+    if (B >= 2) {
+      const e = E.outExpo(P(B, 2, .4)); const zo = E.inExpo(P(B, 3.45, .55));
+      T('#s1big', { s: lerp(2.6, 1, e) * lerp(1, 9, zo), r: lerp(-8, 0, e), o: 1 - P(B, 3.8, .2) });
+      const ab = Math.exp(-(B - 2) * 5) * 22 + zo * 30;
+      $('#s1big').style.textShadow = `${ab}px 0 0 rgba(220,60,40,.55), ${-ab}px 0 0 rgba(40,140,220,.45)`;
+      words('#s1sub', [3, 3.25], .3, 1.4);
+      T('#s1sub', { o: 1 - zo * 3, y: zo * 200 });
+    }
+  }
+
+  // ---- SCENE 2 ----
+  const s2 = B >= 3.9 && B < 8.3; show('#s2', s2);
+  if (s2) {
+    $$('#s2black .mask>span').forEach((c, i) => { const e = E.outExpo(P(B, 3.95 + i * .07, .5)); T(c, { y: lerp(300, 0, e) }); });
+    $$('#s2month .mask>span').forEach((c, i) => { const e = E.outExpo(P(B, 4.25 + i * .07, .55)); T(c, { y: lerp(340, 0, e), r: lerp(12, 0, e) }); });
+    const k = E.outCubic(P(B, 4.6, .5)); T('#s2kicker', { o: k, y: lerp(20, 0, k) });
+    T('#s2line', { sx: E.outExpo(P(B, 5, .6)) + 0.0001 });
+    const pe = E.outBack(P(B, 6, .45)); T('#s2pill', { s: lerp(.4, 1, pe), o: P(B, 6, .15) });
+    const float = Math.sin(t * 2.2) * 6;
+    const wp = P(B, 7.7, .45); const we = E.inCubic(wp);
+    T('#s2black', { x: -we * 1200, blur: we * 40, y: float * .3 }); T('#s2month', { x: -we * 1300, blur: we * 40 });
+    T('#s2kicker', { x: -we * 1100, o: k * (1 - wp) }); T('#s2line', { x: -we * 1200, sx: E.outExpo(P(B, 5, .6)) + .0001 });
+    T('#s2pill', { x: -we * 1400, s: lerp(.4, 1, pe), o: P(B, 6, .15), blur: we * 40 });
+  }
+
+  // ---- SCENE 3 ----
+  const s3 = B >= 7.9 && B < 12.05; show('#s3', s3);
+  if (s3) {
+    const wi = E.outCubic(P(B, 7.9, .45)); const inx = (1 - wi) * 1200, inb = (1 - wi) * 40;
+    words('#s3a', [8, 8.25, 8.5], .3); words('#s3b', [8.75, 9], .3); words('#s3c', [9.25], .35, 2);
+    T('#s3a', { x: inx, blur: inb }); T('#s3b', { x: inx * 1.1, blur: inb }); T('#s3c', { x: inx * 1.2, blur: inb });
+    const up = $('#underPath'); const L = 560; up.style.strokeDasharray = L; up.style.strokeDashoffset = L * (1 - E.outCubic(P(B, 9.5, .6)));
+    const le = E.outBack(P(B, 9.9, .45)); T('#lock', { s: lerp(.2, 1, le), o: P(B, 9.9, .15) });
+    const un = P(B, 10.5, .35); const ue = E.outBack(un);
+    $('#shackle').setAttribute('transform', `translate(0 ${-34 * ue}) rotate(${-22 * ue} 198 140)`);
+    T('#lockGlow', { o: E.outCubic(P(B, 10.5, .4)) * (.8 + Math.sin(t * 8) * .1), s: lerp(.5, 1.1, E.outCubic(P(B, 10.5, .6))) });
+    const rp = P(B, 10.5, .9); T('#ring', { s: lerp(.6, 2.6, E.outCubic(rp)), o: (1 - rp) * (B >= 10.5 ? 1 : 0) });
+    const ce = E.outBack(P(B, 10.75, .4)); T('#s3chip', { s: lerp(.5, 1, ce), o: P(B, 10.75, .15) });
+    // exit: everything pushed as cream iris grows
+    const ex = E.inCubic(P(B, 11.4, .6));
+    ['#s3a', '#s3b', '#s3c', '#s3under', '#s3chip'].forEach((s, i) => { const el = $(s); el.style.opacity = (parseFloat(el.style.opacity || 1)) * (1 - ex); });
+  }
+
+  // ---- SCENE 4 ----
+  const s4 = B >= 11.9 && B < 20.1; show('#s4', s4);
+  if (s4) {
+    const he = E.outExpo(P(B, 12, .5)); T('#s4head', { y: lerp(-160, 0, he), o: P(B, 12, .2) });
+    const de = E.outBack(P(B, 11.95, .5)); T('#s4disc', { s: lerp(.3, 1, de) * (1 + pulse * .02) });
+    T('#s4disc2', { s: lerp(.3, 1, de), r: t * 18 });
+    const prods = ['#p1', '#p2', '#p3', '#p4']; const starts = [12, 14, 16, 18]; const names = ['Hundekurve', 'Bilsæder', 'Trapper', 'Alt det andet'];
+    let cur = 0; starts.forEach((s, i) => { if (B >= s) cur = i; });
+    prods.forEach((p, i) => {
+      const st = starts[i], en = starts[i + 1] ?? 99;
+      const vis = B >= st - .05 && B < en + .35; show(p, vis); if (!vis) return;
+      const ie = E.outExpo(P(B, st, .45)); const oe = E.inCubic(P(B, en - .1, .4));
+      const bob = Math.sin((B - st) * Math.PI) * 6;
+      if (i < 3) T(p, { x: lerp(900, 0, ie) - oe * 1100, r: lerp(18, 0, ie) - oe * 14, s: lerp(.7, 1, ie), y: bob, blur: (1 - ie) * 14 + oe * 18 });
+      else {
+        T(p, { x: -oe * 1100 });
+        $$('#p4 .icon').forEach((ic, k) => { const e = E.outBack(P(B, 18 + k * .16, .4)); T(ic, { s: lerp(0, 1, e), r: lerp(-30, 0, e), o: P(B, 18 + k * .16, .1) }); });
+      }
+    });
+    // doodle breathing in bed
+    $('#dogBed').setAttribute('transform', `translate(0 ${Math.sin(t * 3) * 3})`);
+    // paw trail sequential
+    $$('#pawTrail .pp').forEach((pp, k) => { pp.style.opacity = P(B, 16.4 + k * .2, .1); });
+    // label swap
+    const lp = E.outExpo(P(B, starts[cur], .4));
+    $('#labTxt').textContent = names[cur];
+    T('#labTxt', { y: lerp(120, 0, lp) });
+    T('#lab', { o: 1 - E.inCubic(P(B, 19.5, .3)) });
+    // sticker re-stamp each product
+    const ss = starts[cur] + .5; const se = E.outBack(P(B, ss, .35));
+    T('#stk', { s: B >= ss ? lerp(1.8, 1, se) : 0.001, r: -14 + Math.sin(t * 3) * 3, o: B >= ss ? 1 : 0 });
+    if (cur === 3) { T('#stk', { s: B >= ss ? lerp(1.8, 1, se) : .001, r: -14, o: B >= ss ? 1 : 0, x: -20, y: -60 }); }
+  }
+
+  // ---- SCENE 5 ----
+  const s5 = B >= 19.9 && B < 24.1; show('#s5', s5);
+  if (s5) {
+    ['#r1', '#r2', '#r3'].forEach((r, i) => {
+      const st = 20 + i; const e = E.outExpo(P(B, st, .45));
+      T(r, { x: lerp(-700, 0, e), o: P(B, st, .12), blur: (1 - e) * 16 });
+      const ck = $(r + ' .ck'); ck.style.strokeDasharray = 30; ck.style.strokeDashoffset = 30 * (1 - E.outCubic(P(B, st + .2, .35)));
+      const cb = E.outBack(P(B, st + .1, .35)); T($(r + ' .check'), { s: lerp(.3, 1, cb) });
+    });
+    const ce = E.outCubic(P(B, 23, .5)); T('#s5cap', { o: ce, y: lerp(40, 0, ce) });
+    const ex = E.inExpo(P(B, 23.6, .4));
+    T('#s5', { s: lerp(1, .85, ex), o: 1 - ex, blur: ex * 20 });
+  }
+
+  // ---- SCENE 6 ----
+  const s6 = B >= 23.9 && B < 32.2; show('#s6', s6);
+  if (s6) {
+    const te = E.outExpo(P(B, 24.15, .45)); T('#s6top', { o: P(B, 24.15, .2), y: lerp(40, 0, te) });
+    const ce = E.outExpo(P(B, 24, .7));
+    const hero = $('#hero');
+    const fl = Math.sin(t * 2.4) * 8;
+    T(hero, { y: lerp(1100, 0, ce) + fl, rx: lerp(70, 8 * Math.sin(t * 1.6), ce), ry: lerp(-40, 10 * Math.sin(t * 1.2), ce), r: lerp(-20, 0, ce), s: lerp(.6, 1, ce) });
+    $('#shine').style.left = lerp(-300, 1000, ((B - 24.5) % 3) / 1.2) + 'px';
+    // counter on card + big
+    const cp = E.outCubic(P(B, 24.4, 1.4)); const val = Math.round(cp * 5000 / 50) * 50;
+    const fmt = v => v.toLocaleString('da-DK');
+    $('#cardAmt').textContent = fmt(val); $('#s6count').textContent = fmt(val);
+    const be = E.outExpo(P(B, 24.4, .4)); const bo = E.inCubic(P(B, 27.7, .3));
+    T('#s6big', { s: lerp(1.6, 1, be) * (1 + (B > 24.4 && B < 25.8 ? Math.exp(-((B * 4) % 1) * 4) * .03 : 0)), o: P(B, 24.4, .15) * (1 - bo), y: -bo * 80 });
+    // fan at 26
+    const fe = E.outBack(P(B, 26, .6));
+    $$('#cardWrap .fan').forEach((c, i) => {
+      const n = 7, a = (i - (n - 1) / 2) * 11 * fe;
+      T(c, { r: a, x: a * 9, y: Math.abs(a) * 3 + fl, o: B >= 26 ? .95 : 0, s: .92 });
+      c.style.transformOrigin = '50% 140%';
+    });
+    // 20 vindere label replaces big number briefly? keep text block at 28
+    words('#s6txt', [28, 28.12, 28.24, 28.5, 28.62, 28.74, 28.86, 29.1, 29.22], .35, 1.5);
+    show('#s6txt', B >= 27.9);
+    const le = E.outBack(P(B, 30, .45)); T('#s6live', { s: lerp(.4, 1, le), o: P(B, 30, .12) });
+    const dp = (B * 1.5) % 1; $('#liveDot').style.boxShadow = `0 0 0 ${dp * 26}px rgba(224,72,58,${.6 * (1 - dp)})`;
+    const ex = E.inCubic(P(B, 31.5, .5));
+    ['#s6top', '#cardWrap', '#s6txt', '#s6live'].forEach((s, i) => { const el = $(s); const tr = el.style.transform || ''; el.style.transform = tr + ` translateY(${ex * (500 + i * 120)}px)`; el.style.opacity = (parseFloat(el.style.opacity || 1)) * (1 - ex); });
+    // make "20 vindere" hint: as big shrinks, fan shows "20" chip via txt
+  }
+
+  // ---- SCENE 7 ----
+  const s7 = B >= 31.9 && B < 36.1; show('#s7', s7);
+  if (s7) {
+    const pe = E.outExpo(P(B, 32, .6));
+    const zo = E.inExpo(P(B, 35.35, .65));
+    T('#phone', { y: lerp(1300, 0, pe) - zo * 200, s: lerp(1, 5.5, zo), r: lerp(8, 0, pe), blur: zo * 20, o: 1 - P(B, 35.8, .2) });
+    $('#phone').style.transformOrigin = '50% 62%';
+    const c1 = E.outExpo(P(B, 32.2, .4)); T('#s7cap1', { o: P(B, 32.2, .15) * (1 - zo), y: lerp(-60, 0, c1) });
+    const c2 = E.outExpo(P(B, 32.7, .4)); T('#s7cap2', { o: P(B, 32.7, .15) * (1 - zo), y: lerp(-40, 0, c2) });
+    const email = 'din@mail.dk'; const n = Math.floor(clamp((B - 32.6) / 1.2) * email.length + (B >= 32.6 ? 1 : 0));
+    $('#typed').textContent = email.slice(0, clamp(n, 0, email.length));
+    $('#caret').style.opacity = (B < 33.9 ? ((Math.floor(t * 4) % 2) ? .2 : 1) : 0);
+    // finger tap at 34
+    const fin = $('#finger'); const fx = lerp(560, 230, E.outCubic(P(B, 33.4, .5))), fy = lerp(1300, 790, E.outCubic(P(B, 33.4, .5)));
+    const press = B >= 34 ? Math.exp(-(B - 34) * 6) : 0;
+    fin.style.left = fx + 'px'; fin.style.top = fy + 'px'; T(fin, { s: 1 - press * .25, o: P(B, 33.4, .15) * (1 - P(B, 34.6, .3)) });
+    const rp = P(B, 34, .6); T('#ripple', { s: lerp(0, 14, E.outCubic(rp)), o: B >= 34 ? 1 - rp : 0 });
+    $('#ripple').style.left = '200px'; $('#ripple').style.top = '26px';
+    T('#btn', { s: 1 - press * .06 });
+    $('#btnTxt').textContent = B >= 34.35 ? 'Tak!' : 'Skriv mig op';
+    const ok = E.outBack(P(B, 34.4, .45)); T('#ok', { s: lerp(.5, 1, ok), o: P(B, 34.4, .15) });
+  }
+
+  // ---- SCENE 8 ----
+  const s8 = B >= 35.9; show('#s8', s8);
+  if (s8) {
+    words('#s8a', [36], .4, 2.2); words('#s8b', [36.25], .45, 2);
+    const ab = Math.exp(-(B - 36) * 4) * 20; $('#s8a').style.textShadow = `${ab}px 0 0 rgba(220,60,40,.55), ${-ab}px 0 0 rgba(40,140,220,.45)`;
+    const k = E.outCubic(P(B, 36.6, .4)); T('#s8kick', { o: k, y: lerp(20, 0, k) });
+    const c = E.outCubic(P(B, 37.2, .4)); T('#s8c', { o: c, y: lerp(30, 0, c) });
+    const u = E.outBack(P(B, 37.6, .5)); const click = B >= 39 ? Math.exp(-(B - 39) * 7) : 0;
+    T('#s8url', { s: lerp(.3, 1, u) * (1 - click * .06) * (1 + pulse * .015), o: P(B, 37.6, .12) });
+    T('#ctaGlow', { o: E.outCubic(P(B, 37.6, .6)) * (.75 + pulse * .25), s: 1 + pulse * .04 });
+    const f = E.outCubic(P(B, 38.4, .5)); T('#s8fine', { o: f, y: lerp(30, 0, f) });
+    const w = E.outCubic(P(B, 38, .6)); T('#wordmark', { o: w, y: lerp(-30, 0, w) });
+    const sg = E.outCubic(P(B, 40, .6)); T('#s8sign', { o: sg, y: lerp(40, 0, sg), s: lerp(.9, 1, sg) });
+    const cu = E.outCubic(P(B, 38.2, .8)); const cur = $('#cursor');
+    cur.style.left = lerp(1000, 700, cu) + 'px'; cur.style.top = lerp(1500, 1190, cu) + 'px';
+    T(cur, { o: P(B, 38.2, .1) * (1 - P(B, 40.5, .4)), s: 1 - click * .2 });
+  }
+}
+
+let ready = false;
+document.fonts.ready.then(() => {
+  fit('#s1l1', 920); fit('#s3a', 920); fit('#s4head', 900); fit('#s6txt', 920); fit('#s7cap1', 920); fit('#s8c', 900); fit('#s5cap', 900);
+  ready = true; renderAt(0);
+});
+window.isReady = () => ready;
+window.renderAt = renderAt;
+window.BEAT = BEAT;
+</script>
+</body>
+</html>
