@@ -1,0 +1,361 @@
+{% comment %}
+  Renders product custom option
+
+  Accepts:
+  - block: {Object} passing the block information.
+
+  Usage:
+  {% render 'product-customization-picker', block: block %}
+{% endcomment %}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign max_length = block.settings.max_length
+  assign required = block.settings.required
+%}
+
+<product-custom-option
+  class="product_custom-options"
+  data-type="{{ block.settings.type }}"
+  data-option-name="{{ block.settings.option_name }}"
+  data-icon-style="{{ icon_style }}"
+  {{ block.shopify_attributes }}
+>
+  {% assign option_name_handleize = block.settings.option_name | handleize %}
+  {% if block.settings.type == 'single-line' or block.settings.type == 'multi-line' %}
+    <div class="field-wrapper">
+      {% if block.settings.type == 'single-line' %}
+        <input
+          type="text"
+          id="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+          class="field-wrapper__input{% if max_length > 0 %} requirement-input{% endif %}"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+          {% if max_length > 0 %}
+            maxlength="{{ max_length }}"
+          {% endif %}
+          {% if required %}
+            required aria-required="true"
+          {% endif %}
+          placeholder="{{ block.settings.label }}"
+        >
+      {% else %}
+        <textarea
+          rows="4"
+          id="ProductOption-{{ option_name_handleize }}-{{ block.id }}"
+          class="field-wrapper__input{% if max_length > 0 %} requirement-input{% endif %}"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+          {% if max_length > 0 %}
+            maxlength="{{ max_length }}"
+          {% endif %}
+          {% if required %}
+            required aria-required="true"
+          {% endif %}
+          placeholder="{{ block.settings.label }}"
+        ></textarea>
+      {% endif %}
+      <label class="field-wrapper__label" for="ProductOption-{{ option_name_handleize }}-{{ block.id }}">
+        <span class="field-wrapper__label-name">{{ block.settings.label }}</span>
+      </label>
+      <span class="field-wrapper__icon-error hide" aria-invalid="true">
+        <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+      </span>
+    </div>
+    <span class="input-error-message hide">
+      <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+      <span>{{ 'general.form_errors.this_field_required' | t }}</span>
+    </span>
+    {% if max_length > 0 %}
+      <p class="requirement-form">
+        <span>{{ max_length }}</span>/{{ max_length }}
+        {{ 'general.form_errors.characters_remaining' | t }}
+      </p>
+    {% endif %}
+  {% elsif block.settings.type == 'dropdown' %}
+    {% assign values = block.settings.values | split: ',' %}
+    <div class="product-form__input product-form__input--dropdown">
+      <div class="select btn--style-2">
+        <select
+          id="ProductOption-{{ option_name_handleize }}-{{ block.id }}"
+          class="product-meta-option product-meta-option--{{ option_name_handleize }} select__select"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+          data-name="properties[{{ block.settings.option_name }}]"
+          required
+        >
+          {%- for value in values -%}
+            <option
+              value="{{ value | escape }}"
+              {% if forloop.index == 1 %}
+                selected
+              {% endif %}
+            >
+              {{ value }}
+            </option>
+          {%- endfor -%}
+        </select>
+        <span class="select-highlight"></span>
+        <label class="form__label select-label" for="ProductOption-{{ option_name_handleize }}-{{ block.id }}">
+          {{ block.settings.label }}
+        </label>
+        <label class="form__label select-label--hidden">
+          {{ block.settings.label }}
+        </label>
+        <i class="icon icon-chevron-down {{ icon_style }} fa-chevron-down" style="--fa-secondary-opacity: 1;"></i>
+      </div>
+    </div>
+  {% elsif block.settings.type == 'buttons' or block.settings.type == 'swatches' %}
+    {% liquid
+      assign block_type = block.settings.type
+      assign values = block.settings.values | split: ','
+
+      if block_type == 'swatches'
+        assign class_option_name = 'color'
+        assign color_swach_option = true
+        assign color_swatch_shape = block.settings.color_swatch_shape
+        assign swatch_size = block.settings.swatch_size
+      endif
+    %}
+    <div class="product-meta-selector product-meta-selector--{{ option_name_handleize }}">
+      <fieldset class="product-meta-option js product-form__item selector-wrapper" data-selector-button="true">
+        <legend class="form__label product-form__label">
+          {% if color_swach_option %}
+            {{ block.settings.label }}:
+            <span class="product-form__selected-status selected-status--color">
+              {{ values[0] }}
+            </span>
+          {% else %}
+            {{ block.settings.label }}
+          {% endif %}
+        </legend>
+        <div class="single-option-selector--box product-form__input single-option-selector--box-{{ class_option_name }}">
+          {%- for value in values -%}
+            {% liquid
+              if color_swach_option
+                assign handle_product_option = 'product-option-' | append: option_name_handleize
+                assign handle_value = value | handleize
+                assign file_name = handle_product_option | append: '-' | append: handle_value
+                assign camelcaseValue = value | camelcase
+                assign swatch_size_2x = swatch_size | times: 2
+                assign colorImgSize = swatch_size_2x | append: 'x' | append: swatch_size_2x
+                assign colorImgUrl = file_name | append: '.png' | file_img_url: colorImgSize
+                assign colorImgSizeVersion = colorImgSize | append: '.png?v='
+                assign colorImgVersion = colorImgUrl | split: colorImgSizeVersion
+              endif
+            %}
+            <div
+              class="single-option-selector__wrap-option{% if color_swach_option %} single-option-selector__wrap-option--shape single-option-selector__wrap-option--{{ color_swatch_shape }}{% endif %}"
+              {% if color_swach_option %}
+                style="--swatch-size: {{ swatch_size }};"
+              {% endif %}
+            >
+              <input
+                type="radio"
+                id="ProductOption-{{ option_name_handleize }}-{{ block.id }}-{{ forloop.index }}"
+                name="properties[{{ block.settings.option_name }}]"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                data-name="properties[{{ block.settings.option_name }}]"
+                {% if forloop.index == 1 %}
+                  checked
+                {% endif %}
+              >
+              <div class="single-option-selector__option-wrap">
+                <label
+                  class="single-option-selector__option btn--style-2 single-option-selector__option--{{ option_name_handleize }}"
+                  for="ProductOption-{{ option_name_handleize }}-{{ block.id }}-{{ forloop.index }}"
+                >
+                  {% if color_swach_option %}
+                    <span
+                      class="selector-color-square chip-color"
+                      style="{% if colorImgVersion.size >= 2 %} background-image: url({{ colorImgUrl }});{% else %} background-color: {{ camelcaseValue }};{% endif %}"
+                      data-adaptive-text
+                    >
+                    </span>
+                    <span class="selector-color-label-text">{{ value | escape }}</span>
+                  {% else %}
+                    <span class="single-option-selector__option__text">{{ value }}</span>
+                  {% endif %}
+                </label>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    </div>
+  {% elsif block.settings.type == 'image-upload' %}
+    <div class="drop-zone-wrap">
+      <label
+        class="form__label product-form__label"
+        for="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+      >
+        {{- block.settings.label -}}
+      </label>
+      <div class="drop-zone" id="to_upload">
+        <i class="icon {{ icon_style }} fa-cloud-upload"></i>
+        <div class="drop-zone__text">
+          {{ 'products.product.customization_picker.file_upload.drop_text' | t }}
+          <div class="link">
+            {{ 'products.product.customization_picker.file_upload.browse' | t }}
+            <input
+              type="file"
+              id="ProductOption-{{ option_name_handleize }}-{{ block.id }}"
+              name="properties[{{ block.settings.option_name }}]"
+              form="{{ product_form_id }}"
+              value=""
+              class="drop-zone__input"
+              {% if required %}
+                required aria-required="true"
+              {% endif %}
+            >
+          </div>
+          <span class="drop-zone__text__max-size">
+            {{- 'products.product.customization_picker.file_upload.drop_text_requirement' | t -}}
+          </span>
+        </div>
+      </div>
+      <span class="input-error-message hide">
+        <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+        <span>{{ 'general.form_errors.this_field_required' | t }}</span>
+      </span>
+    </div>
+  {% elsif block.settings.type == 'checkbox' %}
+    {% assign values = block.settings.values | split: ',' %}
+    {% if values.size > 1 %}
+      <label class="form__label product-form__label">{{ block.settings.label }}:</label>
+      {% liquid
+        if block.settings.min_selected_options != blank and block.settings.min_selected_options > 0
+          assign enable_min_selections = true
+        endif
+        if block.settings.max_selected_options != blank and block.settings.max_selected_options > 0
+          assign enable_max_selections = true
+        endif
+        if required or enable_min_selections == true
+          assign field_required = true
+        endif
+      %}
+
+      <product-checkbox-group
+        class="checkbox-group"
+        {% if enable_min_selections %}
+          data-min="{{ block.settings.min_selected_options }}"
+        {% endif %}
+        {% if enable_max_selections %}
+          data-max="{{ block.settings.max_selected_options }}"
+        {% endif %}
+      >
+        {%- for value in values -%}
+          <div class="field" data-group="true">
+            <input
+              class="checkbox-group__input"
+              type="checkbox"
+              id="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}-{{ forloop.index }}"
+              value="{{ value }}"
+              name="{{ block.settings.option_name }}"
+              {% if forloop.index == 1 and field_required %}
+                required aria-required="true"
+              {% endif %}
+            >
+            <label
+              for="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}-{{ forloop.index }}"
+              class="field-checkbox-label"
+            >
+              <span class="input-check-mark"><i class="icon-check {{ icon_style }} fa-check"></i></span>
+              <span class="facet-checkbox__text" aria-hidden="true">{{ value }}</span>
+            </label>
+          </div>
+        {%- endfor -%}
+        <input
+          type="hidden"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+        >
+      </product-checkbox-group>
+      <span class="input-error-message hide">
+        <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+        <span>
+          {{-
+            'products.product.customization_picker.selection_error'
+            | t: count: block.settings.min_selected_options
+          -}}
+        </span>
+      </span>
+    {% else %}
+      <div class="field">
+        <input
+          type="checkbox"
+          id="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+          value="{{ values.first }}"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+          {% if required %}
+            required aria-required="true"
+          {% endif %}
+        >
+        <label
+          for="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+          class="field-checkbox-label form__label product-form__label"
+        >
+          <span class="input-check-mark"><i class="icon-check {{ icon_style }} fa-check"></i></span>
+          <span class="facet-checkbox__text" aria-hidden="true">{{ block.settings.label }}</span>
+        </label>
+      </div>
+      <span class="input-error-message hide">
+        <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+        <span>{{ 'general.form_errors.this_field_required' | t }}</span>
+      </span>
+    {% endif %}
+  {% elsif block.settings.type == 'date' %}
+    {%- if block.settings.min_date != blank and block.settings.min_date > 0 -%}
+      {% assign min_day = true %}
+    {%- endif -%}
+    <date-field
+      class="field"
+      {% if min_day %}
+        data-days="{{ block.settings.min_date }}"
+      {% endif %}
+    >
+      <label
+        class="form__label product-form__label"
+        for="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+      >
+        {{- block.settings.label -}}
+      </label>
+      <input
+        type="date"
+        id="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+        class="default-input"
+        name="properties[{{ block.settings.option_name }}]"
+        value="{{ "now" | date: "%Y-%m-%d" }}"
+        {% if block.settings.max_date != blank %}
+          max="{{ block.settings.max_date }}"
+        {% endif %}
+        form="{{ product_form_id }}"
+      >
+    </date-field>
+  {% elsif block.settings.type == 'color-picker' %}
+    <div class="field-color" style="--swatch-size: {{ block.settings.swatch_size }};">
+      <label for="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}">
+        {{ block.settings.label }}: <span class="product-form__selected-status selected-status--color">#000000</span>
+      </label>
+      <div class="field-color__wrap">
+        <input
+          type="color"
+          value="#000000"
+          id="ProductOption-{{ block.settings.option_name | handleize }}-{{ block.id }}"
+          name="properties[{{ block.settings.option_name }}]"
+          form="{{ product_form_id }}"
+        >
+        <span class="field-color__custom"></span>
+      </div>
+    </div>
+  {% elsif block.settings.type == 'number' %}
+    <input
+      type="number"
+      step="any"
+      name="Number."
+      id="avpszpuBHJNcxIn7xsXG04okL_qiMdlNb-0-6"
+    >
+  {% endif %}
+</product-custom-option>

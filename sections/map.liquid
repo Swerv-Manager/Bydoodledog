@@ -1,0 +1,226 @@
+{{ 'section-map.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="store-location-section page-width">
+    <div class="store-location__wrap {{ section.settings.background }} scroll-animate fade-in{% unless section.settings.show_map %} store-location__wrap--no-map{% endunless %}">
+      {% if section.settings.show_map %}
+        <div class="store-location__map">
+          {{ section.settings.map_embed }}
+
+          {% if section.settings.image != blank %}
+            <div class="media media--square">
+              {%- capture sizes -%}(min-width: 1520px) 475px, (min-width: 750px) 100vw, 160px{%- endcapture -%}
+              {{
+                section.settings.image
+                | image_url: width: 950
+                | image_tag:
+                  class: 'lazyload',
+                  width: section.settings.image.width,
+                  height: section.settings.image.height,
+                  sizes: sizes,
+                  widths: '160, 550, 720, 950',
+                  alt: section.settings.image.alt
+                | escape
+              }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div
+        class="store-location__content"
+        style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+      >
+        <div class="store-location__address-content">
+          {% if section.settings.title != blank %}
+            <h2 class="h0">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.address != blank or section.settings.phone != blank %}
+            <div class="rte store-location__address">
+              {% if section.settings.address != blank %}
+                {{ section.settings.address }}
+              {% endif %}
+              {% if section.settings.phone != blank %}
+                <p>{{ section.settings.phone }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="store-location__hours-content">
+          {% if section.settings.hours_title != blank %}
+            <h3>{{ section.settings.hours_title }}</h3>
+          {% endif %}
+          {% if section.settings.hours != blank %}
+            <div class="rte store-location__hours">
+              {{ section.settings.hours }}
+            </div>
+          {% endif %}
+          {% if section.settings.show_directions %}
+            <a href="https://maps.google.com?daddr={{ section.settings.map_address }}" target="_blank" class="btn">
+              <span>{{ 'sections.map.get_directions' | t }}</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.map.name",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.map.settings.title.label",
+      "default": "Visit Us!"
+    },
+    {
+      "type": "richtext",
+      "id": "address",
+      "label": "t:sections.map.settings.address.label",
+      "default": "<p>1 Fake Ave </br> New York, NY 10016</p>"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "t:sections.map.settings.phone.label",
+      "default": "(212) 555-1000"
+    },
+    {
+      "type": "text",
+      "id": "hours_title",
+      "label": "t:sections.map.settings.hours_title.label",
+      "default": "Store Hours"
+    },
+    {
+      "type": "richtext",
+      "id": "hours",
+      "label": "t:sections.map.settings.hours.label",
+      "default": "<p>Monday - Friday </br> 10am - 6pm</p>"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.map.settings.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_map",
+      "default": true,
+      "label": "t:sections.map.settings.show_map.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_directions",
+      "default": true,
+      "label": "t:sections.map.settings.show_directions.label",
+      "info": "t:sections.map.settings.show_directions.info"
+    },
+    {
+      "type": "text",
+      "id": "map_address",
+      "label": "t:sections.map.settings.map_address.label",
+      "info": "t:sections.map.settings.map_address.info",
+      "default": "261 W 47th St, New York, NY 10036, USA"
+    },
+    {
+      "type": "html",
+      "id": "map_embed",
+      "label": "t:sections.map.settings.map_embed.label",
+      "info": "t:sections.map.settings.map_embed.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.map.settings.image.label",
+      "info": "t:sections.map.settings.image.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.map.name"
+    }
+  ]
+}
+{% endschema %}

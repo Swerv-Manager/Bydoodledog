@@ -1,0 +1,214 @@
+.quick-add {
+  position: relative;
+  margin: 0;
+  z-index: 1;
+}
+
+.quick-add__submit {
+  margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.quick-add__submit .btn--load-error .btn__text,
+.quick-add__submit.btn--load-error .btn__text {
+  display: none;
+}
+
+.quick-add__submit .product-form__error-message-wrapper {
+  width: 100%;
+  color: rgb(var(--color-error));
+  text-transform: initial;
+  font-size: 0.75rem;
+}
+
+.quick-add--mockup .btn,
+.quick-add .btn {
+  padding: 0.8rem;
+  min-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.quick-add-modal {
+  box-sizing: border-box;
+  opacity: 0;
+  position: fixed;
+  visibility: hidden;
+  z-index: -1;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #00000052;
+  height: 100%;
+  transition: all 0.2s ease-in;
+  overflow-y: auto;
+}
+
+.quick-add-modal[open] {
+  opacity: 1;
+  visibility: visible;
+  z-index: 101;
+}
+
+.quick-add-modal-wrap {
+  display: flex;
+  min-height: 100%;
+}
+
+.quick-add-modal__content {
+  --modal-height-offset: 3.2rem;
+  position: relative;
+  opacity: 0;
+  top: 50px;
+  margin: var(--modal-height-offset) auto 0;
+  border-radius: var(--border-radius-container) var(--border-radius-container) 0 0;
+  background-color: rgb(var(--color-background));
+  overflow: hidden;
+  max-width: var(--page-width);
+  width: 100%;
+  transition: all 0.3s ease-in 0.2s;
+  align-self: flex-end;
+}
+
+.quick-add-modal[open] .quick-add-modal__content {
+  top: 0;
+  opacity: 1;
+}
+
+.quick-add-modal__content .btn-close-modal-text {
+  top: 30px;
+  right: 30px;
+  position: absolute;
+  z-index: 3;
+}
+
+.quick-add-modal__content-info {
+  width: 100%;
+  min-height: 240px;
+  padding: 30px;
+  display: flex;
+  gap: 14px;
+}
+
+.quick-shop-drawer {
+  width: 100%;
+}
+
+.quick-add-modal__content-info .product__media-wrapper {
+  min-width: 150px;
+  min-height: auto;
+  max-width: none;
+}
+
+.quick-add-modal__content-info .product__info-wrapper {
+  flex: 1;
+  padding-left: 0;
+}
+
+.quick-add-modal__content-info .product-single__media-group__wrap {
+  flex-direction: column;
+}
+
+.quick-shop-drawer .price__compare {
+  display: none;
+}
+
+.quick-add__open-cart {
+  gap: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  font-weight: 300;
+  opacity: 0;
+  visibility: hidden;
+  color: rgb(var(--color-button-text));
+  transition: visibility 0s linear 0.4s, opacity 0.4s linear;
+}
+
+.quick-add__open-cart:after {
+  background-color: rgb(var(--color-foreground-2));
+}
+
+.quick-add__open-cart .icon-check {
+  width: 1em;
+  height: 1em;
+}
+
+@media screen and (pointer: fine) {
+  .quick-add {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    transition: opacity 0.1s ease-in, max-height 0.35s ease-out 0.1s;
+  }
+
+  .quick-add.quick-add--visible {
+    max-height: 100px;
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .quick-add-modal__content {
+    --modal-height-offset: 10rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 80%;
+    border-radius: var(--border-radius-container);
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .quick-add-modal__content {
+    width: 70%;
+    max-width: 800px;
+  }
+}
+
+quick-add-modal .product:not(.featured-product) .product__view-details {
+  display: block;
+}
+
+quick-add-modal .quick-add-hidden,
+quick-add-modal .product__media-item:not(:first-child) {
+  display: none !important;
+}
+
+quick-add-modal .page-width {
+  padding: 0;
+}
+
+@media only screen and (max-width: 1279px) {
+  .quick-add__open-cart {
+    display: flex;
+  }
+
+  .quick-add__open-cart.product-form__open-cart--fadein {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s linear 0s, opacity 0.4s linear;
+  }
+
+  .quick-add__open-cart.product-form__open-cart--fadein #icon_check {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: strokeCircle 1.3s linear;
+    animation-fill-mode: forwards;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .quick-add-modal__content-info {
+    padding-top: 64px;
+  }
+
+  .quick-add-modal__content-info .product__info-wrapper {
+    width: 100%;
+    margin-top: 1.4375rem;
+  }
+}

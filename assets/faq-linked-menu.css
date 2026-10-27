@@ -1,0 +1,66 @@
+.faq-linked-menu {
+  display: block;
+  width: 100%;
+  max-width: 914px;
+  margin: 0 auto 50px;
+}
+
+.faq-linked-menu-content {
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  justify-content: center;
+}
+
+.faq-linked-menu-content li {
+  padding: 20px;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  border-radius: var(--border-radius-container);
+  cursor: pointer;
+  transition: background 0.25s ease-in;
+}
+
+.faq-linked-menu-content li.active,
+.faq-linked-menu-content li:hover {
+  background: rgb(var(--color-border));
+}
+
+.faq-linked-menu-content li::before {
+  padding-bottom: 100%;
+}
+
+.faq-linked-menu .collapsible-content__header-content {
+  flex-direction: column;
+  height: 100%;
+  display: block;
+}
+
+.faq-linked-menu .collapsible-content__header-content img {
+  margin-bottom: 7px;
+  margin-right: 0;
+}
+
+.faq-linked-menu .collapsible-content__header-content svg {
+  width: auto;
+  height: 50px;
+  margin-bottom: 7px;
+  margin-right: 0;
+  stroke: none;
+  fill: currentColor;
+}
+
+.faq-linked-menu-content .collapsible-content__title {
+  font-size: calc(var(--font-heading-scale) * 1.25rem);
+}
+
+.faq-linked-menu .collapsible-content__header-tex {
+  text-align: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .faq-linked-menu-content {
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  }
+}

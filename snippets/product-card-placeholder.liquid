@@ -1,0 +1,44 @@
+{% comment %}
+    Renders a product card placeholder
+    - background: {String} Background class to apply (optional)
+
+    Usage:
+    {% render 'product-card-placeholder' %}
+{% endcomment %}
+
+{% liquid
+  assign uppercase_product_title = settings.uppercase_product_title
+  assign media_size = settings.image_ratio
+
+  assign background_class = 'background-modal'
+  if background
+    assign background_class = background
+  endif
+%}
+
+<div class="product-card-wrapper {{ background_class }}">
+  <div class="product-card">
+    <div class="product-card__image-wrapper">
+      <div class="product-card__empty-image media--{{ media_size }}">
+        <div class="placeholder">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      </div>
+    </div>
+    <div class="product-card__information media--{{ media_size }}"
+      {% if media_size == 'adapt' and product.featured_media %} style="padding-top: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif %}
+    >
+      <div class="product-card__information__wrapper">
+        {% render 'price', price_class: 'price--listing' %}
+        <h3 class="product-card__title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+          {{ 'onboarding.product_title' | t }}
+        </h3>
+      </div>
+    </div>
+    <a class="full-width-link"><span class="visually-hidden">{{ 'onboarding.product_title' | t }}</span></a>
+  </div>
+  <div class="product-card__information__wrapper product-card__information__wrapper--hide">
+    {% render 'price', price_class: 'price--listing' %}
+    <h3 class="product-card__title">
+      {{ 'onboarding.product_title' | t }}
+    </h3>
+  </div>
+</div>

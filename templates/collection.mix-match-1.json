@@ -1,0 +1,188 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "countdown_PRBE6z": {
+      "type": "countdown",
+      "blocks": {
+        "content_tJTCkL": {
+          "type": "content",
+          "settings": {
+            "title": "🌟 Spar op til 50% hos By doodle dog 🌟",
+            "text": "<p>Udsalget slutter snart!</p>",
+            "font_size": 113,
+            "button_label": "",
+            "button_link": "shopify://collections/all-products",
+            "button_style": "ghost",
+            "content_align": "left"
+          }
+        },
+        "timer_nqjajt": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2025-02-02",
+            "end_time": "23:59",
+            "font_size": 100
+          }
+        }
+      },
+      "block_order": [
+        "content_tJTCkL",
+        "timer_nqjajt"
+      ],
+      "settings": {
+        "image_height": 42,
+        "show_scrim": true,
+        "scrim_lightness": 255,
+        "background": "alt-background-3",
+        "hide_timer": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_title": true,
+        "show_collection_description": false,
+        "font_size": 100,
+        "show_collection_image": false,
+        "image_height": 30,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "background-modal"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 18,
+        "grid": 4,
+        "enable_filtering": true,
+        "color_swatch_shape": "circle",
+        "swatch_size": 22,
+        "enable_sorting": true
+      }
+    },
+    "collection_list_YFHQa8": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_DqeCC6": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hunde-bilsaede",
+            "title": ""
+          }
+        },
+        "featured_collection_bgXTLf": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundekurv",
+            "title": ""
+          }
+        },
+        "featured_collection_KwcpQ8": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundetoj-1",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_DqeCC6",
+        "featured_collection_bgXTLf",
+        "featured_collection_KwcpQ8"
+      ],
+      "settings": {
+        "title": "Fik du set disse?",
+        "subheading": "",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "image_ratio": "square",
+        "grid": 3,
+        "card_font_size": 100,
+        "font_type": "heading-font",
+        "font_style": "all_caps",
+        "background": "background-modal",
+        "show_view_all": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_YYpgHT": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_q3kMwW": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi leverer indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_wLbgci": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_exY7K3": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter, at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_TKjfVx": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_q3kMwW",
+        "feature_wLbgci",
+        "feature_exY7K3",
+        "feature_TKjfVx"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "countdown_PRBE6z",
+    "banner",
+    "product-grid",
+    "collection_list_YFHQa8",
+    "multicolumn_YYpgHT"
+  ]
+}

@@ -1,0 +1,341 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% assign icon_style = settings.icons_style %}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="contact-template page-width page-width--without-padding">
+    <div class="contact-template__box {{ section.settings.background }} scroll-animate fade-in" style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};">
+      <div class="contact-template__header text-center">
+        <h2 class="h2">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.subtitle }}</p>
+      </div>
+      <div class="contact-template__content">
+        <div class="contact-form-wrapper form-vertical">
+          <contact-form>
+            {%- form 'contact', id: 'ContactForm', novalidate: 'novalidate' -%}
+              {%- if form.posted_successfully? -%}
+                <div class="form__message-success text-center" role="status">
+                  <h2>{{ 'templates.contact.form.post_success' | t }}</h2>
+                  {%- if section.settings.response_time != blank -%}
+                    <p tabindex="-1" autofocus>{{ section.settings.response_time }}</p>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="field-wrapper">
+                  <input
+                    autocomplete="name"
+                    type="text"
+                    id="ContactForm-name"
+                    class="field-wrapper__input"
+                    name="contact[{{ 'templates.contact.form.name' | t }}]"
+                    value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                    placeholder="{{ 'templates.contact.form.name' | t }}">
+                  <label class="field-wrapper__label" for="ContactForm-name">
+                    <span class="field-wrapper__label-name">{{ 'templates.contact.form.name' | t }}</span>
+                  </label>
+                </div>
+                <div class="field-wrapper">
+                  <input
+                    autocomplete="email"
+                    type="email"
+                    id="ContactForm-email"
+                    class="field-wrapper__input{% if form.errors contains 'email' %} input--error{% endif %}"
+                    name="contact[email]"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    aria-required="true"
+                    autocorrect="off"
+                    {% if form.errors contains 'email' %}
+                      aria-invalid="true"
+                      aria-describedby="ContactForm-email-error"
+                    {% endif %}
+                    placeholder="{{ 'templates.contact.form.email' | t }}"
+                  >
+                  <label class="field-wrapper__label" for="ContactForm-email">
+                    <span class="field-wrapper__label-name">{{ 'templates.contact.form.email' | t }}</span>
+                  </label>
+                  <span class="field-wrapper__icon-error{% unless form.errors contains 'email' %} hide{% endunless %}" aria-invalid="true">
+                    <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                  </span>
+                </div>
+                <span class="input-error-message{% unless  form.errors contains 'email' %} hide{% endunless %}">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                  <span>
+                    {%- if  form.errors contains 'email' -%}
+                      {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                    {%- endif -%}
+                  </span>
+                </span>
+                <div class="field-wrapper">
+                  <textarea
+                    rows="10"
+                    id="ContactForm-body"
+                    class="field-wrapper__input"
+                    name="contact[{{ 'templates.contact.form.message' | t }}]"
+                    placeholder="{{ 'templates.contact.form.message' | t }}"
+                    aria-required="true"
+                  >
+                    {{- form.body -}}
+                  </textarea>
+                  <label class="field-wrapper__label" for="ContactForm-body">
+                    <span class="field-wrapper__label-name">{{ 'templates.contact.form.message' | t }}</span>
+                  </label>
+                  <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                    <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                  </span>
+                </div>
+                <span class="input-error-message hide">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                  <span>{{ 'general.form_errors.message_required' | t }}</span>
+                </span>
+                <div class="input-group__btn">
+                  <button type="submit" class="btn btn--small">
+                    <span class="btn__text">{{ 'templates.contact.form.send' | t }}</span>
+                    <span class="btn__loader" data-loader>
+                      <div class="loader-bounce">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          </contact-form>
+        </div>
+        <ul class="contact-info">
+          {%- if shop.email and section.settings.show_email -%}
+            <li class="contact-info__email">
+              <i class="icon {{ icon_style }} fa-envelope"></i> <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+            </li>
+          {%- endif -%}
+          {%- if shop.phone and section.settings.show_phone -%}
+            <li class="contact-info__phone">
+              <i class="icon {{ icon_style }} fa-phone"></i> <p>{{ shop.phone }}</p>
+            </li>
+          {%- endif -%}
+          {%- if shop.address and section.settings.show_address -%}
+            <li class="contact-info__address">
+              <i class="icon {{ icon_style }} fa-map-location-dot"></i> <p>{% if section.settings.custom_address != blank %}{{ section.settings.custom_address }}{% else %}{{ shop.address.summary }}{% endif %}</p>
+            </li>
+          {%- endif -%}
+          {%- if settings.social_facebook_link != blank and section.settings.show_facebook -%}
+            <li class="contact-info__fb">
+              <i class="icon fa-brands fa-facebook"></i> <a href="{{ settings.social_facebook_link }}">{{ section.settings.handle_facebook }}</a>
+            </li>
+          {%- endif -%}
+          {%- if settings.social_instagram_link != blank and section.settings.show_instagram -%}
+            <li class="contact-info__instagram">
+              <i class="icon fa-brands fa-instagram"></i> <a href="{{ settings.social_instagram_link }}">{{ section.settings.handle_instagram }}</a>
+            </li>
+          {%- endif -%}
+          {%- if settings.social_twitter_link != blank and section.settings.show_twitter -%}
+            <li class="contact-info__instagram">
+              <i class="icon fa-brands fa-twitter"></i> <a href="{{ settings.social_twitter_link }}">{{ section.settings.handle_twitter }}</a>
+            </li>
+          {%- endif -%}
+          {%- if section.settings.operation != blank -%}
+            <li class="contact-info__schedule">
+              <i class="icon {{ icon_style }} fa-clock-five"></i> <p>{{ section.settings.operation }}</p>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.contact-form.name",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.contact-form.settings.heading.label",
+      "default": "Can’t find what you need?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:sections.contact-form.settings.subtitle.label",
+      "default": "Contact our Customer Service Team"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email",
+      "label": "t:sections.contact-form.settings.show_email.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "t:sections.contact-form.settings.show_phone.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_address",
+      "label": "t:sections.contact-form.settings.show_address.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_address",
+      "label": "t:sections.contact-form.settings.custom_address.label",
+      "info": "t:sections.contact-form.settings.custom_address.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.contact-form.settings.header_1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_facebook",
+      "label": "t:sections.contact-form.settings.show_facebook.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "handle_facebook",
+      "label": "t:sections.contact-form.settings.handle_facebook.label",
+      "default": "Find us on Facebook"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.contact-form.settings.header_2.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instagram",
+      "label": "t:sections.contact-form.settings.show_instagram.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "handle_instagram",
+      "label": "t:sections.contact-form.settings.handle_instagram.label",
+      "default": "Find us on Instagram"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.contact-form.settings.header_3.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_twitter",
+      "label": "t:sections.contact-form.settings.show_twitter.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "handle_twitter",
+      "label": "t:sections.contact-form.settings.handle_twitter.label",
+      "default": "Find us on Twitter"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.contact-form.settings.paragraph.content"
+    },
+    {
+      "type": "text",
+      "id": "operation",
+      "label": "t:sections.contact-form.settings.operation.label",
+      "default": "Monday — Friday, 9am — 5pm ET"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "t:sections.contact-form.settings.response_time.label",
+      "default": "We will reply within 1 business day.",
+      "info": "t:sections.contact-form.settings.response_time.info"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form.presets.name"
+    }
+  ]
+}
+{% endschema %}

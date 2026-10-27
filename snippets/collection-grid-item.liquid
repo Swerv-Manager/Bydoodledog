@@ -1,0 +1,103 @@
+{% comment %}
+  Renders a list of products from a collection
+
+  Accepts:
+  - collection: {Object} Collection Liquid object (required)
+  - col_image: {Image} Colection image
+  - background: {String} Background class to apply (optional)
+  - title: {String} Custom title for the card (optional)
+
+  Usage:
+  {% render 'collection-grid-item', collection: collection %}
+{% endcomment %}
+
+{% liquid
+  assign grid_columns = section.settings.grid | default: 3
+  if col_image
+    assign collection_image = col_image
+  elsif collection.image
+    assign collection_image = collection.image
+  elsif collection.products.first and collection.products.first.media != empty
+    assign collection_image = collection.products.first.featured_media.preview_image
+  else
+    assign collection_image = blank
+  endif
+  assign background_class = 'background-modal'
+  if background
+    assign background_class = background
+  endif
+%}
+
+<div class="collection-grid-item card-box card-box--vertical {{ background_class }}">
+  <a href="{{ collection.url }}" class="grid-view-item__link full-width-link card-outline">
+    <div class="card-box__media">
+      {% unless collection_image == blank %}
+        <div
+          class="media media--{{ media_size }} overflow-hidden"
+          {% if media_size == 'adapt' %}
+            style="padding-bottom: {{ 1 | divided_by: collection_image.aspect_ratio | times: 100 }}%;"
+          {% endif %}
+        >
+          {% if col_image != blank %}
+            {{
+              collection_image
+              | image_url: width: 1080
+              | image_tag:
+                loading: 'lazy',
+                class: 'lazyload',
+                width: collection_image.width,
+                height: image_height,
+                sizes: sizes,
+                widths: '200, 300, 400, 550, 720, 990, 1080',
+                alt: collection_image.alt
+              | escape
+            }}
+          {% else %}
+            <img
+              class="lazyload"
+              srcset="
+                {%- if collection_image.height >= 165 -%}{{ collection_image | image_url: height: 165 }} 165w,{%- endif -%}
+                {%- if collection_image.height >= 360 -%}{{ collection_image | image_url: height: 360 }} 360w,{%- endif -%}
+                {%- if collection_image.height >= 535 -%}{{ collection_image | image_url: height: 535 }} 535w,{%- endif -%}
+                {%- if collection_image.height >= 750 -%}{{ collection_image | image_url: height: 750 }} 750w,{%- endif -%}
+                {%- if collection_image.height >= 1000 -%}{{ collection_image | image_url: height: 1000 }} 1000w,{%- endif -%}
+                {%- if collection_image.height >= 1500 -%}{{ collection_image | image_url: height: 1500 }} 1500w,{%- endif -%}
+                {{ collection_image | image_url }} {{ collection_image.width }}w
+              "
+              src="{{ collection_image | image_url: height: 1500 }}"
+              sizes="
+                (min-width: 1520px) {{ 1520 | minus: 100 | divided_by: grid_columns }}px,
+                (min-width: 750px) {% if grid_columns > 1 %}calc((100vw - 103px) / 2){% else %}calc(100vw - 30px){% endif %},
+                calc(100vw - 30px)
+              "
+              alt="{{ collection.title | escape }}"
+              height="{{ collection_image.height }}"
+              width="{{ collection_image.width }}"
+              loading="lazy"
+              class="motion-reduce"
+            >
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="card-box__empty-image media--{{ media_size }}">
+          <div class="placeholder">{{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        </div>
+      {% endunless %}
+    </div>
+    <div class="card-box__content">
+      <div class="product-card__information__wrapper collection-grid-item__title-wrapper">
+        <h3 class="collection-grid-item__title">
+          {% if title != blank %}
+            {{ title }}
+          {% elsif collection.title == blank %}
+            {{ 'sections.collection_list.shop' | t }}
+            {{ 'onboarding.collection_title' | t }}
+          {% else %}
+            {{ 'sections.collection_list.shop' | t }}
+            {{ collection.title }}
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+  </a>
+</div>

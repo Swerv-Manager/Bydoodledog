@@ -1,0 +1,90 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer activate">
+  <div class="page-width account-login page-width--without-padding">
+    <div class="account-card-wrapper background-modal">
+      <div class="account__form-content">
+        <div class="form-vertical">
+          <div class="text-center">
+            <h3 class="text-center account-login__title">{{ 'customer.activate_account.title' | t }}</h3>
+            <p class="account-login__text">{{ 'customer.activate_account.subtext' | t }}</p>
+          </div>
+
+          {% form 'activate_customer_password', id: 'ActivateForm' %}
+            <div class="field-wrapper">
+              <input
+                class="field-wrapper__input"
+                type="password"
+                name="customer[password]"
+                id="password"
+                aria-required="true"
+                placeholder="{{ 'customer.activate_account.password' | t }}"
+              >
+              <label class="field-wrapper__label" for="password"><span class="field-wrapper__label-name">{{ 'customer.activate_account.password' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span></span>
+            </span>
+
+            <div class="field-wrapper">
+              <input
+                type="password"
+                value=""
+                name="customer[password_confirmation]"
+                id="password_confirmation"
+                aria-required="true"
+                placeholder="{{ 'customer.activate_account.password_confirm' | t }}"
+                class="field-wrapper__input field-wrapper__input--required"
+              >
+              <label class="field-wrapper__label" for="password_confirmation"><span class="field-wrapper__label-name">{{ 'customer.activate_account.password_confirm' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span></span>
+            </span>
+
+            <p class="requirement-form{% if form.errors %} hide{% endif %}">{{ 'customer.activate_account.requirement_txt' | t }}</p>
+
+            <div class="form-message form-message--error">
+              {%- if form.errors -%}
+                {{ form.errors | default_errors | strip_html }}
+              {%- endif -%}
+            </div>
+
+            <div class="input-group__btn">
+              <button name="decline" class="btn btn--secondary">
+                <span>{{ 'customer.activate_account.cancel' | t }}</span>
+              </button>
+              <button type="submit" class="btn">
+                <span>{{ 'customer.activate_account.submit' | t }}</span>
+                <span class="btn__loader" data-loader>
+                  <div class="loader-bounce">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </span>
+              </button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = () => {
+    typeof ComfirmPassword !== 'undefined' && new ComfirmPassword();
+  }
+</script>

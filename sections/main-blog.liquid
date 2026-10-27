@@ -1,0 +1,125 @@
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-featured-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'pagination.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign grid_row = section.settings.grid
+  assign featured_article = section.settings.featured_article
+
+  assign media_ratio = settings.image_ratio
+
+  case grid_row
+  when 2
+    assign grid_column_class = 'grid--1-col grid--2-col-tablet grid--one-half-max'
+  when 3
+    assign grid_column_class = 'grid--1-col grid--3-col-tablet grid--one-third-max'
+  when 4
+    assign grid_column_class = 'grid--1-col grid--4-col-tablet grid--quarter-max'
+  endcase
+
+  assign limit = grid_row | times: 8
+-%}
+
+{%- paginate blog.articles by limit -%}
+  <div class="main-blog page-width">
+    {%- if featured_article != blank -%}
+      {%- render 'featured-card',
+        article: featured_article,
+        show_date: section.settings.show_date,
+        show_author: section.settings.show_author
+      -%}
+    {%- endif -%}
+    <div class="text-center main-blog__title">
+      <h1 class="title--primary">{{ blog.title | escape }}</h1>
+    </div>
+
+    <div id="data-pagination" class="blog-articles grid {{ grid_column_class }} negative-margin">
+      {%- for article in blog.articles -%}
+        <div class="blog-articles__article article grid__item data-pagination__item">
+          {%- render 'article-card',
+            article: article,
+            grid_columns: section.settings.grid,
+            media_aspect_ratio: article.image.aspect_ratio,
+            show_date: section.settings.show_date,
+            show_author: section.settings.show_author,
+            show_excerpt: true
+          -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <ul class="collection-skeleton grid {{ grid_column_class }} negative-margin hide" data-skeleton-pagination-bottom>
+      {% for i in (1..grid_row) %}
+        <li class="grid__item">
+          <div class="collection-skeleton-card background-modal">
+            <div class="collection-skeleton__container">
+              <div class="collection-skeleton__image-wrapper media--{{ media_ratio }}"
+                {% if media_ratio == 'adapt' %} style="padding-bottom: 100%;"{% endif %}
+              ></div>
+              <div class="collection-skeleton__information">
+                <span class="skeleton__price">$00</span>
+                <span class="skeleton__title">Product Title</span>
+                <span class="skeleton__colors">3 colors</span>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {%- if paginate.pages > 1 -%}
+      {% render 'load-more', paginate: paginate %}
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.settings.header__1.content"
+    },
+    {
+      "type": "article",
+      "id": "featured_article",
+      "label": "t:sections.main-blog.settings.featured_article.label",
+      "info": "t:sections.main-blog.settings.featured_article.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.settings.header__2.content"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "label": "t:sections.main-blog.settings.grid.label",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-blog.settings.paragraph.content"
+    }
+  ]
+}
+{% endschema %}

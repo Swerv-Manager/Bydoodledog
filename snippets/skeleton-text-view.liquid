@@ -1,0 +1,70 @@
+
+<div class="skeleton-view no-js-hidden{%- if skeleton_class %} {{ skeleton_class }}{% endif -%}">
+  {%- case skeleton_layout -%}
+  {%- when 'product-info' -%}
+    <div class="skeleton-view--product-info">
+      <div class="skeleton-view--product-info__title">
+        <div class="skeleton-text skeleton-text--name skeleton-text--s"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+      <div class="skeleton-text skeleton-text--m"></div>
+      <div class="skeleton-text skeleton-text--full"></div>
+      <div class="skeleton-text skeleton-text--s"></div>
+      <div class="skeleton-text skeleton-text--m skeleton-text--block"></div>
+    </div>
+  {%- when 'product-details' -%}
+    <div class="skeleton-view--product-details">
+      <div class="skeleton-text skeleton-text--s skeleton-text--title"></div>
+      <div class="skeleton-text skeleton-text--full"></div>
+      <div class="skeleton-text skeleton-text--full"></div>
+      <div class="skeleton-text skeleton-text--full"></div>
+      <div class="skeleton-text skeleton-text--m"></div>
+    </div>
+  {%- when 'cart-item' -%}
+    <div class="skeleton-view--cart-item">
+      <div class="skeleton-view--cart-item__td">
+        <div class="skeleton-text skeleton-text--s"></div>
+        <div class="skeleton-text skeleton-text--s skeleton-text--price"></div>
+      </div>
+      <div class="skeleton-view--cart-item__td">
+        <div class="skeleton-text skeleton-text--s skeleton-text--option"></div>
+        <div class="skeleton-text skeleton-text--s skeleton-text--quantity"></div>
+      </div>
+    </div>
+  {%- when 'upsell-item' -%}
+    <div class="skeleton-view--cart-item">
+      <div class="skeleton-view--cart-item__tr">
+        <div class="skeleton-text skeleton-text--m"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+    </div>
+  {%- when 'cart-footer' -%}
+    <div class="skeleton-view--cart-footer">
+      <div class="skeleton-view--cart-footer__tr">
+        <div class="skeleton-text skeleton-text--m"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+      <div class="skeleton-view--cart-footer__tr">
+        <div class="skeleton-text skeleton-text--m"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+      <div class="skeleton-view--cart-footer__tr">
+        <div class="skeleton-text skeleton-text--m"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+      <div class="skeleton-view--cart-footer__tr skeleton-view--cart-footer__tr--total">
+        <div class="skeleton-text skeleton-text--m"></div>
+        <div class="skeleton-text skeleton-text--s"></div>
+      </div>
+    </div>
+  {% else %}
+    <div class="skeleton-text skeleton-text--s"></div>
+    <div class="skeleton-text skeleton-text--full"></div>
+    <div class="skeleton-text skeleton-text--full"></div>
+    <div class="skeleton-text skeleton-text--m"></div>
+    <div class="skeleton-view__margin"></div>
+    <div class="skeleton-text skeleton-text--full"></div>
+    <div class="skeleton-text skeleton-text--m"></div>
+    <div class="skeleton-text skeleton-text--full"></div>
+  {%- endcase -%}
+</div>

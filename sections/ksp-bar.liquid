@@ -1,0 +1,169 @@
+{{ 'section-ksp-bar.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+{%- if section.blocks.size > 0 -%}
+  <div
+    class="ksp-bar {{ section.settings.font_type }}{% if section.settings.font_style == 'all_caps' %} uppercase{% endif %}"
+    style="background: {{ section.settings.background_color }}; color: {{ section.settings.text_color }}; --font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+    role="region"
+    aria-label="Key selling points"
+  >
+    <div
+      class="ksp-bar__viewport"
+      data-ksp-autoplay="{{ section.settings.autoplay_speed }}"
+    >
+      {%- for block in section.blocks -%}
+        <div class="ksp-bar__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <i class="ksp-bar__icon {{ block.settings.icon }}" aria-hidden="true"></i>
+          {%- endif -%}
+          <div class="ksp-bar__text">{{ block.settings.text }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js" defer></script>
+
+<script>
+  // Init/teardown Flickity for the KSP strip. Guards for theme-editor reloads.
+  (function () {
+    function initKsp(container) {
+      var viewport = container.querySelector('.ksp-bar__viewport');
+      if (!viewport || viewport.dataset.kspInit === 'true') return;
+      if (typeof Flickity === 'undefined') {
+        window.addEventListener('load', function () { initKsp(container); }, { once: true });
+        return;
+      }
+      var speed = parseInt(viewport.getAttribute('data-ksp-autoplay'), 10) || 3500;
+      viewport.dataset.kspInit = 'true';
+      // eslint-disable-next-line no-new
+      new Flickity(viewport, {
+        fade: true,
+        autoPlay: speed,
+        wrapAround: true,
+        pageDots: false,
+        prevNextButtons: false,
+        cellAlign: 'center',
+        draggable: true,
+        adaptiveHeight: true
+      });
+    }
+
+    function destroyKsp(container) {
+      var viewport = container.querySelector('.ksp-bar__viewport');
+      if (!viewport || !window.Flickity) return;
+      var instance = Flickity.data(viewport);
+      if (instance) instance.destroy();
+      delete viewport.dataset.kspInit;
+    }
+
+    document.querySelectorAll('.ksp-bar').forEach(initKsp);
+
+    document.addEventListener('shopify:section:load', function (e) {
+      var c = e.target.querySelector('.ksp-bar');
+      if (c) initKsp(c);
+    });
+    document.addEventListener('shopify:section:unload', function (e) {
+      var c = e.target.querySelector('.ksp-bar');
+      if (c) destroyKsp(c);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "KSP-stribe (mobil)",
+  "tag": "section",
+  "class": "ksp-bar-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#7b6b5f"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (ms)",
+      "min": 2000,
+      "max": 6000,
+      "step": 500,
+      "unit": "ms",
+      "default": 3500
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 80,
+      "max": 120,
+      "step": 1,
+      "unit": "%",
+      "default": 110
+    },
+    {
+      "type": "select",
+      "id": "font_type",
+      "label": "Font",
+      "options": [
+        { "value": "heading-font", "label": "Heading" },
+        { "value": "body-font", "label": "Body" },
+        { "value": "button-font", "label": "Button" },
+        { "value": "accent-font", "label": "Accent" }
+      ],
+      "default": "heading-font"
+    },
+    {
+      "type": "select",
+      "id": "font_style",
+      "label": "Font style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "all_caps", "label": "All caps" }
+      ],
+      "default": "all_caps"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ksp",
+      "name": "KSP",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "FontAwesome icon class",
+          "info": "F.eks. fa-solid fa-truck",
+          "default": "fa-solid fa-truck"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Fri fragt over 499 kr.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "KSP-stribe (mobil)",
+      "blocks": [
+        { "type": "ksp" },
+        { "type": "ksp", "settings": { "icon": "fa-solid fa-rotate-left", "text": "<p>30 dages returret</p>" } },
+        { "type": "ksp", "settings": { "icon": "fa-solid fa-star", "text": "<p>Trustpilot 4,8/5</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

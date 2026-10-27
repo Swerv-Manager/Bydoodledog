@@ -1,0 +1,72 @@
+{% comment %}
+  Renders social sharing buttons
+
+  Accepts:
+  - share_facebook: {Boolean} Show or hide facebook button
+  - share_twitter: {Boolean} Show or hide twitter button
+  - share_pinterest: {Boolean} Show or hide pinterest button
+  - share_permalink: {url} url to share
+  - share_title: {String} Title to share
+  - share_image: {String} Image to share
+  - share_email: {Boolean} Show or hice email button
+  - subject: {String} Add subject to share by email
+  - message: {String} Add message to share by email
+
+  Usage:
+  {% render 'social-sharing' share_facebook: share_facebook, share_twitter: share_twitter, share_pinterest: share_pinterest %}
+{% endcomment %}
+<ul class="social-sharing">
+  {% assign icon_style = settings.icons_style %}
+  {% if share_facebook %}
+    <li>
+      <a
+        target="_blank"
+        href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}"
+        class="btn--share focus-inset"
+      >
+        <i class="icon fa-brands fa-facebook"></i>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if share_twitter %}
+    <li>
+      <a
+        target="_blank"
+        href="//twitter.com/intent/tweet?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}"
+        class="btn--share focus-inset"
+      >
+        <i class="icon fa-brands fa-twitter"></i>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if share_pinterest %}
+    <li>
+      <a
+        target="_blank"
+        href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | image_url: width: 1024, height: 1024 }}&amp;description={{ share_title | url_param_escape }}"
+        class="btn--share focus-inset"
+      >
+        <i class="icon fa-brands fa-pinterest"></i>
+        <span class="visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if share_email %}
+    <li>
+      <a
+        target="_blank"
+        href="mailto:?subject={{ subject }}&amp;body={{ message | strip_html }}... Check out this site {{ shop.url | append: share_permalink }}."
+        title="Share by Email"
+        class="btn--share focus-inset"
+      >
+        <i class="icon {{ icon_style }} fa-envelope"></i>
+        <span class="visually-hidden">{{ 'general.social.alt_text.send_email' | t }}</span>
+      </a>
+    </li>
+  {% endif %}
+</ul>

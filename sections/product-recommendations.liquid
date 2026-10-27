@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="{{ 'component-product-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-product-recommendations.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-product-card.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% assign grid_row = section.settings.columns %}
+{% assign giftId = linklists.gift-wrapping.links.first.object.variants.first.id %}
+
+<div class="section-{{ section.id }}-padding section-collection-list">
+  <product-recommendations class="product-recommendations page-width page-width--product" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ grid_row | plus: 1 }}">
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <h2 class="product-recommendations__heading">{{ section.settings.heading | escape }}</h2>
+      {% liquid
+        case grid_row
+          when 1
+            assign grid_column_class = 'grid--1-col'
+          when 2
+            assign grid_column_class = 'grid--2-col'
+          when 3
+            assign grid_column_class = 'grid--2-col grid--3-col-tablet grid--one-third-max'
+          when 4
+            assign grid_column_class = 'grid--2-col grid--4-col-tablet grid--quarter-max'
+          endcase
+      %}
+
+      <ul class="grid {{ grid_column_class }}" role="list">
+        {% assign index = 0 %}
+        {% for recommendation in recommendations.products %}
+          {% liquid
+            if giftId == recommendation.variants.first.id
+              continue
+            endif
+            assign index = index | plus: 1
+            if index > grid_row
+              break
+            endif
+          %}
+          <li class="grid__item grid__item--product-card">
+            {% render 'product-card',
+              product: recommendation,
+              media_ratio: settings.image_ratio,
+              show_secondary_image: settings.show_secondary_image,
+              show_vendor: settings.show_vendor,
+              show_quick_add: settings.show_quick_add,
+              show_countdown: settings.show_countdown,
+              cart: cart
+            %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </product-recommendations>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.product-recommendations.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.product-recommendations.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You might also like",
+      "label": "t:sections.product-recommendations.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:sections.product-recommendations.settings.columns.label",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ]
+}
+{% endschema %}

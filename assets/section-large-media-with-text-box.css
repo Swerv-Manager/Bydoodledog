@@ -1,0 +1,220 @@
+.section-full-image .media--16-9 {
+  min-height: 300px;
+}
+
+.section-full-image.page-width .page-width {
+  padding: 0;
+}
+
+.section-full-image__inner {
+  position: relative;
+  padding: calc(8px * var(--border-radius)) 0;
+}
+
+.section-full-image .section-full-image__background,
+.section-full-image .section-full-image__no-image {
+  border-radius: var(--border-radius-container);
+  background: rgb(var(--color-background));
+}
+
+.section-full-image .section-full-image__content {
+  border-radius: var(--border-radius-container);
+  pointer-events: all;
+}
+
+.section-full-image__content-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.section-full-image-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.section-full-image-wrap.medium-up--hide {
+  position: static;
+}
+
+.section-full-image-wrap .media--16-9 {
+  display: none;
+}
+
+.section-full-image__content {
+  float: right;
+  width: 100%;
+  background: rgb(var(--color-background));
+  padding: calc( 1rem * (var(--padding) / 16));
+  /* max-height: 100%; */
+  display: flex;
+  position: absolute;
+  left: var(--horizontal-position);
+  top: var(--vertical-position);
+  --vertical-transform: calc(var(--vertical-position) * -1);
+  --horizontal-transform: calc(var(--horizontal-position) * -1);
+  transform: translate(var(--horizontal-transform),var(--vertical-transform));
+}
+
+.section-full-image__content > div *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.section-full-image__content.alt-sale {
+  --color-background: var(--color-base-background-modal);
+  --color-foreground: var(--color-base-sale);
+  --color-button: var(--color-base-sale);
+}
+
+.section-full-image__content--top-center {
+  text-align: center;
+}
+
+.section-full-image__content--top-right {
+  text-align: right;
+}
+
+.section-full-image__content--bottom-left {
+  align-items: flex-end;
+  text-align: left;
+}
+
+.section-full-image__content--bottom-center {
+  align-items: flex-end;
+  text-align: center;
+}
+
+.section-full-image__content--bottom-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.section-full-image__content--center {
+  align-items: center;
+  text-align: center;
+}
+
+.section-full-image__content .rte {
+  font-size: 1rem;
+}
+
+.section-full-image__content .btn {
+  padding: 26px 40px;
+  margin-bottom: 1.25rem;
+}
+
+.section-full-image__content h2,
+.section-full-image__content .rte,
+.section-full-image__content .rte p,
+.section-full-image__content p {
+  color: rgb(var(--color-foreground));
+}
+
+.section-full-image__background {
+  position: relative;
+  min-height: 300px;
+  max-height: 1000px;
+  width: 100%;
+}
+
+.section-full-image__background--video {
+  overflow: hidden;
+  min-height: auto;
+}
+
+.section-full-image__background .media__video-overlay {
+  z-index: 0;
+}
+
+.parallax-image {
+  background-size: cover;
+  background-position: 50%;
+}
+
+.section-full-image__no-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-price-foreground), 0.1);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 1024px) {
+  .section-full-image__content .btn {
+    padding: 22px 32px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .section-full-image-wrap.small--hide {
+    display: none !important;
+  }
+
+  .section-full-image {
+    padding: 0 1.5rem;
+  }
+
+  .section-full-image-wrap {
+    position: static;
+    left: initial;
+    transform: none;
+  }
+
+  .section-full-image-wrap .media--16-9 {
+    display: block;
+  }
+
+  .section-full-image-wrap.page-width {
+    padding: 0;
+  }
+
+  .parallax-image {
+    background-size: auto 180%;
+  }
+
+  .section-full-image__content {
+    position: initial;
+    float: none;
+    display: block;
+    width: 100%;
+    padding: 6.5rem 2.5rem 2.5rem;
+    margin-top: -4.125rem;
+    background: rgb(var(--color-background));
+  }
+
+  .section-full-image__background {
+    box-shadow: 0 1px 3px #00000080;
+    z-index: 1;
+  }
+
+  .section-full-image__content p {
+    font-size: 0.875rem;
+  }
+
+  .section-full-image__content .btn {
+    padding: 22px 32px;
+  }
+
+  .section-full-image .media--16-9 {
+    min-height: 210px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .section-full-image__content {
+    padding: 6.5rem 1.5rem 1.5rem;
+  }
+
+  .section-full-image .media--16-9 {
+    min-height: 200px;
+  }
+}

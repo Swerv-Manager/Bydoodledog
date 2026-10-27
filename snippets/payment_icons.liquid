@@ -1,0 +1,9 @@
+{%- assign payment_icons = settings.payment_icons | default: "visa,master,mobilepay" | split: "," -%}
+
+<ul class="payment_icons">
+  {% for type in payment_icons %}
+    <li class="payment_icons-item">
+      {{ type | strip | payment_type_svg_tag }}
+    </li>
+  {% endfor %}
+</ul>

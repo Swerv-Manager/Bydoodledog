@@ -1,0 +1,389 @@
+/*==============================================================================*/
+/*================ Slick Slider SCSS ================*/
+.quotes-section .slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quotes-section .slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.quotes-section .slick-list:focus {
+  outline: none;
+}
+
+.quotes-section .slick-list.dragging {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.quotes-section .slick-slider .slick-track,
+.quotes-section .slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.quotes-section .slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block;
+}
+
+.quotes-section .slick-track:before,
+.quotes-section .slick-track:after {
+  content: "";
+  display: table;
+}
+
+.quotes-section .slick-track:after {
+  clear: both;
+}
+
+.quotes-section .slick-loading .slick-track {
+  visibility: hidden;
+}
+
+.quotes-section .slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+  display: none;
+}
+
+.quotes-section [dir="rtl"] .slick-slide {
+  float: right;
+}
+
+.quotes-section .slick-slide img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-height: 26px;
+}
+
+.quotes-section .slick-slide.slick-loading img {
+  display: none;
+}
+
+.quotes-section .slick-slide.dragging img {
+  pointer-events: none;
+}
+
+.quotes-section .slick-initialized .slick-slide {
+  display: block;
+}
+
+.quotes-section .slick-loading .slick-slide {
+  visibility: hidden;
+}
+
+.quotes-section .slick-arrow.slick-hidden {
+  display: none;
+}
+
+.quotes-section {
+  background: rgb(var(--color-background));
+  padding: 55px 0;
+  position: relative;
+}
+
+.quotes-section.abstract-gradient {
+  background-image: url('abstract-gradient.png');
+  background-size: cover;
+}
+
+.quotes-section.watercolor {
+  background: none;
+}
+
+.quotes-section.watercolor:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  -webkit-mask-image: url('paint3.svg');
+  mask-image: url('paint3.svg');
+  mask-position: center;
+  -webkit-mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  background-color: rgb(var(--color-background));
+}
+
+.quotes-section .ec-container {
+  position: relative;
+  z-index: 1;
+}
+
+.notebook {
+  padding: 50px 0;
+  margin: 60px 0;
+  background-color: white;
+  background-image: url('paper_lines.png');
+  background-size: cover;
+}
+
+.notebook::before {
+  content: "";
+  position: absolute;
+  top: -74px;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background-image: url('paper_edge_top.png');
+  background-size: cover;
+}
+
+.notebook::after {
+  content: "";
+  position: absolute;
+  bottom: -74px;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background-image: url('paper_edge_bottom.png');
+  background-size: cover;
+}
+
+/* .spine-notebook {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 4px;
+  height: calc(100% + 120px);
+  background-image: url('spine.png');
+} */
+
+.quotes-wrapper {
+  padding-bottom: 48px;
+}
+
+.no-js .quotes-slider > div {
+  display: none;
+}
+
+.no-js .quotes-slider div:first-child {
+  display: block;
+}
+
+.quote-icon {
+  display: block;
+  margin: 0 auto;
+  font-family: var(--font-accent-family);
+  font-style: var(--font-accent-style);
+  font-weight: var(--font-accent-weight);
+  --font-heading-size: calc(var(--font-heading-scale) * 4.625rem);
+  font-size: calc(var(--font-heading-size) * var(--font-section-scale));
+  color: rgb(var(--color-foreground));
+  line-height: 1.25;
+  max-height: 80px;
+}
+
+.quotes-section .slick-slide:focus {
+  outline: none;
+}
+
+.quotes-slider .slick-slide {
+  height: auto;
+}
+
+.quotes-slider .slick-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.quotes-slider__text {
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+.quotes-slider__text:focus {
+  outline: none;
+}
+
+.quotes-slider__text .quote-text {
+  margin: auto;
+  padding: 0 15px;
+  line-height: 1.25;
+}
+
+.quotes-slider__text .cite {
+  display: block;
+  font-family: var(--font-family);
+  font-style: var(--font-style);
+  font-weight: var(--font-weight);
+  --font-size: calc(var(--font-scale) * 1.375rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale));
+  line-height: 1.3;
+  color: rgb(var(--color-foreground-2));
+  transform: scale(1);
+  transition: transform 0.2s ease-in, color 0.2s ease-in;
+  padding: 7px 0;
+}
+
+.quotes-slider__text .cite:focus {
+  outline: none;
+}
+
+.quotes-slider__text .rte p {
+  font-family: var(--font-family);
+  font-style: var(--font-style);
+  color: rgb(var(--color-foreground));
+  --font-size: calc(var(--font-scale) * 2.125rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale));
+  font-weight: var(--font-weight);
+  line-height: 1.1;
+  max-width: 549px;
+  letter-spacing: 0;
+  margin: auto;
+  line-height: 1.25;
+  padding: 10px 0;
+}
+
+.quotes-slider__text .rte a {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  --font-size: calc(var(--font-scale) * 2.125rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale));
+  font-weight: 600;
+}
+
+.quotes-slider__author-logo {
+  margin: 2px auto;
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in;
+}
+
+.quotes-autor-wrapper .slick-current .cite {
+  transform: scale(1.3);
+  color: rgb(var(--color-foreground));
+  transition: transform 0.2s ease-in, color 0.2s ease-in;
+}
+
+.quotes-autor-wrapper .slick-current .quotes-slider__author-logo {
+  opacity: 1;
+}
+
+.quotes-autor-wrapper .slick-current .quotes-slider__author-logo img {
+  transform: scale(1.1);
+}
+
+.quotes-autor-wrapper .slick-slide {
+  cursor: pointer;
+}
+
+.no-js .quotes-autor-slider > div {
+  display: none;
+}
+
+.no-js .quotes-autor-slider div:first-child {
+  display: block;
+}
+
+.slick-dotted.quotes-slider.slick-initialized {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.quotes-wrapper .slick-dots {
+  position: relative;
+  bottom: 0;
+  margin-top: 55px;
+}
+
+.quotes-wrapper .slick-dots li {
+  margin: 0;
+}
+
+.quotes-wrapper .slick-dots li button::before {
+  font-size: 34px;
+  color: rgb(var(--color-foreground));
+  opacity: 0.2;
+}
+
+.quotes-wrapper .slick-dots li.slick-active button::before {
+  opacity: 1;
+}
+
+.quotes-wrapper .slick-slide[tabindex="0"] {
+  outline: none;
+}
+
+@media only screen and (min-width: 1400px) {
+  .notebook::before,
+  .notebook::after {
+    background-size: auto 100%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .quotes-slider__text .rte p {
+    --font-size: calc(var(--font-scale) * 1.9rem);
+    max-width: 463px;
+  }
+
+  .quotes-slider__text .rte a {
+    --font-size: calc(var(--font-scale) * 1.9rem);
+  }
+}
+
+@media (max-width: 960px) {
+  .quotes-section .page-width {
+    padding: 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .quotes-slider__text .rte p {
+    --font-size: calc(var(--font-scale) * 1.5rem);
+    max-width: 315px;
+  }
+
+  .quotes-slider__text .rte a {
+    --font-size: calc(var(--font-scale) * 1.5rem);
+  }
+
+  .quotes-slider__text .cite {
+    --font-size: calc(var(--font-scale) * 1.3rem);
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .quotes-slider__text .cite {
+    --font-size: calc(var(--font-scale) * 1rem);
+  }
+}

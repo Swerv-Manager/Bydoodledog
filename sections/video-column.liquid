@@ -1,0 +1,317 @@
+{{ 'section-video-column.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% assign animation_delay = 0.00 %}
+
+<div class="section-{{ section.id }}-padding">
+  <div
+    class="section-video-column {{ section.settings.background }}"
+    style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+  >
+    <div class="page-width page-width--without-padding">
+      {%- if section.settings.title != blank -%}
+        <h2 class="h1 scroll-animate fade-in">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="scroll-animate fade-in">{{ section.settings.description }}</p>
+      {%- endif -%}
+      <video-column
+        {% if section.settings.play_onload %}
+          data-play-on-load="true"
+        {% endif %}
+      >
+        <div class="video-column__content" id="Slider-{{ section.id }}">
+          {%- for block in section.blocks -%}
+            {%- assign animation_delay = animation_delay | plus: 0.08 -%}
+            <div
+              class="video-column__content-item scroll-animate fade-in-up"
+              style="animation-delay: {{ animation_delay }}s;"
+            >
+              <div class="video-column__content-item-wrap">
+                {%- if block.settings.video != blank
+                  or block.settings.video_embed != blank
+                  or block.settings.image != blank
+                -%}
+                  {%- if block.settings.image != blank -%}
+                    {% if block.settings.video_link != blank %}
+                      <a href="{{ block.settings.video_link}}">
+                    {%- endif -%}
+                    <div class="media media--transparent">
+                      {%- assign image_height = block.settings.image.width
+                        | divided_by: block.settings.image.aspect_ratio
+                      -%}
+                      {%- capture sizes -%}(min-width: 1520px) calc(1520px / 3), (min-width: 1176px) calc(100vw / 2), (min-width: 717px) 325px, 347px{%- endcapture -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 940
+                        | image_tag:
+                          width: block.settings.image.width,
+                          height: image_height,
+                          sizes: sizes,
+                          widths: '165, 360, 533, 720, 940',
+                          alt: block.settings.image.alt
+                        | escape
+                      }}
+                    </div>
+                    {% if block.settings.video_link != blank %}
+                      </a>
+                    {%- endif -%}
+                  {%- elsif block.settings.video_embed != blank -%}
+                    {{ block.settings.video_embed }}
+                  {%- elsif block.settings.video != blank -%}
+                    {% if block.settings.video_link != blank %}
+                      <a href="{{ block.settings.video_link}}">
+                    {%- endif -%}
+                    <div class="video-column__custom-video">
+                      {%- capture video_classes -%}
+                          feature-row__image{% if section.settings.play_onload %} feature-row__video--autoplay{% else%} feature-row__video{% endif %}{%- endcapture -%}
+                      {% liquid
+                        if section.settings.play_onload
+                          assign playsinline = true
+                          assign loop = true
+                        else
+                          assign playsinline = false
+                          assign loop = false
+                        endif
+                      %}
+                      {{
+                        block.settings.video
+                        | video_tag:
+                          image_size: '694x',
+                          class: video_classes,
+                          playsinline: playsinline,
+                          loop: loop,
+                          muted: true,
+                          controls: false
+                      }}
+                    </div>
+                    {% if block.settings.video_link != blank %}
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                {%- endif -%}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </video-column>
+      {%- if section.settings.social_handle != blank -%}
+        <h3 class="h3 scroll-animate fade-in">
+          {% assign social_link = settings[section.settings.social_link] %}
+          {% if social_link != blank %}
+            <a href="{{ social_link }}">
+          {%- endif -%}
+          {{ section.settings.social_handle }}
+          {% if social_link != blank %}
+            </a>
+          {%- endif -%}
+        </h3>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.video-column.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.video-column.settings.title.label",
+      "default": "Shop With Us"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:sections.video-column.settings.description.label",
+      "default": "Join us on TikTok for exclusive releases, unboxing and try-on videos, reviews, and more from our top brands and stylists."
+    },
+    {
+      "type": "checkbox",
+      "id": "play_onload",
+      "default": false,
+      "label": "t:sections.video-column.settings.play_onload.label"
+    },
+    {
+      "type": "text",
+      "id": "social_handle",
+      "label": "t:sections.video-column.settings.social_handle.label",
+      "default": "@yourtiktok"
+    },
+    {
+      "type": "select",
+      "id": "social_link",
+      "label": "t:sections.video-column.settings.social_link.label",
+      "default": "social_instagram_link",
+      "info": "t:sections.video-column.settings.social_link.info",
+      "options": [
+        {
+          "value": "social_twitter_link",
+          "label": "Twitter"
+        },
+        {
+          "value": "social_facebook_link",
+          "label": "Facebook"
+        },
+        {
+          "value": "social_pinterest_link",
+          "label": "Pinterest"
+        },
+        {
+          "value": "social_instagram_link",
+          "label": "Instagram"
+        },
+        {
+          "value": "social_tiktok_link",
+          "label": "TikTok"
+        },
+        {
+          "value": "social_tumblr_link",
+          "label": "Tumblr"
+        },
+        {
+          "value": "social_snapchat_link",
+          "label": "Snapchat"
+        },
+        {
+          "value": "social_youtube_link",
+          "label": "YouTube"
+        },
+        {
+          "value": "social_vimeo_link",
+          "label": "Vimeo"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "main-background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.video-column.blocks.column.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:sections.media-with-text.settings.video.label"
+        },
+        {
+          "type": "html",
+          "id": "video_embed",
+          "label": "t:sections.video-column.blocks.column.settings.video_embed.label",
+          "info": "t:sections.video-column.blocks.column.settings.video_embed.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.video-column.blocks.column.settings.image.label",
+          "info": "t:sections.video-column.blocks.column.settings.image.info"
+        },
+        {
+          "type": "url",
+          "id": "video_link",
+          "label": "t:sections.video-column.blocks.column.settings.video_link.label",
+          "info": "t:sections.video-column.blocks.column.settings.video_link.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.video-column.presets.name",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

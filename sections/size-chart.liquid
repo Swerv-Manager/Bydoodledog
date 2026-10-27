@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="{{ 'section-size-chart.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section-size-chart.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding section-collection-list">
+  <section class="page-width page-width--product section-size-chart product-single__page-wrap">
+    {%- if section.settings.title != blank -%}
+      <h2 class="page-width--padding">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {% render 'size-chart' rows: section.blocks, background: section.settings.background %}
+    {%- if section.settings.note != blank -%}
+      <p class="section-size-chart__note">* {{ section.settings.note }}</p>
+    {%- endif -%}
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.size-chart.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Size chart",
+      "label": "t:sections.size-chart.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "t:sections.size-chart.settings.note.label",
+      "default": "Sizes are American and expressed in inches."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "t:sections.size-chart.blocks.row.name",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_thead",
+          "default": false,
+          "label": "t:sections.size-chart.blocks.row.settings.is_thead.label"
+        },
+        {
+          "type": "text",
+          "id": "row_name",
+          "default": "Size",
+          "label": "t:sections.size-chart.blocks.row.settings.row_name.label"
+        },
+        {
+          "type": "text",
+          "id": "column_values",
+          "default": "Row, Row, Row, Row, Row, Row",
+          "label": "t:sections.size-chart.blocks.row.settings.column_values.label",
+          "info": "t:sections.size-chart.blocks.row.settings.column_values.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.size-chart.presets.name",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "is_thead": true,
+            "row_name": "Size",
+            "column_values": "XS, S, M, L, XL, 1X"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "row_name": "Bust",
+            "column_values": "32, 34, 36, 40, 43, 45"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "row_name": "Waist",
+            "column_values": "24, 26, 28, 32, 35, 37"
+          }
+        }
+      ]
+    }
+  ],
+  "templates": ["page", "product"]
+}
+{% endschema %}

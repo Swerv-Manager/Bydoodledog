@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "disabled": true,
+      "settings": {
+        "title": "Udforsk vores kollektioner",
+        "font_size": 86,
+        "image_height": 100,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "alt-background-2",
+        "sort": "alphabetical",
+        "grid": 3
+      }
+    },
+    "featured_collection_jNd7eT": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Alle produkter",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "collection": "all-products",
+        "product_list": [],
+        "columns": 3,
+        "font_card_size": 100,
+        "background": "background-modal",
+        "show_view_all": true,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_HzcWGq": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_mcJWww": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi leverer indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_mPGehc": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_bQh9tN": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter, at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_aGDGaa": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_mcJWww",
+        "feature_mPGehc",
+        "feature_bQh9tN",
+        "feature_aGDGaa"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_collection_jNd7eT",
+    "multicolumn_HzcWGq"
+  ]
+}

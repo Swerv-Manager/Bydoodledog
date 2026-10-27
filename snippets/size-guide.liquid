@@ -1,0 +1,193 @@
+{% comment %}
+  Renders the size guide popup (modal), looked up by matching the product type
+  (handleized) against a "storrelsesguide" metaobject handle. Rendered by the
+  size_guide block. The opener button is rendered separately in
+  'product-variant-picker' (absolutely positioned top-right of the controls
+  group) — placed outside the variant selector because the Swatch King app
+  hides/replaces that markup. Both share the id SizeGuide-<section.id>.
+
+  Metaobject fields:
+  - titel (single line text)
+  - tabel (multi-line text) — parsed line by line:
+      * a line WITHOUT "|" is a heading that starts a new table
+      * a line WITH "|" is a row, split on "|" into one cell per column
+      * empty lines and lines with the wrong column count are skipped
+      * if the field starts with "|"-lines, one table without heading renders
+  - kolonne_label_1/2/3 (single line text) — column headers. The number of
+      non-blank labels sets the column count; rows must have that many cells.
+  - note  (rich text, optional)
+
+  Accepts:
+  - product: {Object} (required)
+
+  Usage:
+  {% render 'size-guide', product: product %}
+{% endcomment %}
+
+{%- liquid
+  assign type_handle = product.type | handleize
+  assign guide = metaobjects.storrelsesguide[type_handle]
+-%}
+
+{%- if guide != blank -%}
+  {%- assign guide_rows = guide.tabel.value | split: '
+' -%}
+  {%- capture labels_raw -%}{{ guide.kolonne_label_1 }}|{{ guide.kolonne_label_2 }}|{{ guide.kolonne_label_3 }}{%- endcapture -%}
+  {%- assign column_labels = labels_raw | split: '|' -%}
+  {%- assign column_count = column_labels.size -%}
+
+  <modal-dialog id="SizeGuide-{{ section.id }}" class="size-guide-modal">
+    <div
+      class="size-guide-modal__inner"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ guide.titel | default: 'Størrelsesguide' | escape }}"
+      tabindex="-1"
+    >
+      <button
+        id="ModalClose-{{ section.id }}"
+        type="button"
+        class="size-guide-modal__close"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+
+      <div class="size-guide__content">
+        {%- if guide.titel != blank -%}
+          <h3 class="size-guide__title">{{ guide.titel }}</h3>
+        {%- endif -%}
+
+        {%- assign table_open = false -%}
+        {%- for row in guide_rows -%}
+          {%- assign line = row | strip -%}
+          {%- if line != blank -%}
+            {%- if line contains '|' -%}
+              {%- assign cells = line | split: '|' -%}
+              {%- if cells.size == column_count -%}
+                {%- unless table_open -%}
+                  <table class="size-guide__table">
+                    <thead>
+                      <tr>
+                        {%- for label in column_labels -%}
+                          <th scope="col">{{ label | strip }}</th>
+                        {%- endfor -%}
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {%- assign table_open = true -%}
+                {%- endunless -%}
+                <tr>
+                  {%- for label in column_labels -%}
+                    <td>{{ cells[forloop.index0] | strip }}</td>
+                  {%- endfor -%}
+                </tr>
+              {%- endif -%}
+            {%- else -%}
+              {%- if table_open -%}
+                    </tbody>
+                  </table>
+                {%- assign table_open = false -%}
+              {%- endif -%}
+              <h4 class="size-guide__subtitle">{{ line }}</h4>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if table_open -%}
+                    </tbody>
+                  </table>
+        {%- endif -%}
+
+        {%- if guide.note != blank -%}
+          <div class="size-guide__note rte">{{ guide.note | metafield_tag }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </modal-dialog>
+{%- endif -%}
+
+{%- stylesheet -%}
+  .size-guide-modal {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(var(--color-foreground), 0.5);
+  }
+
+  .size-guide-modal[open] {
+    opacity: 1;
+    visibility: visible;
+    z-index: 101;
+  }
+
+  .size-guide-modal__inner {
+    position: relative;
+    width: 100%;
+    max-width: 52rem;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.4rem;
+    background: rgb(var(--color-background));
+    border-radius: var(--popup-corner-radius, 0);
+    box-shadow: 0 0 1rem rgba(var(--color-foreground), 0.15);
+  }
+
+  .size-guide-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    padding: 0.6rem;
+    background: transparent;
+    border: none;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+  }
+
+  .size-guide-modal__close .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .size-guide__title {
+    margin: 0 3rem 1rem 0;
+  }
+
+  .size-guide__subtitle {
+    margin: 1.5rem 0 0.8rem;
+  }
+
+  .size-guide__subtitle:first-child {
+    margin-top: 0;
+  }
+
+  .size-guide__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body-family);
+    color: rgb(var(--color-foreground));
+  }
+
+  .size-guide__table th,
+  .size-guide__table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .size-guide__table th {
+    font-weight: 600;
+    background: rgba(var(--color-foreground), 0.04);
+  }
+
+  .size-guide__note {
+    margin-top: 1rem;
+  }
+{%- endstylesheet -%}

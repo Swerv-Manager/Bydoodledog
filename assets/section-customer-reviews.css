@@ -1,0 +1,103 @@
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  grid-gap: 20px;
+}
+
+.reviews-grid--1 .card-box--review {
+  max-width: 50%;
+  margin: auto;
+}
+
+.reviews-grid--2 {
+  grid-template-columns: repeat(2,1fr);
+}
+
+.reviews-grid--3 {
+  grid-template-columns: repeat(3,1fr);
+}
+
+.reviews-grid .card-box-link {
+  display: block;
+  transform: scale(1);
+  transition: transform 0.3s ease-in;
+}
+
+.reviews-grid .card-box-link:hover {
+  transform: scale(1.02);
+}
+
+.card-box--review .card-box__image {
+  position: relative;
+  width: 40%;
+}
+
+.card-box--review .media {
+  height: 100%;
+}
+
+.card-box--review .card-box__content {
+  padding: 1.375rem;
+  flex: 1;
+}
+
+.card-box--review .rating {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.card-box--review .rating-star {
+  --font-size: 1;
+}
+
+.card-box--review .card-box__text {
+  max-width: none;
+  margin-top: 1.125rem;
+}
+
+.card-box--review .card-box__text p {
+  font-size: calc(0.9375rem * var(--font-section-scale, 1));
+}
+
+.card-box--review__author {
+  font-family: var(--font-subheading-family);
+  font-style: var(--font-subheading-style);
+  font-weight: var(--font-subheading-weight);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 1.25rem;
+  --font-subheading-size: calc(var(--font-subheading-scale) * 0.8125rem);
+  font-size: calc(var(--font-subheading-size) * var(--font-section-scale, 1));
+  color: rgb(var(--color-foreground));
+}
+
+.card-box--review__location {
+  display: block;
+  font-size: calc(0.8125rem * var(--font-section-scale, 1));
+  color: rgb(var(--color-foreground));
+}
+
+@media only screen and (max-width: 768px) {
+  .card-box--review,
+  .reviews-grid--1 .card-box--review {
+    max-width: none;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(1,1fr);
+  }
+
+  .card-box--review .card-box__content {
+    padding: 1rem;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .card-box--review {
+    flex-direction: column;
+  }
+
+  .card-box--review .card-box__image {
+    width: 100%;
+  }
+}

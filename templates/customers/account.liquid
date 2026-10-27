@@ -1,0 +1,47 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer account">
+  <div class="page-width page-width--account myaccount-template myaccoun-margin-bottom">
+    <div class="myaccount-header">
+      <h2>
+        {% if customer.first_name %}
+          {{ 'customer.account.hi_name' | t: customer_name: customer.first_name }}
+        {% else %}
+          {{ 'customer.account.hi' | t }}
+        {% endif %}
+      </h2>
+    </div>
+
+    <div class="myaccount">
+      <ul class="myaccount_list">
+        <li class="myaccount_list__item">
+          <a class="myaccount_list__item-link" href="{{ routes.account_url | append: '?view=orders' }}">
+            {{ 'customer.account.order_history' | t }} <i class="icon icon-arrow-right {{ icon_style }} fa-swap-opacity fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="myaccount_list__item">
+          <a class="myaccount_list__item-link" href="{{ routes.account_addresses_url }}">
+            {{ 'customer.account.address_book' | t }} <i class="icon icon-arrow-right {{ icon_style }} fa-swap-opacity fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="myaccount_list__item">
+          <a class="myaccount_list__item-link" href="{{ routes.account_url | append: '?view=details' }}">
+            {{ 'customer.account.account_details' | t }} <i class="icon icon-arrow-right {{ icon_style }} fa-swap-opacity fa-chevron-right"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section-footer text-center">
+      <h3>
+        {% if customer.first_name %}
+          {{ 'customer.account.not_first_name' | t: customer_first_name: customer.first_name }}
+        {% else %}
+          {{ 'customer.account.not_you' | t }}
+        {% endif %}
+      </h3>
+      <a href="{{ routes.account_logout_url }}" id="customer_logout_link" class="btn btn--secondary btn--from">{{ 'customer.log_out' | t }}</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+/* KSP rotating strip — mobile only, hidden on desktop.
+   Typography mirrors the announcement bar (.announcement__text). */
+.ksp-bar {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-family);
+  line-height: 1.2;
+}
+
+.ksp-bar__viewport {
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Before Flickity initializes, only the first item is shown so the strip
+   keeps a single-item height and does not cause layout shift on load. */
+.ksp-bar__viewport:not(.flickity-enabled) .ksp-bar__item:not(:first-child) {
+  display: none;
+}
+
+.ksp-bar__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem 1.75rem;
+}
+
+.ksp-bar__icon {
+  font-size: calc(var(--font-size, 1rem) * var(--font-section-scale, 1));
+  line-height: 1;
+}
+
+.ksp-bar__text {
+  margin: 0;
+  font-style: var(--font-style);
+  font-weight: var(--font-weight);
+  --font-size: calc(var(--font-scale) * 1rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale, 1));
+}
+
+.ksp-bar__text p {
+  margin: 0;
+  color: inherit;
+  font-size: calc(var(--font-size) * var(--font-section-scale, 1));
+}
+
+/* Flickity: smooth adaptive height on slide change */
+.ksp-bar .flickity-viewport {
+  transition: height 0.2s;
+}
+
+@media (min-width: 750px) {
+  .ksp-bar {
+    display: none;
+  }
+}

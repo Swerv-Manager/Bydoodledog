@@ -1,0 +1,479 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-skeleton.css' | asset_url | stylesheet_tag }}
+
+<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-search.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+  {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+<script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pagination.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  template-search-form {
+    display: block;
+  }
+
+  .template-search__header {
+    padding: 2.375rem 0;
+    background: rgb(var(--color-background));
+    margin-bottom: 1.875rem;
+  }
+
+  .template-search__no-results .h3 {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+    padding: 1.5rem 0 0;
+  }
+
+  .template-search__no-results p {
+    font-size: 1rem;
+  }
+
+  .template-search__results .title {
+    font-family: var(--font-body-family);
+    font-weight: 100;
+    font-size: calc(var(--font-heading-scale) * 1.125rem);
+    margin-top: 10rem;
+    margin-bottom: 15rem;
+    color: rgb(var(--color-foreground));
+  }
+
+  .template-search__results a {
+    font-weight: 500;
+  }
+
+  .template-search__search .search__button {
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .template-search-terms {
+    font-size: 2.375rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+  }
+
+  .template-search__search .search__input {
+    width: 100%;
+  }
+
+  .template-search--empty {
+    padding-bottom: 18rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-search__header {
+      padding: 2.875rem 0;
+      margin-bottom: 3.125rem;
+    }
+
+    .template-search__no-results .h3 {
+      font-size: calc(var(--font-heading-scale) * 2.125rem);
+    }
+
+    .template-search__no-results p {
+      font-size: 1.125rem;
+    }
+
+    .template-search-terms {
+      margin-top: 2rem;
+      font-size: 3rem;
+    }
+  }
+</style>
+
+{%- liquid
+  assign icon_style = settings.icons_style
+  assign sort_by = search.sort_by | default: search.default_sort_by
+  assign terms = search.terms | escape
+  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  assign media_ratio = settings.image_ratio
+  assign grid_row = section.settings.grid
+  assign limit = grid_row | times: 8
+  assign giftId = linklists['gift-wrapping'].links.first.object.variants.first.id
+
+  case grid_row
+    when 2
+      assign grid_column_class = 'grid--2-col'
+    when 3
+      assign grid_column_class = 'grid--2-col grid--3-col-tablet grid--one-third-max'
+    when 4
+      assign grid_column_class = 'grid--2-col grid--4-col-tablet grid--quarter-max'
+  endcase
+
+  paginate collection.products by limit
+    capture paginatation_enable
+      if paginate.pages > 1
+        echo true
+      else
+        echo false
+      endif
+    endcapture
+  endpaginate
+-%}
+
+<div class="template-search spaced-section{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
+  <div class="template-search__header">
+    <template-search-form class="page-width">
+      <div class="template-search__search">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+          <div class="search-form__input-wrapper">
+            <input
+              class="search__input field__input"
+              id="Search-In-Template"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'general.search.search' | t }}"
+            >
+            <input name="options[prefix]" type="hidden" value="last">
+            <button
+              type="button"
+              class="modal__close-button link link--text focus-inset"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {{ 'templates.search.clear' | t }}
+            </button>
+            <button class="search__button field__button button--icon" aria-label="{{ 'general.search.search' | t }}">
+              <i class="icon icon-search {{ icon_style }} fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </template-search-form>
+  </div>
+
+  <div class="template-search__no-results page-width center">
+    {%- if search.performed -%}
+      {%- if search.results_count == 0 and search.filters == empty -%}
+        <h1 class="h3">
+          {{ 'templates.search.no_results' | t }}
+        </h1>
+      {%- endif -%}
+      {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
+        {%- if search.results_count > 0 -%}
+          <p role="status">
+            {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+          </p>
+        {%- endif -%}
+      {%- endunless -%}
+      {%- if search.results_count == 0 and search.filters == empty -%}
+        <p role="status">{{ 'templates.search.check_spelling' | t }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  {%- if search.performed -%}
+    {%- if search.filters != empty -%}
+      {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+        <div
+          class="page-width facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}"
+          id="main-search-filters"
+          data-id="{{ section.id }}"
+        >
+          {% paginate search.results by limit %}
+            {% render 'facets',
+              results: search,
+              enable_sorting: section.settings.enable_sorting,
+              enable_filtering: section.settings.enable_filtering,
+              page: paginate.current_page
+            %}
+          {% endpaginate %}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    <product-grid-container id="ProductGridContainer" data-pagination="{{ paginatation_enable }}">
+      {%- if search.results.size == 0 and search.filters != empty -%}
+        <div
+          class="template-search__results page-width"
+          id="data-pagination"
+          data-empty="true"
+          data-id="{{ section.id }}"
+        >
+          <div class="loading-overlay gradient"></div>
+          <div class="product-grid-container--empty">
+            <div class="title-wrapper center">
+              <h2 class="title title--primary">
+                {{ 'sections.collection_template.empty' | t -}}
+                <br>
+                <br>
+                {{
+                  'sections.collection_template.use_fewer_filters_html'
+                  | t: link: search_url, class: 'underlined-link link'
+                }}
+              </h2>
+            </div>
+            <div class="loader-bounce">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        {% paginate search.results by 24 %}
+          <div class="template-search__results collection page-width">
+            <ul
+              class="collection-skeleton grid {{ grid_column_class }} negative-margin hide"
+              data-skeleton-pagination-top
+            >
+              {% for i in (1..grid_row) %}
+                <li class="grid__item">
+                  <div class="collection-skeleton-card background-modal">
+                    <div class="collection-skeleton__container">
+                      <div
+                        class="collection-skeleton__image-wrapper media--{{ media_ratio }}"
+                        {% if media_ratio == 'adapt' %}
+                          style="padding-bottom: 100%;"
+                        {% endif %}
+                      ></div>
+                      <div class="collection-skeleton__information">
+                        <span class="skeleton__price">$00</span>
+                        <span class="skeleton__title">Product Title</span>
+                        <span class="skeleton__colors">3 colors</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+            <ul
+              id="data-pagination"
+              class="grid {{ grid_column_class }} negative-margin"
+              data-id="{{ section.id }}"
+              role="list"
+            >
+              {%- for item in search.results -%}
+                {% liquid
+                  assign lazy_load = false
+                  if forloop.index > grid_row
+                    assign lazy_load = true
+                  endif
+                %}
+                {% if item.object_type == 'product' and giftId == item.variants.first.id %}
+                  {% continue %}
+                {% endif %}
+                <li class="grid__item data-pagination__item">
+                  {%- case item.object_type -%}
+                    {%- when 'product' -%}
+                      {% render 'product-card',
+                        product: item,
+                        media_ratio: media_ratio,
+                        show_secondary_image: settings.show_secondary_image,
+                        show_vendor: settings.show_vendor,
+                        show_rating: settings.show_rating,
+                        show_quick_add: settings.show_quick_add,
+                        show_countdown: settings.show_countdown,
+                        section_id: section.id,
+                        lazy_load: lazy_load
+                      %}
+                    {%- when 'article' -%}
+                      <a href="{{ item.url }}" class="product-card-wrapper card-outline">
+                        <div class="product-card article-card background-modal">
+                          <div class="product-card__image-wrapper">
+                            {%- liquid
+                              if item.image
+                                assign article_media_aspect_ratio = item.image.aspect_ratio
+                                if item.image.aspect_ratio == null
+                                  assign article_media_aspect_ratio = 1
+                                endif
+                              else
+                                assign article_media_aspect_ratio = 1
+                              endif
+                            -%}
+                            {%- if item.image -%}
+                              <div
+                                class="product-card__image media media--transparent media--{{ media_ratio }}"
+                                {% if media_ratio == 'adapt' %}
+                                  style="padding-bottom: {{ 1 | divided_by: article_media_aspect_ratio | times: 100 }}%;"
+                                {% endif %}
+                              >
+                                <img
+                                  srcset="
+                                    {%- if item.image.src.height >= 165 -%}{{ item.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                                    {%- if item.image.src.height >= 360 -%}{{ item.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                                    {%- if item.image.src.height >= 533 -%}{{ item.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                                    {%- if item.image.src.height >= 720 -%}{{ item.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                                    {%- if item.image.src.height >= 940 -%}{{ item.image.src | image_url: width: 940 }} 940w,{%- endif -%}
+                                    {%- if item.image.src.height >= 1065 -%}{{ item.image.src | image_url: width: 1065 }} 1065w{%- endif -%}
+                                  "
+                                  src="{{ item.image.src | image_url: width: 1065 }}"
+                                  {% unless lazy_load == false %}
+                                    loading="lazy"
+                                  {% endunless %}
+                                  sizes="(min-width: 1520px) {{ 1520 | minus: 130 | divided_by: grid_row }}px, (min-width: 990px) calc((100vw - 130px) / {{ grid_row }}), (min-width: 750px) calc((100vw - 120px) / {{ grid_row }}), calc((100vw - 35px) / 2)"
+                                  width="{{ item.image.src.width }}"
+                                  height="{{ item.image.src.height }}"
+                                  alt="{{ item.image.src.alt | escape }}"
+                                >
+                              </div>
+                            {%- else -%}
+                              <div class="product-card__empty-image media--{{ media_ratio }}">
+                                <h4 class="product-card__text">{{ 'general.card.article' | t }}</h4>
+                              </div>
+                            {%- endif -%}
+                          </div>
+                          <div
+                            class="product-card__information media--{{ media_ratio }}"
+                            {% if media_ratio == 'adapt' %}
+                              style="padding-top: {{ 1 | divided_by: article_media_aspect_ratio | times: 100 }}%;"
+                            {% endif %}
+                          >
+                            <div class="product-card__information__wrapper">
+                              <h2 class="article-card__title">{{ item.title | escape }}</h2>
+                              {%- if section.settings.article_show_date or section.settings.article_show_author -%}
+                                <div class="product-card__article-info">
+                                  {%- if section.settings.article_show_date -%}
+                                    <span class="product-card__title circle-divider">
+                                      {{- item.published_at | time_tag: format: 'date' -}}
+                                    </span>
+                                  {%- endif -%}
+                                  {%- if section.settings.article_show_author -%}
+                                    <span class="product-card__title">{{ item.author }}</span>
+                                  {%- endif -%}
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    {%- when 'page' -%}
+                      <a href="{{ item.url }}" class="product-card-wrapper card-outline">
+                        <div class="product-card card--text-only background-modal">
+                          <div class="product-card__image-wrapper">
+                            <div class="product-card__empty-image media--{{ media_ratio }}">
+                              <h4 class="product-card__text">{{ item.title }}</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                  {%- endcase -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+            <ul
+              class="collection-skeleton grid {{ grid_column_class }} negative-margin hide"
+              data-skeleton-pagination-bottom
+            >
+              {% for i in (1..grid_row) %}
+                <li class="grid__item">
+                  <div class="collection-skeleton-card background-modal">
+                    <div class="collection-skeleton__container">
+                      <div
+                        class="collection-skeleton__image-wrapper media--{{ media_ratio }}"
+                        {% if media_ratio == 'adapt' %}
+                          style="padding-bottom: 100%;"
+                        {% endif %}
+                      ></div>
+                      <div class="collection-skeleton__information">
+                        <span class="skeleton__price">$00</span>
+                        <span class="skeleton__title">Product Title</span>
+                        <span class="skeleton__colors">3 colors</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div id="component-pagination-loader">
+            {%- if paginate.pages > 1 -%}
+              {% render 'load-more', paginate: paginate %}
+            {%- endif -%}
+          </div>
+        {% endpaginate %}
+      {%- endif -%}
+    </product-grid-container>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-search.name",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "grid",
+      "label": "t:sections.main-search.settings.grid.label",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-search.settings.enable_filtering.label",
+      "info": "t:sections.main-search.settings.enable_filtering.info"
+    },
+    {
+      "type": "select",
+      "id": "color_swatch_shape",
+      "options": [
+        {
+          "value": "circle",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__1.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__2.label"
+        },
+        {
+          "value": "rectangle",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__3.label"
+        }
+      ],
+      "default": "circle",
+      "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.label",
+      "info": "You can display a filter with a swatch instead of text only using the Display type [Learn more](https://help.shopify.com/en/manual/online-store/search-and-discovery/filters)"
+    },
+    {
+      "type": "range",
+      "id": "swatch_size",
+      "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_size.label",
+      "default": 22,
+      "min": 14,
+      "max": 30,
+      "unit": "px",
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-search.settings.enable_sorting.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__2.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_date",
+      "default": true,
+      "label": "t:settings_schema.layout.settings.article_show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_author",
+      "default": false,
+      "label": "t:settings_schema.layout.settings.article_show_author.label"
+    }
+  ]
+}
+{% endschema %}

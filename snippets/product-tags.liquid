@@ -1,0 +1,91 @@
+{% comment %}
+    Renders a list of product's price (regular, sale)
+
+    Accepts:
+    - product: {Object} Product Liquid object (optional)
+    - card__badge: {Boolean} Give priority to sold out and sale badge
+
+    Usage:
+    {% render 'product-tags', product: product %}
+{% endcomment %}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign theme_icons = 'bolt-lightning, megaphone, wand-magic-sparkles, house-heart, alarm-clock, reel, tag, empty-set' | split: ','
+  assign theme_tags = settings.product_tags | downcase | split: ','
+  assign theme_tags_icons = settings.product_tags_icons | split: ','
+  assign product_tags = product.tags | join: ', ' | downcase | split: ','
+  assign tags = ''
+  assign tag_icons = ''
+  assign class_name = 'color-promo-tag'
+  assign tags_limit = tags_array.size
+  assign on_sale_tag = product_tags | where: 'on sale' | first
+
+  if card__badge
+    assign tags_limit = 1
+    if product.available == false
+      assign class_name = 'alt-background'
+      assign tags = 'products.product.sold_out' | t
+      assign tag_icons = tag_icons | append: 'empty-set'
+    elsif product.compare_at_price > product.price and product.available and on_sale_tag
+      assign tags = 'products.product.on_sale' | t
+      assign tag_icons = tag_icons | append: 'tag'
+    endif
+  endif
+
+  for tag in theme_tags
+    assign handled_tag = tag | downcase | strip
+    assign tagged = product_tags | where: handled_tag | first
+    assign index = forloop.index | minus: 1
+
+    if tagged
+      if tags == ''
+        assign tags = tags | append: tagged
+      else
+        assign tags = tags | append: ',' | append: tagged
+      endif
+
+      if tag_icons == ''
+        assign tag_icons = tag_icons | append: theme_tags_icons[index]
+      else
+        assign tag_icons = tag_icons | append: ',' | append: theme_tags_icons[index]
+      endif
+    endif
+  endfor
+%}
+{% assign tag_icons = tag_icons | split: ',' %}
+<div class="product__tags">
+  {% assign tags_array = tags | split: ',' %}
+  {% for tag in tags_array limit: tags_limit %}
+    <div class="product__tags__badge {{ class_name }}">
+      {% assign index = forloop.index | minus: 1 %}
+      {% assign fontawesome_icon = '' %}
+      {% if tag_icons[index] != blank %}
+        {% liquid
+          assign icon_name = tag_icons[index] | strip
+          for theme_icon in theme_icons
+            assign theme_icon_name = theme_icon | strip
+            if theme_icon_name == icon_name
+              assign fontawesome_icon = theme_icon_name
+              break
+            endif
+          endfor
+
+          assign file_name = icon_name | append: '.png'
+          assign icon_url = file_name | file_img_url: '34x34'
+        %}
+
+        {% if fontawesome_icon != blank %}
+          <i class="badge-icon {{ icon_style }} fa-{{ fontawesome_icon }}" style="--fa-secondary-opacity: 1;"></i>
+        {% else %}
+          <span class="product__tags__badge-icon" style="background-image: url({{ icon_url }});"></span>
+        {% endif %}
+      {% endif %}
+      {%- assign badge_label = tag | strip -%}
+      {%- if badge_label == 'doodle15' -%}
+        {%- assign badge_label = 'Doodle15' -%}
+      {%- endif -%}
+      <span>{{ badge_label | escape }}</span>
+    </div>
+  {% endfor %}
+</div>

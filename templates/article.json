@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "article_banner": {
+          "type": "article_banner",
+          "settings": {
+            "image_height": "adapt",
+            "content_height": 22,
+            "background": "alt-background",
+            "parallax": true,
+            "show_scrim": true,
+            "scrim_lightness": 0
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {
+            "blog_show_date": true,
+            "blog_show_author": false,
+            "share_facebook": true,
+            "share_twitter": true,
+            "share_pinterest": true
+          }
+        }
+      },
+      "block_order": [
+        "article_banner",
+        "content"
+      ],
+      "settings": {}
+    },
+    "collection_list_WNWiti": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_9HDwDH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hunde-bilsaede",
+            "title": ""
+          }
+        },
+        "featured_collection_CGz4py": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundekurv",
+            "title": ""
+          }
+        },
+        "featured_collection_PbPRFR": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundetoj-1",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_9HDwDH",
+        "featured_collection_CGz4py",
+        "featured_collection_PbPRFR"
+      ],
+      "settings": {
+        "title": "Gå på opdagelse i vores kollektioner",
+        "subheading": "",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "image_ratio": "square",
+        "grid": 3,
+        "card_font_size": 100,
+        "font_type": "heading-font",
+        "font_style": "all_caps",
+        "background": "background-modal",
+        "show_view_all": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_hYWTTM": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_DXP6PH": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi leverer indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_dfUxV7": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_x3F3YB": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber, efter at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_cHAxgc": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_DXP6PH",
+        "feature_dfUxV7",
+        "feature_x3F3YB",
+        "feature_cHAxgc"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collection_list_WNWiti",
+    "multicolumn_hYWTTM"
+  ]
+}

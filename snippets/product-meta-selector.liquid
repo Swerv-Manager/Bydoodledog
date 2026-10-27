@@ -1,0 +1,196 @@
+{% comment %}
+  Renders a select options for products
+
+  Accepts:
+  - Option: {Object} Option Liquid object (required)
+  - currentVariant: {Object} current selected variant (required)
+  - selected_first_option
+  - variants
+  - loop_info
+  - color_swatch_type (optional)
+  - color_swatch_shape (optional)
+  - swatch_size (optional)
+
+  Usage:
+  {% render 'product-meta-selector', option: option, currentVariant: currentVariant %}
+{% endcomment %}
+
+{% liquid
+  assign option_name = option.name | downcase | strip
+  assign option_name_camelize = option_name | camelize
+  assign sold_out_variants = variants | where: 'available', false
+  assign class_option_name = option_name | handleize
+  assign product_swatches = settings.product_swatches | downcase | split: ','
+  assign option_swatch = product_swatches | where: option_name
+  assign checkbox_options = settings.checkbox_options | downcase | split: ','
+  assign option_checkbox = checkbox_options | where: option_name
+  assign checkbox_options_label = settings.checkbox_options_label | downcase | split: ','
+
+  unless color_swatch_type
+    assign color_swatch_type = 'none'
+  endunless
+
+  unless color_swatch_shape
+    assign color_swatch_shape = 'circle'
+  endunless
+
+  if option_swatch.size > 0
+    if color_swatch_type == 'color'
+      assign class_option_name = 'color'
+    elsif color_swatch_type == 'image_thumbnail'
+      assign class_option_name = 'image'
+    else
+      assign class_option_name = ''
+    endif
+    assign color_swach_option = true
+  elsif class_option_name == 'color'
+    assign class_option_name = ''
+  endif
+
+  assign section_id = section.id
+  if block_id
+    assign section_id = section.id | append: block_id
+  endif
+%}
+
+<div class="product-meta-selector product-meta-selector--{{ class_option_name }}">
+  {% if option_checkbox.size > 0 %}
+    {% liquid
+      for checkbox_option in checkbox_options
+        assign handled_checkbox_option = checkbox_option | downcase | strip
+        if handled_checkbox_option == option_name
+          assign checkbox_label = checkbox_options_label[forloop.index0]
+        endif
+      endfor
+    %}
+    {% render 'product-meta-checkbox',
+      option: option,
+      currentVariant: currentVariant,
+      variants: variants,
+      section_id: section_id,
+      loop_info: loop_info,
+      checkbox_label: checkbox_label
+    %}
+  {% else %}
+    <fieldset
+      class="product-meta-option product-meta-option--{{ option_name_camelize }} js product-form__item selector-wrapper"
+      data-selector-button="true"
+    >
+      <legend class="form__label product-form__label">
+        {% if color_swach_option and color_swatch_type != 'none' %}
+          {{ option.name }}:
+          <span class="product-form__selected-status selected-status--color">
+            {% assign selected_option_swatch = product_swatches | where: selected_first_option.name %}
+            {% if selected_option_swatch.size > 0 %}
+              {% assign first_option_color = true %}
+            {% endif %}
+            {% if selected_first_option != blank and first_option_color %}
+              {{ selected_first_option.selected_value }}
+            {% endif %}
+          </span>
+        {% else %}
+          {{ 'products.product.select' | t }}
+          {{ option.name }}
+        {% endif %}
+      </legend>
+      <div class="single-option-selector--box product-form__input single-option-selector--box-{{ class_option_name }}">
+        {%- for value in option.values -%}
+          {% liquid
+            if color_swach_option
+              assign handle_value = value | handleize
+              assign camelcase_value = value | camelcase
+              assign swatch_size_2 = swatch_size | times: 2
+              assign color_img_size = swatch_size_2 | append: 'x' | append: swatch_size_2
+              assign color_img_url = handle_value | append: '.png' | file_img_url: color_img_size
+              assign color_img_size_version = color_img_size | append: '.png?v='
+              assign color_img_version = color_img_url | split: color_img_size_version
+            endif
+          %}
+          {%- capture input_name -%}
+            {{ option.name }}-{{ option.position }}
+          {%- endcapture -%}
+          <div
+            class="single-option-selector__wrap-option{% if color_swach_option and color_swatch_type != 'none' %} single-option-selector__wrap-option--shape single-option-selector__wrap-option--{{ color_swatch_shape }}{% endif %}"
+            {% if color_swach_option and color_swatch_type != 'none' %}
+              style="--swatch-size: {{ swatch_size }};"
+            {% endif %}
+          >
+            {% liquid
+              assign value_sold_out = false
+              if selected_first_option != blank
+                for variant in sold_out_variants
+                  assign first_value_sold = variant.options | where: selected_first_option.selected_value
+                  assign value_sold = variant.options | where: value
+                  if first_value_sold.size == 1 and value_sold.size == 1
+                    assign value_sold_out = true
+                  endif
+                endfor
+              endif
+            %}
+            <input
+              type="radio"
+              id="{{ section_id }}-{{ option_name_camelize }}-{{ forloop.index0 }}"
+              name="{{ input_name | escape }}"
+              value="{{ value | escape }}"
+              form="product-form-{{ section_id }}"
+              data-name="{{ option.name | downcase }}"
+              {% if option.selected_value == value %}
+                checked
+              {% endif %}
+              {% if class_option_name == 'color' and value_sold_out == true %}
+                data-disabled="true"
+              {% endif %}
+            >
+            <div class="single-option-selector__option-wrap">
+              <label
+                class="single-option-selector__option btn--style-2 single-option-selector__option--{{ class_option_name }}"
+                for="{{ section_id }}-{{ option_name_camelize }}-{{ forloop.index0 }}"
+              >
+                {% if color_swach_option and color_swatch_type != 'none' %}
+                  {% if color_swatch_type == 'color' %}
+                    <span
+                      class="selector-color-square chip-color"
+                      style="{% if color_img_version.size >= 2 %} background-image: url({{ color_img_url }});{% else %} background-color: {{ camelcase_value }};{% endif %}"
+                      data-adaptive-text
+                    >
+                    </span>
+                    <span class="selector-color-label-text">{{ value | escape }}</span>
+                  {% else %}
+                    {% liquid
+                      assign option_position = option.position | minus: 1
+                      assign variant_image = ''
+                      for variant in variants
+                        assign variant_option = variant.options[option_position]
+                        if variant_option == value and variant.image
+                          assign variant_image = variant.image
+                          break
+                        endif
+                      endfor
+                    %}
+                    <span class="visually-hidden">{{ value }}</span>
+                    {% if variant_image != blank %}
+                      {% assign image_size = swatch_size | times: 122 | divided_by: 100 %}
+                      {% assign image_size_2 = image_size | plus: 22 | times: 2 | append: 'x' %}
+                      <img
+                        class="single-option-selector__option__swatch-img lazyload"
+                        src="{{ variant_image | image_url: width: image_size_2 }}"
+                        alt="{{ variant_image.alt | escape }}"
+                        width="{{ image_size | plus: 22 }}"
+                        height="{{ image_size | divided_by: variant_image.aspect_ratio | ceil }}"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="single-option-selector__option__swatch-img"></div>
+                    {% endif %}
+                  {% endif %}
+                {% else %}
+                  <span class="single-option-selector__option__text">{{ value }}</span>
+                {% endif %}
+              </label>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+  {% endif %}
+</div>

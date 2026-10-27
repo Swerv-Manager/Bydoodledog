@@ -1,0 +1,414 @@
+.article-template {
+  margin: 1.8125rem auto;
+}
+
+.article-template-wrap {
+  background: rgb(var(--color-background));
+  border-radius: var(--border-radius-container);
+  overflow: hidden;
+}
+
+/* .article-banner--small {
+  padding-bottom: 56.25%;
+}
+
+.article-banner--medium {
+  padding-bottom: 67%;
+}
+
+.article-banner--large {
+  padding-bottom: 80%;
+} */
+
+.article-banner__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.article-banner {
+  background: rgb(var(--color-background));
+  min-height: calc( 100px * var(--content-height));
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+.article-banner::before {
+  content: "";
+  display: block;
+  padding-bottom: calc(100% / var(--image-aspect-ratio));
+  width: 0;
+}
+
+.article-banner-wrap {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.article-banner__content {
+  position: relative;
+  display: flex;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  z-index: 1;
+}
+
+.article-banner .media.placeholder {
+  padding: 1.25rem 0;
+  min-height: calc(18.75rem * var(--content-height));
+  display: flex;
+}
+
+.article-banner .media.placeholder .article-banner__content {
+  position: static;
+  align-self: center;
+}
+
+.article-template__title {
+  font-size: calc(var(--font-heading-scale) * 3.625rem);
+  color: rgb(var(--color-foreground));
+  text-align: center;
+  max-width: 33.125rem;
+  margin: 1.0625rem 0;
+}
+
+.article-template__content {
+  padding: 2.375rem;
+}
+
+.article-template__content-header {
+  display: flex;
+}
+
+.article-template__article-info {
+  flex: 1;
+  min-height: 42px;
+  padding-right: 60px;
+  margin-bottom: 1.375rem;
+}
+
+.article-template__author-content {
+  line-height: calc(1 + 0.1 / var(--font-body-scale));
+}
+
+.article-template__date,
+.article-template__author {
+  color: rgb(var(--color-foreground));
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+.article-template__article-info .btn {
+  padding: 0.9375rem 1.875rem;
+  margin-top: 1.375rem;
+}
+
+p.article-template__excerpt {
+  font-family: var(--font-heading-family);
+  font-size: calc(var(--font-heading-scale) * 1.25rem);
+  font-weight: 900;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 0.25rem;
+}
+
+.article-template__social-sharing {
+  position: relative;
+  width: 50px;
+  order: 1;
+}
+
+.share-button {
+  position: absolute;
+  right: 0px;
+}
+
+.share-button__button {
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-background));
+  border: 1px solid transparent;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-form-elements);
+  padding: 0;
+  transition: width .24s ease-out;
+}
+
+.share-button__icon-share,
+.share-button__icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: opacity .2s ease-out;
+}
+
+.share-button__icon-share {
+  opacity: 1;
+}
+
+.share-button__button .icon-share {
+  height: 35px;
+}
+
+.share-button__icon-close {
+  opacity: 0;
+  padding: 12px;
+  top: 5px;
+}
+
+.share-button__button .icon-close {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: rgb(var(--color-foreground-2));
+  display: block;
+}
+
+.share-button__social-content {
+  opacity: 0;
+  transition: all 0.48s ease-out;
+  display: flex;
+}
+
+.share-button__social-content .share-button__icon-share {
+  visibility: hidden;
+  position: static;
+}
+
+.share-button__button .social-sharing {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: .2s;
+  height: 100%;
+}
+
+.social-links-container li {
+  display: inline;
+  margin: 0;
+}
+
+.share-button__button .social-sharing a {
+  color: rgb(var(--color-foreground));
+  padding: 12px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.share-button__button .btn--share .icon {
+  margin: 0;
+}
+
+.share-button__button--open {
+  border: 1px solid;
+}
+
+.share-button__button--open .social-sharing {
+  max-width: 220px;
+  opacity: 1;
+}
+
+.share-button__button--open .share-button__social-content {
+  opacity: 1;
+}
+
+.share-button__button--open .social-sharing a {
+  pointer-events: initial;
+}
+
+.share-button__button--open .share-button__icon-share {
+  opacity: 0;
+}
+
+.share-button__button--open .share-button__icon-close {
+  opacity: 1;
+}
+
+.share-button__label {
+  font-family: var(--font-subheading-family);
+  font-style: var(--font-subheading-style);
+  font-weight: var(--font-subheading-weight);
+  display: block;
+  text-transform: uppercase;
+  font-size: calc(var(--font-subheading-scale) * 0.75rem);
+  width: 100%;
+  text-align: center;
+  color: rgb(var(--color-foreground));
+  margin-top: 4px;
+}
+
+.article-template__comment-wrapper {
+  background: rgb(var(--color-background));
+  border-radius: var(--border-radius-container);
+  margin-top: 3.125rem;
+}
+
+.article-template__comment-wrapper > div {
+  padding: 2.375rem;
+}
+
+.article-template__comment-wrapper details[open] .icon {
+  transform: rotate(90deg);
+}
+
+.article-template__comment-summary {
+  margin-bottom: 0.75rem;
+}
+
+.article-template__comment-summary-title {
+  display: flex;
+  color: rgb(var(--color-foreground));
+  align-items: center;
+  margin-bottom: 29px;
+}
+
+.article-template__comment-summary-title .icon {
+  margin-right: 1.5625rem;
+}
+
+.article-template__comment-summary-title img {
+  margin-right: 0.5625rem;
+  border-radius: var(--border-radius-thumnails);
+}
+
+.article-template__comment-summary-title h4 {
+  font-size: calc(var(--font-heading-scale) * 1rem);
+  margin-bottom: 0;
+}
+
+.article-template__comment-wrapper h3 {
+  font-size: calc(var(--font-heading-scale) * 1.5rem);
+}
+
+.article-template__comments-title {
+  margin-bottom: 1.625rem;
+}
+
+.article-template__comments {
+  margin-bottom: 3.625rem;
+}
+
+.article-template__comments p {
+  font-size: 0.875rem;
+  color: rgb(var(--color-foreground));
+  font-weight: 300;
+  margin-bottom: 0.625rem;
+}
+
+.article-template__comments .skeleton-view {
+  display: block;
+  margin: 2.5rem 0;
+}
+
+.article-template__comments-comment {
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: solid 1px rgb(var(--color-secondary-background));
+}
+
+.article-template__comments-comment:last-child {
+  border: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.article-template__comments-comment footer span {
+  display: block;
+  color: rgb(var(--color-foreground));
+}
+
+.article-template__comments-author {
+  font-size: calc(var(--font-heading-scale) * 1.25rem);
+  font-family: var(--font-heading-family);
+  font-weight: 900;
+}
+
+.article-template__comments-date {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.comment-form {
+  max-width: 30.625rem;
+  margin: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .article-template__title {
+    font-size: calc(var(--font-heading-scale) * 3rem);
+  }
+
+  .article-template__content,
+  .article-template__comment-wrapper > div {
+    padding: 2.25rem 2.125rem;
+  }
+
+  .article-template__article-info {
+    padding-right: 20px;
+  }
+
+  p.article-template__excerpt {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .article-banner .media.placeholder {
+    min-height: 12.5rem;
+  }
+
+  .article-template__title {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+
+  .article-template__comment-wrapper {
+    margin-top: 3rem;
+  }
+
+  .article-template__content,
+  .article-template__comment-wrapper > div {
+    padding: 1.875rem 0.8125rem;
+  }
+
+  .article-template__content-header {
+    display: block;
+  }
+
+  .article-template__article-info {
+    padding-right: 0;
+  }
+
+  .article-template__social-sharing {
+    float: right;
+    height: 50px;
+    margin-bottom: 20px;
+    margin-left: 8px;
+  }
+}
+
+
+@media screen and (max-width: 320px) {
+  .share-button__button--open .social-sharing {
+    max-width: 140px;
+    min-width: 111px;
+    flex-wrap: wrap;
+  }
+}

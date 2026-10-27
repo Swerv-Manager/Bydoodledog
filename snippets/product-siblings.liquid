@@ -1,0 +1,77 @@
+<div id="{{ product_siblings_id }}" class="product__siblings product-meta-selector product-meta-selector--color">
+  <fieldset
+    class="product-meta-option product-meta-option--color js product-form__item selector-wrapper"
+    data-selector-button="true"
+  >
+    <legend class="form__label product-form__label">
+      {{ block.settings.sibling_option }}:
+      <span class="product-form__selected-status selected-status--color">
+        {{ block.settings.sibling_option_value }}
+      </span>
+    </legend>
+    {% liquid
+      assign class_option_name = ''
+      if block.settings.color_swatch_type == 'image_thumbnail'
+        assign class_option_name = 'image'
+      elsif block.settings.color_swatch_type == 'color'
+        assign class_option_name = 'color'
+      endif
+    %}
+    <ul class="single-option-selector--box product-form__input single-option-selector--box-{{ class_option_name }}">
+      {% for sibling in collections[block.settings.sibling_collection].products %}
+        {% liquid
+          assign value = sibling.metafields.theme.sibling_option_value.value
+          assign hadle_value = value | handleize
+          assign camelcase_value = value | camelcase
+          assign swatch_size_2 = block.settings.swatch_size | times: 2
+          assign color_img_size = swatch_size_2 | append: 'x' | append: swatch_size_2
+          assign color_img_url = hadle_value | append: '.png' | file_img_url: color_img_size
+          assign color_img_size_version = color_img_size | append: '.png?v='
+          assign color_img_version = color_img_url | split: color_img_size_version
+
+          assign sold_out = false
+          unless sibling.available
+            assign sold_out = true
+          endunless
+        %}
+        <li
+          class="single-option-selector__wrap-option{% if block.settings.color_swatch_type != 'none' %} single-option-selector__wrap-option--shape single-option-selector__wrap-option--{{ block.settings.color_swatch_shape }}{% endif %}"
+          style="--swatch-size: {{ block.settings.swatch_size }};"
+        >
+          <div class="single-option-selector__option-wrap{% if block.settings.sibling_option_value == value %} single-option-selector__option-wrap--checked{% endif %}">
+            <div class="single-option-selector__option btn--style-2 single-option-selector__option--{{ class_option_name }}{% if sold_out %} sold-out{% endif %}">
+              <a class="product__siblings__option{% if sold_out %} sold-out{% endif %}" href="{{ sibling.url }}">
+                {% if block.settings.color_swatch_type == 'color' %}
+                  <span
+                    class="selector-color-square chip-color"
+                    style="{% if color_img_version.size >= 2 %} background-image: url({{ color_img_url }});{% else %} background-color: {{ camelcase_value }};{% endif %}"
+                    data-adaptive-text
+                  >
+                  </span>
+                  <span class="selector-color-label-text">{{ value | escape }}</span>
+                {% elsif block.settings.color_swatch_type == 'image_thumbnail' %}
+                  {% assign variant_image = sibling.first_available_variant.image | default: sibling.featured_media %}
+                  <span class="visually-hidden">{{ value }}</span>
+                  {% if variant_image %}
+                    {% assign image_size = block.settings.swatch_size | times: 122 | divided_by: 100 %}
+                    {% assign image_size_2x = image_size | plus: 22 | times: 2 | append: 'x' %}
+                    <img
+                      class="single-option-selector__option__swatch-img lazyload"
+                      src="{{ variant_image | image_url: width: image_size_2x }}"
+                      alt="{{ variant_image.alt | escape }}"
+                      width="{{ image_size | plus: 22 }}"
+                      height="{{ image_size | divided_by: variant_image.aspect_ratio | ceil }}"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                {% else %}
+                  <span class="single-option-selector__option__text">{{ value }}</span>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </fieldset>
+</div>

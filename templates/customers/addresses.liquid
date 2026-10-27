@@ -1,0 +1,126 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer addresses" data-customer-addresses>
+  <div class="page-width page-width--account">
+    <div class="myaccount-nav-back text-center">
+      <a href="{{ routes.account_url }}" class="header__icon header__icon--back-button link link--text">
+        <i class="icon icon-arrow-left {{ icon_style }} fa-swap-opacity fa-chevron-left"></i>
+      </a>
+      <h2 class="myaccount_title">{{ 'customer.addresses.title' | t }}</h2>
+    </div>
+    <div class="text-center">
+      <a
+        class="btn btn--small"
+        href="{{ routes.account_addresses_url }}?view=add"
+      >
+        {{ 'customer.addresses.add_new' | t }}
+      </a>
+    </div>
+  </div>
+
+  <div class="page-width page-width--account myaccoun-margin-bottom">
+    {% comment %}
+      [TO-DO] Add pagination in case they have a large number of addresses
+    {% endcomment %}
+
+    {% if customer.addresses.size != 0 %}
+      <table class="address-table">
+        {% assign default_address = customer.default_address %}
+        <tr>
+          <td>
+            {% if default_address.first_name != blank or default_address.last_name != blank  %}
+              <h4>{{ 'customer.addresses.full_name' | t }}</h4>
+              <p>{{ default_address.first_name }} {{ default_address.last_name }}</p>
+            {% else %}
+              <h4>{{ 'customer.addresses.company' | t }}</h4>
+              <p>{{ default_address.company }}</p>
+            {% endif %}
+          </td>
+          <td>
+            <h4>{{ 'customer.addresses.address' | t }}</h4>
+            <p class="txt--number">
+              {%- if default_address.address1 != blank -%}{{ default_address.address1 }} <br>{%- endif -%}
+              {%- if default_address.address2 != blank -%}{{ default_address.address2 }} <br>{%- endif -%}
+              {%- if default_address.city != blank -%}{{ default_address.city }},{%- endif -%} {%- if default_address.province_code != blank or default_address.zip != blank -%}{{ default_address.province_code }} {{ default_address.zip }} <br>{%- endif -%}
+              {{ default_address.country }} <br>
+
+            </p>
+          </td>
+          <td class="address-table__actions text-right">
+            <div class="default-address"><i class="icon-check {{ icon_style }} fa-check"></i><span>{{ 'customer.addresses.default' | t }}</span></div>
+            <ul class="list--inline">
+              <li>
+                <a href="{{ routes.account_addresses_url }}?view=edit&address_id={{ default_address.id }}" class="btn btn--small">
+                  {{ 'customer.addresses.edit' | t }}
+                </a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        {% for address in customer.addresses %}
+          {% if address == customer.default_address %}
+            {% continue %}
+          {% else %}
+            <tr>
+              <td>
+                {% if address.first_name != blank or address.last_name != blank  %}
+                  <h4>{{ 'customer.addresses.full_name' | t }}</h4>
+                  <p>{{ address.first_name }} {{ address.last_name }}</p>
+                {% else %}
+                  <h4>{{ 'customer.addresses.company' | t }}</h4>
+                  <p>{{ address.company }}</p>
+                {% endif %}
+              </td>
+              <td>
+                <h4>{{ 'customer.addresses.address' | t }}</h4>
+                <p class="txt--number">
+                  {%- if address.address1 != blank -%}{{ address.address1 }} <br>{%- endif -%}
+                  {%- if address.address2 != blank -%}{{ address.address2 }} <br>{%- endif -%}
+                  {%- if address.city != blank -%}{{ address.city }},{%- endif -%} {%- if address.province_code != blank or address.zip != blank -%}{{ address.province_code }} {{ address.zip }} <br>{%- endif -%}
+                  {{ address.country }} <br>
+                </p>
+              </td>
+              <td class="address-table__actions text-right">
+                <ul class="list--inline">
+                  <li>
+                    <button
+                      type="button"
+                      class="btn btn--secondary btn--small address-delete"
+                      aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
+                      data-target="{{ address.url }}"
+                      data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                    >
+                      {{ 'customer.addresses.delete' | t }}
+                    </button>
+                  </li>
+                  <li>
+                    <a href="{{ routes.account_addresses_url }}?view=edit&address_id={{ address.id }}" class="btn btn--small">
+                      {{ 'customer.addresses.edit' | t }}
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+    {% else %}
+      <div class="text-center myaccount--empty-state">
+        <h3>{{ 'customer.addresses.empty_title' | t }}</h3>
+        <p>{{ 'customer.addresses.none' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--from">
+          {{ 'customer.addresses.shop_now' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  window.onload = () => {
+    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
+  }
+</script>

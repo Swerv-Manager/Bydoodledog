@@ -1,0 +1,215 @@
+{{ 'section-email-signup-banner.css' | asset_url | stylesheet_tag }}
+{% assign icon_style = settings.icons_style %}
+<div class="email-signup-banner banner">
+  {% if section.settings.image != blank %}
+    <div class="banner__media media">
+      <img
+        srcset="{%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+          {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+          {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+          {%- if section.settings.image.width >= 2000 -%}{{ section.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+          {%- if section.settings.image.width >= 3000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {%- if section.settings.image.width >= 3840 -%}{{ section.settings.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+          {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+        sizes="100vw"
+        src="{{ section.settings.image | image_url: width: 1500 }}"
+        loading="lazy"
+        alt="{{ section.settings.image.alt | escape }}"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio }}"
+      >
+    </div>
+  {% endif %}
+  <div class="banner__content page-width page-width--without-padding">
+    <div class="password-card-wrapper background-modal">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h2 class="password-card__title text-center" {{ block.shopify_attributes }}>
+              {{ block.settings.heading | escape }}
+            </h2>
+          {%- when 'paragraph' -%}
+            <div class="password-card__subtitle text-center rte" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </div>
+          {%- when 'email_form' -%}
+            <signup-banner>
+              <div {{ block.shopify_attributes }}>
+                {% form 'customer', class: 'newsletter-form' %}
+                  {%- if form.posted_successfully? -%}
+                    <div class="form-status-list form__message" id="Newsletter-success--{{ section.id }}" role="status">
+                      <p class="form-status" tabindex="-1" autofocus><i class="icon-check {{ icon_style }} fa-check"></i>{{ block.settings.success_message }}</p>
+                    </div>
+                  {%- endif -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div class="form-vertical">
+                    <div class="field-wrapper">
+                      <input
+                        id="NewsletterForm--{{ section.id }}"
+                        type="email"
+                        name="contact[email]"
+                        class="field-wrapper__input{% if form.errors %} input--error{% endif %}"
+                        value="{{ form.email }}"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        {% if form.errors %}
+                          autofocus
+                          aria-invalid="true"
+                          aria-describedby="Newsletter-error--{{ section.id }}"
+                        {% elsif form.posted_successfully? %}
+                          aria-describedby="Newsletter-success--{{ section.id }}"
+                        {% endif %}
+                        placeholder="{{ 'newsletter_form.email_placeholder' | t }}"
+                      >
+                      <label class="field-wrapper__label" for="NewsletterForm--{{ section.id }}">
+                        <span class="field-wrapper__label-name">{{ 'newsletter_form.email_placeholder' | t }}</span>
+                      </label>
+                      <span class="field-wrapper__icon-error{% unless form.errors contains 'form' %} hide{% endunless %}" aria-invalid="true">
+                        <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                      </span>
+                    </div>
+                    <span class="input-error-message hide">
+                      <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                      <span></span>
+                    </span>
+                    {%- if form.errors -%}
+                      <div class="form-message form-message--error" id="Newsletter-error--{{ section.id }}">
+                        {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                      </div>
+                    {%- endif -%}
+
+                    <div class="input-group__btn">
+                      <button type="submit" class="btn btn--small" name="commit" id="Subscribe" aria-label="{{ 'newsletter_form.submit' | t }}">
+                        {{ 'newsletter_form.submit' | t }}
+                      </button>
+                    </div>
+                  </div>
+                {% endform %}
+              </div>
+            </signup-banner>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+  window.onload = () => {
+    class SignupBanner extends HTMLElement {
+      constructor() {
+        super();
+
+        this.signupForm = this.querySelector('.newsletter-form');
+
+        if (this.signupForm) {
+          this.submitButton = this.signupForm.querySelector('button[type="submit"]');
+
+          if (this.submitButton) {
+            this.submitButton.removeAttribute('disabled');
+          }
+
+          clearInputErrors(this.signupForm);
+
+          this.signupForm.addEventListener('submit', this.handleSubmit.bind(this));
+        }
+      }
+
+      handleSubmit(evt) {
+        const formIsValid = validateForm(this.signupForm);
+
+        if (formIsValid) {
+          if (this.submitButton) {
+            this.submitButton.classList.add('btn--loading');
+          }
+        } else {
+          evt.preventDefault();
+        }
+      }
+    }
+
+    customElements.define('signup-banner', SignupBanner);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.email-signup-banner.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.email-signup-banner.settings.paragraph.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.email-signup-banner.settings.image.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.email-signup-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Opening soon",
+          "label": "t:sections.email-signup-banner.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "t:sections.email-signup-banner.blocks.paragraph.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Be the first to know when we launch.</p>",
+          "label": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.label"
+        }
+      ]
+    },
+    {
+      "type": "email_form",
+      "name": "t:sections.email-signup-banner.blocks.email_form.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "success_message",
+          "default": "You’re in! We’ll let you know when we launch!",
+          "label": "t:sections.email-signup-banner.blocks.email_form.settings.success_message.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.email-signup-banner.presets.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "email_form"
+        }
+      ]
+    }
+  ],
+  "templates": [
+    "password"
+  ]
+}
+{% endschema %}

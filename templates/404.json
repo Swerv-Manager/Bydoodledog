@@ -1,0 +1,148 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "title": "🐶 Sporhunden kunne ikke finde det du søgte...",
+        "text": ""
+      }
+    },
+    "featured_collection_CNgLCq": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Sporhundens favoritter",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "collection": "bestsellers",
+        "product_list": [],
+        "columns": 4,
+        "font_card_size": 100,
+        "background": "background-modal",
+        "show_view_all": true,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "collection_list_ht9Qkd": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_rGYPC4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hunde-bilsaede",
+            "title": ""
+          }
+        },
+        "featured_collection_Ae6XjX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundekurv",
+            "title": ""
+          }
+        },
+        "featured_collection_GKpbbw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundetoj-1",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_rGYPC4",
+        "featured_collection_Ae6XjX",
+        "featured_collection_GKpbbw"
+      ],
+      "settings": {
+        "title": "Søgte du efter nogle af dem her?",
+        "subheading": "",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "image_ratio": "square",
+        "grid": 3,
+        "card_font_size": 100,
+        "font_type": "heading-font",
+        "font_style": "all_caps",
+        "background": "background-modal",
+        "show_view_all": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_9qEitj": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_Lf4tYn": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi levere indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_n7VaUc": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_EzAn7i": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber os efter at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_qeUafk": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over 10 års erfaring med hundetræning og opdrætning</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_Lf4tYn",
+        "feature_n7VaUc",
+        "feature_EzAn7i",
+        "feature_qeUafk"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_collection_CNgLCq",
+    "collection_list_ht9Qkd",
+    "multicolumn_9qEitj"
+  ]
+}

@@ -1,0 +1,87 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_height": 28,
+        "background": "alt-background-2",
+        "parallax": false,
+        "show_scrim": true,
+        "scrim_lightness": 0
+      }
+    },
+    "multicolumn_AUtMWV": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_8acbx8": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-2 dages levering",
+            "text": "<p>Vi leverer indenfor 1-2 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_ciyMhE": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_fnmaX7": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_wnGNa8": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_8acbx8",
+        "feature_ciyMhE",
+        "feature_fnmaX7",
+        "feature_wnGNa8"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "multicolumn_AUtMWV"
+  ]
+}

@@ -1,0 +1,354 @@
+.section-size-chart h3 {
+  color: rgb(var(--color-foreground));
+}
+
+.section-size-chart__note {
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+}
+
+.card-tabs {
+  color: rgb(var(--color-foreground));
+  display: flex;
+  flex-direction: column;
+}
+
+.card-tabs th,
+.card-tabs td {
+  border: solid 1px;
+}
+
+.card-tabs .card-tabs__body {
+  position: relative;
+  background-color: rgb(var(--color-background));
+  padding: 20px 0 20px 20px;
+  border-radius: 0;
+  line-height: 140%;
+}
+
+.card-tabs .card-tabs__section {
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.card-tabs .card-tabs__section--active {
+  opacity: 1;
+}
+
+.product-single_measurements .measurements-table {
+  /* overflow: hidden; */
+  width: 100%;
+  text-align: center;
+  line-height: 1.4rem;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  position: relative;
+  z-index: 0;
+  border-spacing: 0;
+}
+
+.product-single_measurements colgroup.hover {
+  background: rgb(var(--color-button), 0.1);
+}
+
+.product-single_measurements colgroup.hover:nth-child(1) {
+  background: none;
+}
+
+.product-single_measurements thead {
+  font-family: var(--font-body-family);
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 1px;
+  background: none;
+}
+
+.product-single_measurements thead tr:hover {
+  background: none;
+}
+
+.product-single_measurements thead th {
+  font-family: var(--font-heading-family);
+  font-size: calc(var(--font-heading-scale) * 1rem);
+}
+
+.product-single_measurements thead td {
+  box-shadow: none;
+}
+
+.product-single_measurements thead:first-child td,
+.product-single_measurements thead:first-child th {
+  border-top: none;
+}
+
+.product-single_measurements td .indicator,
+.product-single_measurements th .indicator {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.product-single_measurements body:not(.nohover) tbody tr:hover {
+  background-color: rgb(var(--color-button), 0.1);
+}
+
+.product-single_measurements td.column_header:nth-child(1) {
+  width: 1px;
+  padding-right: 15px;
+  color: rgb(var(--color-background));
+  border-color: rgb(var(--color-background), 0.4);
+  letter-spacing: initial;
+}
+
+.product-single_measurements .column_header:nth-child(1):before {
+  content: '';
+  background-color: rgb(var(--color-foreground-2)) !important;
+  height: 400px;
+  left: -20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% + 20px);
+  z-index: -1;
+}
+
+.product-single_measurements td .indicator:before {
+  content: '';
+  height: calc(120px * var(--number-of-rows));
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  z-index: -1;
+}
+
+.product-single_measurements:not(.remove-hover-column) td:hover .indicator:before,
+.product-single_measurements:not(.remove-hover-column) th:hover .indicator:before,
+.product-single_measurements:not(.remove-hover-column) td:focus .indicator:before,
+.product-single_measurements:not(.remove-hover-column) th:focus .indicator:before {
+  background-color: rgb(var(--color-button), 0.1);
+}
+
+.product-single_measurements td:first-child:hover::before {
+  background-color: rgb(var(--color-background));
+}
+
+.product-single_measurements td:focus::before,
+.product-single_measurements tbody th:focus::before {
+  background-color: rgb(var(--color-button), 0.1);
+  content: '';
+  height: 100%;
+  top: 0;
+  left: -5000px;
+  position: absolute;
+  width: 10000px;
+  z-index: -1;
+}
+
+.product-single_measurements tr {
+  background: none;
+  position: relative;
+}
+
+.product-single_measurements tr:hover td {
+  background: rgb(var(--color-button), 0.1);
+}
+
+.product-single_measurements__headcol tr:hover td {
+  background: none;
+}
+
+.product-single_measurements__headcol .measurement-extra {
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  opacity: 0;
+  width: 0;
+}
+
+.product-single_measurements thead tr:hover td {
+  background: none;
+}
+
+.product-single_measurements td {
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 400;
+  min-width: 30px;
+  transition: background-color 0.2s ease-in;
+}
+
+.product-single_measurements td:first-child {
+  padding: 3px 5px;
+  min-width: 121px;
+}
+
+.product-single_measurements td,
+.product-single_measurements th {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  font-family: var(--font-body-family);
+  line-height: 2.3;
+  text-align: center;
+  border: none;
+  border-top: solid 1px rgb(var(--color-foreground-2),.2);
+  white-space: nowrap;
+  padding: 3px 0;
+  height: 42px;
+}
+
+.product-single_measurements td:nth-child(1),
+.product-single_measurements th:nth-child(1) {
+  text-align: left;
+  font-family: var(--font-heading-family);
+  color: rgb(var(--color-background));
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: calc(var(--font-heading-scale) * 1rem);
+  border-left: none;
+}
+
+.product-single_measurements td:nth-child(1) span,
+.product-single_measurements th:nth-child(1) span {
+  color: rgb(var(--color-button));
+  display: inline-block;
+}
+
+.product-single_measurements td:nth-last-child(1),
+.product-single_measurements th:nth-last-child(1) {
+  border-right: none;
+}
+
+.product-single_measurements tfoot tr {
+  height: 10px;
+}
+
+.product-single_measurements .product-single_measurements__headcol {
+  position: absolute;
+  min-width: 135px;
+  left: 0;
+  top: 0;
+  padding: 20px 0 20px 20px;
+  text-align: left;
+  font-family: var(--font-body-family);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1rem;
+  z-index: 1;
+  display: block;
+  background-color: rgb(var(--color-background));
+  opacity: 0;
+}
+
+.product-single_measurements .product-single_measurements__headcol td {
+  opacity: 1;
+  border-color: rgb(var(--color-background), 0.4);
+  padding-right: 15px;
+}
+
+.product-single_measurements .product-single_measurements__headcol table {
+  margin-bottom: 0;
+}
+
+.product-single_measurements .product-single_measurements__headcol tr:first-child td {
+  border: none;
+}
+
+@media only screen and (min-width: 1000px) {
+  .card-tabs {
+    border-radius: var(--border-radius-container);
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .section-size-chart {
+    padding: 0;
+  }
+
+  .page-width--padding {
+    padding: 0 20px;
+  }
+
+  .section-size-chart__note {
+    margin: 0.75rem 15px 0;
+  }
+
+  .card-tabs .card-tabs__body {
+    padding: 10px 0 10px 10px;
+  }
+
+  .product-single_measurements .measurements-table {
+    overflow: hidden;
+  }
+
+  .product-single_measurements thead th {
+    font-size: calc(var(--font-heading-scale) * 1rem);
+  }
+
+  .product-single_measurements__headcol .measurement-extra {
+    font-size: 1rem;
+    line-height: 2.1;
+  }
+
+  .product-single_measurements td {
+    font-size: 1rem;
+  }
+
+  .product-single_measurements td:first-child {
+    width: 121px;
+  }
+
+  .product-single_measurements td,
+  .product-single_measurements th {
+    line-height: 2.1;
+  }
+
+  .product-single_measurements .product-single_measurements__content {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: visible;
+  }
+
+  .product-single_measurements td span,
+  .product-single_measurements th span {
+    padding: 0 18px;
+  }
+
+  .product-single_measurements .measurements-table td,
+  .product-single_measurements .measurements-table th {
+    border-top: solid 1px rgb(var(--color-foreground-2), 0.2);
+  }
+
+  .product-single_measurements td:first-child span {
+    padding: 0;
+  }
+
+  .product-single_measurements thead:first-child tr {
+    border: none;
+  }
+
+  .product-single_measurements .product-single_measurements__headcol {
+    border-radius: 0px var(--border-radius-container) var(--border-radius-container) 0;
+    background-color: rgb(var(--color-foreground-2));
+    box-shadow: 0 0 3px #00000080;
+    border-right: none;
+    padding: 10px 0 10px 10px;
+    opacity: 1;
+  }
+
+  .product-single_measurements td, .product-single_measurements th {
+    border-right: none;
+  }
+
+  .card-tabs {
+    border-left: none;
+    border-right: none;
+  }
+}

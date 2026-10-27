@@ -1,0 +1,1079 @@
+{{ 'section-featured-shops.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign animation_delay = 0.00
+  assign icon_style = settings.icons_style
+  assign brand_icons = 'facebook, instagram, linkedin, pinterest, snapchat, tiktok, tumblr, twitter, vimeo-v, youtube' | split: ','
+%}
+
+<div class="section-{{ section.id }}-padding">
+  <div
+    class="featured-shops page-width"
+    style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+  >
+    <h2 class="h1 {{ section.settings.color_text }} scroll-animate fade-in">{{ section.settings.title }}</h2>
+    <ul style="--size-scale: {{ section.settings.circle_size | divided_by: 100.0 }};">
+      {% for block in section.blocks %}
+        {%- assign animation_delay = animation_delay | plus: 0.08 -%}
+        <li
+          class="featured-shops__item {{ section.settings.font_type }}{% if section.settings.font_style == 'all_caps' %} uppercase{% endif %}"
+          style="--icon-scale: {{ block.settings.icon_size | divided_by: 100.0 }};"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.link != blank -%}
+            <a class="featured-shops__item-wrap" href="{{ block.settings.link }}">
+          {%- else -%}
+            <div class="featured-shops__item-wrap">
+          {%- endif -%}
+          <div
+            class="shop-bubble {{ section.settings.background }} scroll-animate zoom-in-fade-in"
+            style="animation-delay: {{ animation_delay }}s;"
+          >
+            <div class="shop-bubble__wrap">
+              {% if block.settings.image != blank %}
+                <div class="shop-bubble__image media media--transparent">
+                  {%- assign image_height = block.settings.image.width
+                    | divided_by: block.settings.image.aspect_ratio
+                  -%}
+                  {%- capture sizes -%}(min-width: 1520px) 120, (min-width: 768px) 100, calc(100vw / 2){%- endcapture -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 720
+                    | image_tag:
+                      width: block.settings.image.width,
+                      height: image_height,
+                      class: 'motion-reduce media__transparent',
+                      sizes: sizes,
+                      widths: '120, 330, 533, 720',
+                      alt: block.settings.image.alt
+                    | escape
+                  }}
+                </div>
+              {% elsif block.settings.icon != 'none' %}
+                <div class="shop-bubble__icon">
+                  {% assign brand_icon = brand_icons | where: block.settings.icon | first %}
+                  {% assign icon_style = settings.icons_style %}
+                  {% if brand_icon %}
+                    {% assign icon_style = 'fa-brands' %}
+                  {% endif %}
+                  <i class="icon {{ icon_style }} fa-{{ block.settings.icon }}"></i>
+                </div>
+              {% else %}
+                <div class="media media--placeholder media--square">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <h3 class="{{ section.settings.color_text }} scroll-animate fade-in">{{ block.settings.slide_title }}</h3>
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.featured-shops.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.featured-shops.settings.title.label",
+      "default": "Featured Shops"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "color_text",
+      "label": "t:sections.all.colors.label_text",
+      "options": [
+        {
+          "value": "primary-text-1",
+          "label": "t:sections.all.colors.primary_text_1.label"
+        },
+        {
+          "value": "secondary-text-1",
+          "label": "t:sections.all.colors.secondary_text_1.label"
+        },
+        {
+          "value": "primary-text-2",
+          "label": "t:sections.all.colors.primary_text_2.label"
+        },
+        {
+          "value": "secondary-text-2",
+          "label": "t:sections.all.colors.secondary_text_2.label"
+        },
+        {
+          "value": "primary-text-3",
+          "label": "t:sections.all.colors.primary_text_3.label"
+        },
+        {
+          "value": "secondary-text-3",
+          "label": "t:sections.all.colors.secondary_text_3.label"
+        },
+        {
+          "value": "primary-text-4",
+          "label": "t:sections.all.colors.primary_text_4.label"
+        },
+        {
+          "value": "secondary-text-4",
+          "label": "t:sections.all.colors.secondary_text_4.label"
+        },
+        {
+          "value": "primary-text-5",
+          "label": "t:sections.all.colors.primary_text_5.label"
+        },
+        {
+          "value": "secondary-text-5",
+          "label": "t:sections.all.colors.secondary_text_5.label"
+        },
+        {
+          "value": "sale-text",
+          "label": "t:sections.all.colors.sale_text.label"
+        }
+      ],
+      "default": "primary-text-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-shops.settings.header.content"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "label": "t:sections.featured-shops.settings.circle_size.label",
+      "default": 100,
+      "min": 100,
+      "max": 200,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.featured-shops.settings.background.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background-2"
+    },
+    {
+      "type": "select",
+      "id": "font_type",
+      "label": "t:sections.all.font_type.label",
+      "options": [
+        {
+          "value": "heading-font",
+          "label": "t:sections.all.font_type.heading.label"
+        },
+        {
+          "value": "body-font",
+          "label": "t:sections.all.font_type.body.label"
+        },
+        {
+          "value": "button-font",
+          "label": "t:sections.all.font_type.button.label"
+        },
+        {
+          "value": "accent-font",
+          "label": "t:sections.all.font_type.accent.label"
+        }
+      ],
+      "default": "body-font"
+    },
+    {
+      "type": "select",
+      "id": "font_style",
+      "label": "t:sections.all.font_style.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.font_style.option__1"
+        },
+        {
+          "value": "all_caps",
+          "label": "t:sections.all.font_style.option__2"
+        }
+      ],
+      "default": "all_caps"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shop",
+      "name": "t:sections.featured-shops.blocks.slide.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:general.icons-theme.options__1.label"
+            },
+            {
+              "group": "Basic icons",
+              "label": "t:general.icons-theme.options__2.label",
+              "value": "user"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow down to bracket",
+              "value": "arrow-down-to-bracket"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow left",
+              "value": "arrow-left"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow right arrow left",
+              "value": "arrow-right-arrow-left"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow right",
+              "value": "arrow-right"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow up right from square",
+              "value": "arrow-up-right-from-square"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrow up",
+              "value": "arrow-up"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrows maximize",
+              "value": "arrows-maximize"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrows repeat",
+              "value": "arrows-repeat"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Arrows rotate",
+              "value": "arrows-rotate"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Block question",
+              "value": "block-question"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Chevron down",
+              "value": "chevron-down"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Chevron left",
+              "value": "chevron-left"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Chevron right",
+              "value": "chevron-right"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Chevron up",
+              "value": "chevron-up"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Circle exclamation",
+              "value": "circle-exclamation"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Clock rotate left",
+              "value": "clock-rotate-left"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Exclamation",
+              "value": "exclamation"
+            },
+            {
+              "group": "Basic icons",
+              "label": "House",
+              "value": "house"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Magnifying glass",
+              "value": "magnifying-glass"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Merge",
+              "value": "merge"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Plus",
+              "value": "plus"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Question",
+              "value": "question"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Rotate left",
+              "value": "rotate-left"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Seal exclamation",
+              "value": "seal-exclamation"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Seal question",
+              "value": "seal-question"
+            },
+            {
+              "group": "Basic icons",
+              "label": "Shield exclamation",
+              "value": "shield-exclamation"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Badge check",
+              "value": "badge-check"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Badge dollar",
+              "value": "badge-dollar"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Badge",
+              "value": "badge"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Bag shopping",
+              "value": "bag-shopping"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Basket shopping",
+              "value": "basket-shopping"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Bell",
+              "value": "bell"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Box check",
+              "value": "box-check"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Box",
+              "value": "box"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Bullseye arrow",
+              "value": "bullseye-arrow"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Cart shopping",
+              "value": "cart-shopping"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Certificate",
+              "value": "certificate"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Check",
+              "value": "check"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Flag",
+              "value": "flag"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Gift card",
+              "value": "gift-card"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Gift",
+              "value": "gift"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Hand holding box",
+              "value": "hand-holding-box"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Heart",
+              "value": "heart"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Leaf",
+              "value": "leaf"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Lightbulb dollar",
+              "value": "lightbulb-dollar"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Lightbulb on",
+              "value": "lightbulb-on"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Location check",
+              "value": "location-check"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Location pin",
+              "value": "location-pin"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Lock",
+              "value": "lock"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Map pin",
+              "value": "map-pin"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Map",
+              "value": "map"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Party horn",
+              "value": "party-horn"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Recycle",
+              "value": "recycle"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Scale balanced",
+              "value": "scale-balanced"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Shield check",
+              "value": "shield-check"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Sparkle",
+              "value": "sparkle"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Star",
+              "value": "star"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Tag",
+              "value": "tag"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Truck fast",
+              "value": "truck-fast"
+            },
+            {
+              "group": "Commerce & marketing",
+              "label": "Truck",
+              "value": "truck"
+            },
+            {
+              "group": "Communication",
+              "label": "Bullhorn",
+              "value": "bullhorn"
+            },
+            {
+              "group": "Communication",
+              "label": "Calendar days",
+              "value": "calendar-days"
+            },
+            {
+              "group": "Communication",
+              "label": "Comment",
+              "value": "comment"
+            },
+            {
+              "group": "Communication",
+              "label": "Comments",
+              "value": "comments"
+            },
+            {
+              "group": "Communication",
+              "label": "Compass",
+              "value": "compass"
+            },
+            {
+              "group": "Communication",
+              "label": "Envelope",
+              "value": "envelope"
+            },
+            {
+              "group": "Communication",
+              "label": "File",
+              "value": "file"
+            },
+            {
+              "group": "Communication",
+              "label": "Folder",
+              "value": "folder"
+            },
+            {
+              "group": "Communication",
+              "label": "Globe",
+              "value": "globe"
+            },
+            {
+              "group": "Communication",
+              "label": "Pen",
+              "value": "pen"
+            },
+            {
+              "group": "Communication",
+              "label": "Phone volume",
+              "value": "phone-volume"
+            },
+            {
+              "group": "Communication",
+              "label": "Quote left",
+              "value": "quote-left"
+            },
+            {
+              "group": "Communication",
+              "label": "Quote right",
+              "value": "quote-right"
+            },
+            {
+              "group": "Communication",
+              "label": "Thought bubble",
+              "value": "thought-bubble"
+            },
+            {
+              "group": "Communication",
+              "label": "User headset",
+              "value": "user-headset"
+            },
+            {
+              "group": "Family & children",
+              "label": "Baby carriage",
+              "value": "baby-carriage"
+            },
+            {
+              "group": "Family & children",
+              "label": "Baby",
+              "value": "baby"
+            },
+            {
+              "group": "Family & children",
+              "label": "Backpack",
+              "value": "backpack"
+            },
+            {
+              "group": "Family & children",
+              "label": "Balloon",
+              "value": "balloon"
+            },
+            {
+              "group": "Family & children",
+              "label": "Bath",
+              "value": "bath"
+            },
+            {
+              "group": "Family & children",
+              "label": "Cake candles",
+              "value": "cake-candles"
+            },
+            {
+              "group": "Family & children",
+              "label": "Child",
+              "value": "child"
+            },
+            {
+              "group": "Family & children",
+              "label": "Child dress",
+              "value": "child-dress"
+            },
+            {
+              "group": "Family & children",
+              "label": "Child reaching",
+              "value": "child-reaching"
+            },
+            {
+              "group": "Family & children",
+              "label": "Children",
+              "value": "children"
+            },
+            {
+              "group": "Family & children",
+              "label": "Duck",
+              "value": "duck"
+            },
+            {
+              "group": "Family & children",
+              "label": "Family",
+              "value": "family"
+            },
+            {
+              "group": "Family & children",
+              "label": "Hand holding heart",
+              "value": "hand-holding-heart"
+            },
+            {
+              "group": "Family & children",
+              "label": "Hands holding child",
+              "value": "hands-holding-child"
+            },
+            {
+              "group": "Family & children",
+              "label": "Mitten",
+              "value": "mitten"
+            },
+            {
+              "group": "Family & children",
+              "label": "Palette",
+              "value": "palette"
+            },
+            {
+              "group": "Family & children",
+              "label": "Person breastfeeding",
+              "value": "person-breastfeeding"
+            },
+            {
+              "group": "Family & children",
+              "label": "Person dress",
+              "value": "person-dress"
+            },
+            {
+              "group": "Family & children",
+              "label": "Person pregnant",
+              "value": "person-pregnant"
+            },
+            {
+              "group": "Family & children",
+              "label": "Piñata",
+              "value": "piñata"
+            },
+            {
+              "group": "Family & children",
+              "label": "Puzzle piece",
+              "value": "puzzle-piece"
+            },
+            {
+              "group": "Family & children",
+              "label": "Robot",
+              "value": "robot"
+            },
+            {
+              "group": "Family & children",
+              "label": "School",
+              "value": "school"
+            },
+            {
+              "group": "Family & children",
+              "label": "Scissors",
+              "value": "scissors"
+            },
+            {
+              "group": "Family & children",
+              "label": "Shapes",
+              "value": "shapes"
+            },
+            {
+              "group": "Family & children",
+              "label": "Teddy bear",
+              "value": "teddy-bear"
+            },
+            {
+              "group": "Family & children",
+              "label": "Tricycle",
+              "value": "tricycle"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Bee",
+              "value": "bee"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Bird",
+              "value": "bird"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Bugs",
+              "value": "bugs"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Cat",
+              "value": "cat"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Dog leashed",
+              "value": "dog-leashed"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Dog",
+              "value": "dog"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Dragon",
+              "value": "dragon"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Feather",
+              "value": "feather"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Fish",
+              "value": "fish"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Frog",
+              "value": "frog"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Monkey",
+              "value": "monkey"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Paw",
+              "value": "paw"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Rabbit",
+              "value": "rabbit"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Shield cat",
+              "value": "shield-cat"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Shield dog",
+              "value": "shield-dog"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Shrimp",
+              "value": "shrimp"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Snake",
+              "value": "snake"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Spider",
+              "value": "spider"
+            },
+            {
+              "group": "Pets & animals",
+              "label": "Turtle",
+              "value": "turtle"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Glasses",
+              "value": "glasses"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Graduation cap",
+              "value": "graduation-cap"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Hat winter",
+              "value": "hat-winter"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Scarf",
+              "value": "scarf"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Shirt long sleeve",
+              "value": "shirt-long-sleeve"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Shirt",
+              "value": "shirt"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Socks",
+              "value": "socks"
+            },
+            {
+              "group": "Clothing & fashion",
+              "label": "Sunglasses",
+              "value": "sunglasses"
+            },
+            {
+              "group": "Garment care",
+              "label": "Clothes hanger",
+              "value": "clothes-hanger"
+            },
+            {
+              "group": "Garment care",
+              "label": "Dryer heat",
+              "value": "dryer-heat"
+            },
+            {
+              "group": "Garment care",
+              "label": "Dryer",
+              "value": "dryer"
+            },
+            {
+              "group": "Garment care",
+              "label": "Hand holding droplet",
+              "value": "hand-holding-droplet"
+            },
+            {
+              "group": "Garment care",
+              "label": "Hands bubbles",
+              "value": "hands-bubbles"
+            },
+            {
+              "group": "Garment care",
+              "label": "Jug detergent",
+              "value": "jug-detergent"
+            },
+            {
+              "group": "Garment care",
+              "label": "Washing machine",
+              "value": "washing-machine"
+            },
+            {
+              "group": "Social media",
+              "label": "Facebook",
+              "value": "facebook"
+            },
+            {
+              "group": "Social media",
+              "label": "Instagram",
+              "value": "instagram"
+            },
+            {
+              "group": "Social media",
+              "label": "Linkedin",
+              "value": "linkedin"
+            },
+            {
+              "group": "Social media",
+              "label": "Pinterest",
+              "value": "pinterest"
+            },
+            {
+              "group": "Social media",
+              "label": "Snapchat",
+              "value": "snapchat"
+            },
+            {
+              "group": "Social media",
+              "label": "Tiktok",
+              "value": "tiktok"
+            },
+            {
+              "group": "Social media",
+              "label": "Tumblr",
+              "value": "tumblr"
+            },
+            {
+              "group": "Social media",
+              "label": "Twitter",
+              "value": "twitter"
+            },
+            {
+              "group": "Social media",
+              "label": "Vimeo",
+              "value": "vimeo-v"
+            },
+            {
+              "group": "Social media",
+              "label": "Youtube",
+              "value": "youtube"
+            }
+          ],
+          "default": "none",
+          "label": "t:general.icons-theme.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.featured-shops.blocks.slide.settings.image.label",
+          "info": "t:sections.featured-shops.blocks.slide.settings.image.info"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "t:sections.featured-shops.blocks.slide.settings.icon_size.label",
+          "default": 100,
+          "min": 30,
+          "max": 130,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "t:sections.featured-shops.blocks.slide.settings.slide_title.label",
+          "default": "Featured Shop"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.featured-shops.blocks.slide.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-shops.presets.name",
+      "blocks": [
+        {
+          "type": "shop"
+        },
+        {
+          "type": "shop"
+        },
+        {
+          "type": "shop"
+        },
+        {
+          "type": "shop"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,890 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "countdown_mFjPrT": {
+      "type": "countdown",
+      "blocks": {
+        "content_bJzitk": {
+          "type": "content",
+          "settings": {
+            "title": "Fri fragt udløber om:",
+            "text": "<p>Brug koden \"Frifragt\". </p>",
+            "font_size": 100,
+            "button_label": "Shop nu",
+            "button_link": "shopify://collections/all",
+            "button_style": "ghost",
+            "content_align": "left"
+          }
+        },
+        "timer_WRTLaE": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2026-05-17",
+            "end_time": "23:59",
+            "font_size": 100
+          }
+        }
+      },
+      "block_order": [
+        "content_bJzitk",
+        "timer_WRTLaE"
+      ],
+      "disabled": true,
+      "name": "Countdown timer",
+      "settings": {
+        "image_height": 100,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "alt-background",
+        "hide_timer": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "ss_hero_33_QM9xzT": {
+      "type": "ss-hero-33",
+      "blocks": {
+        "heading_VTPEUX": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Fødselsdag tilbud<br/>Spar op til 70%</p>",
+            "heading_custom": false,
+            "heading_font": "playfair_display_n7",
+            "heading_size": 40,
+            "heading_size_mobile": 28,
+            "heading_height": 130,
+            "heading_mt": 0,
+            "heading_mt_mobile": 100,
+            "heading_color": "#ffffff"
+          }
+        },
+        "text_raNKVB": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Fortæl din historie</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 15,
+            "text_size_mobile": 15,
+            "text_height": 150,
+            "text_mt": 28,
+            "text_mt_mobile": 16,
+            "text_color": "#ffffff"
+          }
+        },
+        "button_KVdmrH": {
+          "type": "button",
+          "settings": {
+            "button": "Shop her",
+            "button_url": "shopify://collections/final-sale",
+            "button_custom": false,
+            "button_font": "playfair_display_n7",
+            "button_size": 18,
+            "button_size_mobile": 14,
+            "button_height": 100,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 32,
+            "button_padding_horizontal_mobile": 32,
+            "button_radius": 16,
+            "button_border_thickness": 1,
+            "button_mt": 24,
+            "button_mt_mobile": 16,
+            "button_style": "non_outline",
+            "button_color": "#ffffff",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "button_bg_hover_color": "#333333",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "heading_VTPEUX",
+        "text_raNKVB",
+        "button_KVdmrH"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.section-template--24686540587384__ss_hero_33_QM9xzT-settings {justify-content: center; }}",
+        "@media (min-width: 1024px) {.hero-content-template--24686540587384__ss_hero_33_QM9xzT {max-width: 40%; align-items: center; } .hero-heading-heading_VTPEUX {text-align: center; }}"
+      ],
+      "name": "Ny Hero Section - ML",
+      "settings": {
+        "layout_height": "fixed_height",
+        "layout_fixed_height": 600,
+        "layout_fixed_height_mobile": 700,
+        "content_maxwidth": 65,
+        "content_align": "left",
+        "content_align_mobile": "center",
+        "content_vertical_align": "center",
+        "content_vertical_align_mobile": "center",
+        "layout_bg_type": "image",
+        "bg_image": "shopify://shop_images/IMG_1596_1.jpg",
+        "bg_image_mobile": "shopify://shop_images/IMG_1596_2.jpg",
+        "bg_video_url": "",
+        "bg_overlay": 0,
+        "bg_overlay_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": false
+      }
+    },
+    "ss_hero_33_wBbPrE": {
+      "type": "ss-hero-33",
+      "blocks": {
+        "heading_nenwL3": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "<p>15% på alt</p><p>med koden Doodle15</p>",
+            "heading_custom": false,
+            "heading_font": "playfair_display_n7",
+            "heading_size": 40,
+            "heading_size_mobile": 28,
+            "heading_height": 130,
+            "heading_mt": 0,
+            "heading_mt_mobile": 100,
+            "heading_color": "#ffffff"
+          }
+        },
+        "text_tDMGh7": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Fortæl din historie</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 15,
+            "text_size_mobile": 15,
+            "text_height": 150,
+            "text_mt": 28,
+            "text_mt_mobile": 16,
+            "text_color": "#ffffff"
+          }
+        },
+        "button_GhRAVw": {
+          "type": "button",
+          "settings": {
+            "button": "Alle produkter",
+            "button_url": "shopify://collections/all-products",
+            "button_custom": false,
+            "button_font": "playfair_display_n7",
+            "button_size": 18,
+            "button_size_mobile": 14,
+            "button_height": 100,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 32,
+            "button_padding_horizontal_mobile": 32,
+            "button_radius": 16,
+            "button_border_thickness": 1,
+            "button_mt": 24,
+            "button_mt_mobile": 16,
+            "button_style": "non_outline",
+            "button_color": "#000000",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#c8baab",
+            "button_bg_hover_color": "#333333",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "heading_nenwL3",
+        "text_tDMGh7",
+        "button_GhRAVw"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.section-template--24686540587384__ss_hero_33_QM9xzT-settings {justify-content: center; }}",
+        "@media (min-width: 1024px) {.hero-content-template--24686540587384__ss_hero_33_QM9xzT {max-width: 40%; align-items: center; } .hero-heading-heading_VTPEUX {text-align: center; }}"
+      ],
+      "name": "Ny Hero Section - ML",
+      "settings": {
+        "layout_height": "fixed_height",
+        "layout_fixed_height": 600,
+        "layout_fixed_height_mobile": 700,
+        "content_maxwidth": 65,
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "content_vertical_align": "end",
+        "content_vertical_align_mobile": "end",
+        "layout_bg_type": "video",
+        "bg_image": "shopify://shop_images/IMG_7366.jpg",
+        "bg_image_mobile": "shopify://shop_images/mobil.jpg",
+        "bg_video": "shopify://files/videos/9x16.mov",
+        "bg_video_url": "",
+        "bg_overlay": 0.2,
+        "bg_overlay_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": false
+      }
+    },
+    "countdown_6MmAHA": {
+      "type": "countdown",
+      "blocks": {
+        "content_rktnBq": {
+          "type": "content",
+          "settings": {
+            "title": "Tilbuddene udløber om:",
+            "text": "<p>Skynd dig - tilbuddet udløber snart!</p>",
+            "font_size": 100,
+            "button_label": "Shop nu",
+            "button_link": "shopify://collections/forarstilbud",
+            "button_style": "ghost",
+            "content_align": "left"
+          }
+        },
+        "timer_HkM3Dj": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2026-10-20",
+            "end_time": "23:59",
+            "font_size": 100
+          }
+        }
+      },
+      "block_order": [
+        "content_rktnBq",
+        "timer_HkM3Dj"
+      ],
+      "disabled": true,
+      "name": "Countdown timer",
+      "settings": {
+        "image_height": 100,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "main-background",
+        "hide_timer": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "hero_image_Uy44Uj": {
+      "type": "hero-image",
+      "blocks": {
+        "heading_wEPDLb": {
+          "type": "heading",
+          "settings": {
+            "heading": "Heltebillede",
+            "subheading": "",
+            "font_size": 105,
+            "font_color": "#ffffff"
+          }
+        },
+        "buttons_L73EVY": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Valgfrit knap",
+            "button_link_1": "",
+            "button_label_2": "Valgfrit knap 2",
+            "button_link_2": "",
+            "font_size": 100,
+            "button_color": "#ffffff",
+            "font_button_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_wEPDLb",
+        "buttons_L73EVY"
+      ],
+      "disabled": true,
+      "settings": {
+        "background_image": "none",
+        "custom_background_image": "shopify://shop_images/9067a92c_ef8b_402f_b490_01ec54389dd8_07dea119-967f-4a02-815b-54e6658f9287.png",
+        "image_height": 30,
+        "show_scrim": false,
+        "scrim_lightness_background": 0,
+        "image_animation": "none",
+        "transparent_header": false,
+        "image_size": 55,
+        "image_vertical_position": "bottom",
+        "image_below_position": 5,
+        "image_horizontal_position": 35,
+        "show_secondary_scrim": true,
+        "scrim_lightness": 135,
+        "content_aligment": "center",
+        "vertical_position": 5,
+        "horizontal_position": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "feature-cards": {
+      "type": "feature-cards",
+      "blocks": {
+        "column_feature1": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "Levering",
+            "feature_icon": "truck-fast",
+            "feature_text": "<p>1-2 dages levering <br/>med GLS<br/></p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "column_feature2": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "Betal med:",
+            "feature_icon": "bag-shopping",
+            "feature_text": "<p>MobilePay, VISA, DK<br/>& Mastercard<br/></p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "column_feature3": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "10+ års erfaring",
+            "feature_icon": "dog-leashed",
+            "feature_text": "<p>Over +10 års erfaring med opdræt af hunde</p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_feature1",
+        "column_feature2",
+        "column_feature3"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_ratio": "landscape",
+        "columns": 3,
+        "font_size": 100,
+        "icon_size": 100,
+        "align_text": "center",
+        "button_style": "ghost",
+        "background": "alt-background-2",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media-grid": {
+      "type": "media-grid",
+      "blocks": {
+        "media1": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/4ae74e6b_4d08_4d31_9288_24cfeebb180b.png",
+            "autoplay_video": true,
+            "item_width": 2,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Hundekurve",
+            "text": "",
+            "link": "shopify://collections/hundekurv"
+          }
+        },
+        "media2": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/647244e0_6159_499b_8bd7_44f8975b386f.png",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Bamser til hunde",
+            "text": "",
+            "link": "shopify://collections/hundebamser"
+          }
+        },
+        "media3": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9408.jpg",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 4,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Hundetasker",
+            "text": "",
+            "link": "shopify://collections/hundetaske"
+          }
+        },
+        "media5": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_0924.jpg",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Pelspleje",
+            "text": "",
+            "link": "shopify://collections/pelspleje-1"
+          }
+        },
+        "media4": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9988.jpg",
+            "autoplay_video": true,
+            "item_width": 2,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Bilsæde til hunde",
+            "text": "",
+            "link": "shopify://collections/hunde-bilsaede"
+          }
+        }
+      },
+      "block_order": [
+        "media1",
+        "media2",
+        "media3",
+        "media5",
+        "media4"
+      ],
+      "custom_css": [],
+      "settings": {
+        "title": "Alle produkter",
+        "text": "",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "button_label": "Alle produkter",
+        "button_link": "shopify://collections/all-products",
+        "row_height": 170,
+        "font_image_size": 100,
+        "color_image_text": "primary-text-2",
+        "title_on_hover": false,
+        "description_on_hover": true,
+        "text_position": "bottom-left",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "video_column_7bhLrH": {
+      "type": "video-column",
+      "blocks": {
+        "column_j97nra": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/IMG_4734 (2).MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/hundetaske"
+          }
+        },
+        "column_rfbkh7": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/Hakkō 9x16.MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/bestsellers"
+          }
+        },
+        "column_UUhryT": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/8cad640f310240b4ba0292cf9961dd4e (1).MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/hunde-bilsaede"
+          }
+        }
+      },
+      "block_order": [
+        "column_j97nra",
+        "column_rfbkh7",
+        "column_UUhryT"
+      ],
+      "settings": {
+        "title": "Følg os på TikTok for eksklusive tips",
+        "description": "Få eksklusive indsigter i hundepleie, udpakning af nye produkter og tips fra vores stylister. Følg @bydoodledog for daglig inspiration!",
+        "play_onload": true,
+        "social_handle": "@bydoodledog",
+        "social_link": "social_instagram_link",
+        "font_size": 100,
+        "background": "main-background",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "selling_features": {
+          "type": "selling_features",
+          "settings": {
+            "show_rating": false,
+            "show_empty_stars": true,
+            "standar_metafields": false,
+            "font_size": 100
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_type": "none",
+            "color_swatch_shape": "circle",
+            "swatch_size": 36,
+            "font_size": 100
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_inventory_notification": true,
+            "quantity_threshold": 15,
+            "notification_message": "Kundernes favorit 🐶",
+            "show_dynamic_checkout": false,
+            "show_quantity_selector": true
+          }
+        },
+        "countdown_KVrk7X": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "countdown_title": "Tilbud slutter om:",
+            "font_size": 100,
+            "background": "alt-background-3"
+          }
+        }
+      },
+      "block_order": [
+        "selling_features",
+        "title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "countdown_KVrk7X"
+      ],
+      "settings": {
+        "product": "bjork-bilsaede-til-hunde-beige",
+        "overlap_thumbnails": true,
+        "background": "background-modal",
+        "enable_image_zoom": true,
+        "autoplay_video": true,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "collage": {
+      "type": "collage",
+      "blocks": {
+        "media1": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9999.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media2": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG-1707.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media3": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG-0761.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media4": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_5709_943eca54-fe78-48dc-8b6a-1d781e6201b1.jpg",
+            "video": "shopify://files/videos/Reel m. Torben.mp4",
+            "autoplay_video": true,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "media1",
+        "media2",
+        "media3",
+        "media4"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".collage__content {background-color: #f9f3f1 !important; position: relative; /* Evt. tilføj lidt padding, hvis du vil have luft: */ padding: 2rem;}"
+      ],
+      "settings": {
+        "title": "Vores Final Sale Kollektion",
+        "text": "<br>Denne sæson har vi samlet de bedste produkter til at holde din hund komfortabel og stilfuld.\n<br><br>\nFra hyggelig hundetøj til komfortable senge - alt hvad du har brug for til at give din firbenede ven den bedste oplevelse.\n<br><br>\nNyd Final Sale og find de perfekte produkter til din hund. Spar op til 70% på udvalgte varer!",
+        "button_label": "SHOP FINAL SALE",
+        "button_link": "shopify://collections/final-sale",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "layout": "left",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "173626154782c38b67": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_Pzej3W": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_Pzej3W"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1735829689aa888868": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_zz4kjY": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1400
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_zz4kjY"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_blog_WFKPtV": {
+      "type": "featured-blog",
+      "disabled": true,
+      "settings": {
+        "title": "Nyttige artikler",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "blog": "hvalpetraening",
+        "limit": 3,
+        "show_excerpt": true,
+        "show_date": false,
+        "show_comments": true,
+        "show_author": false,
+        "grid": 3,
+        "card_font_size": 90,
+        "background": "background-modal",
+        "show_view_all": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "FAQ": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row1": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Har By Doodle Dog en fysisk butik ?",
+            "row_content": "<p>Nej, det har vi ikke, men du er velkommen til at hente dine varer på vores lager efter aftale, i tidsrummet 11.00-13.00.Kontakt os på : 29900589</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row2": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan vores hundekurve og bilsæder vaskes?",
+            "row_content": "<p>Alle vores hundekurve og bilsæder kan vaskes. Nogle af dem, kan man tage betrækket af, og andre kan gå direkte i vaskemaskinen.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row3": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Hvordan sætter man bilsædet fast i bilen ?",
+            "row_content": "<p>Der er 1 eller 2 remme ( forskelligt fra sæde til sæde ) der skal rundt om bilens sæde. <br/><br/>Den ene rundt om nakkestøtten og den anden rundt om sædet. <br/><br/>Er der en rem, skal den rundt om bilens sæde. Endvidere kan sikkerhedsselen fra bilen sættes fast bagpå sædet på de fleste bilsæder. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qcHmVE": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan min hund spændes fast i jeres bilsæde?",
+            "row_content": "<p>Ja, hunden kan spændes fast i bilsædet med en rem. Remmen er i bilsædet og fastspændes til hundens kropssele. </p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row1",
+        "collapsible_row2",
+        "collapsible_row3",
+        "collapsible_row_qcHmVE"
+      ],
+      "settings": {
+        "show_information": true,
+        "title": "Har du spørgsmål?",
+        "description": "<p>Har du spørgsmål om vores produkter? Vi er her for at hjælpe! Du er velkommen til at kontakte os - vi glæder os til at høre fra dig.</p>",
+        "email_label": "Email",
+        "email": "Kundeservice@bydoodledog.dk",
+        "phone_label": "Telefon",
+        "phone": "29900589. Åben tirsdag og torsdag fra kl. 11.00-13-00.",
+        "hours_label": "Adresse",
+        "hours": "Systemvej 4, 8963 Auning",
+        "font_size": 120,
+        "background": "background-modal",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn-banner": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-2 dages levering",
+            "text": "<p>Vi leverer indenfor 1-2 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber os efter, at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4"
+      ],
+      "settings": {
+        "background": "alt-background-2",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "countdown_mFjPrT",
+    "ss_hero_33_QM9xzT",
+    "ss_hero_33_wBbPrE",
+    "countdown_6MmAHA",
+    "hero_image_Uy44Uj",
+    "feature-cards",
+    "media-grid",
+    "video_column_7bhLrH",
+    "featured-product",
+    "collage",
+    "173626154782c38b67",
+    "1735829689aa888868",
+    "featured_blog_WFKPtV",
+    "FAQ",
+    "multicolumn-banner"
+  ]
+}

@@ -1,0 +1,370 @@
+{{ 'section-social-media-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% assign icon_style = settings.icons_style %}
+{% assign animation_delay = 0.00 %}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="section-social-media-banner">
+    <div class="section-social-media-banner__content">
+      {%- for block in section.blocks -%}
+        {%- assign animation_delay = animation_delay | plus: 0.08 -%}
+        {% if block.settings.image_link != blank %}
+          <a href="{{ block.settings.image_link }}">
+        {%- endif -%}
+        <div class="section-social-media-banner__item image-grid__item">
+          {%- if block.settings.image != blank or block.settings.video != blank -%}
+            {%- capture sizes -%}(min-width: 1520px) calc(100vw / {{ section.blocks.size }}), (min-width: 750px){% if section.blocks.size == 1 %} 100vw{% else %} calc(100vw / 2){% endif %}, 160px{%- endcapture -%}
+            {% if block.settings.video != blank %}
+              <video-content>
+            {% endif %}
+            <div
+              class="section-social-media-banner__media scroll-animate zoom-out-fade-in"
+              style="animation-delay: {{ animation_delay }}s;"
+            >
+              <div class="media">
+                {% if block.settings.video != blank %}
+                  {%- capture video_classes -%}media__video{% if block.settings.autoplay_video %} media__video--autoplay{% endif %}{%- endcapture -%}
+                  {% liquid
+                    if block.settings.autoplay_video
+                      assign playsinline = true
+                      assign loop = true
+                      assign autoplay = true
+                      assign muted = true
+                      assign controls = false
+                    else
+                      assign playsinline = false
+                      assign loop = false
+                      assign autoplay = false
+                      assign muted = false
+                      assign controls = true
+                    endif
+                  %}
+                  {{
+                    block.settings.video
+                    | video_tag:
+                      image_size: '940x',
+                      class: video_classes,
+                      playsinline: playsinline,
+                      loop: loop,
+                      autoplay: autoplay,
+                      muted: muted,
+                      controls: controls
+                  }}
+                {% elsif block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 3000
+                    | image_tag:
+                      class: 'lazyload',
+                      width: block.settings.image.width,
+                      height: block.settings.image.height,
+                      sizes: sizes,
+                      widths: '160, 550, 720, 990, 1100, 1500, 2200, 3000',
+                      alt: block.settings.image.alt
+                    | escape
+                  }}
+                {% endif %}
+              </div>
+              {% if block.settings.video != blank and block.settings.autoplay_video == false %}
+                <div class="media__video-overlay">
+                  <div class="media__video-overlay__img">
+                    <div class="media">
+                      {% if block.settings.image != blank %}
+                        {%- assign image_height = block.settings.image.width
+                          | divided_by: block.settings.image.aspect_ratio
+                        -%}
+                        {{
+                          block.settings.image
+                          | image_url: width: 940
+                          | image_tag:
+                            width: block.settings.image.width,
+                            height: image_height,
+                            class: 'motion-reduce media__transparent',
+                            sizes: sizes,
+                            widths: '165, 210, 330, 533, 720, 940',
+                            alt: block.settings.image.alt
+                          | escape
+                        }}
+                      {% elsif block.settings.video != blank %}
+                        {%- assign image_height = block.settings.video.preview_image.width
+                          | divided_by: block.settings.video.preview_image.aspect_ratio
+                        -%}
+                        {{
+                          block.settings.video.preview_image
+                          | image_url: width: 940
+                          | image_tag:
+                            width: block.settings.video.preview_image.width,
+                            height: image_height,
+                            class: 'motion-reduce media__transparent',
+                            sizes: sizes,
+                            widths: '165, 210, 330, 533, 720, 940',
+                            alt: block.settings.video.preview_image.alt
+                          | escape
+                        }}
+                      {% else %}
+                        {{ 'lifestyle-1' | placeholder_svg_tag: 'media__transparent' }}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="media__overlay__inner">
+                    <button type="button" class="media__play link" aria-label="Play video">
+                      <i class="icon icon-play {{ icon_style }} fa-circle-play"></i>
+                    </button>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+            {% if block.settings.video != blank %}
+              </video-content>
+            {% endif %}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'empty-image-svg' }}
+          {%- endif -%}
+        </div>
+        {% if block.settings.image_link != blank %}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div
+      class="section-social-media-banner__overlay-text"
+      {%- if section.settings.show_scrim -%}
+        style="--scrim-lightness: {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}"
+      {%- endif -%}
+    >
+      <div class="overlay-text__inner">
+        <div
+          class="overlay-text__text scroll-animate fade-in {{ section.settings.background }}{% if section.settings.frosted_glass %} frosted-glass{% endif %}"
+          style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+        >
+          {% assign social_link = settings[section.settings.social_link] %}
+          {% if social_link != blank %}
+            <a href="{{ social_link }}">
+          {%- endif -%}
+          <h2>{{ section.settings.title }}</h2>
+          {% if social_link != blank %}
+            </a>
+          {%- endif -%}
+          <p>{{ section.settings.subtitle }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.social-media-banner.name",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_scrim",
+      "default": true,
+      "label": "t:sections.social-media-banner.settings.show_scrim.label",
+      "info": "t:sections.social-media-banner.settings.show_scrim.info"
+    },
+    {
+      "type": "range",
+      "id": "scrim_lightness",
+      "min": 0,
+      "max": 255,
+      "step": 15,
+      "default": 0,
+      "label": "t:sections.social-media-banner.settings.scrim_lightness.label",
+      "info": "t:sections.social-media-banner.settings.scrim_lightness.info"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.social-media-banner.settings.title.label",
+      "default": "@yourinstagram"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:sections.social-media-banner.settings.subtitle.label",
+      "default": "Follow us on Instagram"
+    },
+    {
+      "type": "select",
+      "id": "social_link",
+      "label": "t:sections.social-media-banner.settings.social_link.label",
+      "default": "social_instagram_link",
+      "info": "t:sections.social-media-banner.settings.social_link.info",
+      "options": [
+        {
+          "value": "social_twitter_link",
+          "label": "Twitter"
+        },
+        {
+          "value": "social_facebook_link",
+          "label": "Facebook"
+        },
+        {
+          "value": "social_pinterest_link",
+          "label": "Pinterest"
+        },
+        {
+          "value": "social_instagram_link",
+          "label": "Instagram"
+        },
+        {
+          "value": "social_tiktok_link",
+          "label": "TikTok"
+        },
+        {
+          "value": "social_tumblr_link",
+          "label": "Tumblr"
+        },
+        {
+          "value": "social_snapchat_link",
+          "label": "Snapchat"
+        },
+        {
+          "value": "social_youtube_link",
+          "label": "YouTube"
+        },
+        {
+          "value": "social_vimeo_link",
+          "label": "Vimeo"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "checkbox",
+      "id": "frosted_glass",
+      "default": false,
+      "label": "t:sections.social-media-banner.settings.frosted_glass.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "t:sections.social-media-banner.blocks.media.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.social-media-banner.blocks.media.settings.image.label"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:sections.media-with-text.settings.video.label",
+          "info": "t:sections.media-with-text.settings.video.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay_video",
+          "default": true,
+          "label": "t:sections.media-with-text.settings.autoplay_video.label"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "t:sections.social-media-banner.blocks.media.settings.image_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.social-media-banner.name",
+      "blocks": [
+        {
+          "type": "media"
+        },
+        {
+          "type": "media"
+        },
+        {
+          "type": "media"
+        },
+        {
+          "type": "media"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

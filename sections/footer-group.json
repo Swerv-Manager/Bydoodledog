@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "newsletter-0": {
+          "type": "text",
+          "settings": {
+            "title": "Få vores nyhedsbrev",
+            "subtext": "<p>Eksklusive rabatter, tidlig adgang til nye stilarter og særligt indhold</p>"
+          }
+        },
+        "newsletter-1": {
+          "type": "email_form",
+          "settings": {
+            "message_title": "Tak!",
+            "success_message": "<p>Du er nu tilmeldt vores e-mail-nyhedsbrev!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "newsletter-0",
+        "newsletter-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "font_size": 100,
+        "background": "alt-background",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-0": {
+          "type": "link_list",
+          "settings": {
+            "title": "Information",
+            "menu": "footer"
+          }
+        },
+        "footer-1": {
+          "type": "link_list",
+          "settings": {
+            "title": "Shop",
+            "menu": "header-menu-opdateret"
+          }
+        },
+        "link_list_DigztK": {
+          "type": "link_list",
+          "settings": {
+            "title": "Nyttig viden",
+            "menu": "footer-nyttigviden"
+          }
+        },
+        "footer-2": {
+          "type": "text",
+          "settings": {
+            "title": "Brug for hjælp?",
+            "company_email": "Kundeservice@bydoodledog.dk",
+            "company_phone": "+45 29 90 05 89  | Tirsdag & Torsdag : kl. 11.00-13.00",
+            "show_address": true,
+            "custom_address": "Systemvej 4, Hal 1, 8963 Auning",
+            "text": "<p>Vi glæder os over, at du er her og kigger med i vores hundeunivers. <br/><br/>De bedste hilsner Stella og Torben</p>"
+          }
+        }
+      },
+      "block_order": [
+        "footer-0",
+        "footer-1",
+        "link_list_DigztK",
+        "footer-2"
+      ],
+      "settings": {
+        "background": "main-background",
+        "background_decoration": "none",
+        "enable_follow_on_shop": true
+      }
+    },
+    "sub-footer": {
+      "type": "sub-footer",
+      "settings": {
+        "background": "alt-background",
+        "border_color": "border-alt-background",
+        "background_decoration": "none",
+        "powered_by": "",
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    }
+  },
+  "order": [
+    "newsletter",
+    "footer",
+    "sub-footer"
+  ]
+}

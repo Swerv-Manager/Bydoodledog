@@ -1,0 +1,117 @@
+{% comment %}
+  Renders an article card for a given blog.
+
+  Accepts:
+  - blog: {Object} Blog object
+  - article: {Object} Article object
+  - show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+  - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+  - show_comment_count: {Boolean} The setting either show the article comment count or not.
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - background: {String} Background class to apply (optional)
+  - grid_columns: {Number} The stting helps to calculate the correct size for the images.
+
+  Usage:
+  {% render 'article-card' blog: blog, article: article %}
+{% endcomment %}
+
+{%- if article and article != empty -%}
+  {%- liquid
+    assign media_ratio = settings.image_ratio
+
+    unless grid_columns
+      assign grid_columns = 3
+    endunless
+
+    assign background_class = 'background-modal'
+    if background
+      assign background_class = background
+    endif
+  -%}
+  <a href="{{ article.url }}" class="product-card-wrapper card-wrapper card-outline">
+    <div class="product-card article-card {{ background_class }}">
+      <div class="product-card__image-wrapper">
+        {%- liquid
+          if article.image
+            assign article_media_aspect_ratio = article.image.aspect_ratio
+            if article.image.aspect_ratio == null
+              assign article_media_aspect_ratio = 1
+            endif
+          else
+            assign article_media_aspect_ratio = 1
+          endif
+        -%}
+        {%- if article.image -%}
+          <div
+            class="product-card__image media media--transparent media--{{ media_ratio }}"
+            {% if media_ratio == 'adapt' %}
+              style="padding-bottom: {{ 1 | divided_by: article_media_aspect_ratio | times: 100 }}%;"
+            {% endif %}
+          >
+            <img
+              srcset="
+                {%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+                {%- if article.image.src.width >= 1500 -%}{{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {{ article.image.src | image_url }} {{ article.image.src.width }}w
+              "
+              src="{{ article.image.src | image_url: width: 533 }}"
+              sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+              alt="{{ article.image.src.alt | escape }}"
+              class="motion-reduce"
+              {% unless lazy_load == false %}
+                loading="lazy"
+              {% endunless %}
+              width="{{ article.image.width }}"
+              height="{{ article.image.height }}"
+            >
+          </div>
+        {%- else -%}
+          <div class="product-card__empty-image media--{{ media_ratio }}">
+            <h4 class="product-card__text">{{ 'general.card.article' | t }}</h4>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div
+        class="product-card__information media--{{ media_ratio }}"
+        {% if media_ratio == 'adapt' %}
+          style="padding-top: {{ 1 | divided_by: article_media_aspect_ratio | times: 100 }}%;"
+        {% endif %}
+      >
+        <div class="product-card__information__wrapper">
+          <h2 class="article-card__title">{{ article.title | escape }}</h2>
+          {%- if show_date or show_author -%}
+            <div class="product-card__article-info">
+              {%- if show_author -%}
+                <span class="product-card__title circle-divider">{{ article.author }}</span>
+              {%- endif -%}
+              {%- if show_date -%}
+                <span class="product-card__title">{{ article.published_at | time_tag: format: 'date' }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if show_excerpt -%}
+            {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+              <p class="article-card__excerpt rte-width">
+                {%- if article.excerpt.size > 0 -%}
+                  {{ article.excerpt | strip_html | truncatewords: 20 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 20 }}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            <div class="article-card__footer">
+              {%- if show_comment_count and article.comments_count > 0 -%}
+                <span>{{ 'blogs.article.comments_count' | t: count: article.comments_count }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </a>
+{%- endif -%}

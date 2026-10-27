@@ -1,0 +1,232 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'customer.js' | asset_url }}" async></script>
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer addresses" data-customer-addresses>
+  <div class="page-width page-width--account">
+    <div class="myaccount-nav-back text-center">
+      <a href="{{ routes.account_addresses_url }}" class="header__icon header__icon--back-button link link--text">
+        <i class="icon icon-arrow-left {{ icon_style }} fa-swap-opacity fa-chevron-left"></i>
+      </a>
+      <h2 class="myaccount_title">{{ 'customer.addresses.edit_address' | t }}</h2>
+    </div>
+  </div>
+  <div class="page-width page-width--account myaccoun-margin-bottom addresses__edit-forms">
+    <ul>
+      {%- for address in customer.addresses -%}
+        <li id="EditAddress_{{ address.id }}" class="form-vertical hide">
+          {%- form 'customer_address', address, return_to: routes.account_addresses_url -%}
+            <div class="field-group">
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  id="AddressFirstName_{{ form.id }}"
+                  name="address[first_name]"
+                  value="{{ form.first_name }}"
+                  autocomplete="given-name"
+                  placeholder="{{ 'customer.addresses.first_name' | t }}"
+                  class="field-wrapper__input input--not-error-msg"
+                  aria-required="true"
+                  data-group="name-company"
+                  data-group-required="full-name"
+                >
+                <label class="field-wrapper__label" for="AddressFirstName_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.first_name' | t }}</span></label>
+                <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                  <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                </span>
+              </div>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  id="AddressLastName_{{ form.id }}"
+                  name="address[last_name]"
+                  value="{{ form.last_name }}"
+                  autocomplete="family-name"
+                  placeholder="{{ 'customer.addresses.last_name' | t }}"
+                  class="field-wrapper__input input--not-error-msg"
+                  aria-required="true"
+                  data-group="name-company"
+                  data-group-required="full-name"
+                >
+                <label class="field-wrapper__label" for="AddressLastName_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.last_name' | t }}</span></label>
+                <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                  <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                id="AddressCompany_{{ form.id }}"
+                name="address[company]"
+                value="{{ form.company }}"
+                autocomplete="organization"
+                placeholder="{{ 'customer.addresses.company' | t }}"
+                class="field-wrapper__input"
+                aria-required="true"
+                data-group="name-company"
+              >
+              <label class="field-wrapper__label" for="AddressCompany_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.company' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span>{{ 'general.form_errors.name_company_required' | t }}</span>
+            </span>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                id="AddressAddress1_{{ form.id }}"
+                name="address[address1]"
+                value="{{ form.address1 }}"
+                autocomplete="address-line1"
+                placeholder="{{ 'customer.addresses.address1' | t }}"
+                class="field-wrapper__input"
+                aria-required="true"
+              >
+              <label class="field-wrapper__label" for="AddressAddress1_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.address1' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span>{{ 'general.form_errors.address_required' | t }}</span>
+            </span>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                id="AddressAddress2_{{ form.id }}"
+                name="address[address2]"
+                value="{{ form.address2 }}"
+                autocomplete="address-line2"
+                placeholder="{{ 'customer.addresses.address2' | t }}"
+                class="field-wrapper__input"
+              >
+              <label class="field-wrapper__label" for="AddressAddress2_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.address2' | t }}</span></label>
+            </div>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                id="AddressCity_{{ form.id }}"
+                name="address[city]"
+                value="{{ form.city }}"
+                autocomplete="address-level2"
+                placeholder="{{ 'customer.addresses.city' | t }}"
+                class="field-wrapper__input"
+                aria-required="true"
+              >
+              <label class="field-wrapper__label" for="AddressCity_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.city' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span>{{ 'general.form_errors.city_required' | t }}</span>
+            </span>
+            <div class="field-group">
+              <div class="field-wrapper">
+                <div class="select select--light">
+                  <select
+                    id="AddressCountry_{{ form.id }}"
+                    name="address[country]"
+                    data-address-country-select
+                    data-default="{{ form.country }}"
+                    data-form-id="{{ form.id }}"
+                    autocomplete="country"
+                    aria-required="true"
+                  >
+                    {{ all_country_option_tags }}
+                  </select>
+                  <label class="field-wrapper__label select-label" for="AddressCountry_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.country' | t }}</span></label>
+                  <i class="icon icon-chevron-down {{ icon_style }} fa-chevron-down" style="--fa-secondary-opacity: 1;"></i>
+                  <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                    <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                  </span>
+                </div>
+                <span class="input-error-message hide">
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                  <span>{{ 'general.form_errors.country_required' | t }}</span>
+                </span>
+              </div>
+              <div id="AddressProvinceContainer_{{ form.id }}" style="display: none">
+                <div class="field-wrapper">
+                  <div class="select select--light">
+                    <select
+                      id="AddressProvince_{{ form.id }}"
+                      name="address[province]"
+                      data-default="{{ form.province }}"
+                      autocomplete="address-level1"
+                    >
+                    </select>
+                    <label class="field-wrapper__label select-label" for="AddressProvince_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.province' | t }}</span></label>
+                    <i class="icon icon-chevron-down {{ icon_style }} fa-chevron-down" style="--fa-secondary-opacity: 1;"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="field-wrapper">
+                <div class="field-wrapper__wrap">
+                  <input
+                    type="text"
+                    id="AddressZip_{{ form.id }}"
+                    name="address[zip]"
+                    value="{{ form.zip }}"
+                    autocapitalize="characters"
+                    autocomplete="postal-code"
+                    placeholder="{{ 'customer.addresses.zip' | t }}"
+                    class="field-wrapper__input"
+                  >
+                  <label class="field-wrapper__label" for="AddressZip_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.zip' | t }}</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="field-wrapper">
+              <input
+                type="tel"
+                id="AddressPhone_{{ form.id }}"
+                name="address[phone]"
+                value="{{ form.phone }}"
+                autocomplete="tel"
+                placeholder="{{ 'customer.addresses.phone' | t }}"
+                class="field-wrapper__input"
+              >
+              <label class="field-wrapper__label" for="AddressPhone_{{ form.id }}"><span class="field-wrapper__label-name">{{ 'customer.addresses.phone' | t }}</span></label>
+            </div>
+            {% if address != customer.default_address %}
+              <div class="address-form__checkbox">
+                {{ form.set_as_default_checkbox }}
+                <label for="address_default_address_{{ form.id }}">
+                  <span class="input-check-mark input-check-mark--margin-rigth"></span>
+                  {{ 'customer.addresses.set_default' | t }}
+                </label>
+              </div>
+            {% endif %}
+            <div class="input-group__btn">
+              <a href="{{ routes.account_addresses_url }}" class="btn btn--secondary btn--small">{{ 'customer.addresses.cancel' | t }}</a>
+              <button type="submit" class="btn btn--small">
+                <span>{{ 'customer.addresses.add' | t }}</span>
+                <span class="btn__loader" data-loader>
+                  <div class="loader-bounce">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </span>
+              </button>
+            </div>
+          {%- endform -%}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>
+  window.onload = () => {
+    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
+  }
+</script>

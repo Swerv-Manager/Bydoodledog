@@ -1,0 +1,77 @@
+
+/* Cart drawer */
+span.cart-order-note {
+  font-size: 15px;
+  letter-spacing: .6px;
+}
+
+.cart__free-shipping .free-shipping__message {
+  font-size: 16px;
+  letter-spacing: .6px;
+}
+
+.drawer__inner .drawer__footer {
+  padding: .875rem 1rem 1rem;
+}
+
+/* Payments icons */
+.payment_icons {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.payment_icons svg {
+  height: auto;
+  width: 40px;
+}
+
+.payment_icons {
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.site-footer__bottom .payment_icons {
+  margin-top: 0;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .site-footer__bottom .payment_icons {
+    padding-left: 0px;
+    justify-content: center;
+  }
+}
+
+.product-card-wrapper .price--on-sale .price-item--sale__save-tag,
+.product__price .price--on-sale .price-item--sale__save-tag {
+  background-color: #BC626B;
+}
+
+/* Product badges */
+.product-promo-content .product__tags__badge {
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+.product-card .product__tags__badge {
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+/* Preorder / Bestillingsvare */
+.selected-status--left-quantity .product-form__selected-status.product-form__selected-status--orange {
+  background: #e67e22;
+}
+
+.product-form__selected-status.product-form__selected-status--orange span::before {
+  display: none;
+}
+
+.product-form__stock-message.product-form__stock-message--preorder {
+  background: rgba(230, 126, 34, 0.3);
+}

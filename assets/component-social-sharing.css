@@ -1,0 +1,11 @@
+.social-sharing {
+  display: flex;
+}
+
+.template-password .social-sharing {
+  justify-content: center;
+}
+
+.social-sharing .btn {
+  background: transparent;
+}

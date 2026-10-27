@@ -1,0 +1,343 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_height": 28,
+        "background": "alt-background-2",
+        "parallax": false,
+        "show_scrim": true,
+        "scrim_lightness": 0
+      }
+    },
+    "media_with_text_ijp7kV": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_Xm7Jr9": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Ocar Bilsæde",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "button_jzehJ3": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_Xm7Jr9",
+        "button_jzehJ3"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/copy_1D36D7D6_C8D3_4C9C_AB91_A2EEE5381DDD.MOV",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "right",
+        "section_align": "right",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_DWDh9y": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_NApCGa": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Hjalmer Bilsæde",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "button_ncVhi9": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_NApCGa",
+        "button_ncVhi9"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/copy_EA3C08F8-BA5F-4205-80B1-DBDFD7A20D2D.MOV",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "right",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_pHpnMy": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_4Q9Y76": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Bjørk Bilsæde",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "button_B6Uiph": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_4Q9Y76",
+        "button_B6Uiph"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/copy_47305CA7-7011-4753-AF02-AAA971BD7A05.MOV",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "right",
+        "section_align": "right",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_n6JBfR": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_aMyCqx": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Hjalmer Bilsæde",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_7aAewb": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Når du modtager din hundekurv/bilsæde:</strong><br/><br/>De fleste modeller af vores hundekurve og hundebilsæder, er af pladshensyn på vores lager, vakumpakkede og skal samles af dig/slutbruger ved modtagelse. <br/><br/>Forvent at det tager et døgn, inden inderpuder har fuldt volumen.Se samleinstruktion her </p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        },
+        "button_G6gekq": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_aMyCqx",
+        "text_7aAewb",
+        "button_G6gekq"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/Samle video Hjalmar.mov",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "center",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_CRaVyh": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_GppxpR": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Bjørk Bilsæde",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "button_H7K8cM": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_GppxpR",
+        "button_H7K8cM"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/Samle bilsæde Bjørk.mov",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "right",
+        "section_align": "left",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_FnQKCR": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_m7NRYk": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide til at samle Bjørk Hundekurven",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "button_HAEgW8": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_m7NRYk",
+        "button_HAEgW8"
+      ],
+      "settings": {
+        "video": "shopify://files/videos/Samlings video Bjørk hundekurv.mov",
+        "autoplay_video": false,
+        "image_ratio": "adapt",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "right",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_AUtMWV": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_8acbx8": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi leverer indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_ciyMhE": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_fnmaX7": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_wnGNa8": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_8acbx8",
+        "feature_ciyMhE",
+        "feature_fnmaX7",
+        "feature_wnGNa8"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "media_with_text_ijp7kV",
+    "media_with_text_DWDh9y",
+    "media_with_text_pHpnMy",
+    "media_with_text_n6JBfR",
+    "media_with_text_CRaVyh",
+    "media_with_text_FnQKCR",
+    "multicolumn_AUtMWV"
+  ]
+}

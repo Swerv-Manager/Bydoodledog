@@ -1,0 +1,218 @@
+{%- assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
+{%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros | strip_html -%}
+
+<div class="main-gift-card">
+  <header class="giftcard__header text-center page-width" role="banner">
+    <div class="site-header__logo text-center">
+      <a href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+          {%- assign logo_height = section.settings.logo_max_width | divided_by: section.settings.logo.aspect_ratio -%}
+          {{
+            section.settings.logo
+            | image_url: width: section.settings.logo.width
+            | image_tag:
+              preload: true,
+              widths: '50, 100, 150, 200, 250, 300, 400, 500',
+              width: section.settings.logo_max_width,
+              height: logo_height,
+              alt: logo_alt
+          }}
+        {%- else -%}
+          <span class="h2">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <h1 class="giftcard-title">{{ 'gift_cards.issued.subtext' | t }}</h1>
+    {% unless gift_card.enabled %}
+      <p class="giftcard__tag">{{ 'gift_cards.issued.disabled' | t }}</p>
+    {% endunless %}
+    {% assign gift_card_expiry_date = gift_card.expires_on | date: format: 'basic' %}
+    {% if gift_card.expired and gift_card.enabled %}
+      <p class="giftcard__tag">{{ 'gift_cards.issued.expired' | t: expiry: gift_card_expiry_date }}</p>
+    {% endif %}
+    {% if gift_card.expired != true and gift_card.expires_on and gift_card.enabled %}
+      <p class="giftcard__tag giftcard__tag--active">
+        {{ 'gift_cards.issued.active' | t: expiry: gift_card_expiry_date }}
+      </p>
+    {% endif %}
+  </header>
+
+  <div class="giftcard-wrapper page-width">
+    <main class="giftcard" role="main">
+      <div class="giftcard__wrap">
+        <div class="giftcard__wrap-content {{ section.settings.background }}">
+          <div class="giftcard__wrap__store-info">
+            {%- if section.settings.card_image != blank -%}
+              {%- assign image_alt = section.settings.card_image.alt | default: shop.name | escape -%}
+              {%- assign image_height = section.settings.image_max_width
+                | divided_by: section.settings.card_image.aspect_ratio
+              -%}
+              {{
+                section.settings.card_image
+                | image_url: width: section.settings.card_image.width
+                | image_tag:
+                  preload: true,
+                  widths: '50, 100, 150, 200, 250, 300',
+                  width: section.settings.image_max_width,
+                  height: image_height,
+                  alt: image_alt
+              }}
+            {%- else -%}
+              <span class="h2 shop_name">{{ shop.name }}</span>
+            {%- endif -%}
+            <h2>{{ 'gift_cards.issued.gift_card' | t }}</h2>
+          </div>
+
+          <div class="giftcard__amount">
+            <h1 class="giftcard__amount__price">{{ formatted_initial_value }}</h1>
+          </div>
+        </div>
+
+        <div class="giftcard__code">
+          <div class="giftcard__code__inner {{ section.settings.background }}">
+            <input
+              type="text"
+              class="giftcard__code__text{% if gift_card.expired or gift_card.enabled != true %} disabled{% endif %}"
+              id="GiftCardDigits"
+              value="{{ gift_card.code | format_code }}"
+              aria-label="{{ 'gift_cards.issued.gift_card_code' | t }}"
+              readonly
+            >
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center">
+        {{ 'gift_cards.issued.redeem_html' | t: value: formatted_initial_value_stripped }}
+        {% if settings.currency_code_enabled %}
+          {%- assign gift_card_balance = gift_card.balance | money_with_currency -%}
+        {% else %}
+          {%- assign gift_card_balance = gift_card.balance | money -%}
+        {% endif %}
+        {% if gift_card.balance != gift_card.initial_value %}
+          <span class="giftcard__remaining-balance">
+            {{- 'gift_cards.issued.remaining_html' | t: balance: gift_card_balance -}}
+          </span>
+        {% endif %}
+      </p>
+
+      <div class="giftcard-action-list text-center no-print">
+        <button type="button" class="btn btn--secondary print-link" onclick="window.print();">
+          {{ 'gift_cards.issued.print' | t }}
+        </button>
+        <a
+          href="{{ shop.url }}"
+          class="btn shop-url"
+          target="_blank"
+          rel="noopener"
+          aria-describedby="a11y-new-window-message"
+        >
+          {{ 'gift_cards.issued.shop_link' | t }}
+        </a>
+      </div>
+
+      <h4 class="text-center giftcard__or hide">
+        {{ 'gift_cards.issued.or' | t }}
+      </h4>
+
+      <p class="text-center hide">
+        {{ 'gift_cards.issued.take_picture' | t }}
+      </p>
+
+      <div class="gift-card__qr-code" data-identifier="{{ gift_card.qr_identifier }}"></div>
+
+      {% if gift_card.pass_url %}
+        <div class="text-center">
+          <a class="giftcard__apple-wallet" href="{{ gift_card.pass_url }}">
+            <img
+              class="giftcard__apple-wallet-image"
+              src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+              width="126"
+              height="46"
+              alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+              loading="lazy"
+            >
+          </a>
+        </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-gift-card.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-gift-card.settings.header_1.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.main-gift-card.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+      "label": "t:sections.main-gift-card.settings.logo_max_width.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-gift-card.settings.header_2.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "t:sections.main-gift-card.settings.card_image.label"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+      "label": "t:sections.main-gift-card.settings.image_max_width.label"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    }
+  ]
+}
+{% endschema %}

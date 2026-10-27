@@ -1,0 +1,85 @@
+{{ 'faq-linked-menu.css' | asset_url | stylesheet_tag }}
+
+<faq-linked-menu class="faq-linked-menu page-width background-modal">
+  <ul class="faq-linked-menu-content">
+  </ul>
+</faq-linked-menu>
+
+{% javascript %}
+  class FaqLinkedMenu extends HTMLElement {
+    constructor() {
+      super();
+      this.faqLinkedMenuContent = this.querySelector('.faq-linked-menu-content');
+      this.accordionComponent = document.querySelectorAll('.faq-item');
+      const faqlinkedItems = [];
+
+      this.accordionComponent.forEach((elm, i) => {
+        if (i != 0) {
+          elm.classList.add('hide');
+        }
+
+        const faqLinkedMenuSection = elm.querySelector('[data-menu-info="faq-linked-menu"]');
+
+        if (faqLinkedMenuSection) {
+          const newMenuItem = document.createElement('li');
+          newMenuItem.dataset.linkType = elm.dataset.sectionType;
+          newMenuItem.innerHTML = faqLinkedMenuSection.innerHTML;
+
+          if (i === 0) {
+            newMenuItem.classList.add('active');
+          }
+
+          this.faqLinkedMenuContent.appendChild(newMenuItem);
+
+          newMenuItem.addEventListener('click', this.handleClick.bind(this));
+        }
+
+        faqLinkedMenuSection.classList.add('hide');
+      });
+    }
+
+    handleClick(event) {
+      event.preventDefault();
+      const target = event.currentTarget;
+      const contentId = target.dataset.linkType;
+
+      const activeElement = document.querySelector(`[data-section-type=${contentId}]`);
+      const activeHeaderItem = this.faqLinkedMenuContent.querySelector('li.active');
+
+      if (activeHeaderItem !== target) {
+        activeHeaderItem.classList.remove('active');
+        target.classList.add('active');
+      }
+
+      this.accordionComponent.forEach((elm) => {
+        if (!elm.classList.contains('hide')) {
+          elm.classList.add('collapsible-content--hide');
+          setTimeout(function () {
+            elm.classList.add('hide');
+          }, 200);
+        }
+      });
+
+      setTimeout(function () {
+        activeElement.classList.remove('hide');
+        activeElement.classList.remove('collapsible-content--hide');
+      }, 200);
+    }
+  }
+
+  customElements.define('faq-linked-menu', FaqLinkedMenu);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.faq-linked-menu.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.faq-linked-menu.settings.paragraph.content"
+    }
+  ]
+}
+{% endschema %}

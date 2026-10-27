@@ -1,0 +1,332 @@
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  if shop.customer_accounts_enabled
+    if customer
+      if request.page_type contains 'customers'
+        assign hideNewsletter = true
+      endif
+    endif
+    if request.page_type contains 'customers' or request.path contains 'password-recovery'
+      assign noMargin = true
+    endif
+  endif
+
+  if request.page_type == 'captcha'
+    assign hideNewsletter = true
+  endif
+
+  assign app_blocks = section.blocks | where: 'type', '@app'
+%}
+
+<div class="section-{{ section.id }}-padding">
+  <newsletter-form data-section-id="{{ section.id }}">
+    <div class="newsletter-section {{ section.settings.background }}{% if request.page_type == 'cart' or noMargin or request.page_type == 'product' %} newsletter-section--no-margin{% endif %}{% if hideNewsletter %} hide{% endif %}">
+      <div class="page-width" style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};">
+        {% for block in app_blocks %}
+          {% render block %}
+        {% endfor %}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'text' -%}
+              <div class="newsletter-section__heading" {{ block.shopify_attributes }}>
+                {% if block.settings.title != blank %}
+                  <h3 class="h1">{{ block.settings.title | escape }}</h3>
+                {% endif %}
+                {% if block.settings.subtext != blank %}
+                  <div class="newsletter-section__subtext rte">
+                    {{ block.settings.subtext }}
+                  </div>
+                {% endif %}
+              </div>
+            {%- when 'email_form' -%}
+              <div class="newsletter-section__form" {{ block.shopify_attributes }}>
+                {%- assign formId = 'Contact_' | append: section.id -%}
+                {% form 'customer', id: formId, novalidate: 'novalidate', class: 'contact-form' %}
+                  <div class="newsletter-message-box {% unless form.posted_successfully? %} hidden{% endunless %}">
+                    <h4>{{ block.settings.message_title }}</h4>
+                    <div class="form-message form-message--success" tabindex="-1" data-form-status>
+                      {{ block.settings.success_message }}
+                    </div>
+                  </div>
+                  <div class="newsletter-form-info{% if form.posted_successfully? %} hidden{% endif %}">
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <div class="input-group{% if form.errors %} input-group--error{% endif %}">
+                      <div class="field-wrapper">
+                        <input type="email"
+                        name="contact[email]"
+                        id="NewsletterForm--{{ section.id }}"
+                        class="field-wrapper__input input--dark input-group__field{% if form.errors %} input--error{% endif %}"
+                        value="{{ form.email }}"
+                        aria-label="{{ 'newsletter_form.email_placeholder' | t }}"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        placeholder="{{ 'newsletter_form.email_placeholder' | t }}"
+                        {% if form.errors %}
+                          autofocus
+                          aria-invalid="true"
+                          aria-describedby="Newsletter-error--{{ section.id }}"
+                        {% elsif form.posted_successfully? %}
+                          aria-describedby="Newsletter-success--{{ section.id }}"
+                        {% endif %}
+                        >
+                        <label class="field-wrapper__label" for="NewsletterForm--{{ section.id }}">
+                          <span class="field-wrapper__label-name">{{ 'newsletter_form.email_placeholder' | t }}</span>
+                        </label>
+                        {%- if form.errors contains 'email' -%}
+                          <span class="field-wrapper__icon-error">
+                            <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                          </span>
+                        {%- endif -%}
+                        <span class="field-wrapper__icon-error hide">
+                          <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                        </span>
+                      </div>
+                      <div class="input-group__actions">
+                        {%- if form.errors contains 'email' -%}
+                          <span id="Newsletter-error--{{ section.id }}" class="input-error-message">
+                            <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                            <span class="input-error-message__text">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                          </span>
+                        {%- endif -%}
+                        {%- unless form.errors -%}
+                          <span id="Newsletter-error--{{ section.id }}" class="input-error-message hide">
+                            <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                            <span class="input-error-message__text"></span>
+                          </span>
+                          <span class="newsletter-email-exist hide">{{ 'newsletter_form.email_subscribed' | t }}</span>
+                        {%- endunless -%}
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn--small" name="commit" id="Subscribe">
+                      <span>{{ 'newsletter_form.submit' | t }}</span>
+                    </button>
+                  </div>
+                {% endform %}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </newsletter-form>
+</div>
+
+{% javascript %}
+  class newsletterForm extends HTMLElement {
+    constructor() {
+      super();
+      const url = new URL(window.location.href);
+      const searchParams = new URLSearchParams(url.search);
+
+      const sectionId = this.dataset.sectionId;
+      const contactNewsletter = this.querySelector(`#Contact_${sectionId}`);
+      const inputEmailGroup = contactNewsletter.querySelector('.input-group');
+      const inputEmailNewsletter = contactNewsletter.querySelector('input[type="email"]');
+      const errorMessage = contactNewsletter.querySelector(`#Newsletter-error--${sectionId}`);
+      const errorMessageText = errorMessage.querySelector('.input-error-message__text');
+      const iconError = contactNewsletter.querySelector('.field-wrapper__icon-error');
+      const existingEmailMsg = contactNewsletter.querySelector('.newsletter-email-exist');
+      const urlUserCame = document.referrer ? new URL(document.referrer) : null;
+
+      inputEmailNewsletter.addEventListener('keyup', function (e) {
+        if (e.code === 'Enter') return;
+        inputEmailGroup.classList.remove('input-group--error');
+        inputEmailNewsletter.classList.remove('input--error');
+        errorMessage.classList.add('hide');
+        iconError.classList.add('hide');
+        if (existingEmailMsg) existingEmailMsg.classList.add('hide');
+      });
+
+      if (existingEmailMsg && searchParams.has('form_type') && inputEmailNewsletter.value) {
+        existingEmailMsg.classList.remove('hide');
+      }
+
+      if ( urlUserCame && urlUserCame.pathname === '/challenge' ) {
+        document.querySelector(`#Contact_${sectionId}`).scrollIntoView();
+      }
+
+      contactNewsletter.addEventListener('submit', (event) => {
+        const email = inputEmailNewsletter.value;
+
+        if (!this.validateEmail(email)) {
+          event.preventDefault();
+          var erroMessage = '';
+
+          if (email === '') {
+            erroMessage = window.loginStrings.errorEmailRequired;
+          } else {
+            erroMessage = window.loginStrings.errorEmailInvalid;
+          }
+
+          inputEmailGroup.classList.add('input-group--error');
+          inputEmailNewsletter.classList.add('input--error');
+          inputEmailNewsletter.setAttribute('aria_invalid', 'true');
+          inputEmailNewsletter.setAttribute('aria_describedby', `Newsletter-error--${sectionId}`);
+          inputEmailNewsletter.setAttribute('data_form_status', true);
+
+          if (errorMessageText) errorMessageText.textContent = erroMessage;
+          errorMessage.classList.remove('hide');
+          iconError.classList.remove('hide');
+          inputEmailNewsletter.focus();
+        }
+
+        return false;
+      });
+    }
+
+    validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+  }
+
+  customElements.define('newsletter-form', newsletterForm);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.newsletter.settings.paragraph.content"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "main-background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "t:sections.newsletter.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Get our Newsletter",
+          "label": "t:sections.newsletter.blocks.text.settings.title.label"
+        },
+        {
+          "type": "richtext",
+          "id": "subtext",
+          "default": "<p>Exclusive discounts, early access to new styles, and special content</p>",
+          "label": "t:sections.newsletter.blocks.text.settings.subtext.label"
+        }
+      ]
+    },
+    {
+      "type": "email_form",
+      "name": "t:sections.newsletter.blocks.email_form.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "t:sections.newsletter.blocks.email_form.settings.header.content"
+        },
+        {
+          "type": "text",
+          "id": "message_title",
+          "default": "Thanks!",
+          "label": "t:sections.newsletter.blocks.email_form.settings.message_title.label"
+        },
+        {
+          "type": "richtext",
+          "id": "success_message",
+          "default": "<p>You are now subscribed to our email newsletter!</p>",
+          "label": "t:sections.newsletter.blocks.email_form.settings.success_message.label"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text"
+      },
+      {
+        "type": "email_form"
+      }
+    ]
+  }
+}
+{% endschema %}

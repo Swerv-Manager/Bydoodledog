@@ -1,0 +1,118 @@
+.product-media-modal {
+  background-color: rgb(var(--color-background));
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
+
+.product-media-modal[open] {
+  visibility: visible;
+  opacity: 1;
+  z-index: 101;
+}
+
+.product-media-modal__dialog {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.product-media-modal__toggle {
+  background: none;
+  border: none;
+  color: rgba(var(--color-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  right: 1rem;
+  padding: 0.625rem;
+  position: fixed;
+  z-index: 2;
+  top: 1rem;
+  width: 2.75rem;
+}
+
+.product-media-modal__content {
+  max-height: 100vh;
+  width: 100%;
+  overflow: auto;
+}
+
+.product-media-modal__model {
+  width: 100%;
+}
+
+.product-media-modal__content .product-single__media-wrapper > *:not(.active) {
+  display: none;
+}
+
+.product-media-modal__content .product-single__media-wrapper > * {
+  display: block;
+  height: auto;
+  margin: auto;
+}
+
+.product-media-modal__content .deferred-media {
+  width: 100%;
+}
+
+.product-media-modal__content .media {
+  background: none;
+}
+
+.product__modal-opener .product__media {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+}
+
+
+.product-single__gallery-item .product-popup-modal__opener {
+  display: block;
+}
+
+.product-media-modal .product-popup-modal__opener {
+  display: none;
+}
+
+.product-popup-modal__button {
+  border-radius: 50%;
+  color: rgb(var(--color-foreground));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 1;
+  padding: 0;
+}
+
+.product-popup-modal__button .product-single__thumbnail-badge {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+  .product-single__gallery-item .product-popup-modal__opener,
+  .product-popup-modal__opener {
+    display: none;
+  }
+
+  .product-popup-modal__button {
+    height: 60px;
+    width: 60px;
+  }
+}

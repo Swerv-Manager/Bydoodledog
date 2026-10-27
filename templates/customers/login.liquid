@@ -1,0 +1,204 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer login">
+  <div class="page-width account-login page-width--without-padding">
+    <div class="account-card-wrapper background-modal">
+      <div class="account__form-content">
+        <div id="recover">
+          <div class="text-center">
+            <h3 id="RecoverHeading" class="account-login__title">{{ 'customer.recover_password.title' | t }}</h3>
+            <p class="account-login__text">{{ 'customer.recover_password.subtext' | t }}</p>
+          </div>
+
+          <div class="form-vertical fade-transition">
+            {% form 'recover_customer_password' %}
+              {% assign recover_success = form.posted_successfully? %}
+
+              <div class="field-wrapper">
+                <input
+                type="email"
+                value=""
+                name="email"
+                id="RecoverEmail"
+                class="field-wrapper__input{% if form.errors %} input--error{% endif %}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="Email"
+                {% if form.errors %}
+                  aria-invalid="true"
+                  aria-describedby="RecoverEmail-email-error"
+                {%- endif -%}
+                >
+                <label class="field-wrapper__label" for="RecoverEmail">
+                  <span class="field-wrapper__label-name">{{ 'customer.recover_password.email' | t }}</span>
+                </label>
+                <span class="field-wrapper__icon-error{% unless form.errors contains 'form' %} hide{% endunless %}" aria-invalid="true">
+                  <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                </span>
+              </div>
+              <span class="input-error-message hide">
+                <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                <span></span>
+              </span>
+              {%- if form.errors -%}
+                <div class="form-message form-message--error">
+                  {{ form.errors | default_errors }}
+                </div>
+              {%- endif -%}
+
+              <div class="input-group__btn">
+                <a href="#login" id="HideRecoverPasswordLink" class="btn btn--secondary">{{ 'customer.recover_password.cancel' | t }}</a>
+                <button type="submit" class="btn" id="recoverPasswordSubmit">
+                  <span>{{ 'customer.recover_password.submit' | t }}</span>
+                  <span class="btn__loader" data-loader>
+                    <div class="loader-bounce">
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+                    </div>
+                  </span>
+                </button>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+
+        <div id="login" class="form-vertical">
+          <div class="text-center">
+            <h3 id="LoginHeading" class="text-center account-login__title">{{ 'customer.login_page.title' | t }}</h3>
+            <p class="account-login__text">{{ 'customer.login_page.subtext' | t }}</p>
+          </div>
+
+          {% form 'customer_login', novalidate: 'novalidate' %}
+            <div class="field-wrapper">
+              <input
+                type="email"
+                name="customer[email]"
+                id="CustomerEmail"
+                aria-required="true"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="Email"
+                class="field-wrapper__input{% if form.errors contains 'form' %} input--error input--not-error-msg{% endif %}"
+                {%- if form.errors contains 'form' -%}
+                  aria-invalid="true"
+                {%- endif -%}
+              >
+              <label class="field-wrapper__label" for="CustomerEmail"><span class="field-wrapper__label-name">{{ 'customer.login_page.email' | t }}</span></label>
+              <span class="field-wrapper__icon-error{% unless form.errors contains 'form' %} hide{% endunless %}" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span></span>
+            </span>
+
+            {% if form.password_needed %}
+              <div class="field-wrapper">
+                <input
+                  type="password"
+                  value=""
+                  name="customer[password]"
+                  aria-required="true"
+                  id="CustomerPassword"
+                  placeholder="Password"
+                  class="field-wrapper__input{% if form.errors contains 'form' %} input--error input--not-error-msg{% endif %}"
+                  {% if form.errors contains 'form' %}
+                    aria-invalid="true"
+                  {% endif %}
+                >
+                <label class="field-wrapper__label" for="CustomerPassword"><span class="field-wrapper__label-name">{{ 'customer.login_page.password' | t }}</span></label>
+                <span class="field-wrapper__icon-error{% unless form.errors contains 'form' %} hide{% endunless %}" aria-invalid="true">
+                  <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                </span>
+              </div>
+              <span class="input-error-message hide">
+                <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                <span></span>
+              </span>
+            {% endif %}
+
+            {%- if form.errors -%}
+              <div class="form-message form-message--error medium-up--hide">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            {%- if recover_success == true -%}
+              <div class="form-message form-message--success-field form-message--success-field--margin" tabindex="-1" autofocus>
+                <i class="icon icon-check {{ icon_style }} fa-check"></i>
+                {{ 'customer.recover_password.success' | t }}
+              </div>
+            {%- endif -%}
+
+            <div class="account-login__actions">
+              {% if form.password_needed %}
+                <div class="account-login__forgot-link">
+                  {%- if form.errors -%}
+                    <div class="form-message form-message--error small--hide">
+                      {{ form.errors | default_errors }}
+                    </div>
+                  {%- endif -%}
+                  <a href="#recover" id="RecoverPassword">{{ 'customer.login_page.forgot_password' | t }}</a>
+                </div>
+              {% endif %}
+              <div id="loginRemember">
+                <input id="rememberCheckBox" type="checkbox">
+                <label for="rememberCheckBox">
+                  {{ 'customer.login_page.remember_me' | t }}
+                  <span class="input-check-mark">
+                    <i class="icon-check {{ icon_style }} fa-check"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="input-group__btn">
+              <button type="submit" class="btn btn--from" id="loginSubmit">
+                <span>{{ 'customer.login_page.sign_in' | t }}</span>
+                <span class="btn__loader" data-loader>
+                  <div class="loader-bounce">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </span>
+              </button>
+            </div>
+          {% endform %}
+
+          <h4 class="text-center account-login__title--create">{{ 'customer.login_page.title_new' | t }}</h4>
+          <div class="text-center">
+            {{ 'customer.login_page.create_account' | t | customer_register_link | replace: 'href', 'class="btn btn--secondary" href' }}
+          </div>
+        </div>
+
+        {%- if shop.checkout.guest_login -%}
+          <div class="guest-login">
+            <div class="text-center">
+              <h4 class="text-center account-login__title--create">{{ 'customer.login_page.guest_title' | t }}</h4>
+
+              {%- form 'guest_login' -%}
+                <button class="btn btn--secondary">
+                  {{ 'customer.login_page.guest_continue' | t }}
+                </button>
+              {%- endform -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = () => {
+    typeof CustomerLogin !== 'undefined' && new CustomerLogin();
+  }
+</script>

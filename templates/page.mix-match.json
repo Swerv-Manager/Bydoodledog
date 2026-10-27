@@ -1,0 +1,352 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_height": 28,
+        "background": "alt-background-2",
+        "parallax": false,
+        "show_scrim": true,
+        "scrim_lightness": 0
+      }
+    },
+    "hero_image_LzqgVe": {
+      "type": "hero-image",
+      "disabled": true,
+      "settings": {
+        "background_image": "none",
+        "custom_background_image": "shopify://shop_images/IMG_2004_c6e3baad-d850-4bab-9f21-ec330f0a2e97.jpg",
+        "image_height": 70,
+        "show_scrim": false,
+        "scrim_lightness_background": 0,
+        "image_animation": "slide-in",
+        "transparent_header": false,
+        "image_size": 50,
+        "image_vertical_position": "bottom",
+        "image_below_position": 5,
+        "image_horizontal_position": 100,
+        "show_secondary_scrim": false,
+        "scrim_lightness": 0,
+        "content_aligment": "left",
+        "vertical_position": 50,
+        "horizontal_position": 10,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "ss_bundle_builder_rnJgqm": {
+      "type": "ss-bundle-builder",
+      "blocks": {
+        "collection_JCnTpc": {
+          "type": "collection",
+          "settings": {
+            "collection": "snacks-1",
+            "heading": "Spar op til 20% ved at sammesætte din egen pakke!"
+          }
+        },
+        "feature_fnUAeY": {
+          "type": "feature",
+          "settings": {
+            "icon": "love",
+            "text": "10+ års erfaring med hundeopdræt"
+          }
+        },
+        "feature_KgjbPx": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "text": "4.9 på Trustpilot"
+          }
+        },
+        "feature_eC6Jy6": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "text": "Gratis fragt ved køb over 899 kr"
+          }
+        }
+      },
+      "block_order": [
+        "collection_JCnTpc",
+        "feature_fnUAeY",
+        "feature_KgjbPx",
+        "feature_eC6Jy6"
+      ],
+      "settings": {
+        "body_gap": 40,
+        "body_gap_mobile": 0,
+        "groups_gap": 72,
+        "groups_gap_mobile": 0,
+        "heading_custom": false,
+        "heading_font": "itc_stepp_n7",
+        "heading_size": 28,
+        "heading_size_mobile": 18,
+        "heading_height": 130,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "grid_row": 3,
+        "grid_row_mobile": "2",
+        "grid_gap": 30,
+        "grid_gap_mobile": 8,
+        "grid_mt": 40,
+        "grid_mt_mobile": 24,
+        "image_radius": 14,
+        "image_border_thickness": 2,
+        "image_ratio": "portrait",
+        "image_ratio_mobile": "portrait",
+        "product_content_align": "left",
+        "product_content_align_mobile": "left",
+        "title_custom": false,
+        "title_font": "josefin_sans_n4",
+        "title_size": 16,
+        "title_size_mobile": 13,
+        "title_height": 150,
+        "title_mt": 10,
+        "title_mt_mobile": 10,
+        "description_custom": false,
+        "description_font": "itc_stepp_n4",
+        "description_size": 15,
+        "description_size_mobile": 12,
+        "description_height": 150,
+        "description_mt": 16,
+        "description_mt_mobile": 16,
+        "description_length": 8,
+        "price_custom": false,
+        "price_font": "itc_stepp_n7",
+        "price_size": 13,
+        "price_size_mobile": 12,
+        "price_height": 100,
+        "price_mt": 16,
+        "price_mt_mobile": 14,
+        "price_compare": true,
+        "use_variants": true,
+        "select_custom": false,
+        "select_font": "itc_stepp_n7",
+        "select_size": 13,
+        "select_size_mobile": 12,
+        "select_height": 100,
+        "select_mt": 16,
+        "select_mt_mobile": 14,
+        "select_radius": 0,
+        "select_border_thickness": 1,
+        "sidebar_padding_vertical": 20,
+        "sidebar_padding_vertical_mobile": 20,
+        "sidebar_padding_horizontal": 24,
+        "sidebar_padding_horizontal_mobile": 0,
+        "sidebar_radius": 0,
+        "sidebar_border_thickness": 1,
+        "sidebar_border_left": true,
+        "use_atc_fixed": true,
+        "discount_first": "10",
+        "discount_first_count": "2",
+        "discount_second": "15",
+        "discount_second_count": "1",
+        "discount_third": "20",
+        "discount_third_count": "1",
+        "discount_wrapper_padding_vertical": 10,
+        "discount_wrapper_padding_vertical_mobile": 8,
+        "discount_wrapper_padding_horizontal": 10,
+        "discount_wrapper_padding_horizontal_mobile": 8,
+        "discount_wrapper_radius": 14,
+        "discount_first_text": "Vælg",
+        "discount_center_text": "produkter mere og få",
+        "discount_end_text": "rabat 🐶",
+        "discount_all_text": "Tillykke! Din rabat bliver fratrukket i kurven",
+        "discount_text_custom": true,
+        "discount_text_font": "itc_stepp_i7",
+        "discount_text_size": 24,
+        "discount_text_size_mobile": 20,
+        "discount_text_height": 150,
+        "total_mt": 20,
+        "total_mt_mobile": 20,
+        "total_border_thickness": 1,
+        "total_heading": "I ALT",
+        "total_heading_custom": true,
+        "total_heading_font": "itc_stepp_n7",
+        "total_heading_size": 21,
+        "total_heading_size_mobile": 14,
+        "total_heading_height": 130,
+        "total_price_custom": false,
+        "total_price_font": "itc_stepp_n9",
+        "total_price_size": 21,
+        "total_price_size_mobile": 17,
+        "total_price_height": 130,
+        "total_price_compare": true,
+        "use_total_save": false,
+        "total_save_custom": false,
+        "total_save_font": "josefin_sans_n7",
+        "total_save_size": 15,
+        "total_save_size_mobile": 15,
+        "total_save_height": 130,
+        "text": "<p>1-3 dages levering med GLS</p>",
+        "text_custom": false,
+        "text_font": "josefin_sans_n4",
+        "text_size": 13,
+        "text_size_mobile": 13,
+        "text_height": 130,
+        "text_mt": 20,
+        "text_mt_mobile": 20,
+        "button": "Tilføj produkter til kurven",
+        "button_custom": true,
+        "button_font": "itc_stepp_n9",
+        "button_size": 18,
+        "button_size_mobile": 14,
+        "button_height": 100,
+        "button_padding_vertical": 16,
+        "button_padding_vertical_mobile": 16,
+        "button_padding_horizontal": 16,
+        "button_padding_horizontal_mobile": 16,
+        "button_radius": 14,
+        "button_border_thickness": 2,
+        "button_mt": 14,
+        "button_mt_mobile": 12,
+        "button_style": "outline_arrow",
+        "use_payment_icons": true,
+        "payment_mt": 16,
+        "payment_mt_mobile": 16,
+        "payment_icon_size": 42,
+        "payment_icon_size_mobile": 40,
+        "features_gap": 16,
+        "features_gap_mobile": 16,
+        "features_mt": 24,
+        "features_mt_mobile": 24,
+        "feature_icon_size": 24,
+        "feature_icon_size_mobile": 24,
+        "feature_text_custom": false,
+        "feature_text_font": "josefin_sans_n4",
+        "feature_text_size": 13,
+        "feature_text_size_mobile": 13,
+        "feature_text_height": 150,
+        "heading_color": "#000000",
+        "heading_number_color": "#846340",
+        "image_border_color": "#ffffff",
+        "image_border_active_color": "#846340",
+        "title_color": "#000000",
+        "description_color": "#9d9d9d",
+        "price_color": "#2d7b6c",
+        "price_original_color": "#000000",
+        "select_color": "#000000",
+        "select_bg_color": "#ffffff",
+        "select_border_color": "#000000",
+        "check_bg_color": "#ffffff",
+        "check_bg_active_color": "#c8baab",
+        "check_border_color": "#846340",
+        "check_border_active_color": "#2d7b6c",
+        "check_icon_color": "#ffffff",
+        "sidebar_bg_color": "#ffffff",
+        "sidebar_border_color": "#c8baab",
+        "text_color": "#000000",
+        "discount_wrapper_bg_color": "#c8baab",
+        "discount_text_color": "#ffffff",
+        "discount_text_precent_color": "#2d7b6c",
+        "discount_bar_bg_color": "#ffffff",
+        "discount_bar_bg_active_color": "#984b2c",
+        "discount_icon_color": "#ffffff",
+        "total_border_color": "#000000",
+        "total_heading_color": "#000000",
+        "total_price_color": "#2d7b6c",
+        "total_price_original_color": "#000000",
+        "total_save_bg_color": "#2d7b6c",
+        "total_save_color": "#ffffff",
+        "button_color": "#000000",
+        "button_hover_color": "#984b2c",
+        "button_bg_color": "#f9f3f1",
+        "button_bg_hover_color": "#2d7b6c",
+        "button_border_color": "#846340",
+        "button_border_hover_color": "#2d7b6c",
+        "feature_icon_color": "#000000",
+        "feature_text_color": "#3a3a3e",
+        "background_color": "#ffffff",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0.2,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 14,
+        "lazy": true
+      }
+    },
+    "multicolumn_AUtMWV": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_8acbx8": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dages levering",
+            "text": "<p>Vi leverer indenfor 1-3 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_ciyMhE": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_fnmaX7": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_wnGNa8": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_8acbx8",
+        "feature_ciyMhE",
+        "feature_fnmaX7",
+        "feature_wnGNa8"
+      ],
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "main",
+    "hero_image_LzqgVe",
+    "ss_bundle_builder_rnJgqm",
+    "multicolumn_AUtMWV"
+  ]
+}

@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq-header": {
+      "type": "faq-header",
+      "settings": {
+        "subtitle": "Have questions? We have answers."
+      }
+    },
+    "faq_1": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_1": {
+          "type": "collapsible_row",
+          "settings": {
+            "title": "What size should I buy?",
+            "row_content": "<p>If you’re not quite sure which size is right for you, refer to our size guides. They’re located on each product page.</p>"
+          }
+        },
+        "collapsible_row_2": {
+          "type": "collapsible_row",
+          "settings": {
+            "title": "Can I cancel my order?",
+            "row_content": "<p>Depending on the status of your order, it may be possible to cancel the order.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_1",
+        "collapsible_row_2"
+      ],
+      "settings": {
+        "show_information": false,
+        "title": "Orders"
+      }
+    },
+    "faq_2": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_1": {
+          "type": "collapsible_row",
+          "settings": {
+            "title": "What is your return policy?",
+            "row_content": "<p>We want to make sure you love what you buy! We offer free returns for 30 days on all eligible items and free exchanges for 90 days. Items must be unopened with all tags attached.</p>"
+          }
+        },
+        "collapsible_row_2": {
+          "type": "collapsible_row",
+          "settings": {
+            "title": "How can I start a return?",
+            "row_content": "<p>Please navigate to our Returns Portal and enter your order number and zip code. Follow the instructions on the screen to request a prepaid return label.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_1",
+        "collapsible_row_2"
+      ],
+      "settings": {
+        "show_information": false,
+        "title": "Returns"
+      }
+    }
+  },
+  "order": [
+    "faq-header",
+    "faq_1",
+    "faq_2"
+  ]
+}

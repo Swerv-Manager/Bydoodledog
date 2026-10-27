@@ -1,0 +1,107 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer register">
+  <div class="page-width account-login page-width--without-padding">
+    <div class="account-card-wrapper background-modal">
+      <div class="account__form-content">
+        <div class="form-vertical">
+          <div class="text-center">
+            <h3 class="text-center account-login__title">{{ 'customer.register.title' | t }}</h3>
+            <p class="account-login__text">{{ 'customer.register.subtext' | t }}</p>
+          </div>
+
+          {%- assign form_id = 'RegisterForm' -%}
+          {% form 'create_customer', id: form_id, novalidate: 'novalidate' %}
+            <div class="field-wrapper">
+              <input
+                type="email"
+                name="customer[email]"
+                id="{{ form_id }}-email"
+                class="field-wrapper__input{% if form.errors contains 'email' %} input--error{% endif %}"
+                {% if form.email %} value="{{ form.email }}"{% endif %}
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                aria-required="true"
+                placeholder="Email"
+              >
+              <label class="field-wrapper__label" for="{{ form_id }}-email"><span class="field-wrapper__label-name">{{ 'customer.register.email' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+              <span class="field-wrapper__icon-check hide">
+                <i class="icon-check {{ icon_style }} fa-check"></i>
+              </span>
+            </div>
+
+            <span class="input-error-message hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span></span>
+            </span>
+
+            <div class="field-wrapper">
+              <input
+                type="password"
+                name="customer[password]"
+                id="{{ form_id }}-password"
+                class="field-wrapper__input requirement-input{% if form.errors contains 'password' %} input--error{% endif %}"
+                aria-required="true"
+                placeholder="Password"
+              >
+              <label class="field-wrapper__label" for="{{ form_id }}-password"><span class="field-wrapper__label-name">{{ 'customer.register.password' | t }}</span></label>
+              <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </span>
+            </div>
+
+            <span class="input-error-message input-error-message--no-margin hide">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <span></span>
+            </span>
+            <p id="{{ form_id }}-password-requirement" class="requirement-form{% if form.errors contains 'form' %} hide{% endif %}">{{ 'customer.register.requirement_txt' | t }}</p>
+
+            {% if form.errors contains 'form' %}
+              {% if form.errors.messages['form'] contains 'verify your email address' %}
+                <div class="form-message form-message--success-field" tabindex="-1" autofocus>
+                  <i class="icon-check {{ icon_style }} fa-check"></i>
+                  {{ form.errors.messages['form'] }}
+                </div>
+              {% else %}
+                <div class="form-message form-message--error form-message--error--no-margin">
+                  {% if form.errors.messages['form'] contains 'reset your password' %}
+                    {{ 'customer.register.error_html' | t }}
+                  {% else %}
+                    {{ form.errors.messages['form'] }}
+                  {% endif %}
+                </div>
+              {% endif %}
+
+            {% endif %}
+
+            <div class="input-group__btn">
+              <button type="submit" class="btn">
+                <span>{{ 'customer.register.submit' | t }}</span>
+                <span class="btn__loader" data-loader>
+                  <div class="loader-bounce">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </span>
+              </button>
+            </div>
+
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = () => {
+    typeof CustomerRegister !== 'undefined' && new CustomerRegister();
+  }
+</script>

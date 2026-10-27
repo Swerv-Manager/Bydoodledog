@@ -1,0 +1,143 @@
+{% liquid
+  assign icon_style = settings.icons_style
+  assign media_ratio = settings.image_ratio
+  assign border_gallery = settings.product_gallery_border
+  assign product_swatches = settings.product_swatches | downcase | split: ','
+  assign uppercase_product_title = settings.uppercase_product_title
+%}
+{%- if cart != empty -%}
+  {%- for item in cart.items -%}
+    <div id="cart-notification-product-{{ item.id }}">
+      <div class="cart-notification-product__media{% if border_gallery %} product__gallery--border{% endif %}">
+        <div
+          class="cart-notification-product__image media--{{ media_ratio }}{% if item.image %} media{% endif %}"
+          {% if media_ratio == 'adapt' %}
+            style="padding-top: 100%;"
+          {% endif %}
+        >
+          {% if item.image %}
+            <img
+              class="lazyload"
+              src="{{ item.image | image_url: width: 140 }}"
+              alt="{{ item.image.alt | escape }}"
+              width="90"
+              height="{{ 90 | divided_by: item.image.aspect_ratio | ceil }}"
+              loading="lazy"
+            >
+          {% else %}
+            <h4>{{ 'general.image_coming' | t }}</h4>
+          {% endif %}
+        </div>
+      </div>
+      <div class="cart-notification-product__info">
+        <div class="cart-notification-product__header">
+          <h3 class="cart-notification-product__name product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase h5{% else %} h4{% endif %}">
+            {{ item.product.title | escape }}
+            {%- if item.gift_card -%}
+              <span class="cart-notification__shop-name">{{ shop.name }}</span>
+            {%- endif -%}
+            {%- if item.selling_plan_allocation != null -%}
+              <span class="cart-notification-product__option--plan">
+                <i class="icon {{ icon_style }} fa-arrows-rotate"></i>
+                {{ item.selling_plan_allocation.selling_plan.name }}
+              </span>
+            {%- endif -%}
+          </h3>
+          <dl>
+            {%- unless item.gift_card -%}
+              {%- unless item.product.has_only_default_variant -%}
+                {%- for option in item.options_with_values -%}
+                  <div class="cart-notification-product__option">
+                    {%- assign option_value = option.value | downcase | strip -%}
+                    {%- if option_value != 'no' -%}
+                      {%- if option_value == 'yes' -%}
+                        <dt>{{ option.name }}</dt>
+                      {%- else -%}
+                        <dt>{{ option.name }}:&nbsp;</dt>
+                        {%- assign option_name = option.name | downcase | strip -%}
+                        {%- assign option_swatch = product_swatches | where: option_name -%}
+                        {%- if option_swatch.size > 0 -%}
+                          <dd>
+                            {{ option.value }}
+                            <span>{%- render 'color-swatch', color: option.value -%}</span>
+                          </dd>
+                        {%- else -%}
+                          <dd>{{ option.value }}</dd>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </div>
+                {%- endfor -%}
+              {%- endunless -%}
+            {%- endunless -%}
+            {%- for p in item.properties -%}
+              {%- assign property_first_char = p.first | slice: 0 -%}
+              {% assign p_value = p.last | downcase | strip %}
+              {%- if p.last != blank and p_value != 'false' and property_first_char != '_' -%}
+                <div
+                  class="cart-notification-product__option cart-notification-product__option--property"
+                  data-cart-item-property
+                >
+                  {% assign hide_label = false %}
+                  {% if p.first == 'Recipient email' or p.first == 'Recipient name' or p.first == 'Message' %}
+                    {% assign hide_label = true %}
+                  {% endif %}
+                  <dt
+                    {% if hide_label %}
+                      class="hide"
+                    {% endif %}
+                  >
+                    {{ p.first -}}
+                    {%- if p_value != 'true' %}:{% endif %}&nbsp;
+                  </dt>
+                  <dd>
+                    {% if p_value != 'true' %}
+                      <span data-cart-item-property-value>
+                        {%- if p.last contains '/uploads/' -%}
+                          <a href="{{ p.last }}">{{ 'sections.cart.file' | t }}</a>
+                        {%- else -%}
+                          {{ p.last }}
+                        {%- endif -%}
+                      </span>
+                    {% endif %}
+                  </dd>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </dl>
+        </div>
+        <div class="cart-notification-product__price-wrap">
+          <div
+            class="cart-notification-product__price"
+            {% if settings.show_currency_codes %}
+              data-currency-format="{{ shop.money_with_currency_format}}"
+            {% else %}
+              data-currency-format="{{ shop.money_format }}"
+            {% endif %}
+          >
+            {{ item.final_price }}
+          </div>
+          {%- if item.unit_price != null -%}
+            <div class="cart-notification-product__unit-price">
+              <span>
+                {% if settings.show_currency_codes %}
+                  {{- item.unit_price | money_with_currency -}}
+                {% else %}
+                  {{- item.unit_price | money -}}
+                {% endif %}
+              </span>
+              <span aria-hidden="true">/</span>
+              <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+              <span>
+                {%- if item.unit_price_measurement.reference_value != 1 -%}
+                  {{- item.unit_price_measurement.reference_value -}}
+                {%- endif -%}
+                {{ item.unit_price_measurement.reference_unit }}
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+{%- endif -%}

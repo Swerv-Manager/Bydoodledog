@@ -1,0 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "dismiss_button": true,
+        "text": "<p>1–2 dages levering</p>",
+        "link": "shopify://collections/all-products",
+        "font_size": 110,
+        "background_color": "#7b6b5f",
+        "text_color": "#ffffff",
+        "font_type": "heading-font",
+        "font_style": "all_caps",
+        "visibility": "desktop"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo": "shopify://shop_images/Photoroom_20250221_093307.png",
+        "svg_image": "",
+        "logo_width": 150,
+        "logo_position": "top-center",
+        "enable_sticky": false,
+        "background": "alt-background-2",
+        "apply_color_scheme": false,
+        "frosted_glass": false,
+        "main_linklist": "header-honey-tema",
+        "quick_linklist": "footer",
+        "custom_background": "none",
+        "grid_size": 16,
+        "active_color": "#b59d88",
+        "highlight_links": "",
+        "highlight_color": "#984b2c",
+        "icon_size": 116,
+        "font_type": "button-font",
+        "font_style": "none",
+        "font_size": 115,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "trust_phone": "29 90 05 89",
+        "trust_email": "Kundeservice@bydoodledog.dk",
+        "trustpilot_businessunit_id": "",
+        "trustpilot_template_id": "",
+        "trustpilot_locale": "da-DK",
+        "trustpilot_profile_url": ""
+      }
+    },
+    "ksp-bar": {
+      "type": "ksp-bar",
+      "blocks": {
+        "ksp_jyycEF": {
+          "type": "ksp",
+          "settings": {
+            "icon": "fa-solid fa-truck",
+            "text": "<p>1 - 2 dages levering</p>"
+          }
+        },
+        "ksp-1": {
+          "type": "ksp",
+          "settings": {
+            "icon": "fa-solid fa-truck",
+            "text": "<p>Fri fragt over 899 kr.</p>"
+          }
+        },
+        "ksp-2": {
+          "type": "ksp",
+          "settings": {
+            "icon": "fa-solid fa-rotate-left",
+            "text": "<p>14 dages returret</p>"
+          }
+        },
+        "ksp-3": {
+          "type": "ksp",
+          "settings": {
+            "icon": "fa-solid fa-star",
+            "text": "<p>Trustpilot 4,8/5</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ksp_jyycEF",
+        "ksp-1",
+        "ksp-2",
+        "ksp-3"
+      ],
+      "settings": {
+        "background_color": "#7b6b5f",
+        "text_color": "#ffffff",
+        "autoplay_speed": 3500,
+        "font_size": 110,
+        "font_type": "heading-font",
+        "font_style": "all_caps"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "ksp-bar"
+  ]
+}

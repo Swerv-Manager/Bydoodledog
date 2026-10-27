@@ -1,0 +1,70 @@
+.rich-text-section {
+  background: rgb(var(--color-background));
+  padding: 2.75rem 0;
+}
+
+.rich-text {
+  max-width: 80%;
+}
+
+.rich-text .h2 {
+  font-family: var(--font-family);
+  font-style: var(--font-style);
+  font-weight: var(--font-weight);
+  --font-size: calc(var(--font-scale) * 2.25rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale, 1));
+  text-transform: initial;
+}
+
+.rich-text .h2.uppercase {
+  text-transform: uppercase;
+}
+
+.rich-text .rte {
+  font-family: var(--font-family) !important;
+  font-style: var(--font-style) !important;
+  font-weight: var(--font-weight) !important;
+}
+
+.rich-text p {
+  --font-size: calc(var(--font-scale) * 1.125rem);
+  font-size: calc(var(--font-size) * var(--font-section-scale, 1));
+}
+
+.rich-text--left {
+  text-align: left;
+}
+
+.rich-text--center {
+  text-align: center;
+  margin: auto;
+}
+
+.rich-text--right {
+  text-align: right;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 1024px) {
+  .rich-text .h2 {
+    --font-size: calc(var(--font-scale) * 2.125rem);
+  }
+
+  .rich-text p {
+    --font-size: calc(var(--font-scale) * 1rem);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .rich-text {
+    max-width: none;
+  }
+
+  .rich-text .h2 {
+    --font-size: calc(var(--font-scale) * 1.875rem);
+  }
+
+  .rich-text p {
+    --font-size: calc(var(--font-scale) * 0.875rem);
+  }
+}
