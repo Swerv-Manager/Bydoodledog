@@ -157,9 +157,26 @@
       .catch(function () {});
   }
 
-  if (window.subscribe) {
-    subscribe("cart-update", function () { refreshCart(); });
-  }
+  (function hookCart() {
+    var tries = 0, hooked = false;
+    function hook() {
+      if (hooked) return;
+      if (window.subscribe) { hooked = true; subscribe("cart-update", function () { refreshCart(); }); return; }
+      if (++tries < 40) setTimeout(hook, 250);
+    }
+    hook();
+    // fallback: repaint when the drawer / cart items are re-rendered by the section rendering API
+    var t;
+    var mo = new MutationObserver(function (list) {
+      for (var i = 0; i < list.length; i++) {
+        var n = list[i].target;
+        if (n.nodeType === 1 && (n.matches("cart-drawer-items, cart-items, .cart__contents, .cart-drawer__footer, .cart__totals") || n.closest("cart-drawer-items, cart-items"))) {
+          clearTimeout(t); t = setTimeout(refreshCart, 350); return;
+        }
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+  })();
 
   document.querySelectorAll("[data-bm-bundle-add]").forEach(function (button) {
     button.addEventListener("click", function () {
