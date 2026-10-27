@@ -12,6 +12,7 @@
     "bm_enabled": true,
     "bm_start": "2026-10-30T00:01:00+01:00",
     "bm_end": "2026-11-30T23:59:00+01:00",
+    "bm_phase_override": "auto",
     "bm_show_percent_on_singles": true,
     "bm_up_to_enabled": true,
     "bm_bundle_percent": 30,
@@ -273,7 +274,7 @@
       },
       "11077559776736408198": {
         "type": "shopify://apps/wheelio-spin-popup-email-sms/blocks/wheelio/f45cb831-26a4-40d6-92e9-b57362611b34",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     }

@@ -8,10 +8,10 @@
   }
 
   function phaseFor(now) {
-    var start = parseTime(root.getAttribute("data-bm-start"));
+    var mode = root.getAttribute("data-bm-phase-mode") || "auto";
+    if (mode === "pre" || mode === "live" || mode === "post") return mode;
     var end = parseTime(root.getAttribute("data-bm-end"));
-    if (!start || !end) return root.getAttribute("data-bm-phase") || "live";
-    if (now < start) return "pre";
+    if (!end) return root.getAttribute("data-bm-phase") || "live";
     if (now > end) return "post";
     return "live";
   }

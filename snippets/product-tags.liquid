@@ -57,6 +57,13 @@
 <div class="product__tags">
   {% assign tags_array = tags | split: ',' %}
   {% for tag in tags_array limit: tags_limit %}
+    {%- assign badge_label = tag | strip -%}
+    {%- assign badge_key = badge_label | downcase -%}
+    {%- if badge_key == 'doodle15' or badge_key == 'doodle5' or badge_key == 'vuf10' or badge_key == 'woof10' or badge_key == 'wheelio' -%}
+      {%- if template.name == 'index' or template.suffix contains 'black-month' -%}
+        {%- continue -%}
+      {%- endif -%}
+    {%- endif -%}
     <div class="product__tags__badge {{ class_name }}">
       {% assign index = forloop.index | minus: 1 %}
       {% assign fontawesome_icon = '' %}
@@ -81,10 +88,6 @@
           <span class="product__tags__badge-icon" style="background-image: url({{ icon_url }});"></span>
         {% endif %}
       {% endif %}
-      {%- assign badge_label = tag | strip -%}
-      {%- if badge_label == 'doodle15' -%}
-        {%- assign badge_label = 'Doodle15' -%}
-      {%- endif -%}
       <span>{{ badge_label | escape }}</span>
     </div>
   {% endfor %}
