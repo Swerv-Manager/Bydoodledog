@@ -871,11 +871,9 @@
     },
     "bm-hero": {
       "type": "bm-hero",
-      "settings": {}
-    },
-    "bm-marquee": {
-      "type": "bm-marquee",
-      "settings": {}
+      "settings": {
+        "show_hangtag": true
+      }
     },
     "bm-categories": {
       "type": "bm-categories",
@@ -971,12 +969,29 @@
     "bm-video": {
       "type": "bm-video",
       "blocks": {
-        "p1": { "type": "poster", "settings": {} },
-        "p2": { "type": "poster", "settings": {} },
-        "p3": { "type": "poster", "settings": {} },
-        "p4": { "type": "poster", "settings": {} }
+        "p1": {
+          "type": "poster",
+          "settings": {}
+        },
+        "p2": {
+          "type": "poster",
+          "settings": {}
+        },
+        "p3": {
+          "type": "poster",
+          "settings": {}
+        },
+        "p4": {
+          "type": "poster",
+          "settings": {}
+        }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {}
     },
     "bm-gift-budget": {
@@ -1034,14 +1049,6 @@
       "type": "bm-promo-banner",
       "settings": {}
     },
-    "bm-instagram": {
-      "type": "bm-instagram",
-      "settings": {}
-    },
-    "bm-reviews": {
-      "type": "bm-reviews",
-      "settings": {}
-    },
     "bm-reviews-summary": {
       "type": "bm-reviews-summary",
       "settings": {}
@@ -1053,7 +1060,6 @@
   },
   "order": [
     "bm-hero",
-    "bm-marquee",
     "bm-categories",
     "bm-bundles",
     "bm-video",
@@ -1061,9 +1067,7 @@
     "bm-good-to-know",
     "bm-bello",
     "bm-promo",
-    "bm-instagram",
     "173626154782c38b67",
-    "bm-reviews",
     "1735829689aa888868",
     "bm-reviews-summary",
     "FAQ",

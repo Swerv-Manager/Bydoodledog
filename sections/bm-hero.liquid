@@ -15,49 +15,212 @@
       assign bm_primary = settings.bm_signup_cta
       assign bm_primary_url = settings.bm_signup_url
     endif
+
+    assign bm_video_desktop = section.settings.video_desktop
+    assign bm_video_mobile = section.settings.video_mobile
+    assign bm_url_desktop = section.settings.video_desktop_url | strip
+    assign bm_url_mobile = section.settings.video_mobile_url | strip
+    assign bm_poster_desktop = section.settings.poster_desktop
+    assign bm_poster_mobile = section.settings.poster_mobile
+    assign bm_fallback = section.settings.fallback_image
+
+    if bm_fallback != blank
+      assign bm_poster_desktop_url = bm_fallback | image_url: width: 1920
+      assign bm_poster_mobile_url = bm_fallback | image_url: width: 1200
+    else
+      if bm_poster_desktop != blank
+        assign bm_poster_desktop_url = bm_poster_desktop | image_url: width: 1920
+      else
+        assign bm_poster_desktop_url = 'bm-hero-16x9-poster.jpg' | asset_url
+      endif
+      if bm_poster_mobile != blank
+        assign bm_poster_mobile_url = bm_poster_mobile | image_url: width: 1200
+      else
+        assign bm_poster_mobile_url = 'bm-hero-9x16-poster.jpg' | asset_url
+      endif
+    endif
+
+    assign bm_desktop_file = false
+    if bm_video_desktop != blank and bm_video_desktop.sources.size > 0
+      assign bm_desktop_file = true
+    endif
+    assign bm_mobile_file = false
+    if bm_video_mobile != blank and bm_video_mobile.sources.size > 0
+      assign bm_mobile_file = true
+    endif
   -%}
   <section class="bm-section bm-hero" id="bm-hero">
     <div class="bm-hero__media">
-      {%- capture bm_hero_alt -%}{{ section.settings.image.alt | default: settings.bm_hero_title }}{%- endcapture -%}
-      {% render 'bm-media',
-        image: section.settings.image,
-        asset: 'bm-hero-hundekurve.jpg',
-        alt: bm_hero_alt,
-        class: 'bm-hero__img',
-        loading: 'eager',
-        fetchpriority: 'high',
-        width: 1779,
-        height: 700,
-        widths: '600, 900, 1200, 1600, 2000, 2400',
-        sizes: '100vw'
-      %}
+      {%- if bm_fallback != blank -%}
+        {{
+          bm_fallback
+          | image_url: width: 2000
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'bm-hero__poster',
+            alt: bm_fallback.alt | default: settings.bm_hero_title,
+            widths: '600, 900, 1200, 1600, 2000',
+            sizes: '100vw'
+        }}
+      {%- else -%}
+        {%- if bm_poster_desktop != blank -%}
+          {{
+            bm_poster_desktop
+            | image_url: width: 1920
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              class: 'bm-hero__poster bm-hero__poster--desktop',
+              alt: bm_poster_desktop.alt | default: settings.bm_hero_title,
+              widths: '600, 900, 1200, 1600, 1920',
+              sizes: '100vw'
+          }}
+        {%- else -%}
+          <img
+            class="bm-hero__poster bm-hero__poster--desktop"
+            src="{{ 'bm-hero-16x9-poster.jpg' | asset_url }}"
+            alt="{{ settings.bm_hero_title | escape }}"
+            width="1920"
+            height="1080"
+            loading="eager"
+            fetchpriority="high"
+          >
+        {%- endif -%}
+        {%- if bm_poster_mobile != blank -%}
+          {{
+            bm_poster_mobile
+            | image_url: width: 1080
+            | image_tag:
+              loading: 'eager',
+              class: 'bm-hero__poster bm-hero__poster--mobile',
+              alt: bm_poster_mobile.alt | default: settings.bm_hero_title,
+              widths: '400, 600, 800, 1080',
+              sizes: '100vw'
+          }}
+        {%- else -%}
+          <img
+            class="bm-hero__poster bm-hero__poster--mobile"
+            src="{{ 'bm-hero-9x16-poster.jpg' | asset_url }}"
+            alt="{{ settings.bm_hero_title | escape }}"
+            width="1080"
+            height="1920"
+            loading="eager"
+          >
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if bm_desktop_file or bm_url_desktop != blank -%}
+        <video
+          class="bm-hero__video bm-hero__video--desktop"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="{{ bm_poster_desktop_url | escape }}"
+        >
+          {%- if bm_desktop_file -%}
+            {%- for bm_source in bm_video_desktop.sources -%}
+              <source src="{{ bm_source.url }}" type="{{ bm_source.mime_type }}">
+            {%- endfor -%}
+          {%- else -%}
+            <source src="{{ bm_url_desktop | escape }}" type="video/mp4">
+          {%- endif -%}
+        </video>
+      {%- endif -%}
+      {%- if bm_mobile_file or bm_url_mobile != blank -%}
+        <video
+          class="bm-hero__video bm-hero__video--mobile"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="{{ bm_poster_mobile_url | escape }}"
+        >
+          {%- if bm_mobile_file -%}
+            {%- for bm_source in bm_video_mobile.sources -%}
+              <source src="{{ bm_source.url }}" type="{{ bm_source.mime_type }}">
+            {%- endfor -%}
+          {%- else -%}
+            <source src="{{ bm_url_mobile | escape }}" type="video/mp4">
+          {%- endif -%}
+        </video>
+      {%- endif -%}
       <div class="bm-hero__scrim" aria-hidden="true"></div>
     </div>
+
     <div class="bm-hero__inner">
-      <div class="bm-hero__copy">
-        <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
-        <h1 class="bm-hero__title">{{ settings.bm_hero_title }}<span class="bm-dot">.</span></h1>
-        {%- if settings.bm_up_to_enabled and settings.bm_up_to_text != blank -%}
-          <p class="bm-hero__upto">{{ settings.bm_up_to_text }}</p>
+      <div class="bm-hero__panel">
+        {%- if section.settings.show_hangtag and settings.bm_hangtag != blank -%}
+          <p class="bm-hangtag">{{ settings.bm_hangtag }}</p>
         {%- endif -%}
-        <p class="bm-hero__italic">{{ settings.bm_hero_italic }}</p>
-        {%- if bm_phase_now == 'pre' -%}
-          <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
-        {%- endif -%}
-        <div class="bm-hero__actions">
-          {%- if bm_primary_url != blank -%}
-            <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
+        <div class="bm-hero__copy">
+          <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
+          <h1 class="bm-hero__title">{{ settings.bm_hero_title }}<span class="bm-dot">.</span></h1>
+          {%- if settings.bm_up_to_enabled and settings.bm_up_to_text != blank -%}
+            <p class="bm-hero__upto">{{ settings.bm_up_to_text }}</p>
           {%- endif -%}
-          <a class="bm-btn bm-btn--ghost" href="#bm-budget">{{ settings.bm_cta_secondary }}</a>
+          <p class="bm-hero__italic">{{ settings.bm_hero_italic }}</p>
+          {%- if bm_phase_now == 'pre' -%}
+            <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
+          {%- endif -%}
+          <div class="bm-hero__actions">
+            {%- if bm_primary_url != blank -%}
+              <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
+            {%- endif -%}
+            <a class="bm-btn bm-btn--ghost" href="#bm-budget">{{ settings.bm_cta_secondary }}</a>
+          </div>
+        </div>
+        <div class="bm-hero__aside">
+          {% render 'bm-countdown' %}
+          <p class="bm-hero__trust">{{ settings.bm_trust_line }}</p>
         </div>
       </div>
-      <div class="bm-hero__aside">
-        <p class="bm-hangtag">{{ settings.bm_hangtag }}</p>
-        {% render 'bm-countdown' %}
-        <p class="bm-hero__trust">{{ settings.bm_trust_line }}</p>
-      </div>
     </div>
+    <script>
+      (function () {
+        var hero = document.currentScript && document.currentScript.closest('.bm-hero');
+        if (!hero) return;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var mobile = window.matchMedia('(max-width: 749px)').matches;
+        if (reduce) hero.classList.add('bm-hero--still');
+        hero.querySelectorAll('.bm-hero__video').forEach(function (video) {
+          var isMobile = video.classList.contains('bm-hero__video--mobile');
+          var isDesktop = video.classList.contains('bm-hero__video--desktop');
+          var unused = reduce || (mobile && isDesktop) || (!mobile && isMobile);
+          if (!unused) {
+            video.muted = true;
+            var play = video.play();
+            if (play && play.catch) play.catch(function () {});
+            return;
+          }
+          video.pause();
+          video.removeAttribute('autoplay');
+          video.querySelectorAll('source').forEach(function (source) { source.remove(); });
+          video.removeAttribute('src');
+          video.load();
+        });
+      })();
+    </script>
   </section>
+  {%- if settings.bm_marquee_text != blank -%}
+    {%- liquid
+      assign bm_marquee = settings.bm_marquee_text
+      if settings.bm_up_to_enabled == false
+        assign bm_phrase = settings.bm_up_to_text | replace: '.', ''
+        assign bm_marquee = bm_marquee | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
+      endif
+    -%}
+    <section class="bm-section bm-marquee" aria-hidden="false">
+      <div class="bm-marquee__track">
+        {%- for i in (1..8) -%}
+          <span>{{ bm_marquee }}</span>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -65,10 +228,57 @@
   "name": "BM hero",
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Vælg videoen fra Shopify Files. MP4-filen ligger ikke i temaet. Indtil videoen er valgt, vises poster-billedet. URL-feltet er kun et fallback."
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Desktop-video, 16:9",
+      "info": "Shopify Files. Forside BLACK, 1920×1080."
+    },
+    {
+      "type": "text",
+      "id": "video_desktop_url",
+      "label": "Desktop-video URL (fallback)",
+      "info": "Bruges kun hvis der ikke er valgt en Shopify-fil. Indsæt MP4-URL fra Shopify Files."
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Mobil-video, 9:16",
+      "info": "Shopify Files. Forside BLACK, 1080×1920. Vises under 750px."
+    },
+    {
+      "type": "text",
+      "id": "video_mobile_url",
+      "label": "Mobil-video URL (fallback)",
+      "info": "Bruges kun hvis der ikke er valgt en Shopify-fil."
+    },
+    {
       "type": "image_picker",
-      "id": "image",
-      "label": "Hero-billede",
-      "info": "Tom = standardbilledet bm-hero-hundekurve.jpg. Vælg et billede her for at skifte det."
+      "id": "poster_desktop",
+      "label": "Desktop-poster",
+      "info": "Tom = assets/bm-hero-16x9-poster.jpg. Vises før videoen starter, og alene ved reduced motion."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_mobile",
+      "label": "Mobil-poster",
+      "info": "Tom = assets/bm-hero-9x16-poster.jpg."
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback-billede (valgfrit)",
+      "info": "Ikke heroen. Udfyld kun hvis videoen skal erstattes af et stillbillede, fx Speedster-fotoet i assets/bm-hero-speedster.jpg. Tom = poster-billederne."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hangtag",
+      "label": "Vis hang-tag",
+      "info": "Teksten styres af Black Month → hangtag. Kan slås fra.",
+      "default": true
     }
   ],
   "presets": [
