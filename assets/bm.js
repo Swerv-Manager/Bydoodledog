@@ -131,8 +131,11 @@
   function giftOpen(box) {
     var raw = (box && box.getAttribute("data-gift-start")) || BM_GIFT_START;
     var t = Date.parse(raw);
+    var e = Date.parse((box && box.getAttribute("data-gift-end")) || "2026-11-30T22:59:00Z"); // endsAt of the BXGY discount
+    var now = Date.now() + clockOffset;
+    if (!isNaN(e) && now >= e) return false;
     if (isNaN(t)) return true;
-    return Date.now() + clockOffset >= t;
+    return now >= t;
   }
   function gated(box) { return !!(box && box.hasAttribute("data-gift-start")); }
   function effSnack(box) {
