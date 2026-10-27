@@ -1053,10 +1053,6 @@
       "type": "bm-promo-banner",
       "settings": {}
     },
-    "bm-reviews-summary": {
-      "type": "bm-reviews-summary",
-      "settings": {}
-    },
     "bm-delivery": {
       "type": "bm-delivery-strip",
       "settings": {}
@@ -1071,11 +1067,6 @@
     "bm-good-to-know",
     "bm-bello",
     "bm-promo",
-    "173626154782c38b67",
-    "1735829689aa888868",
-    "bm-reviews-summary",
-    "FAQ",
-    "bm-delivery",
     "countdown_mFjPrT",
     "ss_hero_33_QM9xzT",
     "ss_hero_33_wBbPrE",
@@ -1086,7 +1077,11 @@
     "video_column_7bhLrH",
     "featured-product",
     "collage",
+    "173626154782c38b67",
+    "1735829689aa888868",
     "featured_blog_WFKPtV",
-    "multicolumn-banner"
+    "FAQ",
+    "multicolumn-banner",
+    "bm-delivery"
   ]
 }

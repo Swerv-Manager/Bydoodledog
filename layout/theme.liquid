@@ -235,6 +235,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {%- assign bm_phase = bm_phase | strip -%}
     {%- capture bm_active -%}{%- render 'bm-active' -%}{%- endcapture -%}
     {%- assign bm_active = bm_active | strip -%}
+    {%- capture bm_scoped -%}{%- render 'bm-scope' -%}{%- endcapture -%}
+    {%- assign bm_scoped = bm_scoped | strip -%}
     {%- assign bm_load_assets = false -%}
     {%- if bm_active == 'true' -%}
       {%- assign bm_load_assets = true -%}
@@ -247,7 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {%- endif -%}
   </head>
 
-  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-dark{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}" data-bm-phase-mode="{{ settings.bm_phase_override | default: 'auto' | escape }}">
+  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-on{% endif %}{% if bm_scoped == 'true' %} bm-scoped{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}" data-bm-phase-mode="{{ settings.bm_phase_override | default: 'auto' | escape }}">
     <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -270,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {{ content_for_layout }}
       </main>
 
-      {%- if bm_active == 'true' -%}
+      {%- if bm_scoped == 'true' -%}
         {%- section 'bm-footer-note' -%}
       {%- endif -%}
       {% sections 'footer-group' %}

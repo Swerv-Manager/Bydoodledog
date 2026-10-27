@@ -12,7 +12,7 @@
               image: block.settings.image,
               asset: bm_ig_assets[forloop.index0],
               alt: settings.bm_ig_title,
-              loading: 'lazy',
+              loading: 'eager',
               width: 600,
               widths: '200, 400, 600',
               sizes: '25vw'
@@ -22,7 +22,7 @@
       {%- else -%}
         {%- for bm_ig_asset in bm_ig_assets -%}
           <a href="{{ section.settings.profile_url | default: 'https://www.instagram.com/bydoodledog/' }}">
-            {% render 'bm-media', asset: bm_ig_asset, alt: settings.bm_ig_title, loading: 'lazy', width: 600 %}
+            {% render 'bm-media', asset: bm_ig_asset, alt: settings.bm_ig_title, loading: 'eager', width: 600 %}
           </a>
         {%- endfor -%}
       {%- endif -%}
