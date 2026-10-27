@@ -202,7 +202,6 @@
     },
     "product-recommendations": {
       "type": "product-recommendations",
-      "disabled": false,
       "settings": {
         "heading": "Lidt ekstra til vuffi",
         "columns": 4,
@@ -333,9 +332,7 @@
     },
     "bm-pdp-details": {
       "type": "bm-pdp-details",
-      "settings": {
-        "show_description": false
-      }
+      "settings": {}
     },
     "bm-bundle-detail": {
       "type": "bm-bundle-detail",
