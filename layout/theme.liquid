@@ -246,6 +246,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {%- endif -%}
     {%- if bm_load_assets -%}
       {{ 'bm-theme.css' | asset_url | stylesheet_tag }}
+      {{ 'bm-sph.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
   </head>
 
@@ -355,6 +356,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
     {%- if bm_load_assets -%}
       <script src="{{ 'bm.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'bm-sph.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   </body>
 </html>

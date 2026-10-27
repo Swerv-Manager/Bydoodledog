@@ -82,161 +82,37 @@
       endif
     endif
   -%}
-  <section class="bm-section bm-hero" id="bm-hero">
-    <div class="bm-hero__media">
-      {%- if bm_fallback != blank -%}
-        {{
-          bm_fallback
-          | image_url: width: 2000
-          | image_tag:
-            loading: 'eager',
-            fetchpriority: 'high',
-            class: 'bm-hero__poster',
-            alt: bm_fallback.alt | default: settings.bm_hero_title,
-            widths: '600, 900, 1200, 1600, 2000',
-            sizes: '100vw'
-        }}
-      {%- else -%}
-        {%- if bm_poster_desktop != blank -%}
-          {{
-            bm_poster_desktop
-            | image_url: width: 1920
-            | image_tag:
-              loading: 'eager',
-              fetchpriority: 'high',
-              class: 'bm-hero__poster bm-hero__poster--desktop',
-              alt: bm_poster_desktop.alt | default: settings.bm_hero_title,
-              widths: '600, 900, 1200, 1600, 1920',
-              sizes: '100vw'
-          }}
-        {%- else -%}
-          <img
-            class="bm-hero__poster bm-hero__poster--desktop"
-            src="{{ 'bm-hero-16x9-poster.jpg' | asset_url }}"
-            alt="{{ settings.bm_hero_title | escape }}"
-            width="1920"
-            height="1080"
-            loading="eager"
-            fetchpriority="high"
-          >
-        {%- endif -%}
-        {%- if bm_poster_mobile != blank -%}
-          {{
-            bm_poster_mobile
-            | image_url: width: 1080
-            | image_tag:
-              loading: 'eager',
-              class: 'bm-hero__poster bm-hero__poster--mobile',
-              alt: bm_poster_mobile.alt | default: settings.bm_hero_title,
-              widths: '400, 600, 800, 1080',
-              sizes: '100vw'
-          }}
-        {%- else -%}
-          <img
-            class="bm-hero__poster bm-hero__poster--mobile"
-            src="{{ 'bm-hero-9x16-poster.jpg' | asset_url }}"
-            alt="{{ settings.bm_hero_title | escape }}"
-            width="1080"
-            height="1920"
-            loading="eager"
-          >
-        {%- endif -%}
-      {%- endif -%}
-
-      {%- if bm_desktop_src != blank or bm_mobile_src != blank -%}
-        <video
-          class="bm-hero__video"
-          muted
-          loop
-          playsinline
-          preload="none"
-          poster="{{ bm_poster_desktop_url | escape }}"
-          data-bm-src-desktop="{{ bm_desktop_src | escape }}"
-          data-bm-src-mobile="{{ bm_mobile_src | escape }}"
-          data-bm-poster-desktop="{{ bm_poster_desktop_url | escape }}"
-          data-bm-poster-mobile="{{ bm_poster_mobile_url | escape }}"
-        ></video>
-      {%- endif -%}
-      <div class="bm-hero__scrim" aria-hidden="true"></div>
-    </div>
-
-    <div class="bm-hero__inner">
-      <div class="bm-hero__panel">
-        {%- if section.settings.show_hangtag and settings.bm_hangtag != blank -%}
-          <p class="bm-hangtag">{{ settings.bm_hangtag }}</p>
-        {%- endif -%}
-        <div class="bm-hero__copy">
-          <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
-          <h1 class="bm-hero__title">{{ settings.bm_hero_title }}<span class="bm-dot">.</span></h1>
-          {%- if settings.bm_up_to_enabled and settings.bm_up_to_text != blank -%}
-            <p class="bm-hero__upto">{{ settings.bm_up_to_text }}</p>
-          {%- endif -%}
-          <p class="bm-hero__italic">{{ settings.bm_hero_italic }}</p>
-          {%- if bm_phase_now == 'pre' -%}
-            <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
-          {%- endif -%}
-          <div class="bm-hero__actions">
-            {%- if bm_primary_url != blank -%}
-              <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
-            {%- endif -%}
-            <a class="bm-btn bm-btn--ghost" href="#bm-budget">{{ settings.bm_cta_secondary }}</a>
-          </div>
-        </div>
-        <div class="bm-hero__aside">
-          {% render 'bm-countdown' %}
-          <p class="bm-hero__trust">{{ settings.bm_trust_line }}</p>
-        </div>
-      </div>
-    </div>
-    <script>
-      (function () {
-        var hero = document.currentScript && document.currentScript.closest('.bm-hero');
-        if (!hero) return;
-        var video = hero.querySelector('.bm-hero__video');
-        if (!video) return;
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduce) {
-          hero.classList.add('bm-hero--still');
-          return;
-        }
-        var mq = window.matchMedia('(max-width: 749px)');
-        function choose(mobile) {
-          var primary = mobile ? video.getAttribute('data-bm-src-mobile') : video.getAttribute('data-bm-src-desktop');
-          var other = mobile ? video.getAttribute('data-bm-src-desktop') : video.getAttribute('data-bm-src-mobile');
-          return primary || other || '';
-        }
-        function apply(mobile) {
-          var next = choose(mobile);
-          var poster = mobile ? video.getAttribute('data-bm-poster-mobile') : video.getAttribute('data-bm-poster-desktop');
-          if (poster) video.poster = poster;
-          if (!next || video.getAttribute('src') === next) return;
-          video.setAttribute('src', next);
-          video.muted = true;
-          video.load();
-          var play = video.play();
-          if (play && play.catch) play.catch(function () {});
-        }
-        apply(mq.matches);
-        if (mq.addEventListener) mq.addEventListener('change', function (event) { apply(event.matches); });
-      })();
-    </script>
+  <section class="sph sph-hero" id="bm-hero">
+<div class="sph-d"><div class="sd164"><div class="sd165"><div class="sph-hero__media">{%- if bm_fallback != blank -%}{{ bm_fallback | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'sph-hero__poster', alt: 'By Doodle Dog Black Month', widths: '600, 900, 1200, 1600', sizes: '(min-width: 1024px) 50vw, 100vw' }}{%- else -%}<img class="sph-hero__poster" src="{%- if d == 'm' -%}{{ bm_poster_mobile_url }}{%- else -%}{{ bm_poster_desktop_url }}{%- endif -%}" alt="By Doodle Dog Black Month" loading="eager" fetchpriority="high">{%- endif -%}
+{%- if bm_desktop_src != blank or bm_mobile_src != blank -%}<video class="sph-hero__video" muted loop playsinline preload="none" poster="{{ bm_poster_desktop_url | escape }}" data-sph-kind="d" data-bm-src-desktop="{{ bm_desktop_src | escape }}" data-bm-src-mobile="{{ bm_mobile_src | escape }}" data-bm-poster-desktop="{{ bm_poster_desktop_url | escape }}" data-bm-poster-mobile="{{ bm_poster_mobile_url | escape }}"></video>{%- endif -%}</div></div><div class="sd166"><div class="sd27"><span class="sd167">Bjørk bilsædet</span><span class="sd28"><span class="sd87">{{ all_products['bjork-bilsaede-til-hunde-beige'].price | money_without_currency }} kr.</span>{% if all_products['bjork-bilsaede-til-hunde-beige'].compare_at_price > all_products['bjork-bilsaede-til-hunde-beige'].price %}<span class="sd168">Før {{ all_products['bjork-bilsaede-til-hunde-beige'].compare_at_price | money_without_currency }} kr.</span>{% endif %}</span></div><a class="sph-ov sd169" href="{{ all_products['bjork-bilsaede-til-hunde-beige'].url }}">Læg i kurven →</a></div><div class="sd170"><div class="sd171"><span class="sd172">20</span><span class="sd173">%</span></div><h1 class="sd174">Minimum 20 % på hele shoppen.</h1><div class="sd175">Sæt, der hører sammen, har deres egen sætpris hele måneden.</div><a class="sph-lnk sd176" href="#sph-saet">Find sæt til din hund ↓</a><div class="sd177">Fri fragt fra 899 kr. · 14 dages returret · Levering på 1–2 dage med GLS · 4,7 på Trustpilot (237 anmeldelser)</div></div><div class="sd178"><div class="sd179"></div><div class="sd180"></div><div class="sd181"><div class="sd182">Åbent</div><div class="sd183">til og med mandag 30.11 kl. 23.59</div></div></div></div></div>
+<div class="sph-m"><div class="sm153"><div class="sm154"><div class="sph-hero__media">{%- if bm_fallback != blank -%}{{ bm_fallback | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'sph-hero__poster', alt: 'By Doodle Dog Black Month', widths: '600, 900, 1200, 1600', sizes: '(min-width: 1024px) 50vw, 100vw' }}{%- else -%}<img class="sph-hero__poster" src="{%- if m == 'm' -%}{{ bm_poster_mobile_url }}{%- else -%}{{ bm_poster_desktop_url }}{%- endif -%}" alt="By Doodle Dog Black Month" loading="eager" fetchpriority="high">{%- endif -%}
+{%- if bm_desktop_src != blank or bm_mobile_src != blank -%}<video class="sph-hero__video" muted loop playsinline preload="none" poster="{{ bm_poster_desktop_url | escape }}" data-sph-kind="m" data-bm-src-desktop="{{ bm_desktop_src | escape }}" data-bm-src-mobile="{{ bm_mobile_src | escape }}" data-bm-poster-desktop="{{ bm_poster_desktop_url | escape }}" data-bm-poster-mobile="{{ bm_poster_mobile_url | escape }}"></video>{%- endif -%}</div></div><div class="sm155"><div class="sm156"></div><div class="sm157"></div><div class="sm158"><div class="sm159">Åbent</div><div class="sm160">til og med mandag 30.11 kl. 23.59</div></div></div><div class="sm161"><div class="sm162"><span class="sm163">20</span><span class="sm164">%</span></div><h1 class="sm165">Minimum 20 % på hele shoppen.</h1><div class="sm166">Sæt, der hører sammen, har deres egen sætpris hele måneden.</div><a class="sph-lnk sm167" href="#sph-saet">Find sæt til din hund ↓</a><div class="sm168">Fri fragt fra 899 kr. · 14 dages returret · Levering på 1–2 dage med GLS · 4,7 på Trustpilot (237 anmeldelser)</div></div></div></div>
+<script>
+(function(){
+  var sec=document.currentScript&&document.currentScript.closest('.sph-hero');
+  if(!sec)return;
+  var vids=[].slice.call(sec.querySelectorAll('.sph-hero__video'));
+  if(!vids.length)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){sec.classList.add('sph-hero--still');return;}
+  var mq=window.matchMedia('(max-width: 1023px)');
+  function run(){
+    vids.forEach(function(v){
+      var mob=v.getAttribute('data-sph-kind')==='m';
+      var vis=mob===mq.matches;
+      if(!vis){try{v.pause();}catch(e){}return;}
+      var src=(mob?v.getAttribute('data-bm-src-mobile'):v.getAttribute('data-bm-src-desktop'))||v.getAttribute('data-bm-src-desktop')||v.getAttribute('data-bm-src-mobile')||'';
+      var poster=mob?v.getAttribute('data-bm-poster-mobile'):v.getAttribute('data-bm-poster-desktop');
+      if(poster)v.poster=poster;
+      if(!src)return;
+      if(v.getAttribute('src')!==src){v.setAttribute('src',src);v.muted=true;v.load();}
+      var p=v.play();if(p&&p.catch)p.catch(function(){});
+    });
+  }
+  run();
+  if(mq.addEventListener)mq.addEventListener('change',run);
+})();
+</script>
   </section>
-  {%- if settings.bm_marquee_text != blank -%}
-    {%- liquid
-      assign bm_marquee = settings.bm_marquee_text
-      if settings.bm_up_to_enabled == false
-        assign bm_phrase = settings.bm_up_to_text | replace: '.', ''
-        assign bm_marquee = bm_marquee | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
-      endif
-    -%}
-    <section class="bm-section bm-marquee" aria-hidden="false">
-      <div class="bm-marquee__track">
-        {%- for i in (1..8) -%}
-          <span>{{ bm_marquee }}</span>
-        {%- endfor -%}
-      </div>
-    </section>
-  {%- endif -%}
 {%- endif -%}
 
 {% schema %}

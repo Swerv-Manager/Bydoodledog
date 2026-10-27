@@ -747,68 +747,6 @@
         "padding_bottom": 44
       }
     },
-    "FAQ": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row1": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Har By Doodle Dog en fysisk butik ?",
-            "row_content": "<p>Nej, det har vi ikke, men du er velkommen til at hente dine varer på vores lager efter aftale, i tidsrummet 11.00-13.00.Kontakt os på : 29900589</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row2": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Kan vores hundekurve og bilsæder vaskes?",
-            "row_content": "<p>Alle vores hundekurve og bilsæder kan vaskes. Nogle af dem, kan man tage betrækket af, og andre kan gå direkte i vaskemaskinen.</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row3": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Hvordan sætter man bilsædet fast i bilen ?",
-            "row_content": "<p>Der er 1 eller 2 remme ( forskelligt fra sæde til sæde ) der skal rundt om bilens sæde. <br/><br/>Den ene rundt om nakkestøtten og den anden rundt om sædet. <br/><br/>Er der en rem, skal den rundt om bilens sæde. Endvidere kan sikkerhedsselen fra bilen sættes fast bagpå sædet på de fleste bilsæder. </p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_qcHmVE": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Kan min hund spændes fast i jeres bilsæde?",
-            "row_content": "<p>Ja, hunden kan spændes fast i bilsædet med en rem. Remmen er i bilsædet og fastspændes til hundens kropssele. </p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row1",
-        "collapsible_row2",
-        "collapsible_row3",
-        "collapsible_row_qcHmVE"
-      ],
-      "settings": {
-        "show_information": true,
-        "title": "Har du spørgsmål?",
-        "description": "<p>Har du spørgsmål om vores produkter? Vi er her for at hjælpe! Du er velkommen til at kontakte os - vi glæder os til at høre fra dig.</p>",
-        "email_label": "Email",
-        "email": "Kundeservice@bydoodledog.dk",
-        "phone_label": "Telefon",
-        "phone": "29900589. Åben tirsdag og torsdag fra kl. 11.00-13-00.",
-        "hours_label": "Adresse",
-        "hours": "Systemvej 4, 8963 Auning",
-        "font_size": 120,
-        "background": "background-modal",
-        "padding_top": 44,
-        "padding_bottom": 44
-      }
-    },
     "multicolumn-banner": {
       "type": "multicolumn",
       "blocks": {
@@ -879,209 +817,37 @@
         "show_hangtag": true
       }
     },
-    "bm-categories": {
-      "type": "bm-categories",
-      "blocks": {
-        "hundekurve": {
-          "type": "category",
-          "settings": {
-            "title": "Hundekurve",
-            "handle": "hundekurv",
-            "text": ""
-          }
-        },
-        "bilsaeder": {
-          "type": "category",
-          "settings": {
-            "title": "Hundebilsæder",
-            "handle": "hunde-bilsaede",
-            "text": ""
-          }
-        },
-        "trapper": {
-          "type": "category",
-          "settings": {
-            "title": "Trapper",
-            "handle": "hundetrapper",
-            "text": ""
-          }
-        },
-        "seler": {
-          "type": "category",
-          "settings": {
-            "title": "Seler",
-            "handle": "hundesele",
-            "text": ""
-          }
-        },
-        "toej": {
-          "type": "category",
-          "settings": {
-            "title": "Hundetøj",
-            "handle": "hundetoj-1",
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "hundekurve",
-        "bilsaeder",
-        "trapper",
-        "seler",
-        "toej"
-      ],
+    "sph-a": {
+      "type": "sph-home-a",
       "settings": {}
     },
-    "bm-bundles": {
-      "type": "bm-bundles",
-      "blocks": {
-        "b1": {
-          "type": "bundle",
-          "settings": {
-            "title": "Til den lille hund – Hjalmar",
-            "parts": "4 dele",
-            "products": []
-          }
-        },
-        "b2": {
-          "type": "bundle",
-          "settings": {
-            "title": "Til den mellemstore hund",
-            "parts": "5 dele",
-            "products": []
-          }
-        },
-        "b3": {
-          "type": "bundle",
-          "settings": {
-            "title": "Til den store hund – Carl",
-            "parts": "3 dele",
-            "products": []
-          }
-        }
-      },
-      "block_order": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "settings": {
-        "use_collection": false,
-        "limit": 6
-      }
-    },
-    "bm-video": {
-      "type": "bm-video",
-      "blocks": {
-        "p1": {
-          "type": "poster",
-          "settings": {}
-        },
-        "p2": {
-          "type": "poster",
-          "settings": {}
-        },
-        "p3": {
-          "type": "poster",
-          "settings": {}
-        },
-        "p4": {
-          "type": "poster",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
+    "sph-b": {
+      "type": "sph-home-b",
       "settings": {}
     },
-    "bm-gift-budget": {
-      "type": "bm-gift-budget",
-      "blocks": {
-        "g1": {
-          "type": "gift",
-          "settings": {
-            "kicker": "GAVER UNDER",
-            "title": "500 kr.",
-            "text": "Kaninen, bandana, Nora sele og Eva jakke",
-            "button": "SE GAVERNE",
-            "handle": "gaver-under-500"
-          }
-        },
-        "g2": {
-          "type": "gift",
-          "settings": {
-            "kicker": "GAVER UNDER",
-            "title": "1.000 kr.",
-            "text": "Kurve, bilsæder og trapper",
-            "button": "SE GAVE",
-            "handle": "gaver-under-1000"
-          }
-        },
-        "g3": {
-          "type": "gift",
-          "settings": {
-            "kicker": "GAVER UNDER",
-            "title": "1.500 kr.",
-            "text": "Pakkerne til den lille hund, Bjørk-serien og de store kurve",
-            "button": "SE GAVERNE",
-            "handle": "gaver-under-1500"
-          }
-        }
-      },
-      "block_order": [
-        "g1",
-        "g2",
-        "g3"
-      ],
-      "settings": {}
-    },
-    "bm-good-to-know": {
-      "type": "bm-good-to-know",
-      "settings": {}
-    },
-    "bm-bello": {
-      "type": "bm-bello-picks",
-      "settings": {
-        "products": []
-      }
-    },
-    "bm-promo": {
-      "type": "bm-promo-banner",
-      "settings": {}
-    },
-    "bm-delivery": {
-      "type": "bm-delivery-strip",
+    "sph-c": {
+      "type": "sph-home-c",
       "settings": {}
     }
   },
   "order": [
     "bm-hero",
-    "bm-categories",
-    "bm-bundles",
-    "bm-video",
-    "bm-gift-budget",
-    "bm-good-to-know",
-    "bm-bello",
-    "bm-promo",
-    "countdown_mFjPrT",
-    "ss_hero_33_QM9xzT",
+    "sph-a",
+    "173626154782c38b67",
+    "sph-b",
     "ss_hero_33_wBbPrE",
-    "countdown_6MmAHA",
-    "hero_image_Uy44Uj",
-    "feature-cards",
     "media-grid",
     "video_column_7bhLrH",
     "featured-product",
-    "collage",
-    "173626154782c38b67",
-    "1735829689aa888868",
-    "featured_blog_WFKPtV",
-    "FAQ",
     "multicolumn-banner",
-    "bm-delivery"
+    "1735829689aa888868",
+    "sph-c",
+    "countdown_mFjPrT",
+    "ss_hero_33_QM9xzT",
+    "countdown_6MmAHA",
+    "hero_image_Uy44Uj",
+    "feature-cards",
+    "collage",
+    "featured_blog_WFKPtV"
   ]
 }
