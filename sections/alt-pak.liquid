@@ -1,0 +1,165 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+{%- liquid
+  assign ap_v = product.selected_or_first_available_variant
+  assign pk_comps = product.metafields.custom.bm_components.value
+  if pk_comps == blank
+    assign pk_comps = section.settings.components
+  endif
+  assign pk_sum = 0
+  assign pk_cmp = 0
+  assign pk_n = 0
+  assign pk_ids = ''
+  assign pk_names = ''
+  if pk_comps != blank
+    for c in pk_comps
+      assign pk_n = pk_n | plus: 1
+      assign pk_sum = pk_sum | plus: c.price
+      if c.compare_at_price > c.price
+        assign pk_cmp = pk_cmp | plus: c.compare_at_price
+      else
+        assign pk_cmp = pk_cmp | plus: c.price
+      endif
+      assign pk_vid = c.selected_or_first_available_variant.id
+      if pk_ids == ''
+        assign pk_ids = pk_vid
+        assign pk_names = c.title
+      else
+        assign pk_ids = pk_ids | append: ',' | append: pk_vid
+        assign pk_names = pk_names | append: ' + ' | append: c.title
+      endif
+    endfor
+  endif
+  assign pk_each = pk_cmp
+  assign pk_deal = pk_sum
+  assign pk_pct = 0
+  if pk_n > 0
+    if pk_cmp <= pk_sum and pk_sum > 0
+      assign pk_each = pk_sum
+      assign pk_pct = settings.bm_bundle_percent
+      assign pk_rate = 100 | minus: pk_pct
+      assign pk_deal = pk_sum | times: pk_rate | divided_by: 100
+    endif
+  else
+    assign pk_deal = ap_v.price
+    assign pk_each = ap_v.compare_at_price
+  endif
+  assign pk_ship = settings.bm_free_shipping | times: 100
+  assign pk_snack = settings.bm_snack_threshold | times: 100
+  assign pk_goal = pk_snack
+  if pk_ship > pk_goal
+    assign pk_goal = pk_ship
+  endif
+  assign pk_fill = 100
+  assign pk_mark = 50
+  if pk_goal > 0
+    assign pk_fill = pk_deal | times: 100 | divided_by: pk_goal
+    assign pk_mark = pk_ship | times: 100 | divided_by: pk_goal
+  endif
+  if pk_fill > 100
+    assign pk_fill = 100
+  endif
+  assign pk_snackv = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
+  assign pk_rc = product.metafields.reviews.rating_count | plus: 0
+-%}
+<div class="alt-sec alt-pdp ap-pak" id="alt-pak-{{ section.id }}" data-ap data-ap-name="{{ product.title | escape }}">
+<nav class="ap-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> › <a href="{{ settings.bm_bundles_url | default: '/collections/black-month-pakker' }}">Pakker</a> › <span>{{ product.title | escape }}</span></nav>
+<div class="ap-grid">
+  <div class="ap-gal" data-ap-gal>
+    <div class="ap-main">
+      {%- for m in product.media -%}
+        <div class="ap-slide{% if forloop.first %} is-on{% endif %}" data-ap-slide="{{ forloop.index0 }}" data-ap-mid="{{ m.id }}">
+        {%- if m.media_type == 'image' -%}
+          {{ m | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width:1024px) 700px, 100vw', alt: m.alt | default: product.title }}
+        {%- else -%}
+          {{ m | media_tag: image_size: '1200x', controls: true, autoplay: false, loop: false, muted: false }}
+        {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if product.media.size > 1 -%}
+    <div class="ap-thumbs" role="tablist">
+      {%- for m in product.media -%}
+        <button type="button" class="ap-th{% if forloop.first %} is-on{% endif %}" data-ap-th="{{ forloop.index0 }}" aria-label="Billede {{ forloop.index }}">
+          {{ m.preview_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '96px', alt: '' }}
+          {%- if m.media_type != 'image' -%}<span class="ap-play" aria-hidden="true">▶</span>{%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+    <div class="ap-acc">
+      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-descw" data-ap-descw><div class="ap-desc">{{ product.description }}</div></div><button type="button" class="ap-more" data-ap-more hidden>Læs mere</button></section>
+      <section class="ap-accs"><h2>Levering</h2><p>Levering 1–2 hverdage med GLS til pakkeshop. Fri fragt fra 899 kr. og 30 dages returret.</p></section>
+    </div>
+  </div>
+  <div class="ap-info">
+    <div class="ap-chips">{%- if pk_pct > 0 -%}<span class="ap-chip ap-chip--solid">{{ pk_pct }}%</span>{%- endif -%}<span class="ap-chip">BLACK MONTH</span></div>
+    <div class="ap-head">
+      <h1 class="ap-title">{{ product.title | escape }}</h1>
+      {%- if pk_names != blank -%}<span class="ap-sub">{{ pk_names | escape }}</span>{%- endif -%}
+    </div>
+    {%- if pk_n > 0 -%}
+    <div class="pk-comps">
+      <div class="pk-ch"><span class="pk-ct">Hvad er med i pakken</span><span class="pk-cn">{{ pk_n }} {% if pk_n == 1 %}del{% else %}dele{% endif %}</span></div>
+      {%- for c in pk_comps -%}
+      <div class="pk-card">
+        <div class="pk-img">{%- if c.featured_image -%}{{ c.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c.title }}{%- endif -%}</div>
+        <div class="pk-txt">
+          {%- if c.type != blank -%}<span class="pk-type">{{ c.type | escape }}</span>{%- endif -%}
+          <span class="pk-name">{{ c.title | escape }}</span>
+          <div class="pk-pr"><b>{{ c.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</b>{%- if c.compare_at_price > c.price -%}<s>{{ c.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s>{%- endif -%}<span>normalpris</span></div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+    <div class="ap-pricebox pk-pricebox">
+      {%- if pk_n > 0 and pk_each > pk_deal -%}
+      <div class="pk-each"><span>Hver for sig</span><s>{{ pk_each | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s></div>
+      {%- endif -%}
+      <div class="pk-deal"><span class="pk-lbl">Black Month-pris</span><span class="pk-price" data-ap-price>{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
+      <div class="pk-perk"><span class="pk-p1">Fri fragt</span><span class="pk-p2">+ gratis snackkurv (værdi {{ pk_snackv }})</span></div>
+      <div class="ap-pbb">
+        <div class="pk-ship">
+          <p>{%- if pk_deal >= pk_snack -%}Fri fragt og gratis snackkurv er dine 🥳{%- elsif pk_deal >= pk_ship -%}Fri fragt er dine – gratis snackkurv fra {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- else -%}Fri fragt fra {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- endif -%}</p>
+          <div class="pk-track"><i style="width:{{ pk_fill }}%"></i><b style="left:{{ pk_mark }}%">🚚</b><b style="left:100%">🎁</b></div>
+          <div class="pk-marks" style="grid-template-columns:{{ pk_mark }}fr {{ 100 | minus: pk_mark }}fr"><span>Fri fragt · {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span><span>Snackkurv · {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
+        </div>
+      </div>
+      <div class="ap-pbb">
+        <span class="ap-timer"><span class="ap-ping"><i></i><i></i></span>Black Month slutter om</span>
+        <div class="ap-cd" data-bm-countdown data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}">
+          <div><b data-bm-days>00</b><em>Dage</em></div><i>:</i><div><b data-bm-hours>00</b><em>Timer</em></div><i>:</i><div><b data-bm-minutes>00</b><em>Minuter</em></div><i>:</i><div><b data-bm-seconds>00</b><em>Sekunder</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="ap-buywrap">
+      <div class="ap-buy">
+      {%- if pk_n > 0 -%}
+        <button type="button" class="ap-add" data-bm-bundle-add data-ids="{{ pk_ids }}" data-name="{{ product.title | escape }}"><span>Læg pakken i kurven</span></button>
+      {%- else -%}
+        <button type="button" class="ap-add" data-ap-add{% unless ap_v.available %} disabled{% endunless %}><span>{% if ap_v.available %}Læg pakken i kurven{% else %}Udsolgt{% endif %}</span></button>
+      {%- endif -%}
+      </div>
+      <p class="ap-err" data-ap-err hidden></p>
+      <div class="ap-pay"><img src="{{ 'alt-pay-visa.svg' | asset_url }}" alt="Visa" height="24" loading="lazy"><img src="{{ 'alt-pay-mastercard.svg' | asset_url }}" alt="Mastercard" height="24" loading="lazy"><img src="{{ 'alt-pay-mobilepay.svg' | asset_url }}" alt="MobilePay" height="24" loading="lazy"></div>
+    </div>
+    <div class="pk-info">
+      <div class="pk-ir"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCFAF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h11v9H2zM13 9h4l3 3v3h-7"></path><circle cx="6.5" cy="17" r="1.6"></circle><circle cx="16.5" cy="17" r="1.6"></circle></svg><div><span>Levering 1–2 hverdage med GLS</span><em>Fri fragt fra 899 kr. til pakkeshop</em></div></div>
+      <div class="pk-ir"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCFAF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"></path></svg><div><span>30 dages returret</span><em>Byt eller returnér – også i Black Month</em></div></div>
+    </div>
+  </div>
+</div>
+<div class="ap-sticky" data-ap-sticky>
+  <div class="ap-st1"><span class="ap-st2">{{ product.title | escape }} · Black Month-pris</span><span class="ap-st3">{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
+  {%- if pk_n > 0 -%}
+  <button type="button" class="ap-st4" data-bm-bundle-add data-ids="{{ pk_ids }}" data-name="{{ product.title | escape }}"><span>Læg pakken i kurven</span></button>
+  {%- else -%}
+  <button type="button" class="ap-st4" data-ap-add2{% unless ap_v.available %} disabled{% endunless %}><span>{% if ap_v.available %}Læg pakken i kurven{% else %}Udsolgt{% endif %}</span></button>
+  {%- endif -%}
+</div>
+<script type="application/json" data-ap-json>[{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | money_without_trailing_zeros | json }},"was":"","save":"","mid":{% if v.featured_media %}{{ v.featured_media.id }}{% else %}0{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]</script>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"ALT pakkeside","settings":[{"type":"product_list","id":"components","label":"Testdele (metafeltet custom.bm_components har forrang)","limit":8}],"presets":[{"name":"ALT pakkeside"}]}
+{% endschema %}
