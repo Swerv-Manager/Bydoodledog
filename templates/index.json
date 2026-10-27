@@ -970,6 +970,13 @@
     },
     "bm-video": {
       "type": "bm-video",
+      "blocks": {
+        "p1": { "type": "poster", "settings": {} },
+        "p2": { "type": "poster", "settings": {} },
+        "p3": { "type": "poster", "settings": {} },
+        "p4": { "type": "poster", "settings": {} }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
       "settings": {}
     },
     "bm-gift-budget": {

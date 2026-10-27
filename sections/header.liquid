@@ -163,7 +163,10 @@
                     <h1 class="header__heading">
                   {%- endif -%}
                   <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-                    {%- if section.settings.svg_image != blank -%}
+                    {%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+                    {%- if bm_on == 'true' -%}
+                      {% render 'bm-header-logo', width: section.settings.logo_width %}
+                    {%- elsif section.settings.svg_image != blank -%}
                       <div
                         class="header__heading-logo logo-image"
                         style="max-width: {{ section.settings.logo_width }}px;"
@@ -828,7 +831,10 @@
         <div class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if section.settings.svg_image != blank -%}
+        {%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+        {%- if bm_on == 'true' -%}
+          {% render 'bm-header-logo', width: section.settings.logo_width %}
+        {%- elsif section.settings.svg_image != blank -%}
           <div class="header__heading-logo logo-image" style="max-width: {{ section.settings.logo_width }}px;">
             {{ section.settings.svg_image }}
           </div>

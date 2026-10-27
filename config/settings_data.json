@@ -10,6 +10,7 @@
 {
   "current": {
     "bm_enabled": true,
+    "bm_bello_names": "Bjørk|Hjalmar|Nora|Julius",
     "bm_start": "2026-10-30T00:01:00+01:00",
     "bm_end": "2026-11-30T23:59:00+01:00",
     "bm_phase_override": "auto",

@@ -1035,6 +1035,18 @@
         "default": true
       },
       {
+        "type": "image_picker",
+        "id": "bm_logo",
+        "label": "Hvidt logo",
+        "info": "Tom = bm-logo-hvid.png på Black Month-sider. Live-logoet bruges på de øvrige sider."
+      },
+      {
+        "type": "text",
+        "id": "bm_bello_names",
+        "label": "Bello-navne uden produkter",
+        "default": "Bjørk|Hjalmar|Nora|Julius"
+      },
+      {
         "type": "text",
         "id": "bm_start",
         "label": "Start (ISO, Europe/Copenhagen)",
