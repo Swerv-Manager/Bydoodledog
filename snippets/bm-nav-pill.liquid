@@ -6,6 +6,6 @@
 {%- endif -%}
 {%- if bm_on == 'true' and bm_campaign_url != blank -%}
   <li class="bm-nav-pill-item{% if context == 'drawer' %} bm-nav-pill-item--drawer{% endif %}">
-    <a class="bm-pill" href="{{ bm_campaign_url }}">{{ settings.bm_menu_label }}</a>
+    <a class="bm-pill" href="{{ bm_campaign_url }}{%- if bm_campaign_url contains '/collections/' -%}{%- if bm_campaign_url contains '?' -%}&{%- else -%}?{%- endif -%}view=black-month{%- endif -%}">{{ settings.bm_menu_label }}</a>
   </li>
 {%- endif -%}
