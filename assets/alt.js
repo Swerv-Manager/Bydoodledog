@@ -108,3 +108,19 @@
   });
   document.querySelectorAll('[data-ap-quick]').forEach(function(b){b.addEventListener('click',function(){addToCart(b.getAttribute('data-ap-quick'),1,b,null);});});
 })();
+/* Swatch King: keep Black Month template (?view=) when switching to a sibling product */
+(function(){
+  var q=new URLSearchParams(location.search),v=q.get('view');
+  if(!v||!/black-month/.test(v)||!document.querySelector('.alt-pdp'))return;
+  function fix(){
+    document.querySelectorAll('[swatch-url]').forEach(function(e){
+      var u=e.getAttribute('swatch-url');
+      if(!u||u.indexOf('view=')>-1||u.charAt(0)!=='/')return;
+      u+=(u.indexOf('?')>-1?'&':'?')+'view='+encodeURIComponent(v);
+      if(q.get('bm_now'))u+='&bm_now='+encodeURIComponent(q.get('bm_now'));
+      e.setAttribute('swatch-url',u);
+    });
+  }
+  fix();
+  new MutationObserver(fix).observe(document.body,{childList:true,subtree:true});
+})();
