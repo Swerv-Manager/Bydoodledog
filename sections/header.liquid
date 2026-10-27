@@ -1,3 +1,4 @@
+{%- capture bm_menu_on_c -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign bm_menu_on = false -%}{%- if bm_menu_on_c contains 'true' -%}{%- assign bm_menu_on = true -%}{%- endif -%}
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -264,7 +265,7 @@
                                         %}
                                         {%- if childlink.links == blank -%}
                                           <a
-                                            href="{{ childlink.url }}"
+                                            href="{{ childlink.url }}{%- if bm_menu_on and childlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                             class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                             {% if childlink.current %}
                                               aria-current="page"
@@ -320,7 +321,7 @@
                                                 %}
                                                 <li>
                                                   <a
-                                                    href="{{ grandchildlink.url }}"
+                                                    href="{{ grandchildlink.url }}{%- if bm_menu_on and grandchildlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                                     class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
                                                     {% if grandchildlink.current %}
                                                       aria-current="page"
@@ -353,7 +354,7 @@
                             </details>
                           {%- else -%}
                             <a
-                              href="{{ link.url }}"
+                              href="{{ link.url }}{%- if bm_menu_on and link.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                               class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
                               {% if higlight_title != blank %}
                                 style="color: {{ highlight_color }}"
@@ -421,7 +422,7 @@
                                         <li>
                                           {%- if childlink.links == blank -%}
                                             <a
-                                              href="{{ childlink.url }}"
+                                              href="{{ childlink.url }}{%- if bm_menu_on and childlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                               class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                               {% if childlink.current %}
                                                 aria-current="page"
@@ -432,7 +433,7 @@
                                           {%- else -%}
                                             <div>
                                               <div
-                                                href="{{ childlink.url }}"
+                                                href="{{ childlink.url }}{%- if bm_menu_on and childlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                                               >
                                                 {{ childlink.title | escape }}
@@ -441,7 +442,7 @@
                                                 {%- for grandchildlink in childlink.links -%}
                                                   <li>
                                                     <a
-                                                      href="{{ grandchildlink.url }}"
+                                                      href="{{ grandchildlink.url }}{%- if bm_menu_on and grandchildlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                                       class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
                                                       {% if grandchildlink.current %}
                                                         aria-current="page"
@@ -462,7 +463,7 @@
                               </details>
                             {%- else -%}
                               <a
-                                href="{{ link.url }}"
+                                href="{{ link.url }}{%- if bm_menu_on and link.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                 class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
                                 {% if link.current %}
                                   aria-current="page"
@@ -1242,7 +1243,7 @@
                         >
                           <a
                             class="no-js-hidden"
-                            href="{{ link.url }}"
+                            href="{{ link.url }}{%- if bm_menu_on and link.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                             {% if higlight_title != blank %}
                               style="color: {{ highlight_color }}"
                             {% endif %}
@@ -1291,7 +1292,7 @@
                                 %}
                                 {%- if childlink.links == blank -%}
                                   <a
-                                    href="{{ childlink.url }}"
+                                    href="{{ childlink.url }}{%- if bm_menu_on and childlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                     class="header__menu-item list-menu__item link link--text focus-inset{% if childlink.current %} list-menu__item--active{% endif %}"
                                     {% if childlink.current %}
                                       aria-current="page"
@@ -1343,7 +1344,7 @@
                                         %}
                                         <li>
                                           <a
-                                            href="{{ grandchildlink.url }}"
+                                            href="{{ grandchildlink.url }}{%- if bm_menu_on and grandchildlink.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                                             class="header__menu-item list-menu__item link link--text focus-inset{% if grandchildlink.current %} list-menu__item--active{% endif %}"
                                             {% if grandchildlink.current %}
                                               aria-current="page"
@@ -1440,7 +1441,7 @@
                   </details-disclosure>
                 {%- else -%}
                   <a
-                    href="{{ link.url }}"
+                    href="{{ link.url }}{%- if bm_menu_on and link.type == 'collection_link' -%}?view=black-month{%- endif -%}"
                     class="header__menu-item list-menu__item link link--text focus-inset{%- if link.current and request.page_type != 'product' %} header__active-menu-item{% endif %}"
                     {% if link.current %}
                       aria-current="page"
