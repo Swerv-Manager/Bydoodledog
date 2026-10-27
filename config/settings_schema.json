@@ -1159,7 +1159,7 @@
         "type": "text",
         "id": "bm_hangtag",
         "label": "hangtag",
-        "default": "Black Month 30.10-30.11"
+        "default": "Black Month 30.10–30.11"
       },
       {
         "type": "text",
