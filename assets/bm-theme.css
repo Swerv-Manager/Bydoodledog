@@ -115,6 +115,10 @@ body.bm-on {
   font-family: var(--bm-sans);
 }
 
+.bm-section { display: flow-root; }
+/* Theme heading/paragraph colours are dark; BM sections are dark blocks, so text inherits the BM colour (zero-specificity so BM classes still win). */
+.bm-section :where(h1, h2, h3, h4, h5, h6, p) { color: inherit; }
+
 /* The live announcement bar is replaced by the BM announcement bar. Everything else keeps the live look. */
 body.bm-on .announcement-bar {
   display: none !important;
