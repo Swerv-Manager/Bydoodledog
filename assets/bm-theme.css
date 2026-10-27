@@ -1021,3 +1021,9 @@ body.bm-on .cart__taxes { display: none; }
 .bm-pdp-details { color: #3a3a3e; }
 .bm-badge--campaign { background: #111111; color: #f9f3f1; }
 .bm-badge--save { background: rgba(249, 243, 241, 0.92); color: #111111; }
+
+/* PDP / BM product templates sit on the light page */
+.bm-countdown { color: #f9f3f1; }
+.bm-pdp-details { color: #3a3a3e; --bm-text: #3a3a3e; --bm-muted: #6b6258; }
+.bm-pdp-details .bm-h2 { color: #111111; }
+.bm-pdp-details summary { color: #3a3a3e; }
