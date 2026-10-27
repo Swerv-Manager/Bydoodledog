@@ -40,6 +40,28 @@ button:where(.sph *){border:0;cursor:pointer;color:inherit;font-size:inherit}
 .sph-hero .sph-m .sph-hero__media{position:absolute;inset:0}
 /* hide design marquee animation overflow */
 @media(max-width:1023px){.sph-hero .sph-d{display:none}}
+/* ---- global chrome under body.bm-on (header / announcement / footer = design) ---- */
+body.bm-on .header-wrapper.alt-background-2,body.bm-on .header-wrapper.alt-background-2::before,body.bm-on .header-wrapper.alt-background-2::after,body.bm-on .header-wrapper{background:#fff!important;background-color:#fff!important}
+body.bm-on .header-wrapper{border-bottom:1px solid #e9e1d7!important}
+body.bm-on .header__inline-menu .list-menu__item,body.bm-on .header__inline-menu a.header__menu-item,body.bm-on .header__inline-menu summary{font-size:18px;line-height:24px;color:#3a3a3e}
+body.bm-on .header__inline-menu a.bm-pill,body.bm-on .header .bm-pill{background:transparent!important;color:#111!important;font:700 18px/24px "Playfair Display",Georgia,serif!important;letter-spacing:0!important;text-transform:none!important;padding:0!important;border:0!important;display:inline-flex;align-items:center;gap:10px}
+body.bm-on .header .bm-pill::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#b59d88;flex:none}
+body.bm-on .bm-announcement{height:36px;min-height:36px;padding:0;justify-content:center;gap:32px;font-family:"Playfair Display",Georgia,serif;font-size:14px;line-height:20px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:#b59d88}
+body.bm-on .bm-announcement__viewport{flex:0 1 560px;min-height:20px}
+body.bm-on .bm-announcement__slide{color:#b59d88}
+body.bm-on .bm-announcement__nav{color:#7a7068;font-size:18px;line-height:20px;padding:0}
+body.bm-on .bm-announcement__close{display:none}
+@media(max-width:1023px){body.bm-on .bm-announcement{font-family:"Hanken Grotesk",sans-serif;font-size:12px;line-height:16px;letter-spacing:.08em}body.bm-on .bm-announcement__nav{display:none}}
+body.bm-on .bm-footer-note{background:#3a3a3e;border-radius:0;margin:0;max-width:none;width:100%;padding:24px clamp(16px,5vw,72px) 0;border:0;box-shadow:none}
+body.bm-on .bm-footer-note h2{display:none}
+body.bm-on .bm-footer-note p{color:#d8c6b1;font-family:"Playfair Display",Georgia,serif;font-size:14px;line-height:22px;letter-spacing:0;max-width:1296px;margin:0 auto}
+body.bm-on .site-footer,body.bm-on .site-footer.main-background{background:#3a3a3e!important;color:#f9f3f1!important}
+body.bm-on .site-footer h4,body.bm-on .site-footer .h4,body.bm-on .site-footer summary{color:#f9f3f1!important;font-size:24px;line-height:32px;letter-spacing:.06em;text-transform:uppercase;font-weight:400}
+body.bm-on .site-footer a,body.bm-on .site-footer li,body.bm-on .site-footer .site-footer__rte{color:#d8c6b1!important;font-size:14px;line-height:22px;letter-spacing:.04em}
+body.bm-on .site-footer p,body.bm-on .site-footer p a{color:#d8c6b1!important;font-size:16px;line-height:26px;letter-spacing:0;text-transform:none}
+body.bm-on .site-footer a[href^="mailto"]{color:#f9f3f1!important;font-size:16px;line-height:26px;text-transform:none;letter-spacing:0}
+body.bm-on .site-footer svg{color:#f9f3f1}
+body.bm-on .site-footer ul li{margin-bottom:6px}
 /* ---- collection ---- */
 .sph-cardlink{position:absolute;inset:0;z-index:1}
 .sph-rel :is(button,a.sph-ovx){position:relative;z-index:2}
