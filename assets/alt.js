@@ -101,6 +101,8 @@
     });});
     var qv=q('[data-ap-qv]');
     root.querySelectorAll('[data-ap-q]').forEach(function(b){b.addEventListener('click',function(){qty=Math.max(1,qty+Number(b.getAttribute('data-ap-q')));if(qv)qv.textContent=qty;});});
+    var dw=q('[data-ap-descw]'),mb=q('[data-ap-more]');
+    if(dw&&mb&&dw.scrollHeight>200){dw.classList.add('is-clamp');mb.hidden=false;mb.addEventListener('click',function(){var o=dw.classList.toggle('is-clamp');mb.textContent=o?'Læs mere':'Vis mindre';});}
     var err=q('[data-ap-err]');
     ['[data-ap-add]','[data-ap-add2]'].forEach(function(s){var b=q(s);if(b)b.addEventListener('click',function(){addToCart(cur,qty,b,err);});});
   });

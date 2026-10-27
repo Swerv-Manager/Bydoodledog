@@ -35,7 +35,7 @@
     </div>
     {%- endif -%}
     <div class="ap-acc">
-      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-desc">{{ product.description }}</div></section>
+      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-descw" data-ap-descw><div class="ap-desc">{{ product.description }}</div></div><button type="button" class="ap-more" data-ap-more hidden>Læs mere</button></section>
       <section class="ap-accs"><h2>Levering</h2><p>Levering 1–2 hverdage med GLS til pakkeshop. Fri fragt fra 899 kr. og 30 dages returret.</p></section>
     </div>
   </div>
@@ -80,6 +80,8 @@
     <span class="ap-stock" data-ap-stock>
       <i class="ap-dot{% unless ap_v.available %} is-off{% endunless %}"></i><span data-ap-stocktxt>{% if ap_v.available %}På lager{% else %}Udsolgt{% endif %}</span><span class="ap-sep" data-ap-sep{% unless ap_v.available %} hidden{% endunless %}>·</span><span data-ap-del{% unless ap_v.available %} hidden{% endunless %}>🚛 1-2 dages levering</span>
     </span>
+    <div class="ap-buywrap">
+    <span class="ap-ql">Vælg antal</span>
     <div class="ap-buy">
       <div class="ap-qty"><button type="button" data-ap-q="-1" aria-label="Færre">−</button><span data-ap-qv>1</span><button type="button" data-ap-q="1" aria-label="Flere">+</button></div>
       <button type="button" class="ap-add" data-ap-add{% unless ap_v.available %} disabled{% endunless %}>
@@ -89,6 +91,7 @@
     </div>
     <p class="ap-err" data-ap-err hidden></p>
     <div class="ap-pay"><img src="{{ 'alt-pay-visa.svg' | asset_url }}" alt="Visa" height="24" loading="lazy"><img src="{{ 'alt-pay-mastercard.svg' | asset_url }}" alt="Mastercard" height="24" loading="lazy"><img src="{{ 'alt-pay-mobilepay.svg' | asset_url }}" alt="MobilePay" height="24" loading="lazy"></div>
+    </div>
     {%- assign ap_lis = product.description | split: '<li>' -%}
     {%- if ap_lis.size > 1 -%}
     <ul class="ap-checks">

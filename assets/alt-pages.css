@@ -276,6 +276,8 @@
 .alt-pdp .ap-dot{width:8px;height:8px;border-radius:999px;background:rgb(143,191,136);display:block}
 .alt-pdp .ap-dot.is-off{background:#c46b5a}
 .alt-pdp .ap-sep{color:rgba(252,250,245,.66)}
+.alt-pdp .ap-buywrap{display:flex;flex-direction:column;gap:8px}
+.alt-pdp .ap-ql{font:400 14px/20px "Hanken Grotesk",sans-serif;color:rgba(252,250,245,.66)}
 .alt-pdp .ap-buy{display:flex;gap:12px;align-items:center}
 .alt-pdp .ap-qty{height:56px;border-radius:999px;background:rgb(58,45,35);display:flex;align-items:center;flex-shrink:0}
 .alt-pdp .ap-qty button{width:50px;height:56px;border:0;background:none;display:flex;align-items:center;justify-content:center;font-size:22px;color:#FCFAF5;cursor:pointer;padding:0}
@@ -284,7 +286,7 @@
 .alt-pdp .ap-add:disabled,.alt-pdp .ap-st4:disabled{opacity:.5;cursor:not-allowed}
 .alt-pdp .ap-add.is-load,.alt-pdp .ap-st4.is-load{opacity:.7;pointer-events:none}
 .alt-pdp .ap-err{margin:-10px 0 0;font:400 14px/20px "Hanken Grotesk",sans-serif;color:#e9a395}
-.alt-pdp .ap-pay{display:flex;justify-content:center;gap:8px;padding-left:136px;margin-top:-6px}
+.alt-pdp .ap-pay{display:flex;justify-content:center;gap:8px;padding-left:136px}
 .alt-pdp .ap-pay img{height:24px;width:auto;display:block}
 .alt-pdp .ap-checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .alt-pdp .ap-checks li{display:flex;align-items:center;gap:10px;font:400 15px/22px "Hanken Grotesk",sans-serif;color:#FCFAF5}
@@ -359,4 +361,20 @@
   .alt-xs .ax-row{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 16px 4px;gap:12px;scroll-snap-type:x mandatory;scroll-padding-left:16px}
   .alt-xs .ax-card{flex:0 0 300px;scroll-snap-align:start}
 }
+
+.alt-pdp .ap-descw{position:relative;max-width:620px}
+.alt-pdp .ap-descw.is-clamp{max-height:156px;overflow:hidden}
+.alt-pdp .ap-descw.is-clamp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(rgba(33,26,19,0),#211a13)}
+.alt-pdp .ap-more{align-self:flex-start;background:none;border:0;padding:0;font:600 13px/16px "Hanken Grotesk",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:rgb(181,157,136);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.alt-rev .jdgm-widget,.alt-rev .jdgm-widget *{background-color:transparent!important;color:#FCFAF5!important;border-color:rgba(252,250,245,.12)!important;font-family:"Hanken Grotesk",sans-serif!important;box-shadow:none!important}
+.alt-rev .jdgm-rev-widg__title{display:none!important}
+.alt-rev .jdgm-widget .jdgm-star,.alt-rev .jdgm-widget .jdgm-star::before{color:rgb(181,157,136)!important}
+.alt-rev .jdgm-widget .jdgm-histogram__bar{background-color:rgba(252,250,245,.14)!important}
+.alt-rev .jdgm-widget .jdgm-histogram__bar-content{background-color:rgb(181,157,136)!important}
+.alt-rev .jdgm-widget .jdgm-btn,.alt-rev .jdgm-widget .jdgm-write-rev-link{background-color:rgb(181,157,136)!important;color:rgb(33,26,19)!important;border-radius:999px!important;border:0!important;text-transform:uppercase;letter-spacing:.06em;font-weight:600!important}
+.alt-rev .jdgm-widget .jdgm-btn--border{background-color:transparent!important;color:#FCFAF5!important;border:1px solid rgba(252,250,245,.3)!important}
+.alt-rev .jdgm-widget input,.alt-rev .jdgm-widget textarea,.alt-rev .jdgm-widget select{background-color:rgb(58,45,35)!important}
+.alt-rev .jdgm-widget .jdgm-rev__body,.alt-rev .jdgm-widget .jdgm-rev__timestamp{color:rgba(252,250,245,.78)!important}
+.alt-rev .jdgm-widget .jdgm-rev__author{font-weight:700!important}
+.alt-xs .ax-row{grid-template-columns:repeat(4,minmax(0,1fr))}
 
