@@ -1,0 +1,380 @@
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign social_icons = false
+  assign inline_list = false
+  assign icon_style = settings.icons_style
+%}
+
+{%- if settings.social_twitter_link != blank
+  or settings.social_facebook_link != blank
+  or settings.social_pinterest_link != blank
+  or settings.social_instagram_link != blank
+  or settings.social_tiktok_link != blank
+  or settings.social_tumblr_link != blank
+  or settings.social_snapchat_link != blank
+  or settings.social_youtube_link != blank
+  or settings.social_vimeo_link != blank
+  or request.page_type == 'article'
+  or request.page_type == 'blog'
+-%}
+  {%- assign social_icons = true -%}
+{%- endif -%}
+
+{%- case section.blocks.size -%}
+  {%- when 1 -%}
+    {%- assign footer_item = 'site-footer__item--full-width' -%}
+    {%- assign inline_list = true -%}
+  {%- when 2 -%}
+    {%- assign footer_item = 'site-footer__item--one-half' -%}
+  {%- when 3 -%}
+    {%- assign footer_item = 'site-footer__item--one-third' -%}
+{%- endcase -%}
+
+<style>
+  .site-footer_email a {
+    text-transform: initial;
+  }
+</style>
+
+<footer
+  class="site-footer {{ section.settings.background }} {{ section.settings.background_decoration }}"
+  role="contentinfo"
+  data-section-id="{{ section.id }}"
+  data-section-type="footer-section"
+>
+  <div class="site-footer__top">
+    {%- if section.settings.custom_background_decoration -%}
+      <div class="footer__custom-decoration media media--transparent">
+        {{
+          section.settings.custom_background_decoration
+          | image_url: width: 3840
+          | image_tag:
+            loading: 'lazy',
+            width: section.settings.custom_background_decoration.width,
+            height: section.settings.custom_background_decoration.height,
+            class: 'motion-reduce media__transparent',
+            sizes: '100vw',
+            widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+            alt: section.settings.custom_background_decoration.alt
+          | escape
+        }}
+      </div>
+    {%- endif -%}
+    <div class="page-width">
+      <div class="site-footer__content">
+        {%- for block in section.blocks -%}
+          <div
+            class="
+              site-footer__item
+              {% if section.blocks.size == 1 %} site-footer__item--center{% endif %}
+              {{ footer_item }}
+              {% if section.blocks.size == 3 %}site-footer-newsletter__one-half{% endif %}
+            "
+            {{ block.shopify_attributes }}
+          >
+            <div class="site-footer__item-inner site-footer__item-inner--{{ block.type }}">
+              {%- if block.settings.title -%}
+                <h4 class="h4 {% if block.type != 'text' %} small--hide {% endif %}">
+                  {{ block.settings.title | escape }}
+                </h4>
+              {%- endif -%}
+
+              {%- case block.type -%}
+                {%- when 'text' -%}
+                  {%- if block.settings.company_email != blank -%}
+                    <p
+                      class="
+                        site-footer__rte site-footer_email
+                        {% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %}
+                      "
+                    >
+                      <a href="mailto:{{ block.settings.company_email }}" target="_top">
+                        {{- block.settings.company_email -}}
+                      </a>
+                    </p>
+                  {%- endif -%}
+                  <p class="site-footer__rte{% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %} txt--number">
+                    {{ block.settings.company_phone }}
+                  </p>
+                  {%- if shop.address and block.settings.show_address -%}
+                    <p class="site-footer__rte">
+                      {% if block.settings.custom_address != blank %}
+                        {{ block.settings.custom_address }}
+                      {% else %}
+                        {{ shop.address.summary }}
+                      {% endif %}
+                    </p>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="site-footer__rte site-footer__rte--text{% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %}">
+                      {{ block.settings.text }}
+                    </div>
+                  {%- endif -%}
+                  {%- if social_icons -%}
+                    <ul class="list--inline site-footer__social-icons social-icons site-footer__icon-list">
+                      {%- if settings.social_twitter_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_twitter_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-twitter"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_facebook_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_facebook_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-facebook"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_pinterest_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_pinterest_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-pinterest"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_instagram_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_instagram_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-instagram"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tiktok_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_tiktok_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-tiktok"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tumblr_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_tumblr_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-tumblr"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_snapchat_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_snapchat_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-snapchat"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_youtube_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_youtube_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-youtube"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_vimeo_link != blank -%}
+                        <li class="social-icons__item">
+                          <a href="{{ settings.social_vimeo_link }}" target="_blank" class="social-icons__link">
+                            <i class="icon fa-brands fa-vimeo"></i>
+                            <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if request.page_type == 'blog' or request.page_type == 'article' -%}
+                        <li class="social-icons__item">
+                          <a class="social-icons__link" target="_blank" href="{{ shop.url }}{{ blog.url }}.atom">
+                            <i class="icon {{ icon_style }} fa-rss"></i>
+                            <span class="icon__fallback-text">RSS</span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  {%- endif -%}
+                {%- when 'link_list' -%}
+                  {%- assign footer_linklist = block.settings.menu -%}
+                  <ul
+                    class="
+                      site-footer__linklist
+                      {% if inline_list %}list--inline{% endif %}
+                    "
+                  >
+                    {%- for link in linklists[footer_linklist].links -%}
+                      {% assign link_title = link.title | escape %}
+                      <li class="site-footer__linklist-item">
+                        <a
+                          href="{{ link.url }}"
+                          {% if link_title == 'Help' or link_title == 'Returns' %}
+                            target="_blank"
+                          {% endif %}
+                          {% if link.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ link_title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+              {%- endcase -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
+        <div class="footer__follow-on-shop">
+          {{ shop | login_button: action: 'follow' }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background"
+    },
+    {
+      "type": "select",
+      "id": "background_decoration",
+      "label": "t:sections.footer.settings.background_decoration.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.footer.settings.background_decoration.options__1.label"
+        },
+        {
+          "value": "handprints",
+          "label": "t:sections.footer.settings.background_decoration.options__3.label"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_background_decoration",
+      "label": "t:sections.footer.settings.custom_background_decoration.label",
+      "info": "t:sections.footer.settings.custom_background_decoration.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.header__4.content",
+      "info": "t:sections.footer.settings.header__4.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_follow_on_shop",
+      "default": true,
+      "label": "t:sections.footer.settings.enable_follow_on_shop.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "t:sections.footer.blocks.link_list.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.footer.blocks.link_list.settings.title.label",
+          "default": "Navigate"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.footer.blocks.link_list.settings.menu.label",
+          "info": "t:sections.footer.blocks.link_list.settings.menu.info",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.footer.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.footer.blocks.text.settings.title.label",
+          "default": "Need help?"
+        },
+        {
+          "type": "text",
+          "id": "company_email",
+          "label": "t:sections.footer.blocks.text.settings.company_email.label",
+          "default": "hello@example.com"
+        },
+        {
+          "type": "text",
+          "id": "company_phone",
+          "label": "t:sections.footer.blocks.text.settings.company_phone.label",
+          "default": "+1 111 111 1111"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_address",
+          "label": "t:sections.footer.blocks.text.settings.show_address.label",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "custom_address",
+          "label": "t:sections.footer.blocks.text.settings.custom_address.label",
+          "info": "t:sections.footer.blocks.text.settings.custom_address.info"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Use this text to share information about your brand<br>with your customers. Share announcements, or<br>welcome customers to your store.</p>",
+          "label": "t:sections.footer.blocks.text.settings.text.label"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list"
+      },
+      {
+        "type": "text"
+      }
+    ]
+  }
+}
+{% endschema %}

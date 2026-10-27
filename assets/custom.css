@@ -1,0 +1,31 @@
+/* Product badges */
+
+.product-card-wrapper .price--on-sale .price-item--sale__save-tag,
+.product__price .price--on-sale .price-item--sale__save-tag {
+  background-color: #BC626B;
+}
+
+.product-promo-content .product__tags__badge {
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+.product-card .product__tags__badge {
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+
+/* Preorder / Bestillingsvara */
+.selected-status--left-quantity .product-form__selected-status.product-form__selected-status--orange {
+  background: #e67e22;
+}
+
+.product-form__selected-status.product-form__selected-status--orange span::before {
+  display: none;
+}
+
+.product-form__stock-message.product-form__stock-message--preorder {
+  background: rgba(230, 126, 34, 0.3);
+}

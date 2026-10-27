@@ -1,0 +1,105 @@
+{% comment %}
+  Renders products rating starts
+
+  Accepts:
+  - product: {Object} Product object
+  - standar_metafields: {Boolean} Enable use standar Metafields (reviews.rating and reviews.rating_count).
+  - show_empty_stars: {Boolean} Show empty stars when there are no reviews.
+  - enable_loox_link: {Boolean} Add link to Loox widget.
+  - rating_class: {String} Adds a rating class to the rating element (optional)
+
+  Usage:
+  {% render 'product-rating', standar_metafields: standar_metafields %}
+{% endcomment %}
+
+{% liquid
+  if standar_metafields == true
+    assign rating = product.metafields.reviews.rating.value
+    assign value_rating = product.metafields.reviews.rating.value.rating
+    assign scale_max = product.metafields.reviews.rating.value.scale_max
+    assign rating_count = product.metafields.reviews.rating_count
+
+    assign rating_decimal = 0
+    assign decimal = value_rating | modulo: 1
+    if decimal >= 0.3 and decimal <= 0.7
+      assign rating_decimal = 0.5
+    elsif decimal > 0.7
+      assign rating_decimal = 1
+    endif
+  else
+    assign rating = product.metafields.loox.avg_rating
+    assign value_rating = product.metafields.loox.avg_rating
+    assign scale_max = 5
+    assign rating_count = product.metafields.loox.num_reviews
+  endif
+%}
+
+{% if rating != blank or show_empty_stars == true %}
+  <div
+    class="rating {{ rating_class }}"
+    role="img"
+    aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: rating, rating_max: scale_max }}"
+  >
+    {% if rating != blank %}
+      {% if standar_metafields == true %}
+        <span
+          aria-hidden="true"
+          class="rating-star"
+          style="--rating: {{ value_rating | floor }}; --rating-max: {{ scale_max }}; --rating-decimal: {{ rating_decimal }};"
+        ></span>
+        {%- capture reviews_label -%}
+          {{ 'products.product.reviews' | t: count: rating_count }}
+        {%- endcapture -%}
+        <p class="rating-count caption">
+          <span aria-hidden="true">
+            {{- rating_count }}
+            {{ reviews_label -}}
+          </span>
+          <span class="visually-hidden"> {{ rating }} / {{ scale_max }} </span>
+        </p>
+      {% else %}
+        {% if enable_loox_link == true %}
+          <a href="#looxReviews">
+        {% endif %}
+        <div
+          class="loox-rating"
+          data-id="{{ product.id }}"
+          data-rating="{{ rating }}"
+          data-raters="{{ rating_count }}"
+          data-pattern="[count] {{ 'products.product.reviews' | t: count: rating_count }}"
+        ></div>
+        {% if enable_loox_link == true %}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% if standar_metafields == true %}
+        <span
+          aria-hidden="true"
+          class="rating-star"
+          style="--rating: 0; --rating-max: {{ scale_max }}; --rating-decimal: 0;"
+        ></span>
+        <p class="rating-count caption">
+          <span aria-hidden="true">
+            {{ 'products.product.no_reviews' | t }}
+          </span>
+        </p>
+      {% else %}
+        {% if enable_loox_link == true %}
+          <a href="#looxReviews">
+        {% endif %}
+        <div
+          class="loox-rating"
+          data-id="{{ product.id }}"
+          data-rating="{{ rating }}"
+          data-raters="{{ rating_count }}"
+          data-pattern="{{ 'products.product.no_reviews' | t }}"
+          data-show-empty-stars="true"
+        ></div>
+        {% if enable_loox_link == true %}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endif %}

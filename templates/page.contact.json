@@ -1,0 +1,100 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_V983pL": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_wzcaRN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Kontakta oss",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_HLLJ3P": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Om du har några frågor angående vår produkt eller behöver hjälp med din beställning, vänligen maila oss så får du svar inom en arbetsdag. Var noga med att inkludera ordernumret eller e-postadressen som användes vid utcheckningen i ditt meddelande. Behöver du mer information om en specifik produkt eller vill du ha en uppdatering om din beställning? Låt oss bara veta genom att kontakta oss via vår e-postsupport. Vårt supportteam kommer att försöka svara på alla frågor så snabbt som möjligt. Tack!</p><p>Telefon: <strong>+45 29900589</strong><br/>Tisdag & Torsdag : kl. 11.00–13.00<br/><br/>E-post: <a href=\"mailto:info@bydoodledog.se\">info@bydoodledog.se</a><br/>Adress: Systemvej 4, 8963 Auning, Danmark</p><p><strong>Företagsinformation</strong>:<br/>Företagsnamn: Urd´s ApS<br/>Momsregistreringsnummer: DK39152312</p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_wzcaRN",
+        "text_HLLJ3P"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_align": "center",
+        "background": "main-background",
+        "padding_top": 44,
+        "padding_bottom": 12
+      }
+    },
+    "contact_form_ig6h9h": {
+      "type": "contact-form",
+      "name": "t:sections.contact-form.presets.name",
+      "settings": {
+        "heading": "",
+        "subtitle": "",
+        "show_email": false,
+        "show_phone": false,
+        "show_address": false,
+        "custom_address": "",
+        "show_facebook": false,
+        "handle_facebook": "",
+        "show_instagram": false,
+        "handle_instagram": "",
+        "show_twitter": false,
+        "handle_twitter": "",
+        "operation": "",
+        "response_time": "",
+        "font_size": 100,
+        "background": "background-modal",
+        "padding_top": 29,
+        "padding_bottom": 44
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "disabled": true,
+      "settings": {
+        "heading": "Behöver du prata med oss?",
+        "subtitle": "Vi är redo att hjälpa dig!",
+        "show_email": true,
+        "show_phone": true,
+        "show_address": true,
+        "custom_address": "Systemvej 4, 8963 Auning",
+        "show_facebook": true,
+        "handle_facebook": "Facebook",
+        "show_instagram": true,
+        "handle_instagram": "Instagram",
+        "show_twitter": false,
+        "handle_twitter": "Find us on Twitter",
+        "operation": "Öppet telefon | Måndag - Fredag ​​11:00-13:00",
+        "response_time": "Vi svarar inom 1 arbetsdag.",
+        "font_size": 100,
+        "background": "background-modal",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    }
+  },
+  "order": [
+    "rich_text_V983pL",
+    "contact_form_ig6h9h",
+    "form"
+  ]
+}

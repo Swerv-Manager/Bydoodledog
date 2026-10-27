@@ -1,0 +1,216 @@
+{{ 'section-logo-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% assign animation_delay = 0.00 %}
+
+<div class="section-{{ section.id }}-padding">
+  <div
+    class="logo-banner {{ section.settings.background }}"
+    style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+  >
+    <div class="page-width">
+      {% if section.settings.title != blank %}
+        <h2 class="h1 scroll-animate fade-in" style="animation-delay: 0.07s;">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="rte rte-setting">
+          <p>{{ section.settings.text }}</p>
+        </div>
+      {% endif %}
+      <ul>
+        {% for block in section.blocks %}
+          {%- assign animation_delay = animation_delay | plus: 0.08 -%}
+          <li
+            class="scroll-animate fade-in-up"
+            style="animation-delay: {{ animation_delay }}s;--logo-height: {{ section.settings.logo_height }}px;"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="logo-banner__link">
+            {% endif %}
+            {% if block.settings.svg_image != blank %}
+              <div class="logo-banner__image" style="height: {{ section.settings.logo_height }}px;">
+                {{ block.settings.svg_image }}
+              </div>
+            {% elsif block.settings.image != blank %}
+              {%- capture logo_alt_default -%}logo-banner-{{ forloop.index0 }}{%- endcapture -%}
+              {% liquid
+                assign logo_alt = block.settings.image.alt | default: logo_alt_default
+                assign logo_height_2 = section.settings.logo_height | times: 2
+                assign logo_width = section.settings.logo_height | times: block.settings.image.aspect_ratio | round
+              %}
+              {{
+                block.settings.image
+                | image_url: height: logo_height_2
+                | image_tag:
+                  class: 'logo-banner__image lazyload',
+                  height: section.settings.logo_height,
+                  width: logo_width,
+                  alt: logo_alt,
+                  sizes: '(min-width: 750px) 50vw, 100vw',
+                  widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000'
+              }}
+            {% else %}
+              {{ 'logo' | placeholder_svg_tag: 'logo-banner__image placeholder-svg' }}
+            {% endif %}
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.logo-banner.name",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.logo-banner.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "t:sections.logo-banner.settings.text.label"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 30,
+      "max": 180,
+      "step": 10,
+      "default": 30,
+      "unit": "px",
+      "label": "t:sections.logo-banner.settings.logo_height.label"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "t:sections.logo-banner.blocks.logo.name",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.logo-banner.blocks.logo.settings.paragraph.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.logo-banner.blocks.logo.settings.image.label",
+          "info": "t:sections.logo-banner.blocks.logo.settings.image.info"
+        },
+        {
+          "type": "html",
+          "id": "svg_image",
+          "label": "t:sections.logo-banner.blocks.logo.settings.svg_image.label",
+          "info": "t:sections.logo-banner.blocks.logo.settings.svg_image.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.logo-banner.blocks.logo.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.logo-banner.presets.name",
+      "blocks": [
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,449 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-collection-skeleton.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'pagination.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign grid_row = section.settings.grid
+  assign limit = section.settings.products_per_page
+  assign image_ratio = settings.image_ratio
+  assign giftId = linklists['gift-wrapping'].links.first.object.variants.first.id
+
+  paginate collection.products by limit
+    capture paginatation_enable
+      if paginate.pages > 1
+        echo true
+      else
+        echo false
+      endif
+    endcapture
+  endpaginate
+%}
+
+{%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+  {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+  <div class="page-width" id="main-collection-filters" data-id="{{ section.id }}">
+    {% paginate collection.products by limit %}
+      {% render 'facets',
+        results: collection,
+        enable_sorting: section.settings.enable_sorting,
+        enable_filtering: section.settings.enable_filtering,
+        page: paginate.current_page
+      %}
+    {% endpaginate %}
+  </div>
+{%- endif -%}
+
+<product-grid-container
+  id="ProductGridContainer"
+  data-section="{{ section.id }}"
+  data-url="{{ routes.collections_url }}?section_id={{ section.id }}"
+  data-pagination="{{ paginatation_enable }}"
+>
+  {%- paginate collection.products by limit -%}
+    {%- if collection.products.size == 0 -%}
+      <div class="page-width" id="data-pagination" data-empty="true" data-id="{{ section.id }}">
+        <div class="product-grid-container--empty">
+          <p class="text-center">{{ 'sections.collection_template.empty' | t }}</p>
+          <div class="loader-bounce">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="collection page-width">
+        {% liquid
+          case grid_row
+            when 2
+              assign grid_column_class = 'grid--2-col'
+            when 3
+              assign grid_column_class = 'grid--2-col grid--3-col-tablet grid--one-third-max'
+            when 4
+              assign grid_column_class = 'grid--2-col grid--4-col-tablet grid--quarter-max'
+          endcase
+
+          assign promotion_card = section.blocks | first
+          if promotion_card.settings.card_placement == 'first'
+            assign card_index = 1
+          else
+            assign card_index = grid_row
+          endif
+        %}
+
+        <ul class="collection-skeleton grid {{ grid_column_class }} negative-margin hide" data-skeleton-pagination-top>
+          {% for i in (1..grid_row) %}
+            <li class="grid__item">
+              <div class="collection-skeleton-card background-modal">
+                <div class="collection-skeleton__container">
+                  <div
+                    class="collection-skeleton__image-wrapper media--{{ image_ratio }}"
+                    {% if image_ratio == 'adapt' %}
+                      style="padding-bottom: 100%;"
+                    {% endif %}
+                  ></div>
+                  <div class="collection-skeleton__information">
+                    <span class="skeleton__price">$00</span>
+                    <span class="skeleton__title">Product Title</span>
+                    <span class="skeleton__colors">3 colors</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <ul
+          id="data-pagination"
+          data-id="{{ section.id }}"
+          class="grid {{ grid_column_class }} negative-margin product-grid"
+        >
+          {%- capture card_element -%}
+            <div class="promotion-card">
+              {%- if promotion_card.settings.link != blank -%}
+                <a href="{{ promotion_card.settings.link }}">
+              {%- endif -%}
+                <div class="promotion-card__inner{% if settings.image_ratio == 'adapt' %} promotion-card__inner--adapt{% endif %}">
+                  <div class="promotion-card__media">
+                    <div class="media media--transparent" {%- if promotion_card.settings.show_scrim -%} style="--scrim-lightness: {{ promotion_card.settings.scrim_lightness }}, {{ promotion_card.settings.scrim_lightness }}, {{ promotion_card.settings.scrim_lightness }}"{%- endif -%}>
+                      {% if promotion_card.settings.image != blank %}
+                        {%- assign image_height = promotion_card.settings.image.width
+                          | divided_by: promotion_card.settings.image.aspect_ratio
+                        -%}
+                        {%- capture sizes -%}(min-width: 1520px) {{ 1520 | minus: 440 }}px, (min-width: 1024px) calc(58vw - 176px), (min-width: 768px) calc(58vw - 48px), calc(100vw - 48px){%- endcapture -%}
+                        {{
+                          promotion_card.settings.image
+                          | image_url: width: 940
+                          | image_tag:
+                            preload: true,
+                            width: promotion_card.settings.image.width,
+                            height: image_height,
+                            class: 'motion-reduce media__transparent',
+                            sizes: sizes,
+                            widths: '165, 360, 533, 720, 940',
+                            alt: promotion_card.settings.image.alt
+                          | escape
+                        }}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'media__transparent placeholder-svg' }}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="media--{{ settings.image_ratio }}"{% if settings.image_ratio == 'adapt' %} style="padding-top: 100%;"{% endif %}></div>
+                  <div class="promotion-card__item-text promotion-card__item-text--{{ promotion_card.settings.text_position }} {{ promotion_card.settings.color_text }}">
+                    <h3 class="promotion-card__item-title{% if section.settings.title_on_hover %} promotion-card__item-title--animate{% endif %}">{{ promotion_card.settings.title }}</h3>
+                    <div class="promotion-card__item-description{% if section.settings.description_on_hover %} promotion-card__item-description--animate{% endif %}">
+                      <p>{{ promotion_card.settings.text }}</p>
+                    </div>
+                  </div>
+                </div>
+              {%- if promotion_card.settings.link != blank -%}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endcapture -%}
+          {%- for product in collection.products -%}
+            {% liquid
+              assign lazy_load = false
+              if forloop.index > grid_row
+                assign lazy_load = true
+              endif
+
+              if giftId == product.variants.first.id
+                continue
+              endif
+
+              assign active_card = false
+              if promotion_card and card_index == forloop.index
+                assign active_card = true
+              endif
+            %}
+
+            {%- if active_card -%}
+              <li class="grid__item" {{ promotion_card.shopify_attributes }}>
+                {{ card_element }}
+              </li>
+            {%- endif -%}
+            <li class="grid__item data-pagination__item">
+              {% render 'product-card',
+                product: product,
+                media_ratio: image_ratio,
+                show_secondary_image: settings.show_secondary_image,
+                show_vendor: settings.show_vendor,
+                show_rating: settings.show_rating,
+                show_quick_add: settings.show_quick_add,
+                lazy_load: lazy_load,
+                show_countdown: settings.show_countdown,
+                section_id: section.id,
+                cart: cart
+              %}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <ul
+          class="collection-skeleton grid {{ grid_column_class }} negative-margin hide"
+          data-skeleton-pagination-bottom
+        >
+          {% for i in (1..grid_row) %}
+            <li class="grid__item">
+              <div class="collection-skeleton-card background-modal">
+                <div class="collection-skeleton__container">
+                  <div
+                    class="collection-skeleton__image-wrapper media--{{ image_ratio }}"
+                    {% if image_ratio == 'adapt' %}
+                      style="padding-bottom: 100%;"
+                    {% endif %}
+                  ></div>
+                  <div class="collection-skeleton__information">
+                    <span class="skeleton__price">$00</span>
+                    <span class="skeleton__title">Product Title</span>
+                    <span class="skeleton__colors">3 colors</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div id="component-pagination-loader">
+        {%- if paginate.pages > 1 -%}
+          {% render 'load-more', paginate: paginate %}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</product-grid-container>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-product-grid.name",
+  "class": "spaced-section collection-grid-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "default": 18,
+      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "label": "t:settings_schema.layout.settings.grid.label",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
+      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
+    },
+    {
+      "type": "select",
+      "id": "color_swatch_shape",
+      "options": [
+        {
+          "value": "circle",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__1.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__2.label"
+        },
+        {
+          "value": "rectangle",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.options__3.label"
+        }
+      ],
+      "default": "circle",
+      "label": "t:sections.featured-product.blocks.variant_picker.settings.color_swatch_shape.label",
+      "info": "Filter values can include a small visual to display attributes like colors and patterns. [Learn more](https://archer-commerce.helpscoutdocs.com/article/79-filtering-and-sorting)"
+    },
+    {
+      "type": "range",
+      "id": "swatch_size",
+      "label": "t:sections.featured-product.blocks.variant_picker.settings.swatch_size.label",
+      "default": 22,
+      "min": 14,
+      "max": 30,
+      "unit": "px",
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promotion_card",
+      "name": "t:sections.main-collection-product-grid.blocks.promotion_card.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_placement",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.card_placement.label",
+          "options": [
+            {
+              "value": "first",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.card_placement.options__1.label"
+            },
+            {
+              "value": "last",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.card_placement.options__2.label"
+            }
+          ],
+          "default": "first"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.image.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_scrim",
+          "default": true,
+          "label": "t:sections.hero-video.settings.show_scrim.label",
+          "info": "t:sections.hero-video.settings.show_scrim.info"
+        },
+        {
+          "type": "range",
+          "id": "scrim_lightness",
+          "min": 0,
+          "max": 255,
+          "step": 15,
+          "default": 0,
+          "label": "t:sections.hero-video.settings.scrim_lightness.label",
+          "info": "t:sections.hero-video.settings.scrim_lightness.info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.title.label",
+          "default": "Image Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text.label",
+          "default": "Add description text to provide more info to your customers."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.link.label"
+        },
+        {
+          "type": "select",
+          "id": "color_text",
+          "label": "t:sections.all.colors.label_text",
+          "options": [
+            {
+              "value": "primary-text-1",
+              "label": "t:sections.all.colors.primary_text_1.label"
+            },
+            {
+              "value": "secondary-text-1",
+              "label": "t:sections.all.colors.secondary_text_1.label"
+            },
+            {
+              "value": "primary-text-2",
+              "label": "t:sections.all.colors.primary_text_2.label"
+            },
+            {
+              "value": "secondary-text-2",
+              "label": "t:sections.all.colors.secondary_text_2.label"
+            },
+            {
+              "value": "primary-text-3",
+              "label": "t:sections.all.colors.primary_text_3.label"
+            },
+            {
+              "value": "secondary-text-3",
+              "label": "t:sections.all.colors.secondary_text_3.label"
+            },
+            {
+              "value": "primary-text-4",
+              "label": "t:sections.all.colors.primary_text_4.label"
+            },
+            {
+              "value": "secondary-text-4",
+              "label": "t:sections.all.colors.secondary_text_4.label"
+            },
+            {
+              "value": "primary-text-5",
+              "label": "t:sections.all.colors.primary_text_5.label"
+            },
+            {
+              "value": "secondary-text-5",
+              "label": "t:sections.all.colors.secondary_text_5.label"
+            },
+            {
+              "value": "sale-text",
+              "label": "t:sections.all.colors.sale_text.label"
+            }
+          ],
+          "default": "secondary-text-4"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "options": [
+            {
+              "value": "top-left",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__1.label"
+            },
+            {
+              "value": "top-center",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__2.label"
+            },
+            {
+              "value": "top-right",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__3.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__4.label"
+            },
+            {
+              "value": "bottom-left",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__5.label"
+            },
+            {
+              "value": "bottom-center",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__6.label"
+            },
+            {
+              "value": "bottom-right",
+              "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.options__7.label"
+            }
+          ],
+          "default": "bottom-left",
+          "label": "t:sections.main-collection-product-grid.blocks.promotion_card.settings.text_position.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

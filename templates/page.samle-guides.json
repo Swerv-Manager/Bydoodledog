@@ -1,0 +1,247 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_height": 28,
+        "background": "alt-background-2",
+        "parallax": false,
+        "show_scrim": true,
+        "scrim_lightness": 0
+      }
+    },
+    "media_with_text_CLya8N": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_rJeyeN": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide för montering av Hjalmer bilstol",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_TMGMH6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>När du tar emot din hundbädd/bilstol:</strong> De flesta modeller av våra hundbäddar och bilstolar är vakuumförpackade på vårt lager för att spara plats och måste monteras av dig/slutanvändaren vid mottagandet. Räkna med att innerkuddarna behöver omkring 24 timmar för att återfå full volym. Se monterings­anvisningen här.</p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        },
+        "button_er7Efy": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_rJeyeN",
+        "text_TMGMH6",
+        "button_er7Efy"
+      ],
+      "name": "t:sections.media-with-text.presets.name",
+      "settings": {
+        "video": "shopify://files/videos/Samle video Hjalmar.mov",
+        "autoplay_video": false,
+        "image_ratio": "16-9",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "center",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_bGqfNg": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_kneVbP": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide för montering av Bjørk bilstol",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_rp8KPm": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        },
+        "button_z8jF7V": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_kneVbP",
+        "text_rp8KPm",
+        "button_z8jF7V"
+      ],
+      "name": "t:sections.media-with-text.presets.name",
+      "settings": {
+        "video": "shopify://files/videos/Samlings video Bjørk hundekurv.mov",
+        "autoplay_video": false,
+        "image_ratio": "16-9",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "center",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media_with_text_QR8Pyy": {
+      "type": "media-with-text",
+      "blocks": {
+        "heading_VniGgz": {
+          "type": "heading",
+          "settings": {
+            "title": "Guide för montering av Bjørk hundbädd",
+            "font_size": 100,
+            "font_type": "heading-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_8rrMVc": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        },
+        "button_EVEjyy": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_VniGgz",
+        "text_8rrMVc",
+        "button_EVEjyy"
+      ],
+      "name": "t:sections.media-with-text.presets.name",
+      "settings": {
+        "video": "shopify://files/videos/Samle bilsæde Bjørk.mov",
+        "autoplay_video": false,
+        "image_ratio": "16-9",
+        "media_width": 780,
+        "vertical_text_align": "top",
+        "layout": "left",
+        "section_align": "center",
+        "overlap_text": true,
+        "image_animation": "none",
+        "background": "background-modal",
+        "frosted_glass": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_riVHDQ": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_iYnWfG": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "2–4 dagars leverans",
+            "text": "<p>Vi levererar inom 2–4 dagar med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_gi7LkF": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis frakt",
+            "text": "<p>Vid köp över 1000 SEK får du gratis frakt</p>",
+            "link": ""
+          }
+        },
+        "feature_hJc7EW": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 pä Trustpilot",
+            "text": "<p>Vi strävar efter att leverera den bästa servicen till dig och din hund</p><p></p>",
+            "link": ""
+          }
+        },
+        "feature_JEKHM7": {
+          "type": "feature",
+          "settings": {
+            "icon": "phone-volume",
+            "title": "Danskt företag",
+            "text": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_iYnWfG",
+        "feature_gi7LkF",
+        "feature_hJc7EW",
+        "feature_JEKHM7"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "media_with_text_CLya8N",
+    "media_with_text_bGqfNg",
+    "media_with_text_QR8Pyy",
+    "multicolumn_riVHDQ"
+  ]
+}

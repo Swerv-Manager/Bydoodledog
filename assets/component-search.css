@@ -1,0 +1,43 @@
+.search__input-wrapper {
+  position: relative;
+}
+
+.search__input::-ms-clear {
+  display: none;
+}
+
+.search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search__input::placeholder {
+  text-transform: none;
+  font-weight: var(--font-heading-weight);
+  color: rgb(var(--color-foreground));
+  opacity: 0.6;
+}
+
+.search__input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  text-transform: none;
+  font-weight: var(--font-heading-weight);
+  color: rgb(var(--color-foreground));
+  opacity: 0.6;
+}
+.search__input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  text-transform: none;
+  font-weight: var(--font-heading-weight);
+  color: rgb(var(--color-foreground));
+  opacity: 0.6;
+}
+
+.no-svg .search__input {
+  width: auto;
+  padding-left: 35px;
+}
+
+/* Remove extra spacing for search inputs in Safari */
+input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}

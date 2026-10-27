@@ -1,0 +1,435 @@
+{{ 'section-spotlight.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="section-{{ section.id }}-padding spotlight-section page-width"
+  style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+>
+  {% if section.settings.link != blank %}
+    <a
+      class="spotlight__layout spotlight__{{ section.settings.layout }}{% if section.settings.background != blank and section.settings.layout == 'layout-b' %} spotlight__layout-b--gradient{% endif %}"
+      href="{{ section.settings.link }}"
+    >
+  {% else %}
+    <div
+      class="spotlight__layout spotlight__{{ section.settings.layout }}{% if section.settings.background != blank and section.settings.layout == 'layout-b' %} spotlight__layout-b--gradient{% endif %}"
+    >
+  {% endif %}
+  {% if section.settings.layout == 'layout-a' %}
+    <div
+      class="spotlight__text {{ section.settings.color_text }} scroll-animate fade-in-up"
+      style="animation-delay: 0.08s;"
+    >
+      <h2>
+        <span class="spotlight__text-sefrif">{{ section.settings.title }}</span>
+        <colored-text
+          class="spotlight__text-title spotlight__text-colored"
+          data-colors="{{ section.settings.color_1 }}, {{ section.settings.color_2 }}, {{ section.settings.color_3 }}, {{ section.settings.color_4 }}"
+        >
+          {{- section.settings.accent_title | strip -}}
+        </colored-text>
+      </h2>
+    </div>
+    <div
+      class="spotlight__media {{ section.settings.circle_background }} {{ section.settings.border_color }} scroll-animate fade-in-up"
+      style="animation-delay: 0.16s;"
+    >
+      {%- liquid
+        assign media_aspect_ratio = section.settings.image.aspect_ratio
+
+        if section.settings.image.aspect_ratio == null
+          assign media_aspect_ratio = 1
+        endif
+      -%}
+      <div class="media media--transparent">
+        {% if section.settings.image != blank %}
+          {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+          {%- capture sizes -%}(min-width: 1520px) {{ 1520 | minus: 440 }}px, (min-width: 1024px) calc(58vw - 176px), (min-width: 768px) calc(58vw - 48px), calc(100vw - 48px){%- endcapture -%}
+          {{
+            section.settings.image
+            | image_url: width: 940
+            | image_tag:
+              width: section.settings.image.width,
+              height: image_height,
+              class: 'motion-reduce media__transparent',
+              sizes: sizes,
+              widths: '165, 360, 533, 720, 940',
+              alt: section.settings.image.alt
+            | escape
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'media__transparent placeholder-svg' }}
+        {% endif %}
+        <div class="spotlight__outline media__transparent"></div>
+      </div>
+    </div>
+  {% else %}
+    {%- liquid
+      assign media_aspect_ratio = section.settings.background_image.aspect_ratio
+
+      if section.settings.background_image.aspect_ratio == null
+        assign media_aspect_ratio = 1
+      endif
+    -%}
+    <div
+      class="spotlight__background scroll-animate fade-in"
+      style="padding-bottom: {{ 1 | divided_by: media_aspect_ratio | times: 100 }}%;{% if section.settings.background %}background: {{ section.settings.background }};{% endif %}"
+    >
+      {% if section.settings.background_image != blank %}
+        <div class="media media--transparent">
+          {%- assign image_height = section.settings.background_image.width
+            | divided_by: section.settings.background_image.aspect_ratio
+          -%}
+          {%- capture sizes -%}(min-width: 1520px) {{ 1520 | minus: 440 }}px, (min-width: 1024px) calc(58vw - 176px), (min-width: 768px) calc(58vw - 48px), calc(100vw - 48px){%- endcapture -%}
+          {{
+            section.settings.background_image
+            | image_url: width: 940
+            | image_tag:
+              width: section.settings.background_image.width,
+              height: image_height,
+              class: 'motion-reduce media__transparent',
+              sizes: sizes,
+              widths: '165, 360, 533, 720, 940',
+              alt: section.settings.background_image.alt
+            | escape
+          }}
+        </div>
+      {% elsif section.settings.theme_background != 'none' %}
+        <div class="media media--transparent">
+          {%- assign image_url = section.settings.theme_background | asset_img_url: '940x' -%}
+          <img
+            src="{{ image_url }}"
+            alt=""
+            width="940"
+            height="auto"
+            ,
+            loading="lazy"
+            ,
+            class="media__transparent spotlight__background__theme-image"
+          >
+        </div>
+      {% endif %}
+    </div>
+    <div class="spotlight__content">
+      <div class="spotlight__text {{ section.settings.color_text }} scroll-animate fade-in-up">
+        <h2>
+          <span class="spotlight__text-sefrif">{{ section.settings.title }}</span>
+          <span class="spotlight__text-title">{{ section.settings.accent_title | strip }}</span>
+        </h2>
+      </div>
+      <div class="spotlight__media">
+        {%- liquid
+          assign media_aspect_ratio = section.settings.image.aspect_ratio
+
+          if section.settings.image.aspect_ratio == null
+            assign media_aspect_ratio = 1
+          endif
+        -%}
+        <div
+          class="media media--transparent scroll-animate fade-in-up"
+          style="padding-bottom: {{ 1 | divided_by: media_aspect_ratio | times: 100 }}%;"
+        >
+          {% if section.settings.image != blank %}
+            {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+            {%- capture sizes -%}(min-width: 1520px) {{ 1520 | minus: 440 }}px, (min-width: 1024px) calc(58vw - 176px), (min-width: 768px) calc(58vw - 48px), calc(100vw - 48px){%- endcapture -%}
+            {{
+              section.settings.image
+              | image_url: width: 940
+              | image_tag:
+                width: section.settings.image.width,
+                height: image_height,
+                class: 'motion-reduce media__transparent',
+                sizes: sizes,
+                widths: '165, 360, 533, 720, 940',
+                alt: section.settings.image.alt
+              | escape
+            }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'media__transparent placeholder-svg' }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.link != blank %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.spotlight.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.spotlight.settings.layout.label",
+      "default": "layout-a",
+      "options": [
+        {
+          "value": "layout-a",
+          "label": "t:sections.spotlight.settings.layout.options__1.label"
+        },
+        {
+          "value": "layout-b",
+          "label": "t:sections.spotlight.settings.layout.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.spotlight.settings.title.label",
+      "default": "Gifts for"
+    },
+    {
+      "type": "text",
+      "id": "accent_title",
+      "label": "t:sections.spotlight.settings.accent_title.label",
+      "default": "Cat Lovers"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 60,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "color_text",
+      "label": "t:sections.all.colors.label_text",
+      "options": [
+        {
+          "value": "primary-text-1",
+          "label": "t:sections.all.colors.primary_text_1.label"
+        },
+        {
+          "value": "secondary-text-1",
+          "label": "t:sections.all.colors.secondary_text_1.label"
+        },
+        {
+          "value": "primary-text-2",
+          "label": "t:sections.all.colors.primary_text_2.label"
+        },
+        {
+          "value": "secondary-text-2",
+          "label": "t:sections.all.colors.secondary_text_2.label"
+        },
+        {
+          "value": "primary-text-3",
+          "label": "t:sections.all.colors.primary_text_3.label"
+        },
+        {
+          "value": "secondary-text-3",
+          "label": "t:sections.all.colors.secondary_text_3.label"
+        },
+        {
+          "value": "primary-text-4",
+          "label": "t:sections.all.colors.primary_text_4.label"
+        },
+        {
+          "value": "secondary-text-4",
+          "label": "t:sections.all.colors.secondary_text_4.label"
+        },
+        {
+          "value": "primary-text-5",
+          "label": "t:sections.all.colors.primary_text_5.label"
+        },
+        {
+          "value": "secondary-text-5",
+          "label": "t:sections.all.colors.secondary_text_5.label"
+        },
+        {
+          "value": "sale-text",
+          "label": "t:sections.all.colors.sale_text.label"
+        }
+      ],
+      "default": "secondary-text-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.spotlight.settings.image.label",
+      "info": "t:sections.spotlight.settings.image.info"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.spotlight.settings.link.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.spotlight.settings.header__1.content"
+    },
+    {
+      "type": "color",
+      "id": "color_1",
+      "label": "t:sections.spotlight.settings.color_1.label",
+      "default": "#3A3A3E"
+    },
+    {
+      "type": "color",
+      "id": "color_2",
+      "label": "t:sections.spotlight.settings.color_2.label",
+      "default": "#3A3A3E"
+    },
+    {
+      "type": "color",
+      "id": "color_3",
+      "label": "t:sections.spotlight.settings.color_3.label",
+      "default": "#3A3A3E"
+    },
+    {
+      "type": "color",
+      "id": "color_4",
+      "label": "t:sections.spotlight.settings.color_4.label",
+      "default": "#3A3A3E",
+      "info": "t:sections.spotlight.settings.color_4.info"
+    },
+    {
+      "type": "select",
+      "id": "circle_background",
+      "label": "t:sections.spotlight.settings.circle_background.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background-2"
+    },
+    {
+      "type": "select",
+      "id": "border_color",
+      "label": "t:sections.spotlight.settings.border_color.label",
+      "options": [
+        {
+          "value": "border-main-background",
+          "label": "t:sections.spotlight.settings.border_color.options__1.label"
+        },
+        {
+          "value": "border-alt-background",
+          "label": "t:sections.spotlight.settings.border_color.options__2.label"
+        },
+        {
+          "value": "border-alt-background-2",
+          "label": "t:sections.spotlight.settings.border_color.options__3.label"
+        },
+        {
+          "value": "border-background-modal",
+          "label": "t:sections.spotlight.settings.border_color.options__4.label"
+        }
+      ],
+      "default": "border-alt-background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.spotlight.settings.header__2.content"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.spotlight.settings.paragraph.content"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "t:sections.spotlight.settings.background.label",
+      "default": "radial-gradient(#F6DFD9, rgba(250, 250, 250, 0) 71%)"
+    },
+    {
+      "type": "select",
+      "id": "theme_background",
+      "label": "t:sections.spotlight.settings.theme_background.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.spotlight.settings.theme_background.options__1.label"
+        },
+        {
+          "value": "wreath.png",
+          "label": "t:sections.spotlight.settings.theme_background.options__2.label"
+        },
+        {
+          "value": "abstract-gradient-circle.png",
+          "label": "t:sections.spotlight.settings.theme_background.options__3.label"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:sections.spotlight.settings.background_image.label",
+      "info": "t:sections.spotlight.settings.background_image.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.spotlight.name"
+    }
+  ]
+}
+{% endschema %}

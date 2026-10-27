@@ -1,0 +1,756 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ss_hero_33_bNN4Te": {
+      "type": "ss-hero-33",
+      "blocks": {
+        "heading_J6RcF8": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Födelsedag<br/>Spara upp till 70 %</p>",
+            "heading_custom": false,
+            "heading_font": "playfair_display_n7",
+            "heading_size": 40,
+            "heading_size_mobile": 28,
+            "heading_height": 130,
+            "heading_mt": 0,
+            "heading_mt_mobile": 0,
+            "heading_color": "#ffffff"
+          }
+        },
+        "button_JNV9YF": {
+          "type": "button",
+          "settings": {
+            "button": "Shoppa nu",
+            "button_url": "shopify://collections/fodelsedagserbjudande",
+            "button_custom": false,
+            "button_font": "playfair_display_n7",
+            "button_size": 18,
+            "button_size_mobile": 14,
+            "button_height": 100,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 32,
+            "button_padding_horizontal_mobile": 32,
+            "button_radius": 16,
+            "button_border_thickness": 1,
+            "button_mt": 24,
+            "button_mt_mobile": 16,
+            "button_style": "non_outline",
+            "button_color": "#000000",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#ffffff",
+            "button_bg_hover_color": "#333333",
+            "button_border_color": "#ffffff",
+            "button_border_hover_color": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "heading_J6RcF8",
+        "button_JNV9YF"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.section-template--26583696703825__ss_hero_33_bNN4Te-settings {justify-content: start; }}"
+      ],
+      "name": "Ny Hero Section - ML",
+      "settings": {
+        "layout_height": "fixed_height",
+        "layout_fixed_height": 1000,
+        "layout_fixed_height_mobile": 700,
+        "content_maxwidth": 55,
+        "content_align": "left",
+        "content_align_mobile": "center",
+        "content_vertical_align": "center",
+        "content_vertical_align_mobile": "end",
+        "layout_bg_type": "image",
+        "bg_image": "shopify://shop_images/IMG_1596_1.jpg",
+        "bg_image_mobile": "shopify://shop_images/IMG_1596_2.jpg",
+        "bg_video_url": "",
+        "bg_overlay": 0,
+        "bg_overlay_color": "#000000",
+        "background_color": "#000000",
+        "background_gradient": "",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": false
+      }
+    },
+    "ss_hero_33_BWMbnk": {
+      "type": "ss-hero-33",
+      "blocks": {
+        "heading_4aQL3i": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "<p>15 % på allt</p><p>med koden Doodle15</p>",
+            "heading_custom": false,
+            "heading_font": "playfair_display_n7",
+            "heading_size": 40,
+            "heading_size_mobile": 28,
+            "heading_height": 130,
+            "heading_mt": 0,
+            "heading_mt_mobile": 100,
+            "heading_color": "#ffffff"
+          }
+        },
+        "button_QMMgLE": {
+          "type": "button",
+          "settings": {
+            "button": "Alla produkter",
+            "button_url": "shopify://collections/alla-produkter",
+            "button_custom": false,
+            "button_font": "playfair_display_n7",
+            "button_size": 18,
+            "button_size_mobile": 14,
+            "button_height": 100,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 32,
+            "button_padding_horizontal_mobile": 32,
+            "button_radius": 16,
+            "button_border_thickness": 1,
+            "button_mt": 24,
+            "button_mt_mobile": 16,
+            "button_style": "non_outline",
+            "button_color": "#000000",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#c8baab",
+            "button_bg_hover_color": "#333333",
+            "button_border_color": "#ffffff",
+            "button_border_hover_color": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "heading_4aQL3i",
+        "button_QMMgLE"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 767px) {.section-template--26583696703825__ss_hero_33_bNN4Te-settings {justify-content: start; }}"
+      ],
+      "name": "Ny Hero Section - ML",
+      "settings": {
+        "layout_height": "fixed_height",
+        "layout_fixed_height": 600,
+        "layout_fixed_height_mobile": 700,
+        "content_maxwidth": 65,
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "content_vertical_align": "end",
+        "content_vertical_align_mobile": "end",
+        "layout_bg_type": "video",
+        "bg_image": "shopify://shop_images/IMG_0338_1.jpg",
+        "bg_image_mobile": "shopify://shop_images/IMG_2938.jpg",
+        "bg_video": "shopify://files/videos/9x16.mov",
+        "bg_video_url": "",
+        "bg_overlay": 0.2,
+        "bg_overlay_color": "#000000",
+        "background_color": "#000000",
+        "background_gradient": "",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": false
+      }
+    },
+    "countdown_ahxTGp": {
+      "type": "countdown",
+      "blocks": {
+        "content_REnfpN": {
+          "type": "content",
+          "settings": {
+            "title": "Erbjudandena upphör om:",
+            "text": "<p>Skynda dig – erbjudandet löper snart ut!</p>",
+            "font_size": 100,
+            "button_label": "Shoppa nu",
+            "button_link": "shopify://collections/varerbjudanden",
+            "button_style": "ghost",
+            "content_align": "left"
+          }
+        },
+        "timer_Rp3nWY": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2026-10-20",
+            "end_time": "23:59",
+            "font_size": 100
+          }
+        }
+      },
+      "block_order": [
+        "content_REnfpN",
+        "timer_Rp3nWY"
+      ],
+      "disabled": true,
+      "name": "Countdown timer",
+      "settings": {
+        "image_height": 100,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "main-background",
+        "hide_timer": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "feature_cards_8QXTET": {
+      "type": "feature-cards",
+      "blocks": {
+        "column_feature_34WCKd": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "2–4 dagars leverans",
+            "feature_icon": "truck-fast",
+            "feature_text": "<p>Vi levererar inom 2–4 dagar med GLS</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "column_feature_dngjcA": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "Betala med",
+            "feature_icon": "bag-shopping",
+            "feature_text": "<p>Klarna, Visa, Mastercard, Apple & Google Pay</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "column_feature_frdmVc": {
+          "type": "column_feature",
+          "settings": {
+            "autoplay_video": true,
+            "feature_title": "+10 års erfarenhet",
+            "feature_icon": "dog-leashed",
+            "feature_text": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_feature_34WCKd",
+        "column_feature_dngjcA",
+        "column_feature_frdmVc"
+      ],
+      "disabled": true,
+      "name": "t:sections.feature-cards.presets.name",
+      "settings": {
+        "image_ratio": "landscape",
+        "columns": 3,
+        "font_size": 100,
+        "icon_size": 100,
+        "align_text": "center",
+        "button_style": "ghost",
+        "background": "background-modal",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "media-grid": {
+      "type": "media-grid",
+      "blocks": {
+        "media1": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/4ae74e6b_4d08_4d31_9288_24cfeebb180b.png",
+            "autoplay_video": true,
+            "item_width": 2,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Hundkorg",
+            "text": "Bekväma och stiliga hundsängar för din älskade hund.",
+            "link": "shopify://collections/hundkorg"
+          }
+        },
+        "media2": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/647244e0_6159_499b_8bd7_44f8975b386f.png",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Hundgosedjur",
+            "text": "Små godisbitar för hundträning och promenader",
+            "link": "shopify://collections/hundgosedjur"
+          }
+        },
+        "media3": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9408.jpg",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 4,
+            "show_scrim": false,
+            "scrim_lightness": 255,
+            "title": "Hundväska",
+            "text": "Praktiska väskor för att transportera hundens tillhörigheter.",
+            "link": "shopify://collections/hundklader"
+          }
+        },
+        "media4": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_0924_1.jpg",
+            "autoplay_video": true,
+            "item_width": 1,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Pälsvård",
+            "text": "Högkvalitativa produkter för hundens hälsa och skönhet.",
+            "link": "shopify://collections/palsvard"
+          }
+        },
+        "media5": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9988_1.jpg",
+            "autoplay_video": true,
+            "item_width": 2,
+            "item_height": 2,
+            "show_scrim": true,
+            "scrim_lightness": 0,
+            "title": "Bilsäte för hund",
+            "text": "Säkra och bekväma bilsäten för din hund under körning.",
+            "link": "shopify://collections/hundbilsate"
+          }
+        }
+      },
+      "block_order": [
+        "media1",
+        "media2",
+        "media3",
+        "media4",
+        "media5"
+      ],
+      "settings": {
+        "title": "Alla produkter",
+        "text": "",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "button_label": "Alla produkter",
+        "button_link": "shopify://collections/alla-produkter",
+        "row_height": 170,
+        "font_image_size": 100,
+        "color_image_text": "primary-text-4",
+        "title_on_hover": false,
+        "description_on_hover": true,
+        "text_position": "bottom-right",
+        "padding_top": 64,
+        "padding_bottom": 44
+      }
+    },
+    "video_column_yT9ehb": {
+      "type": "video-column",
+      "blocks": {
+        "column_DPFtfj": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/IMG_4734 (2).MOV",
+            "video_embed": "",
+            "video_link": ""
+          }
+        },
+        "column_BQQNqh": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/Hakko 4x5 (1).MOV",
+            "video_embed": "",
+            "video_link": ""
+          }
+        },
+        "column_N7AD7G": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/8cad640f310240b4ba0292cf9961dd4e (1) (1).MOV",
+            "video_embed": "",
+            "video_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_DPFtfj",
+        "column_BQQNqh",
+        "column_N7AD7G"
+      ],
+      "name": "t:sections.video-column.presets.name",
+      "settings": {
+        "title": "Följ oss på TikTok för exklusiva tips",
+        "description": "Få exklusiva insikter om hundvård, uppackning av nya produkter och tips från våra stylister. Följ @bydoodledog för daglig inspiration!",
+        "play_onload": true,
+        "social_handle": "@bydoodledog",
+        "social_link": "social_instagram_link",
+        "font_size": 100,
+        "background": "main-background",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "featured_product_wgTDAn": {
+      "type": "featured-product",
+      "blocks": {
+        "selling_features_chi44T": {
+          "type": "selling_features",
+          "settings": {
+            "show_rating": false,
+            "show_empty_stars": true,
+            "standar_metafields": false,
+            "font_size": 100
+          }
+        },
+        "title_3rareU": {
+          "type": "title",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "price_AExrbB": {
+          "type": "price",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "countdown_TbntnU": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "countdown_title": "Försäljningen slutar om:",
+            "font_size": 100,
+            "background": "alt-sale"
+          }
+        },
+        "variant_picker_LVKAW3": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_type": "none",
+            "color_swatch_shape": "circle",
+            "swatch_size": 36,
+            "font_size": 100
+          }
+        },
+        "buy_buttons_LpwNjY": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_inventory_notification": true,
+            "quantity_threshold": 5,
+            "notification_message": "Kundernas favorit 🐶",
+            "show_dynamic_checkout": false,
+            "show_quantity_selector": true
+          }
+        }
+      },
+      "block_order": [
+        "selling_features_chi44T",
+        "title_3rareU",
+        "price_AExrbB",
+        "countdown_TbntnU",
+        "variant_picker_LVKAW3",
+        "buy_buttons_LpwNjY"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "bjork-bilsate-for-hundar-beige",
+        "overlap_thumbnails": true,
+        "background": "background-modal",
+        "enable_image_zoom": true,
+        "autoplay_video": true,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "collage_HH3Rxm": {
+      "type": "collage",
+      "blocks": {
+        "media_WrC6yU": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9999_1.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media_tWqVAb": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG-1707.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media_NrgqJg": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/IMG-0761.jpg",
+            "autoplay_video": true,
+            "link": ""
+          }
+        },
+        "media_QqXcPh": {
+          "type": "media",
+          "settings": {
+            "video": "shopify://files/videos/Reel m. Torben.mp4",
+            "autoplay_video": true,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "media_WrC6yU",
+        "media_tWqVAb",
+        "media_NrgqJg",
+        "media_QqXcPh"
+      ],
+      "custom_css": [
+        ".collage__content {background-color: #f9f3f1 !important; position: relative; /* Evt. tilføj lidt padding, hvis du vil have luft: */ padding: 2rem;}"
+      ],
+      "name": "t:sections.collage.name",
+      "settings": {
+        "title": "Vår önskan",
+        "text": "<br>Efter flera år med många glada och härliga hundar omkring oss har vi velat dela och förmedla våra tankar om vad den lilla hundvalpen och den vuxna hunden kan behöva.\n<br><br>\nMed målet att göra livet skönare för våra bästa vänner är den här sidan vårt förslag på vad som är nyttigt i ett härligt hundliv.\n<br><br>\nVi hoppas att By Doodle Dog kan vara till nytta för dig och din fyrbenta vän.",
+        "button_label": "SE ALLA PRODUKTER",
+        "button_link": "shopify://collections/all",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "layout": "left",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "1751276915c13d7284": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_z8wjqV": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "@Bydoodledog",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": true,
+            "link_alignment": "center",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_z8wjqV"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "175127583423db476b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_rfD37n": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_rfD37n"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_blog_ybGmL6": {
+      "type": "featured-blog",
+      "disabled": true,
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "title": "Lärande universum",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "blog": "valptraning-1",
+        "limit": 3,
+        "show_excerpt": true,
+        "show_date": false,
+        "show_comments": true,
+        "show_author": false,
+        "grid": 3,
+        "card_font_size": 100,
+        "background": "background-modal",
+        "show_view_all": true,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "collapsible_content_qAU8Td": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_6pVVKw": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan våra hundkorgar och bilsäten tvättas?",
+            "row_content": "<p>Alla våra hundkorgar och bilsäten kan tvättas. På vissa kan man ta av överdraget, och andra kan läggas direkt i tvättmaskinen.</p><p></p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_CfdWKG": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Hur fäster man bilsätet i bilen?",
+            "row_content": "<p>Det finns 1 eller 2 remmar (varierar från säte till säte) som ska runt bilens säte. Den ena runt nackstödet och den andra runt sätet. Finns det bara en rem ska den runt bilens säte. Dessutom kan bilens säkerhetsbälte fästas på baksidan av de flesta bilsätena.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qN9bFa": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan min hund spännas fast i ert bilsäte?",
+            "row_content": "<p>Ja, hunden kan spännas fast i bilsätet med en rem. Remmen finns i bilsätet och fästs vid hundens kroppssele.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_6pVVKw",
+        "collapsible_row_CfdWKG",
+        "collapsible_row_qN9bFa"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "show_information": true,
+        "title": "Fråga?",
+        "description": "<p>Använd denna text för att dela mer information om din butik.</p>",
+        "email_label": "E-post",
+        "email": "info@bydoodledog.se",
+        "phone_label": "",
+        "phone": "",
+        "hours_label": "Telefon",
+        "hours": "+45 29900589",
+        "font_size": 100,
+        "background": "background-modal",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_kxbj6j": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_3npYkC": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dagars leverans",
+            "text": "<p>Vi levererar inom 1-3 dagar med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_rcEUiT": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis frakt",
+            "text": "<p>Vid köp över 1300 SEK får du gratis frakt</p>",
+            "link": ""
+          }
+        },
+        "feature_G78yy9": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi strävar efter att leverera den bästa servicen till dig och din hund</p><p></p>",
+            "link": ""
+          }
+        },
+        "feature_r7EgRT": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Danskt företag",
+            "text": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_3npYkC",
+        "feature_rcEUiT",
+        "feature_G78yy9",
+        "feature_r7EgRT"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "background": "alt-background-2",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "ss_hero_33_bNN4Te",
+    "ss_hero_33_BWMbnk",
+    "countdown_ahxTGp",
+    "feature_cards_8QXTET",
+    "media-grid",
+    "video_column_yT9ehb",
+    "featured_product_wgTDAn",
+    "collage_HH3Rxm",
+    "1751276915c13d7284",
+    "175127583423db476b",
+    "featured_blog_ybGmL6",
+    "collapsible_content_qAU8Td",
+    "multicolumn_kxbj6j"
+  ]
+}

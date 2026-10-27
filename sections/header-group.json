@@ -1,0 +1,58 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "dismiss_button": true,
+        "text": "<p>2–4 dagars leverans</p>",
+        "link": "shopify://collections/alla-produkter",
+        "font_size": 110,
+        "background_color": "#7b6b5f",
+        "text_color": "#ffffff",
+        "font_type": "heading-font",
+        "font_style": "all_caps"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo": "shopify://shop_images/Photoroom_20250221_093307.png",
+        "svg_image": "",
+        "logo_width": 150,
+        "logo_position": "top-center",
+        "enable_sticky": false,
+        "background": "alt-background-2",
+        "apply_color_scheme": false,
+        "frosted_glass": false,
+        "main_linklist": "header-main",
+        "quick_linklist": "footer",
+        "custom_background": "none",
+        "grid_size": 16,
+        "active_color": "#b59d88",
+        "highlight_links": "Sale",
+        "highlight_color": "#984b2c",
+        "icon_size": 100,
+        "font_type": "button-font",
+        "font_style": "none",
+        "font_size": 120,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

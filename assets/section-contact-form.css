@@ -1,0 +1,120 @@
+.contact-template__box {
+  --color-link: var(--color-foreground);
+  background: rgb(var(--color-background));
+  max-width: 820px;
+  margin: auto;
+  border-radius: var(--border-radius-container);
+  padding: 42px;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-template__header h2 {
+  color: rgb(var(--color-foreground));
+  margin: 0;
+}
+
+.contact-template__header p {
+  font-size: calc(1.125rem * var(--font-section-scale, 1));
+  color: rgb(var(--color-foreground-2));
+  margin: 0.1875rem 0 0;
+}
+
+.contact-template__content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.contact-form-wrapper {
+  max-width: 424px;
+  flex: 1;
+}
+
+.contact-form {
+  height: 100%;
+}
+
+.contact-info {
+  list-style: none;
+  margin: 0;
+  font-weight: 300;
+  font-size: calc(1rem * var(--font-section-scale, 1));
+  color: rgb(var(--color-foreground));
+  padding-left: 40px;
+  box-sizing: border-box;
+  margin-top: 0.9375rem;
+  max-width: 340px;
+}
+
+.contact-info li {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-info a,
+.contact-info p {
+  color: rgb(var(--color-foreground));
+}
+
+.contact-info .icon {
+  margin-right: 20px;
+  width: 2rem;
+  height: auto;
+}
+
+@media only screen and (max-width: 1024px) {
+  .contact-template__box {
+    padding: 2.625rem;
+  }
+
+  .contact-info {
+    padding-left: 29px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .contact-template__box {
+    padding: 2.25rem 1.5rem 3.125rem;
+    border-radius: var(--border-radius-container);
+  }
+
+  .contact-template__header h2 {
+    --font-heading-size: calc(var(--font-heading-scale) * 1.625rem);
+  }
+
+  .contact-template__header p {
+    font-size: calc(1rem * var(--font-section-scale, 1));
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .contact-template__content {
+    flex-direction: column;
+  }
+
+  .contact-info {
+    max-width: none;
+    padding-left: 0;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .contact-info li {
+    flex-direction: column;
+  }
+
+  .contact-info .icon {
+    margin-right: 0;
+    margin-bottom: 8px;
+    width: 2.5rem;
+    height: auto;
+  }
+
+  .contact-form-wrapper {
+    order: 1;
+    max-width: none;
+  }
+}

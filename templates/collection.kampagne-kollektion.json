@@ -1,0 +1,240 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "countdown_Q8bC8j": {
+      "type": "countdown",
+      "blocks": {
+        "timer_NUTGRa": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2025-09-28",
+            "end_time": "23:59",
+            "font_size": 91
+          }
+        },
+        "content_HmwBgA": {
+          "type": "content",
+          "settings": {
+            "title": "Spara 15 % på allt med Doodle15",
+            "text": "<p>Kan inte kombineras med andra erbjudanden eller rabattkoder.</p>",
+            "font_size": 100,
+            "button_label": "Alla produkter",
+            "button_link": "shopify://collections/alla-produkter",
+            "button_style": "ghost",
+            "content_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "timer_NUTGRa",
+        "content_HmwBgA"
+      ],
+      "disabled": true,
+      "name": "Countdown timer",
+      "settings": {
+        "image_height": 0,
+        "show_scrim": true,
+        "scrim_lightness": 255,
+        "background": "background-modal",
+        "hide_timer": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "font_size": 100,
+        "show_collection_image": false,
+        "image_height": 30,
+        "show_scrim": true,
+        "scrim_lightness": 0,
+        "background": "background-modal"
+      }
+    },
+    "rich_text_E9RMX9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_anzji7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Spara 15 % på allt med Doodle15",
+            "font_size": 90,
+            "font_type": "button-font",
+            "font_style": "all_caps"
+          }
+        },
+        "text_fdByLh": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 100,
+            "font_type": "body-font",
+            "font_style": "none"
+          }
+        },
+        "button_wcBG6P": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Optional button",
+            "button_link": "",
+            "button_style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "heading_anzji7",
+        "text_fdByLh",
+        "button_wcBG6P"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_align": "center",
+        "background": "main-background",
+        "padding_top": 10,
+        "padding_bottom": 10
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 18,
+        "grid": 4,
+        "enable_filtering": true,
+        "color_swatch_shape": "circle",
+        "swatch_size": 22,
+        "enable_sorting": true
+      }
+    },
+    "collection_list_pRcKAJ": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_Jh894b": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundbilsate",
+            "title": ""
+          }
+        },
+        "featured_collection_AwBnLH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundkorg",
+            "title": ""
+          }
+        },
+        "featured_collection_UxthXe": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hundkoppel-1",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_Jh894b",
+        "featured_collection_AwBnLH",
+        "featured_collection_UxthXe"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Såg du dessa?",
+        "subheading": "",
+        "color_text": "primary-text-1",
+        "font_size": 100,
+        "image_ratio": "square",
+        "grid": 3,
+        "card_font_size": 100,
+        "font_type": "heading-font",
+        "font_style": "all_caps",
+        "background": "background-modal",
+        "show_view_all": false,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_V3XJ7F": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_9Jz7fG": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "2–4 dagars leverans",
+            "text": "<p>Vi levererar inom 2–4 dagar med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_PwM9Vm": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis frakt",
+            "text": "<p>Vid köp över 1000 SEK får du gratis frakt</p>",
+            "link": ""
+          }
+        },
+        "feature_4Ph9z6": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4,9 pä Trustpilot",
+            "text": "<p>Vi strävar efter att leverera den bästa servicen till dig och din hund</p><p></p>",
+            "link": ""
+          }
+        },
+        "feature_JYzLx9": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Danskt företag",
+            "text": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_9Jz7fG",
+        "feature_PwM9Vm",
+        "feature_4Ph9z6",
+        "feature_JYzLx9"
+      ],
+      "disabled": true,
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "countdown_Q8bC8j",
+    "banner",
+    "rich_text_E9RMX9",
+    "product-grid",
+    "collection_list_pRcKAJ",
+    "multicolumn_V3XJ7F"
+  ]
+}

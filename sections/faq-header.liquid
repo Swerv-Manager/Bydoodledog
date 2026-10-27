@@ -1,0 +1,26 @@
+{{ 'faq-header.css' | asset_url | stylesheet_tag }}
+
+<div class="faq-header page-width">
+  <h1 class="page-template__title" itemprop="headline">{{ page.title | escape }}</h1>
+  <p>{{ section.settings.subtitle }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.faq-header.name",
+  "tag": "section",
+  "class": "section spaced-top-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.faq-header.settings.paragraph.content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:sections.faq-header.settings.subtitle.label",
+      "default": "Have questions? We have answers."
+    }
+  ]
+}
+{% endschema %}

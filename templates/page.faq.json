@@ -1,0 +1,135 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq-header": {
+      "type": "faq-header",
+      "settings": {
+        "subtitle": ""
+      }
+    },
+    "faq_1": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_qFic3z": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Hur snabbt kan du svara på min fråga?",
+            "row_content": "<p>Vi svarar på meddelanden och e-postmeddelanden i den ordning de tas emot. De flesta förfrågningar besvaras inom 24 timmar under våra öppettider.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_pNhxND": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan jag ändra min leveransadress efter att min beställning har lagts?",
+            "row_content": "<p>Om du behöver uppdatera din leveransadress, vänligen maila oss omedelbart på <a href=\"mailto:info@bydoodledog.se\">info@bydoodledog.se</a> med ditt namn och ordernummer. Vi gör vårt bästa för att behandla din begäran, men vi kan inte garantera ändringar när din beställning har packats eller skickats.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_ekqYEH": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Hur lång är handläggningsperioden?",
+            "row_content": "<p>Vår handläggningstid är 1–2 arbetsdagar. Beställningar behandlas måndag till fredag, exklusive större helgdagar.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_rHpAYy": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Hur lång tid tar frakten?",
+            "row_content": "<p>Leveranstiderna varierar men är vanligtvis 1–2 arbetsdagar efter att beställningen har behandlats. Ett spårningsnummer kommer att skickas via e-post när din beställning har skickats.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_jjLafQ": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kommer min beställning i ett enda paket?",
+            "row_content": "<p>Beroende på storleken och innehållet i din beställning kan den skickas i flera paket. Om detta händer kommer du att få spårningsinformation för varje paket.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_CjmqMw": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Vad händer om en vara är slut i lager eller restnoterad?",
+            "row_content": "<p>Om någon vara i din beställning är slut i lager meddelar vi dig via e-post med ett beräknat återinföringsdatum. Om det tar längre tid än 2 veckor att få varan återbetalad kommer vi att utfärda en återbetalning för den/de varan/varorna som inte finns i lager.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_qjaejp": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Jag fick en skadad vara. Vad ska jag göra?",
+            "row_content": "<p>Vi ber om ursäkt för eventuella besvär som kan uppstå till följd av att en skadad vara har mottagits. Vänligen maila oss på <a href=\"mailto:info@bydoodledog.se\">info@bydoodledog.se</a> med ditt namn, ordernummer och bilder på den skadade produkten så att vi kan hjälpa dig.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_1": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Vad händer om en vara saknas eller är skadad i min beställning?",
+            "row_content": "<p>Om du har mottagit en skadad vara eller om en vara saknas i din beställning, vänligen kontakta oss inom 10 dagar efter leverans på <a href=\"mailto:info@bydoodledog.se\">info@bydoodledog.se</a>. Vi kommer att samarbeta med dig för att lösa problemet.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_2": {
+          "type": "collapsible_row",
+          "settings": {
+            "row_icon": "none",
+            "title": "Kan jag avbryta min beställning?",
+            "row_content": "<p>Om du vill avbryta din beställning, vänligen kontakta oss omedelbart på <a href=\"mailto:info@bydoodledog.se\">info@bydoodledog.se</a>. Avbokningsförfrågningar är endast möjliga innan beställningen har behandlats eller skickats.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_qFic3z",
+        "collapsible_row_pNhxND",
+        "collapsible_row_ekqYEH",
+        "collapsible_row_rHpAYy",
+        "collapsible_row_jjLafQ",
+        "collapsible_row_CjmqMw",
+        "collapsible_row_qjaejp",
+        "collapsible_row_1",
+        "collapsible_row_2"
+      ],
+      "settings": {
+        "show_information": false,
+        "title": "",
+        "description": "",
+        "email_label": "",
+        "email": "",
+        "phone_label": "",
+        "phone": "",
+        "hours_label": "",
+        "hours": "",
+        "font_size": 100,
+        "background": "alt-background-3",
+        "padding_top": 19,
+        "padding_bottom": 31
+      }
+    }
+  },
+  "order": [
+    "faq-header",
+    "faq_1"
+  ]
+}

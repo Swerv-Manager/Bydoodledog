@@ -1,0 +1,229 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  - block_id: {String} Identification by block (optional).
+  - original_section: {Boolean} Whether or not use Main product section for update the price.
+
+  Usage:
+  {% render 'product-variant-picker', block: block, product: product %}
+{% endcomment %}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign selected_variant = product.selected_or_first_available_variant
+  assign color_option = ''
+  assign product_swatches = settings.product_swatches | downcase | split: ','
+
+  for option in product.options_with_values
+    assign option_name = option.name | downcase | strip
+    assign option_swatch = product_swatches | where: option_name
+    if option_swatch.size > 0
+      assign color_option = option
+      break
+    endif
+  endfor
+
+  assign section_id = section.id
+  if block_id
+    assign section_id = section.id | append: block_id
+  endif
+%}
+
+<div class="product-form__controls-group">
+  {%- unless product.has_only_default_variant -%}
+    {%- assign selected_first_option = color_option -%}
+    {%- if block.settings.picker_type == 'button' -%}
+      <variant-radios
+        id="VariantSelect-{{ section_id }}"
+        class="no-js-hidden variants-content"
+        {% if original_section %}
+          data-original-section="true"
+        {% endif %}
+        data-section="{{ section.id }}"
+        data-block="{{ block_id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}
+          data-update-url="false"
+        {% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <script type="application/json">
+          {
+            "price": {{ product.price }},
+            "options": {{ product.options | json }},
+            "compare_at_price": {{ product.compare_at_price | default: "0" }},
+            "variants": [
+              {%- for variant in product.variants -%}
+                {
+                    "id" : {{ variant.id }},
+                    "available": {{ variant.available }},
+                    "compare_at_price": {{ variant.compare_at_price | json }},
+                    "featured_image": {{ variant.featured_image | json }},
+                    "featured_media": {{ variant.featured_media | json }},
+                    "options": {{ variant.options | json }},
+                    "price": {{ variant.price | json }},
+                    "sku": {{ variant.sku | json }},
+                    "tags": {{ variant.tags | json }},
+                    "inventory_quantity" : {{ variant.inventory_quantity | json }},
+                    "leveringstid": {{ variant.metafields.shophelten.leveringstid.value | default: "" | json }}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ],
+            "metafields": {{ product.metafields.accentuate | json }}
+          }
+        </script>
+        {% for option in product.options_with_values %}
+          {% render 'product-meta-selector',
+            option: option,
+            currentVariant: selected_variant,
+            selected_first_option: selected_first_option,
+            variants: product.variants,
+            loop_info: forloop,
+            color_swatch_type: block.settings.color_swatch_type,
+            color_swatch_shape: block.settings.color_swatch_shape,
+            swatch_size: block.settings.swatch_size,
+            block_id: block_id
+          %}
+        {% endfor %}
+      </variant-radios>
+    {%- else -%}
+      <variant-selects
+        id="VariantSelect-{{ section_id }}"
+        class="no-js-hidden variants-content{% if block.settings.color_swatch_type == 'none' %} product__dropdown-select{% endif %}"
+        {% if original_section %}
+          data-original-section="true"
+        {% endif %}
+        data-section="{{ section.id }}"
+        data-block="{{ block_id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}
+          data-update-url="false"
+        {% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <script type="application/json">
+          {
+            "price": {{ product.price }},
+            "options": {{ product.options | json }},
+            "compare_at_price": {{ product.compare_at_price | default: "0" }},
+            "variants": [
+              {%- for variant in product.variants -%}
+                {
+                    "id" : {{ variant.id }},
+                    "available": {{ variant.available }},
+                    "compare_at_price": {{ variant.compare_at_price | json }},
+                    "featured_image": {{ variant.featured_image | json }},
+                    "featured_media": {{ variant.featured_media | json }},
+                    "options": {{ variant.options | json }},
+                    "price": {{ variant.price | json }},
+                    "sku": {{ variant.sku | json }},
+                    "tags": {{ variant.tags | json }},
+                    "inventory_quantity" : {{ variant.inventory_quantity | json }},
+                    "leveringstid": {{ variant.metafields.shophelten.leveringstid.value | default: "" | json }}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ],
+            "metafields": {{ product.metafields.accentuate | json }}
+          }
+        </script>
+        {%- for option in product.options_with_values -%}
+          {%- assign variant_option_name = option.name | downcase | strip -%}
+          {%- assign variant_option_swatch = product_swatches | where: variant_option_name -%}
+          {% if block.settings.color_swatch_type != 'none' and variant_option_swatch.size > 0 %}
+            {% render 'product-meta-selector',
+              option: option,
+              currentVariant: selected_variant,
+              selected_first_option: selected_first_option,
+              variants: product.variants,
+              loop_info: forloop,
+              color_swatch_type: block.settings.color_swatch_type,
+              color_swatch_shape: block.settings.color_swatch_shape,
+              swatch_size: block.settings.swatch_size,
+              block_id: block_id
+            %}
+          {% else %}
+            <div class="product-form__input product-form__input--dropdown">
+              <div class="select btn--style-2">
+                <select
+                  id="Option-{{ section_id }}-{{ forloop.index0 }}"
+                  class="product-meta-option product-meta-option--{{ variant_option_name | handleize }} select__select"
+                  name="options[{{ option.name | escape }}]"
+                  form="product-form-{{ section_id }}"
+                  data-name="options[{{ option.name | escape }}]"
+                  required
+                >
+                  <option value="" disabled selected></option>
+                  {%- for value in option.values -%}
+                    <option
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {{ value }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <span class="select-highlight"></span>
+                <label class="form__label select-label" for="Option-{{ section_id }}-{{ forloop.index0 }}">
+                  {{ 'products.product.select' | t }}
+                  {{ option.name }}
+                </label>
+                <label class="form__label select-label--hidden">
+                  {{ 'products.product.select' | t }}
+                  {{ option.name }}
+                </label>
+                <i
+                  class="icon icon-chevron-down {{ icon_style }} fa-chevron-down"
+                  style="--fa-secondary-opacity: 1;"
+                ></i>
+              </div>
+            </div>
+          {% endif %}
+        {%- endfor -%}
+      </variant-selects>
+    {%- endif -%}
+  {%- endunless -%}
+</div>
+
+<noscript class="product-form__noscript-wrapper-{{ section_id }}">
+  <div class="product-form__input product-form__input--dropdown{% if product.has_only_default_variant %} hidden{% endif %}">
+    <div class="select">
+      <select
+        name="id"
+        id="Variants-{{ section_id }}"
+        class="product-meta-option select__select"
+        form="{{ product_form_id }}"
+      >
+        {%- for variant in product.variants -%}
+          <option
+            {% if variant == selected_variant %}
+              selected="selected"
+            {% endif %}
+            {% if variant.available == false %}
+              disabled
+            {% endif %}
+            value="{{ variant.id }}"
+          >
+            {{ variant.title }}
+            {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+            - {{ variant.price | money | strip_html }}
+          </option>
+        {%- endfor -%}
+      </select>
+      <span class="select-highlight"></span>
+      <label class="form__label select-label" for="Variants-{{ section_id }}">
+        {{ 'products.product.product_variants' | t }}
+      </label>
+      <label class="form__label select-label--hidden">
+        {{ 'products.product.product_variants' | t }}
+      </label>
+      {% render 'icon-chevron-down' %}
+    </div>
+  </div>
+</noscript>

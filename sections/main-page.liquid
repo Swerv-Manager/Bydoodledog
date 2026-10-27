@@ -1,0 +1,141 @@
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+
+<div class="page-template page-width">
+  <div class="page-template-wrap background-modal">
+    {%- liquid
+      assign content_height = section.settings.content_height | divided_by: 100.0
+      assign image_aspect_ratio = 4.042105263157895 | divided_by: content_height
+      if section.settings.banner_image != blank
+        assign image_height = section.settings.banner_image.width | divided_by: section.settings.banner_image.aspect_ratio
+        assign image_aspect_ratio = section.settings.banner_image.aspect_ratio | divided_by: content_height
+      endif
+    -%}
+    <div
+      class="page-banner {{ section.settings.background }}"
+      style="--content-height: {{ content_height }}; --image-aspect-ratio: {{ image_aspect_ratio }};"
+    >
+      <div
+        class="{% unless section.settings.parallax and section.settings.banner_image == blank %} page-banner-wrap{% endunless %}{% if section.settings.parallax and section.settings.banner_image != blank %} parent-parallax{% else %} media{% endif %}{% if section.settings.banner_image == blank %} placeholder{% endif %}{% if section.settings.show_scrim %} scrim-layer{% endif %}"
+        style="
+          {% if section.settings.show_scrim and section.settings.banner_image != blank %}
+            --scrim-lightness: {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }};
+          {% endif %}
+        "
+      >
+        {% if section.settings.banner_image != blank %}
+          {%- liquid
+            assign sizes = '100vw'
+            capture parallax_class
+              if section.settings.parallax
+                echo 'img-parallax'
+              endif
+            endcapture
+          -%}
+          {{
+            section.settings.banner_image
+            | image_url: width: 1520
+            | image_tag:
+              preload: true,
+              width: section.settings.banner_image.width,
+              height: image_height,
+              class: parallax_class,
+              sizes: sizes,
+              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+              alt: section.settings.banner_image.alt
+            | escape
+          }}
+        {% endif %}
+      </div>
+      <div class="media__text-content page-banner__content page-width">
+        <h1 class="page-template__title" itemprop="headline">{{ page.title | escape }}</h1>
+      </div>
+    </div>
+    {% if page.content != blank %}
+      <div class="page-template__content rte">
+        {{ page.content }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-page.settings.header.content"
+    },
+    {
+      "type": "range",
+      "id": "content_height",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "%",
+      "label": "t:sections.main-page.settings.content_height.label",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "t:sections.main-page.settings.banner_image.label",
+      "info": "t:sections.main-page.settings.image_height.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax",
+      "default": false,
+      "label": "t:sections.main-page.settings.parallax.label",
+      "info": "t:sections.main-page.settings.parallax.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scrim",
+      "default": true,
+      "label": "t:sections.main-page.settings.show_scrim.label",
+      "info": "t:sections.main-page.settings.show_scrim.info"
+    },
+    {
+      "type": "range",
+      "id": "scrim_lightness",
+      "min": 0,
+      "max": 255,
+      "step": 15,
+      "default": 0,
+      "label": "t:sections.main-page.settings.scrim_lightness.label",
+      "info": "t:sections.main-page.settings.scrim_lightness.info"
+    }
+  ]
+}
+{% endschema %}

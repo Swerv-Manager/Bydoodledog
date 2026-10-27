@@ -1,0 +1,130 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'pagination.js' | asset_url }}" defer="defer"></script>
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign border_gallery = settings.product_gallery_border
+%}
+<div class="customer order-list">
+  <div class="page-width page-width--account">
+    <div class="myaccount-nav-back text-center">
+      <a href="{{ routes.account_url }}" class="header__icon header__icon--back-button link link--text">
+        <i class="icon icon-arrow-left {{ icon_style }} fa-swap-opacity fa-chevron-left"></i>
+      </a>
+      <h2 class="myaccount_title">{{ 'customer.orders.title' | t }}</h2>
+    </div>
+  </div>
+  <div
+    class="page-width page-width--account page-width--without-padding myaccoun-margin-bottom"
+    data-section-type="account-orders"
+    data-account-orders
+  >
+    <div class="myaccount__order-history">
+      {% paginate customer.orders by 10 %}
+        {% if customer.orders.size != 0 %}
+          <ul class="myaccount_list" id="data-pagination">
+            {% for order in customer.orders %}
+              <li class="myaccount_list__item data-pagination__item">
+                <a href="{{ order.customer_url }}" class="myaccount_list__item-link">
+                  <div class="page-width--padding">
+                    <div class="order-history__list-item--header">
+                      <ul class="order-header__info">
+                        <li>
+                          <h4>{{ 'customer.orders.date' | t }}</h4>
+                          <p>{{ order.created_at | time_tag: format: 'basic' }}</p>
+                        </li>
+                        <li>
+                          <h4>{{ 'customer.orders.order_number' | t }}</h4>
+                          <p>{{ order.name }}</p>
+                        </li>
+                        <li>
+                          <h4>{{ 'customer.orders.fulfillment_status' | t }}</h4>
+                          <p>
+                            {%- assign fulfillment_status = order.fulfillment_status_label | downcase -%}
+                            {%- assign financial_status = order.financial_status_label | downcase -%}
+                            {%- if order.cancelled -%}
+                              {{ 'customer.orders.cancelled' | t }}
+                            {%- elsif financial_status == 'refunded' or financial_status == 'partially refunded' -%}
+                              {{ financial_status }}
+                            {%- elsif fulfillment_status == 'partial' -%}
+                              {{ 'customer.orders.partially_shipped' | t }}
+                            {%- elsif fulfillment_status == 'unfulfilled' -%}
+                              {{ 'customer.orders.confirmed' | t }}
+                            {%- elsif fulfillment_status == 'fulfilled' -%}
+                              {{ 'customer.orders.shipped' | t }}
+                            {%- else -%}
+                              {{ fulfillment_status }}
+                            {%- endif -%}
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                    <i class="icon icon-arrow-right {{ icon_style }} fa-swap-opacity fa-chevron-right"></i>
+                  </div>
+                  <ul class="myaccount__order-history__images">
+                    {% for line_item in order.line_items %}
+                      <li
+                        {% if border_gallery %}
+                          class="product__gallery--border"
+                        {% endif %}
+                      >
+                        {% if line_item.image %}
+                          {{ line_item.image | image_url: height: 140 | image_tag }}
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </a>
+              </li>
+            {% endfor %}
+            <li
+              class="skeleton-view myaccount_list__item myaccount_list__item-link hide"
+              data-skeleton-pagination-bottom
+            >
+              <ul class="order-header__info page-width--padding">
+                <li>
+                  <h4 class="skeleton-text">{{ 'customer.orders.date' | t }}</h4>
+                  <p class="skeleton-text">--/--/----</p>
+                </li>
+                <li>
+                  <h4 class="skeleton-text">{{ 'customer.orders.order_number' | t }}.</h4>
+                  <p class="skeleton-text">----</p>
+                </li>
+                <li>
+                  <h4 class="skeleton-text">{{ 'customer.orders.fulfillment_status' | t }}</h4>
+                  <p class="skeleton-text">----------</p>
+                </li>
+              </ul>
+              <div class="page-width--padding">
+                <div class="skeleton-image"></div>
+              </div>
+            </li>
+          </ul>
+        {% else %}
+          <div class="text-center myaccount--empty-state">
+            <h3>{{ 'customer.orders.empty_title' | t }}</h3>
+            <p>{{ 'customer.orders.none' | t }}</p>
+            <a href="{{ routes.all_products_collection_url }}" class="btn btn--from">
+              {{ 'customer.orders.shop_now' | t }}
+            </a>
+          </div>
+        {% endif %}
+
+        {%- if paginate.pages > 1 -%}
+          {% render 'load-more', paginate: paginate %}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% paginate customer.orders by 10 | sort: 'created_at' | reverse %}"
+  to: "{% paginate customer.orders by 10 %}"
+  position: 896..932
+{% endcomment %}

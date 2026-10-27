@@ -1,0 +1,18 @@
+{% comment %}
+    Renders a color swatch
+
+    Accepts:
+    - color: {String} Value of the color (required)
+
+    Usage:
+    {% include 'color-swatch', color: color %}
+{% endcomment %}
+
+{% liquid
+  assign hadleValue = color | handleize
+  assign camelcaseValue = color | camelcase
+  assign colorImgUrl = hadleValue | append: '.png' | file_img_url: '38x38'
+  assign colorImgVersion = colorImgUrl | split: '38x38.png?v='
+%}
+
+<span class="color-swatch" data-swatch-color-value="{{ camelcaseValue }}" style="{% if colorImgVersion.size >= 2 %}background-image: url({{ colorImgUrl }});{% else %}background-color: {{ camelcaseValue }};{% endif %}"></span>

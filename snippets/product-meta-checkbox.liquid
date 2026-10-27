@@ -1,0 +1,38 @@
+{% comment %}
+    Renders a checkbox options for products
+
+    Accepts:
+    - Option: {Object} Option Liquid object (required)
+    - currentVariant
+    - variants
+    - section_id
+    - loop_info
+    - checkbox_label
+
+    Usage:
+    {% render 'product-meta-checkbox', option: option, variants: variants, loop_info: loop_info, checkbox_label: checkbox_label %}
+{% endcomment %}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign option_name = option.name | downcase | strip
+  assign option_name_camelize = option_name | camelize
+  assign selected_value = option.selected_value | downcase | strip
+%}
+
+<fieldset class="product-meta-option js product-form__item selector-wrapper" data-selector-checkbox="true">
+  <input
+    type="checkbox"
+    name="{{ option.name }}"
+    class="single-option-selector-{{ section_id }}"
+    data-value="{{ option.selected_value }}"
+    data-index="option{{ loop_info.index }}"
+    id="{{ section_id }}-{{ option_name_camelize }}-{{ loop_info.index0 }}"
+    {% if selected_value == 'yes' %} checked{% endif %}>
+  <label class="form__label product-form__label" for="{{ section_id }}-{{ option_name_camelize }}-{{ loop_info.index0 }}">
+    <span class="input-check-mark">
+      <i class="icon-check {{ icon_style }} fa-check"></i>
+    </span>
+    {{ checkbox_label }}
+  </label>
+</fieldset>

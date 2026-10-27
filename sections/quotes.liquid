@@ -1,0 +1,282 @@
+{{ 'section-quotes.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <quotes-slider
+    data-section="{{ section.id }}"
+    {%- if request.design_mode -%}
+      data-auto-play="false"
+    {%- endif -%}
+  >
+    <div
+      class="quotes-section {{ section.settings.background }} {{ section.settings.custom_background }} {{ section.settings.font_type }} scroll-animate fade-in{% if section.settings.font_style == 'all_caps' %} uppercase{% endif %}"
+      style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};"
+    >
+      {% if section.settings.custom_background == 'notebook' %}
+        <div class="spine-notebook"></div>
+      {% endif %}
+      <div class="page-width page-width--without-padding">
+        <div class="ec-container" data-section-type="quotes">
+          {% if section.blocks.size > 0 %}
+            <div class="quotes-wrapper">
+              <div
+                class="quotes-slider quotes-slider-for"
+                data-count="{{ section.blocks.size }}"
+                id="quotes-slider-for-{{ section.id }}"
+              >
+                {% for block in section.blocks %}
+                  <div class="quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>
+                    <blockquote class="quotes-slider__text text-center">
+                      <span class="quote-icon">“</span>
+                      {% if block.settings.quote != blank %}
+                        <div class="rte-setting rte quote-text">{{ block.settings.quote }}</div>
+                      {% endif %}
+                    </blockquote>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="quotes-autor-wrapper">
+              <div class="quotes-autor-slider quotes-slider-nav" id="quotes-slider-nav-{{ section.id }}">
+                {% for block in section.blocks %}
+                  <div class="quotes-slide--{{ block.id }} focus-inset" {{ block.shopify_attributes }}>
+                    <blockquote class="quotes-slider__text text-center">
+                      {% if block.settings.author_logo != blank %}
+                        <div class="quotes-slider__author-logo">
+                          {% assign image_height = block.settings.author_logo.width
+                            | divided_by: block.settings.author_logo.aspect_ratio
+                          %}
+                          {{
+                            block.settings.author_logo
+                            | image_url: height: 60
+                            | image_tag:
+                              loading: 'lazy',
+                              alt: block.settings.image.alt,
+                              class: 'logo-bar__image',
+                              width: block.settings.author_logo.width,
+                              height: image_height
+                          }}
+                        </div>
+                      {% elsif block.settings.author != blank %}
+                        <span class="cite">{{ block.settings.author | escape }}</span>
+                      {% endif %}
+                    </blockquote>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </quotes-slider>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.quotes.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.quotes.settings.paragraph.content"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "font_type",
+      "label": "t:sections.all.font_type.label",
+      "options": [
+        {
+          "value": "heading-font",
+          "label": "t:sections.all.font_type.heading.label"
+        },
+        {
+          "value": "body-font",
+          "label": "t:sections.all.font_type.body.label"
+        },
+        {
+          "value": "button-font",
+          "label": "t:sections.all.font_type.button.label"
+        },
+        {
+          "value": "accent-font",
+          "label": "t:sections.all.font_type.accent.label"
+        }
+      ],
+      "default": "accent-font"
+    },
+    {
+      "type": "select",
+      "id": "font_style",
+      "label": "t:sections.all.font_style.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.font_style.option__1"
+        },
+        {
+          "value": "all_caps",
+          "label": "t:sections.all.font_style.option__2"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "alt-background"
+    },
+    {
+      "type": "select",
+      "id": "custom_background",
+      "label": "t:sections.quotes.settings.custom_background.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.quotes.settings.custom_background.options__1.label"
+        },
+        {
+          "value": "watercolor",
+          "label": "t:sections.quotes.settings.custom_background.options__2.label"
+        },
+        {
+          "value": "wave-shape",
+          "label": "t:sections.quotes.settings.custom_background.options__3.label"
+        },
+        {
+          "value": "curve-shape",
+          "label": "t:sections.quotes.settings.custom_background.options__4.label"
+        },
+        {
+          "value": "abstract-gradient",
+          "label": "t:sections.quotes.settings.custom_background.options__5.label"
+        },
+        {
+          "value": "notebook",
+          "label": "t:sections.quotes.settings.custom_background.options__6.label"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "t:sections.quotes.blocks.quote.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "t:sections.quotes.blocks.quote.settings.quote.label",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:sections.quotes.blocks.quote.settings.author.label",
+          "default": "Author's name"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_logo",
+          "label": "t:sections.quotes.blocks.quote.settings.author_logo.label",
+          "info": "t:sections.quotes.blocks.quote.settings.author_logo.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.quotes.presets.name",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

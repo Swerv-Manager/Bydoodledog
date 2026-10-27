@@ -1,0 +1,118 @@
+{% comment %}
+  Renders a size chart
+
+  Accepts:
+  - rows: {Array} (required)
+  - counter: {Number} send a counter to iterate in case rows is not an array.
+
+  Usage:
+  {% render 'size-chart', rows: [{ settings: [{},{}] }] %}
+{% endcomment %}
+
+{% liquid
+  assign limit_rows = rows
+  assign number_of_rows = rows.size
+  assign number_of_columns = rows.first.settings.column_values | split: ',' | size
+  if counter
+    assign limit_rows = (1..counter)
+    assign number_of_rows = counter
+    assign number_of_columns = rows.settings.column_values_1 | split: ',' | size
+  endif
+%}
+
+<div class="card-tabs size-chart {{ background }}" style="--number-of-rows: {{ number_of_rows }}">
+  <section class="card-tabs__body">
+    <section class="card-tabs__section card-tabs__section--active" id="tab-1">
+      <div class="product-single_measurements{% if number_of_columns == 1 %} remove-hover-column{% endif %}">
+        <div class="product-single_measurements__content">
+          <div class="product-single_measurements__headcol">
+            <table>
+              {%- for row in limit_rows -%}
+                <tr>
+                  {%- if counter -%}
+                    {% capture row_name_i %}row_name_{{row}}{% endcapture %}
+                    {% assign row_name = rows.settings[row_name_i] %}
+                  {%- else -%}
+                    {% assign row_name = row.settings.row_name %}
+                  {%- endif -%}
+
+                  <td>
+                    {{ row_name }}
+                    {% if forloop.index > 1 %}
+                      <span class="measurement-extra">XS</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </table>
+          </div>
+          <table class="measurements-table">
+            {%- for row in limit_rows -%}
+              {%- if counter -%}
+                {% capture row_name_i %}row_name_{{row}}{% endcapture %}
+                {% capture is_thead_i %}is_thead_{{row}}{% endcapture %}
+                {% capture column_values_i %}column_values_{{row}}{% endcapture %}
+                {% liquid
+                  assign row_name = rows.settings[row_name_i]
+                  assign is_thead = rows.settings[is_thead_i]
+                  assign column_values = rows.settings[column_values_i]
+                %}
+              {%- else -%}
+                {% liquid
+                  assign row_name = row.settings.row_name
+                  assign is_thead = row.settings.is_thead
+                  assign column_values = row.settings.column_values
+                %}
+              {%- endif -%}
+
+              {% if is_thead %}
+                {% assign table_columns = column_values | upcase | split: ',' %}
+                <thead>
+                  <tr>
+                    <td class="column_header">{{ row_name }}</td>
+                    {%- for column in table_columns -%}
+                      <th>
+                        <span class="indicator">{{ column }}</span>
+                      </th>
+                    {%- endfor -%}
+                  </tr>
+                </thead>
+              {% endif %}
+            {%- endfor -%}
+
+            <tbody>
+              {%- for row in limit_rows -%}
+                {%- if counter -%}
+                  {% capture row_name_i %}row_name_{{row}}{% endcapture %}
+                  {% capture is_thead_i %}is_thead_{{row}}{% endcapture %}
+                  {% capture column_values_i %}column_values_{{row}}{% endcapture %}
+                  {% liquid
+                    assign row_name = rows.settings[row_name_i]
+                    assign is_thead = rows.settings[is_thead_i]
+                    assign column_values = rows.settings[column_values_i]
+                  %}
+                {%- else -%}
+                  {% assign row_name = row.settings.row_name %}
+                  {% assign is_thead = row.settings.is_thead %}
+                  {% assign column_values = row.settings.column_values %}
+                {%- endif -%}
+
+                {% unless is_thead %}
+                  <tr>
+                    {% assign table_columns = column_values | upcase | split: ',' %}
+                    <td class="column_header">{{ row_name }}</td>
+                    {%- for column in table_columns -%}
+                      <td>
+                        <span class="indicator">{{ column }}</span>
+                      </td>
+                    {%- endfor -%}
+                  </tr>
+                {% endunless %}
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>

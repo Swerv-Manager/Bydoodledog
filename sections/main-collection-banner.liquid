@@ -1,0 +1,156 @@
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign image_height_wrap = section.settings.image_height | divided_by: 100.0
+  assign image_aspect_ratio = 4.042105263157895 | divided_by: image_height_wrap
+
+  assign show_image = false
+  if section.settings.show_collection_image and collection.image
+    assign show_image = true
+    assign image_aspect_ratio = collection.image.aspect_ratio | divided_by: image_height_wrap
+  endif
+%}
+
+<div class="collection-header {{ section.settings.background }}" style="--image-aspect-ratio: {{ image_aspect_ratio }};">
+  {%- if show_image -%}
+    <div class="collection-hero__image-wrapper media" style="padding-bottom: {{ 1 | divided_by: collection.image.aspect_ratio | times: 100 }}%;">
+      <img
+        srcset="{%- if collection.image.width >= 375 -%}{{ collection.image | image_url: width: 375 }} 375w,{%- endif -%}
+          {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if collection.image.width >= 1100 -%}{{ collection.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+          {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if collection.image.width >= 1780 -%}{{ collection.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+          {%- if collection.image.width >= 2000 -%}{{ collection.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+          {%- if collection.image.width >= 3000 -%}{{ collection.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {%- if collection.image.width >= 3840 -%}{{ collection.image | image_url: width: 3840 }} 3840w,{%- endif -%}
+          {{ collection.image | image_url }} {{ collection.image.width }}w"
+        src="{{ collection.image | image_url: width: 1520 }}"
+        sizes="100vw"
+        alt=""
+        width="{{ collection.image.width }}"
+        height="{{ collection.image.height }}"
+      >
+    </div>
+  {%- endif -%}
+  <div class="collection-hero page-width{% if show_image %} collection-hero__image{% endif %}"
+    {% if show_image %}
+      style="{% if section.settings.show_scrim %} --scrim-lightness: {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}{% endif %};"
+    {% endif %}
+  >
+    <div class="collection-hero__text-wrapper" style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};">
+      <div>
+        {%- if section.settings.show_collection_title and collection.title -%}
+          <h1 class="collection-hero__title">
+            <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+            {{- collection.title | escape -}}
+          </h1>
+        {%- endif -%}
+
+        {%- if section.settings.show_collection_description and collection.description != blank -%}
+          <div class="collection-hero__description rte" {% if section.settings.show_collection_title and collection.title %}style="margin-top: 0.4375rem;"{% endif %}>{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "spaced-section--full-width",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_title",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+      "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "%",
+      "label": "t:sections.main-collection-banner.settings.image_height.label",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scrim",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_scrim.label",
+      "info": "t:sections.main-collection-banner.settings.show_scrim.info"
+    },
+    {
+      "type": "range",
+      "id": "scrim_lightness",
+      "min": 0,
+      "max": 255,
+      "step": 15,
+      "default": 0,
+      "label": "t:sections.main-collection-banner.settings.scrim_lightness.label",
+      "info": "t:sections.main-collection-banner.settings.scrim_lightness.info"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        },
+        {
+          "value": "alt-sale",
+          "label": "Sale"
+        }
+      ],
+      "default": "alt-background-2"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+
+{% assign icon_style = settings.icons_style %}
+<div class="customer details">
+  <div class="page-width page-width--account myaccount-template myaccoun-margin-bottom">
+    <div class="myaccount-nav-back text-center">
+      <a href="{{ routes.account_url }}" class="header__icon header__icon--back-button link link--text">
+        <i class="icon icon-arrow-left {{ icon_style }} fa-swap-opacity fa-chevron-left"></i>
+      </a>
+      <h2 class="myaccount_title">{{ 'customer.details.title' | t }}</h2>
+    </div>
+    <ul class="myaccount_list">
+      {% if customer.first_name or customer.last_name %}
+        <li>
+          <h4>{{ 'customer.details.full_name' | t }}</h4>
+          <p class="txt--number">{{ customer.first_name }} {{ customer.last_name }}</p>
+        </li>
+      {% endif %}
+      <li>
+        <h4>{{ 'customer.details.email' | t }}</h4>
+        <p class="txt--number">{{ customer.email }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,421 @@
+{% comment %}
+  Renders product buy-buttons.
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} product form id.
+  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+  - hide_flag_button_mobile : {Boolean} hide flag button on mobile screens (optional).
+  - show_view_details: {Boolean}
+  - has_required_option: {Boolean} disable dynamic buttons if has a required custom option.
+
+  Usage:
+  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, show_pickup_availability: true %}
+{% endcomment %}
+
+{% liquid
+  assign icon_style = settings.icons_style
+  assign low_stock_notification = block.settings.show_inventory_notification
+  assign gift_card_recipient_feature_active = false
+  assign hide_buy_buttons = false
+  if product.metafields.theme.customization_picker.value == true and show_view_details
+    assign hide_buy_buttons = true
+  endif
+  if low_stock_notification or block.settings.notification_message != blank
+    assign show_inventory_notification = true
+  endif
+  if block.settings.show_gift_card_recipient and product.gift_card?
+    assign gift_card_recipient_feature_active = true
+  endif
+  assign show_dynamic_checkout = false
+  if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+    assign show_dynamic_checkout = true
+  endif
+  if disallow_dynamic_buttons == true
+    assign show_dynamic_checkout = false
+  endif
+
+  assign show_sold_out_button = false
+  assign check_against_inventory = true
+  if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+    assign check_against_inventory = false
+  endif
+  if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+    assign quantity_rule_soldout = true
+  endif
+
+  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+    assign show_sold_out_button = true
+  endif
+%}
+
+{% assign section_id = section.id %}
+{% if block_id %}
+  {% assign section_id = section.id | append: block_id %}
+{% endif %}
+
+{%- capture form_classes -%}
+  product-form product-form-{{ section_id }}
+  form
+  product-form--hide-variant-labels
+  {%- if show_sold_out_button %} product-form--variant-sold-out {%- endif -%}
+{%- endcapture -%}
+
+{%- if show_inventory_notification or hide_buy_buttons == false -%}
+  <div class="product-form__buy-buttons" {{ block.shopify_attributes }}>
+    {%- if show_inventory_notification -%}
+      {%- unless product.has_only_default_variant == true and product.selected_or_first_available_variant == null -%}
+        <div
+          class="product-form__stock-notification no-js-hidden{% if show_sold_out_button or product.selected_or_first_available_variant == null %} meta-price--hidden{% endif %}"
+          id="StockNotification-{{ section_id }}"
+          data-product-meta-price
+          {{ block.shopify_attributes }}
+        >
+          <div class="selected-status--left-quantity btn--style-2">
+            {%- if block.settings.show_inventory_notification -%}
+              {% liquid
+                assign inventory_quantity = product.selected_or_first_available_variant.inventory_quantity
+                assign is_preorder = false
+                assign has_low_stock = false
+                if product.selected_or_first_available_variant.available and inventory_quantity <= 0 and product.selected_or_first_available_variant.inventory_policy == 'continue'
+                  assign is_preorder = true
+                endif
+                if product.available and inventory_quantity > 0 and inventory_quantity <= block.settings.quantity_threshold and product.selected_or_first_available_variant.inventory_policy == 'deny'
+                  assign has_low_stock = true
+                endif
+                assign variant_leveringstid = product.selected_or_first_available_variant.metafields.shophelten.leveringstid.value
+              %}
+              <div class="product-form__selected-status{% if has_low_stock == true %} product-form__selected-status--red{% endif %}{% if is_preorder %} product-form__selected-status--orange{% endif %}{% if variant_leveringstid == blank and block.settings.notification_message == blank %} product-form__selected-status--rounded{% endif %}">
+                <span data-left-quantity data-quantity-threshold="{{ block.settings.quantity_threshold }}">
+                  {%- if is_preorder -%}
+                    {{ 'products.product.preorder' | t }}
+                  {%- elsif has_low_stock == true -%}
+                    {{ 'products.product.low_stock' | t: quantity: inventory_quantity }}
+                  {%- else -%}
+                    {{ 'products.product.in_stock' | t }}
+                  {%- endif -%}
+                </span>
+              </div>
+            {%- endif -%}
+            <div class="product-form__stock-message{% if is_preorder %} product-form__stock-message--preorder{% endif %}" data-delivery-message data-default-message="{{ block.settings.notification_message | escape }}">
+              {%- if variant_leveringstid != blank -%}
+                <span>{{ variant_leveringstid }}</span>
+              {%- elsif block.settings.notification_message != blank -%}
+                <span>{{ block.settings.notification_message }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endunless -%}
+    {%- endif -%}
+    {%- unless hide_buy_buttons -%}
+      {%- if product != blank -%}
+        <product-form class="product-form__controls" data-hide-errors="{{ gift_card_recipient_feature_active }}">
+          <div class="product-form" data-controls-group-submit>
+            {%- form 'product',
+              product,
+              id: product_form_id,
+              class: form_classes,
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form',
+              data-product-form: ''
+            -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <div id="data-controls-group-submit-trigger" class="data-fix-controls-trigger"></div>
+              {%- if gift_card_recipient_feature_active -%}
+                {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+              {%- endif -%}
+              <div class="product__meta-grid-item product-form__controls-group--submit">
+                <div
+                  class="product-form__error-message-wrapper desktop--error hidden"
+                  data-error-message-wrapper
+                  role="alert"
+                >
+                  <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                  <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                  <span class="product-form__error-message" data-icon-style="{{ icon_style }}" data-error-message>
+                    {{- 'products.product.quantity_minimum_message' | t -}}
+                  </span>
+                </div>
+                <div class="product-form__item product-form__item--submit product-form__item--payment-button">
+                  {%- if block.settings.show_quantity_selector -%}
+                    <div class="product-form__input product-form__quantity" {{ block.shopify_attributes }}>
+                      <label class="form__label product-form__label" for="Quantity-{{ section_id }}">
+                        {{ 'products.product.quantity.label' | t }}
+                      </label>
+                      <quantity-input class="quantity" id="QuantityInput-{{ section_id }}">
+                        <button
+                          class="quantity__button no-js-hidden btn--link btnqty qtyminus"
+                          name="minus"
+                          type="button"
+                          disabled="true"
+                        >
+                          <span class="visually-hidden">
+                            {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
+                          </span>
+                          <i class="icon {{ icon_style }} fa-swap-opacity fa-minus"></i>
+                        </button>
+                        {%- liquid
+                          assign check_against_inventory = true
+                          if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                            assign check_against_inventory = false
+                          endif
+                          assign inventory_quantity = product.selected_or_first_available_variant.inventory_quantity
+                        -%}
+                        <input
+                          class="quantity__input no-js-hidden"
+                          type="number"
+                          name="quantity"
+                          id="Quantity-{{ section_id }}"
+                          min="1"
+                          value="1"
+                          {%- if inventory_quantity > 0 and check_against_inventory -%}
+                            max="{{ inventory_quantity }}"
+                          {%- endif -%}
+                          {%- if low_stock_notification -%}
+                            data-low-stock="true"
+                          {%- endif -%}
+                          form="product-form-{{ section_id }}"
+                        >
+                        <noscript>
+                          <div class="select select--no-background">
+                            <select
+                              class="select__select"
+                              name="quantity"
+                              id="no-script-Quantity-{{ section_id }}"
+                              form="product-form-{{ section_id }}"
+                              value="1"
+                            >
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                            </select>
+                            <span class="select-highlight"></span>
+                            <label class="form__label select-label" for="no-script-Quantity-{{ section_id }}">
+                              {{- 'products.product.quantity.label_selector' | t -}}
+                            </label>
+                            {% render 'icon-chevron-down' %}
+                          </div>
+                        </noscript>
+                        <button
+                          class="quantity__button no-js-hidden btn--link btnqty qtyplus"
+                          name="plus"
+                          type="button"
+                          {%- if product.has_only_default_variant
+                            and inventory_quantity == 1
+                            and low_stock_notification
+                            and product.selected_or_first_available_variant.inventory_policy == 'deny'
+                          -%}
+                            disabled="true"
+                          {%- endif -%}
+                        >
+                          <span class="visually-hidden">
+                            {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
+                          </span>
+                          <i class="icon {{ icon_style }} fa-plus" style="--fa-secondary-opacity: 1;"></i>
+                        </button>
+                      </quantity-input>
+                    </div>
+                  {%- endif -%}
+                  <div class="product-form__item__button-submit">
+                    <button
+                      type="submit"
+                      aria-label="{{ 'products.product.add_to_cart' | t }}"
+                      class="btn product-form__cart-submit{% if show_dynamic_checkout %} btn--secondary{% endif %}"
+                      {% if show_sold_out_button or product.selected_or_first_available_variant == null %}
+                        disabled
+                      {% endif %}
+                      data-add-to-cart
+                    >
+                      <span class="btn__loader product-form-loader" data-loader>
+                        <div class="loader-bounce">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                        </div>
+                      </span>
+                      <div class="product-form__cart-submit-text">
+                        <i class="icon-add-cart">
+                          <i class="icon {{ icon_style }} fa-cart-plus"></i>
+                        </i>
+                        <span class="product-form__add-text" data-add-to-cart-text>
+                          {%- if product.selected_or_first_available_variant == null -%}
+                            {{ 'products.product.unavailable' | t }}
+                          {%- elsif show_sold_out_button -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- else -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- endif -%}
+                        </span>
+                      </div>
+                    </button>
+                    <a
+                      href="{{ routes.cart_url }}"
+                      class="btn product-form__cart-submit product-form__open-cart"
+                      data-go-to-cart
+                    >
+                      {% render 'icon-check' %}
+                      <span>{{ 'products.product.go_to_cart' | t }}</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="product-form__item product-form__item--payment-button product-form__dynamic-buttons{% if has_required_option == true %} product-form__dynamic-buttons--disable{% endif %}">
+                  {%- if show_dynamic_checkout -%}
+                    {{ form | payment_button }}
+                  {%- endif -%}
+                </div>
+              </div>
+
+              {%- unless hide_flag_button_mobile -%}
+                <div class="product-form__item__button-submit product-form__button--fixed background-modal">
+                  <div class="product-form__button--fixed__content">
+                    <div class="product-form__item__button-submit">
+                      <div
+                        class="product-form__error-message-wrapper mobile--error mobile--error--hidden"
+                        data-error-message-wrapper
+                        role="alert"
+                      >
+                        <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                        <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                        <span class="product-form__error-message" data-icon-style="{{ icon_style }}" data-error-message>
+                          {{- 'products.product.quantity_minimum_message' | t -}}
+                        </span>
+                      </div>
+                      <button
+                        type="submit"
+                        aria-label="{{ 'products.product.add_to_cart' | t }}"
+                        class="btn product-form__cart-submit product-form__cart-submit--fixed"
+                        {% if show_sold_out_button or product.selected_or_first_available_variant == null %}
+                          disabled
+                        {% endif %}
+                        data-add-to-cart
+                      >
+                        <span class="btn__loader product-form-loader" data-loader>
+                          <div class="loader-bounce">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                          </div>
+                        </span>
+                        <div class="product-form__cart-submit-text">
+                          <i class="icon-add-cart">
+                            <i class="icon {{ icon_style }} fa-cart-plus"></i>
+                          </i>
+                          <span class="product-form__add-text" data-add-to-cart-text>
+                            {%- if product.selected_or_first_available_variant == null -%}
+                              {{ 'products.product.unavailable' | t }}
+                            {%- elsif show_sold_out_button -%}
+                              {{ 'products.product.sold_out' | t }}
+                            {%- else -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                            {%- endif -%}
+                          </span>
+                        </div>
+                      </button>
+                      <a
+                        href="{{ routes.cart_url }}"
+                        class="btn product-form__cart-submit product-form__open-cart"
+                        data-go-to-cart
+                      >
+                        {% render 'icon-check' -%}
+                        <span>{{ 'products.product.go_to_cart' | t }}</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {%- endunless -%}
+            {%- endform -%}
+          </div>
+        </product-form>
+      {%- else -%}
+        <div class="product-form">
+          <div class="product-form__controls-group--submit">
+            <div class="product-form__item product-form__item--submit product-form__item--payment-button">
+              <div class="product-form__item__button-submit">
+                <button
+                  type="submit"
+                  name="add"
+                  class="btn product-form__cart-submit btn--secondary"
+                  disabled
+                >
+                  {{ 'products.product.sold_out' | t }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endunless -%}
+
+    {%- if show_pickup_availability -%}
+      {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
+
+      {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+        | where: 'pick_up_enabled', true
+      -%}
+      {%- assign available_stores = pick_up_availabilities | where: 'available', true -%}
+
+      <pickup-availability
+        class="product__pickup-availabilities no-js-hidden pickup-availability--{{ section.id }}"
+        {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+          available
+        {% endif %}
+        data-base-url="{{ routes.root_url }}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        data-has-only-default-variant="{{ product.has_only_default_variant }}"
+        data-locations="{{ available_stores | json }}"
+      >
+        <template>
+          <pickup-availability-preview class="pickup-availability-preview pickup-availability-preview--red">
+            <i class="icon {{ icon_style }} fa-xmark"></i>
+            <div class="pickup-availability-info">
+              <p class="caption-large">{{ 'products.product.pickup_availability.unavailable_store' | t }}</p>
+            </div>
+          </pickup-availability-preview>
+        </template>
+
+        <script type="application/json">
+          {
+            "store_availabilities": [
+              {%- for store in available_stores -%}
+                {
+                  "location" : {
+                    "id": {{ store.location.id }},
+                    "address": {{ store.location.address | json }},
+                    "name": {{ store.location.name | json }}
+                  },
+                  "pick_up_time": {{ store.pick_up_time | json }}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ]
+          }
+        </script>
+      </pickup-availability>
+      <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% if show_view_details %}
+  <a
+    {% if product == blank %}
+      role="link" aria-disabled="true"
+    {% else %}
+      href="{{ product.url }}"
+    {% endif %}
+    class="btn link product__view-details{% unless hide_buy_buttons %} btn--secondary{% else %} product__customize-it{% endunless %}"
+  >
+    {% if hide_buy_buttons %}
+      {{ 'products.product.customize_it' | t }}
+    {% else %}
+      {{ 'products.product.view_details' | t }}
+    {% endif %}
+  </a>
+{% endif %}

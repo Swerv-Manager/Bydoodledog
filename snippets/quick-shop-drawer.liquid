@@ -1,0 +1,301 @@
+{%- liquid
+  assign icon_style = settings.icons_style
+  assign uppercase_product_title = settings.uppercase_product_title
+  assign border_gallery = settings.product_gallery_border
+  assign media_ratio = settings.image_ratio
+  assign product_id = '-' | append: product.id
+  assign autoplay_video = section.settings.autoplay_video
+-%}
+
+<div class="quick-shop-drawer" data-section-id="{{ section.id | append: product_id }}">
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+  {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+  {%- if first_3d_model -%}
+    {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+    {{ 'component-product-modal.css' | asset_url | stylesheet_tag }}
+    <link
+      id="ModelViewerStyle"
+      rel="stylesheet"
+      href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+      media="print"
+      onload="this.media='all'"
+    >
+    <link
+      id="ModelViewerOverride"
+      rel="stylesheet"
+      href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+      media="print"
+      onload="this.media='all'"
+    >
+  {%- endif -%}
+
+  <div class="product-modal--lite" data-section="{{ section.id }}">
+    {% liquid
+      assign height = 400
+      if product.media.size < 1
+        assign hide_gallery = true
+      endif
+    %}
+    {% unless hide_gallery %}
+      <lite-gallery
+        class="product__media-wrapper"
+        id="MediaGallery-{{ section.id | append: product_id }}"
+        data-section="{{ section.id }}"
+        data-block="{{ product_id }}"
+        data-product-swatches="{{ settings.product_swatches | downcase }}"
+      >
+        <script type="application/json">
+          {
+            "optionsGallery": {
+              "slidesToShow": 1,
+              "slidesToScroll": 1,
+              "arrows": false,
+              "fade": true
+            },
+            "galleryNav": true,
+            "optionsNav": {
+              "slidesToShow": 3,
+              "slidesToScroll": 1,
+              "centerMode": true,
+              "centerPadding": "0px",
+              "focusOnSelect": true,
+              "arrows": false,
+              "draggable": false,
+              "swipe": false
+            }
+          }
+        </script>
+        {%- if product.media.size > 0 -%}
+          {%- liquid
+            assign featured_media_aspect_ratio = product.media[0].aspect_ratio
+            if product.featured_media.aspect_ratio == null
+              assign featured_media_aspect_ratio = 1
+            endif
+
+            assign height_gallery = '100'
+            case media_ratio
+              when 'portrait'
+                assign height_gallery = '125'
+              when 'adapt'
+                assign height_gallery = 1 | divided_by: featured_media_aspect_ratio | times: 100
+            endcase
+          -%}
+          <slider-component class="product-single__media-group no-js-hidden" data-product-single-media-group>
+            <a class="skip-to-content-link btn visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
+              {{ 'accessibility.skip_to_product_info' | t }}
+            </a>
+            <div class="product-single__media-group__wrap">
+              <div
+                class="product-single__wrapper product-single__wrapper-{{ section.id | append: product_id }}"
+                style="--padding: {{ height_gallery | append: '%' }};"
+              >
+                <ul class="product-single__gallery product-single__gallery-{{ section.id | append: product_id }}{% if border_gallery %} product__gallery--border{% endif %}">
+                  {% assign productMedias = product.media %}
+                  {% assign current_alt = '' %}
+                  {%- for media in productMedias -%}
+                    <li
+                      class="product-single__gallery-item"
+                      data-alt="{{ media.alt }}"
+                      data-media-id="{{ section.id | append: product_id }}-{{ media.id }}"
+                    >
+                      {%- liquid
+                        assign lazy_load = true
+                        assign gallery_media_alt = media.alt | escape | escape | camelcase
+                        if gallery_media_alt != blank and current_alt != gallery_media_alt
+                          assign current_alt = gallery_media_alt
+                          assign lazy_load = false
+                        endif
+                        render 'media', media: media, height: height, enable_image_zoom: enable_image_zoom, autoplay_video: autoplay_video, image_zoom_size: product_image_zoom_size, image_scale: product_image_scale, lazy_load: lazy_load
+                      -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+              {% if product.media.size > 1 and product.type != 'Gift Card' %}
+                <div class="thumbnails-wrapper thumbnails-wrapper--lite thumbnails-wrapper--horizontal">
+                  <ul class="product-single__thumbnails product-single__thumbnails-{{ section.id | append: product_id }}">
+                    {% for media in product.media %}
+                      {% assign media_alt = media.alt %}
+                      <li class="product-single__thumbnails-item js {% if forloop.index > 3 %} product-single__thumbnails--hide{% endif %}">
+                        <div class="product-single__thumbnail-wrap {% if border_gallery %} product__gallery--border{% endif %}">
+                          <div
+                            class="media text-link product-single__thumbnail product-single__thumbnail--{{ section.id | append: product_id }} media--{{ media_ratio }}"
+                            data-thumbnail-id="{{ section.id | append: product_id }}-{{ media.id }}"
+                            {% if media_ratio == 'adapt' %}
+                              style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+                            {% endif %}
+                          >
+                            {%- capture thumbnailAlt -%}
+                              {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                                {{ 'products.product.video_thumbnail_alt' | t: imageAlt: media_alt }}
+                              {%- elsif media.media_type == 'model' -%}
+                                {{ 'products.product.model_thumbnail_alt' | t: imageAlt: media_alt }}
+                              {%- else -%}
+                                {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media_alt }}
+                              {%- endif -%}
+                            {%- endcapture -%}
+
+                            <img
+                              class="product-single__thumbnail-image lazyload"
+                              srcset="
+                                {% if media.preview_image.width >= 66 %}{{ media.preview_image | image_url: width: 66 }} 66w,{% endif %}
+                                {% if media.preview_image.width >= 110 %}{{ media.preview_image | image_url: width: 110 }} 110w,{% endif %}
+                                {% if media.preview_image.width >= 84 %}{{ media.preview_image | image_url: width: 84 }} 84w,{% endif %}
+                                {% if media.preview_image.width >= 168 %}{{ media.preview_image | image_url: width: 168 }} 168w,{% endif %}
+                                {% if media.preview_image.width >= 132 %}{{ media.preview_image | image_url: width: 132 }} 132w,{% endif %}
+                              "
+                              src="{{ media | image_url: width: 118 }}"
+                              sizes="(min-width: 1000px) 110px, (min-width: 750px) 118px, 168px"
+                              alt="{{ thumbnailAlt }}"
+                              data-alt="{{ media_alt }}"
+                              width="110"
+                              height="{{ 110 | divided_by: media.preview_image.aspect_ratio | ceil }}"
+                              loading="lazy"
+                            >
+                            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                              <div class="product-single__thumbnail-badge media__badge">
+                                <i
+                                  class="icon {{ icon_style }} fa-play fa-swap-opacity"
+                                  style="color:white; filter: drop-shadow(0px 1px 1px rgb(0 0 0 / 0.7));"
+                                ></i>
+                              </div>
+                            {%- endif -%}
+                            {%- if media.media_type == 'model' -%}
+                              <div class="product-single__thumbnail-badge media__badge">
+                                <i
+                                  class="icon icon-3d-model {{ icon_style }} fa-cube"
+                                  style="color:white; filter: drop-shadow(0px 1px 1px rgb(0 0 0 / 0.7));"
+                                ></i>
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+          </slider-component>
+          <noscript class="product-single__media__noscript-wrapper-{{ section.id | append: product_id }}">
+            <div class="product-single__media-group">
+              <div class="product-single__media-group__wrap">
+                {% assign height_gallery = '100' %}
+                {% case media_ratio %}
+                  {%- when 'portrait' -%}
+                    {% assign height_gallery = '125' %}
+                  {%- when 'adapt' -%}
+                    {% assign height_gallery = 1 | divided_by: featured_media_aspect_ratio | times: 100 %}
+                {%- endcase -%}
+                <div class="product-single__wrapper" style="--padding: {{ height_gallery | append: '%' }};">
+                  <ul class="product-single__gallery product-single__gallery-{{ section.id | append: product_id }}">
+                    <li class="product-single__gallery-item" data-alt="{{ product.media.first | escape | camelcase }}">
+                      <a name="picture{{ forloop.index }}"></a>
+                      {% render 'media', media: product.media.first, height: height %}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </noscript>
+        {%- else -%}
+          <div class="product__media-placeholder">
+            <div class="placeholder">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+          </div>
+        {%- endif -%}
+      </lite-gallery>
+    {% endunless %}
+    <div class="product__info-wrapper{% if hide_gallery %} product__info-wrapper--static{% endif %}">
+      <div id="ProductInfo-{{ section.id | append: product_id }}" class="product__info-container">
+        <div class="product-single__meta load-skeleton{% if product.type == 'Gift Card' %} product-single__meta--gift-card{% endif %}">
+          <div class="product__meta-grid">
+            {%- assign product_form_id = 'product-form-' | append: section.id | append: product_id -%}
+            {%- for block in blocks -%}
+              {%- case block.type -%}
+                {%- when 'title' -%}
+                  <h2
+                    class="product__title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
+                    style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ product.title | escape }}
+                  </h2>
+                {%- when 'price' -%}
+                  <div
+                    class="product__price no-js-hidden"
+                    id="price-{{ section.id | append: product_id }}"
+                    style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+                    {{ block.shopify_attributes }}
+                  >
+                    {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+                  </div>
+                {%- when 'variant_picker' -%}
+                  {% render 'product-variant-picker',
+                    block: block,
+                    product_form_id: product_form_id,
+                    product: product,
+                    update_url: false,
+                    block_id: product_id
+                  %}
+                {%- when 'buy_buttons' -%}
+                  {% render 'buy-buttons',
+                    product: product,
+                    product_form_id: product_form_id,
+                    show_dynamic_checkout: true,
+                    show_pickup_availability: false,
+                    hide_flag_button_mobile: true,
+                    show_view_details: true,
+                    block_id: product_id
+                  %}
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+          {% render 'skeleton-text-view', skeleton_layout: 'product-info' %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- if first_3d_model -%}
+    <product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">
+      <div
+        class="product-media-modal__dialog"
+        role="dialog"
+        aria-label="{{ 'products.modal.label' | t }}"
+        aria-modal="true"
+        tabindex="-1"
+      >
+        <button
+          id="ModalClose-{{ section.id }}"
+          type="button"
+          class="product-media-modal__toggle"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'icon-close' %}
+        </button>
+
+        <div
+          class="product-media-modal__content"
+          role="document"
+          aria-label="{{ 'products.modal.label' | t }}"
+          tabindex="0"
+        >
+          {%- for media in product.media -%}
+            {% render 'media', media: media, height: height, image_scale: product_image_scale, media_modal: 'true' %}
+          {%- endfor -%}
+        </div>
+      </div>
+    </product-modal>
+
+    <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+    <script type="application/json" id="ProductJSON-{{ product.id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+
+    <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+  {%- endif -%}
+</div>

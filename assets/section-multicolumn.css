@@ -1,0 +1,198 @@
+.multicolumn-section {
+  background: rgb(var(--color-background));
+  padding: 52px 0;
+  position: relative;
+}
+
+.multicolumn-section--taller {
+  padding: 150px 0;
+}
+
+.multicolumn-section.abstract-gradient {
+  background-image: url('abstract-gradient.png');
+  background-size: cover;
+  padding: 70px 0;
+}
+
+.multicolumn__list {
+  column-gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  justify-content: center;
+}
+
+.multicolumn__list--2 {
+  grid-template-columns: repeat(2, 340px);
+}
+
+.multicolumn__list--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.multicolumn__list--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.multicolumn__list--6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.multicolumn__item {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  gap: 1.1875rem;
+  max-width: 250px;
+  margin: auto;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.multicolumn__item.multicolumn__item--center {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.multicolumn__item.multicolumn__item--center.multicolumn__item--background {
+  justify-content: center;
+}
+
+.multicolumn__list li {
+  position: relative;
+}
+
+.multicolumn__item.multicolumn__item--background {
+  height: auto;
+  min-height: 180px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.multicolumn-section.watercolor li .multicolumn__item--background {
+  background: none;
+}
+
+.multicolumn-section.watercolor li .multicolumn__item:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  mask-position: center;
+  -webkit-mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+  background-color: rgb(var(--color-background));
+}
+
+.multicolumn-section.watercolor li:nth-child(4n+1) .multicolumn__item:after {
+  -webkit-mask-image: url('paint1.svg');
+  mask-image: url('paint1.svg');
+}
+
+.multicolumn-section.watercolor li:nth-child(4n+2) .multicolumn__item:after {
+  -webkit-mask-image: url('paint2.svg');
+  mask-image: url('paint2.svg');
+}
+
+.multicolumn-section.watercolor li:nth-child(4n+3) .multicolumn__item:after {
+  -webkit-mask-image: url('paint3.svg');
+  mask-image: url('paint3.svg');
+}
+
+.multicolumn-section.watercolor li:nth-child(4n+4) .multicolumn__item:after {
+  -webkit-mask-image: url('paint4.svg');
+  mask-image: url('paint4.svg');
+}
+
+.multicolumn__img {
+  color: rgb(var(--color-foreground));
+  width: calc(3.4375rem * var(--icon-scale, 1));
+  height: calc(3.4375rem * var(--icon-scale, 1));
+  z-index: 1;
+}
+
+.multicolumn__img svg {
+  stroke: none;
+  fill: currentColor;
+}
+
+.multicolumn__img img,
+.multicolumn__img svg {
+  width: 100%;
+  height: 100%;
+}
+
+.multicolumn__item--center .multicolumn__img {
+  width: auto;
+}
+
+.multicolumn__item--center .multicolumn__img img,
+.multicolumn__item--center .multicolumn__img svg {
+  width: auto;
+  height: 100%;
+}
+
+.multicolumn__text {
+  flex: 1;
+  z-index: 1;
+}
+
+.multicolumn__item:not(.multicolumn__item--center):not(.multicolumn__item--background) .multicolumn__text {
+  flex: 1;
+}
+
+.multicolumn__text--center {
+  text-align: center;
+}
+
+.multicolumn-section h4 {
+  margin-bottom: 0.4375rem;
+}
+
+.multicolumn-section .rte {
+  font-size: calc(0.8125rem * var(--font-section-scale));
+  font-weight: 300;
+}
+
+.multicolumn-section p {
+  margin-bottom: 0;
+  color: inherit;
+}
+
+@media only screen and (max-width: 1024px) {
+  .multicolumn-section ul {
+    column-gap: 30px;
+  }
+
+  .multicolumn__item {
+    gap: 0.8125rem;
+  }
+
+  .multicolumn__img img,
+  .multicolumn__img svg {
+    width: calc(3.125rem * var(--icon-scale, 1));
+    height: calc(3.125rem * var(--icon-scale, 1));
+  }
+
+  .multicolumn-section .rte {
+    font-size: calc(0.75rem * var(--font-section-scale));
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .multicolumn-section ul {
+    display: block;
+  }
+
+  .multicolumn__item {
+    padding: 22px 0;
+  }
+}

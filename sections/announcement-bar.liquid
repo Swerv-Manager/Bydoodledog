@@ -1,0 +1,152 @@
+{%- if section.settings.text != blank -%}
+  {%- assign icon_style = settings.icons_style -%}
+  <announcement-bar
+    data-section-id="{{ section.id }}"
+    class="announcement-bar {{ section.settings.font_type }}{% if section.settings.font_style == 'all_caps' %} uppercase{% endif %}{% unless request.design_mode %} hide{% endunless %}"
+    style="background: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+  >
+    <div class="page-width">
+      <div class="announcement" style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};">
+        {%- if section.settings.link != blank -%}
+          <a href="{{ section.settings.link }}" style="color: {{ section.settings.text_color }};">
+        {%- endif -%}
+        <div class="announcement__text">
+          {{ section.settings.text }}
+        </div>
+        {%- if section.settings.link != blank -%}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.dismiss_button -%}
+          <button
+            type="button"
+            class="announcement__close button--icon modal__close-button link link--text focus-inset"
+            aria-label="{{ 'accessibility.close' | t }}"
+            style="color: {{ section.settings.text_color }};"
+          >
+            <i class="{{ icon_style }} fa-xmark-large" style="--fa-secondary-opacity: 1;"></i>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+  </announcement-bar>
+{%- endif -%}
+
+{% javascript %}
+  class AnnouncementBar extends HTMLElement {
+    constructor() {
+      super();
+      this.sectionId = this.dataset.sectionId;
+      const closeButton = this.querySelector('.announcement__close');
+      const ad = window.sessionStorage.getItem('announcementDismissed');
+
+      if (!ad) {
+        this.classList.remove('hide');
+      }
+
+      if (closeButton) {
+        closeButton.addEventListener('click', this.hideAnnouncement.bind(this));
+      }
+    }
+
+    hideAnnouncement() {
+      window.sessionStorage.setItem('announcementDismissed', true);
+      this.classList.add('announcement-bar--hide');
+
+      setTimeout(() => {
+        this.style.display = 'none';
+      }, 300);
+    }
+  }
+
+  customElements.define('announcement-bar', AnnouncementBar);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "dismiss_button",
+      "label": "t:sections.announcement-bar.settings.dismiss_button.label",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Use this bar for a short, important announcement.</p>",
+      "label": "t:sections.announcement-bar.settings.text.label",
+      "info": "t:sections.announcement-bar.settings.text.info"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.announcement-bar.settings.link.label"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.announcement-bar.settings.background_color.label",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:sections.announcement-bar.settings.text_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "font_type",
+      "label": "t:sections.all.font_type.label",
+      "options": [
+        {
+          "value": "heading-font",
+          "label": "t:sections.all.font_type.heading.label"
+        },
+        {
+          "value": "body-font",
+          "label": "t:sections.all.font_type.body.label"
+        },
+        {
+          "value": "button-font",
+          "label": "t:sections.all.font_type.button.label"
+        },
+        {
+          "value": "accent-font",
+          "label": "t:sections.all.font_type.accent.label"
+        }
+      ],
+      "default": "heading-font"
+    },
+    {
+      "type": "select",
+      "id": "font_style",
+      "label": "t:sections.all.font_style.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.font_style.option__1"
+        },
+        {
+          "value": "all_caps",
+          "label": "t:sections.all.font_style.option__2"
+        }
+      ],
+      "default": "none"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1213 @@
+{% comment %}
+  Renders cart drawer
+
+  Usage:
+  {% render 'cart-drawer' %}
+{% endcomment %}
+
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  .drawer {
+    visibility: hidden;
+  }
+</style>
+
+{% liquid
+  assign free_message = settings.free_message
+  assign media_ratio = settings.image_ratio
+  assign border_gallery = settings.product_gallery_border
+  assign icon_style = settings.icons_style
+  assign product_swatches = settings.product_swatches | downcase | split: ','
+  assign uppercase_product_title = settings.uppercase_product_title
+  assign giftId = linklists['gift-wrapping'].links.first.object.variants.first.id
+
+  assign upsell_product_source = settings.upsell_product_source
+  assign show_upsells = true
+  assign product_metafield_active = false
+  for item in cart.items
+    assign complementary_products = item.product.metafields['shopify--discovery--product_recommendation'].complementary_products
+    if complementary_products
+      assign product_metafield_active = item.product.id
+      break
+    endif
+  endfor
+
+  if upsell_product_source == 'complementary-products' and product_metafield_active == false
+    assign show_upsells = false
+  endif
+
+  assign lite_items = cart.items
+  assign product_upsells_list = settings.product_upsells_list
+  assign active_products = product_upsells_list.count
+  for product_upsell in product_upsells_list
+    assign product_upsell_id = product_upsell.id
+    assign product_added = lite_items | where: 'product_id', product_upsell_id
+    if product_added.size > 0
+      assign active_products = active_products | minus: 1
+    endif
+  endfor
+
+  if upsell_product_source == 'product-list' and active_products == 0
+    assign show_upsells = false
+  endif
+%}
+
+<cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
+  <div id="CartDrawer" class="cart-drawer">
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div
+      class="drawer__inner background-modal{% if settings.show_recommendations and show_upsells == true and cart != empty %} drawer__inner--no-border{% endif %}"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ 'sections.cart.title' | t }}"
+      tabindex="-1"
+    >
+      <div class="drawer__header">
+        <p class="h2 drawer__heading product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+          {{ 'sections.cart.title' | t }}
+          <span class="skeleton-text js-contents" aria-hidden="true">
+            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+          </span>
+        </p>
+        <button
+          class="drawer__close btn btn--style-2 btn-close-modal-text focus-inset"
+          type="button"
+          onclick="this.closest('cart-drawer').close()"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {{ 'accessibility.close' | t }}
+        </button>
+      </div>
+
+      <div class="drawer__inner-empty empty-page-content text-center{% if cart.item_count > 0 %} hide{% endif %}">
+        <p class="cart--empty-message">{{ 'sections.cart.empty' | t }}</p>
+        <div class="cookie-message">
+          <p>{{ 'sections.cart.cookies_required' | t }}</p>
+        </div>
+        <a
+          href="{% if settings.empty_button_link != blank %}{{ settings.empty_button_link }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"
+          class="btn"
+        >
+          {{ 'general.continue_shopping' | t }}
+        </a>
+      </div>
+      {%- if cart != empty and settings.show_shipping_indicator -%}
+        {% liquid
+          assign item_price = 0
+          for item in cart.items
+            if item.requires_shipping
+              assign item_price = item_price | plus: item.final_line_price
+            endif
+          endfor
+
+          assign total_level_discount = 0
+          for level_discount in cart.cart_level_discount_applications
+            assign total_level_discount = total_level_discount | plus: level_discount.total_allocated_amount
+          endfor
+
+          assign total_price = item_price | minus: total_level_discount
+
+          assign free_shipping = settings.shipping_indicator_value
+          assign free_shipping_value = free_shipping | times: 100.0
+        %}
+
+        <cart-free-shipping
+          class="cart__free-shipping"
+          threshold="{{ free_shipping_value }}"
+          total-price="{{ total_price }}"
+          data-unreached-message="{{ 'sections.cart.unreached_message' | t }}"
+          data-reached-message="{{ 'sections.cart.reached_message' | t }}"
+          {% if settings.show_currency_codes %}
+            data-currency-format="{{ shop.money_with_currency_format}}"
+          {% else %}
+            data-currency-format="{{ shop.money_format }}"
+          {% endif %}
+        >
+          <p class="free-shipping__message"></p>
+          <div class="free-shipping-scale main-background">
+            <div class="free-shipping-scale__fill" style="width: 0%"></div>
+          </div>
+        </cart-free-shipping>
+      {%- endif -%}
+
+      <cart-drawer-items
+        {% if cart == empty %}
+          class=" is-empty"
+        {% endif %}
+      >
+        <div class="drawer__contents">
+          <form
+            action="{{ routes.cart_url }}"
+            id="CartDrawer-Form"
+            class="cart__contents cart-drawer__form"
+            method="post"
+          >
+            <div id="CartDrawer-CartItems" class="drawer__contents-items">
+              <div class="js-contents">
+                {%- if cart != empty -%}
+                  <div class="drawer__cart-items-wrapper">
+                    {% liquid
+                      if giftId
+                        assign has_gift_wrapping = cart.items | where: 'id', giftId | first
+                      endif
+                      if cart.items.size == 2 and has_gift_wrapping
+                        assign clear_cart = true
+                      endif
+                    %}
+                    {%- for item in cart.items -%}
+                      <div
+                        id="CartDrawer-Item-{{ item.index | plus: 1 }}"
+                        class="cart__row cart__item"
+                        data-key="{{ item.key }}"
+                        {% if giftId == item.id %}
+                          data-gift-wrapping-id="{{ giftId }}"
+                        {% endif %}
+                        role="row"
+                      >
+                        <div class="cart__row-wrapper">
+                          <div
+                            class="cart__image-wrapper{% if border_gallery %} product__gallery--border{% endif %}"
+                            role="cell"
+                          >
+                            {% liquid
+                              assign featured_media_aspect_ratio = item.image.aspect_ratio
+
+                              if item.image.aspect_ratio == null
+                                assign featured_media_aspect_ratio = 1
+                              endif
+                            %}
+                            <div
+                              class="cart__image-box media--{{ media_ratio }}{% if item.image %} media{% endif %}"
+                              {% if media_ratio == 'adapt' %}
+                                style="padding-top: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+                              {% endif %}
+                            >
+                              {% if item.image %}
+                                <img
+                                  class="cart__image lazyload"
+                                  src="{{ item.image | image_url: width: 190 }}"
+                                  alt="{{ item.image.alt | escape }}"
+                                  loading="lazy"
+                                  width="80"
+                                  height="{{ 80 | divided_by: item.image.aspect_ratio | ceil }}"
+                                >
+                              {% else %}
+                                <span class="h4">{{ 'general.image_coming' | t }}</span>
+                              {% endif %}
+                            </div>
+                          </div>
+
+                          <div class="cart-item__details cart__meta load-skeleton" role="cell">
+                            <div class="cart__product-information">
+                              <div class="cart__information-td">
+                                <div class="list-view-item__title">
+                                  {% if giftId == item.id %}
+                                    <div
+                                      class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
+                                    >
+                                  {% else %}
+                                    <a
+                                      href="{{ item.url }}"
+                                      class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
+                                    >
+                                  {% endif %}
+                                  {{- item.product.title | escape -}}
+                                  {% if giftId == item.id %}
+                                    </div>
+                                  {% else %}
+                                    </a>
+                                  {% endif %}
+                                  {% if item.selling_plan_allocation != null %}
+                                    <p class="product-option product-option--plan">
+                                      <i class="icon {{ icon_style }} fa-arrows-rotate"></i>
+                                      {{ item.selling_plan_allocation.selling_plan.name }}
+                                    </p>
+                                  {% endif %}
+                                  {%- if item.gift_card -%}
+                                    <p class="product-option">{{ shop.name }}</p>
+                                  {%- endif -%}
+                                </div>
+                                <div class="cart__final-price text-right">
+                                  {% if item.final_price == 0 and free_message %}
+                                    <span class="price--free">{{ 'sections.cart.free' | t }}</span>
+                                  {% else %}
+                                    <div class="skeleton-text">
+                                      {% liquid
+                                        if settings.show_currency_codes
+                                          assign original_line_price = item.original_line_price | money_with_currency
+                                          assign final_line_price = item.final_line_price | money_with_currency
+                                        else
+                                          assign original_line_price = item.original_line_price | money
+                                          assign final_line_price = item.final_line_price | money
+                                        endif
+                                      %}
+                                      {%- if item.original_line_price != item.final_line_price -%}
+                                        <div class="cart-item__discounted-prices">
+                                          <span class="visually-hidden">
+                                            {{ 'products.product.price.regular_price' | t }}
+                                          </span>
+                                          <s class="cart-item__old-price">
+                                            {{- original_line_price -}}
+                                          </s>
+                                          <span class="visually-hidden">
+                                            {{ 'products.product.price.sale_price' | t }}
+                                          </span>
+                                          <strong class="cart-item__final-price">
+                                            {{- final_line_price -}}
+                                          </strong>
+                                        </div>
+                                      {%- else -%}
+                                        <div>
+                                          {{ original_line_price }}
+                                        </div>
+                                      {%- endif -%}
+                                      <small class="unit-price caption{% if item.unit_price_measurement == nil %} hide{% endif %}">
+                                        <dt class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</dt>
+                                        <dd class="price__last">
+                                          <span>
+                                            {% if settings.show_currency_codes %}
+                                              {{- item.unit_price | money_with_currency -}}
+                                            {% else %}
+                                              {{- item.unit_price | money -}}
+                                            {% endif %}
+                                          </span>
+                                          <span aria-hidden="true">/</span>
+                                          <span class="visually-hidden"
+                                            >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
+                                          >
+                                          <span>
+                                            {%- if item.unit_price_measurement.reference_value != 1 -%}
+                                              {{- item.unit_price_measurement.reference_value -}}
+                                            {%- endif -%}
+                                            {{ item.unit_price_measurement.reference_unit }}
+                                          </span>
+                                        </dd>
+                                      </small>
+                                    </div>
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="cart__information-td cart__information--bottom">
+                                {%- if item.product.has_only_default_variant == false or item.properties.size != 0 -%}
+                                  <ul
+                                    class="cart__product-details"
+                                    aria-label="{{ 'sections.cart.product_details' | t }}"
+                                  >
+                                    {%- if item.gift_card -%}
+                                      <li></li>
+                                    {%- else -%}
+                                      {%- if item.product.has_only_default_variant == false -%}
+                                        {%- for option in item.options_with_values -%}
+                                          <li class="product-details__item product-details__item--variant-option">
+                                            {% liquid
+                                              assign option_name = option.name | downcase | strip
+                                              assign option_swatch = product_swatches | where: option_name
+                                              assign option_value = option.value | downcase | strip
+                                            %}
+                                            {%- if option_value != 'no' -%}
+                                              {%- if option_value == 'yes' -%}
+                                                <span>{{ option.name }}</span>
+                                              {%- else -%}
+                                                <span>{{ option.name }}: {{ option.value }}</span>
+                                                {%- if option_swatch.size > 0 -%}
+                                                  {%- render 'color-swatch', color: option.value -%}
+                                                {%- endif -%}
+                                              {%- endif -%}
+                                            {%- endif -%}
+                                          </li>
+                                        {%- endfor -%}
+                                      {%- endif -%}
+                                    {%- endif -%}
+
+                                    {%- for p in item.properties -%}
+                                      {%- assign property_first_char = p.first | slice: 0 -%}
+                                      {% assign p_value = p.last | downcase | strip %}
+                                      {%- if p.last != blank and p_value != 'false' and property_first_char != '_' -%}
+                                        <li
+                                          class="product-details__item product-details__item--property"
+                                          data-cart-item-property
+                                        >
+                                          {% assign hide_label = false %}
+                                          {% if p.first == 'Recipient email'
+                                            or p.first == 'Recipient name'
+                                            or p.first == 'Message'
+                                          %}
+                                            {% assign hide_label = true %}
+                                          {% endif %}
+                                          <span
+                                            class="product-details__item-label{% if hide_label %} hide{% endif %}"
+                                            data-cart-item-property-name
+                                          >
+                                            {{- p.first -}}
+                                            {%- if p_value != 'true' %}:{% endif %}
+                                          </span>
+
+                                          {% if p_value != 'true' %}
+                                            <span data-cart-item-property-value>
+                                              {%- if p.last contains '/uploads/' -%}
+                                                <a href="{{ p.last }}">{{ 'sections.cart.file' | t }}</a>
+                                              {%- else -%}
+                                                {{ p.last }}
+                                              {%- endif -%}
+                                            </span>
+                                          {% endif %}
+                                        </li>
+                                      {%- endif -%}
+                                    {%- endfor -%}
+                                    {%- for discount in item.discounts -%}
+                                      <li class="product-details__item product-details__item--property discounts__discount">
+                                        <i
+                                          class="icon-saletag {{ icon_style }} fa-tag"
+                                          style="--fa-secondary-opacity: 1;"
+                                        ></i>
+                                        <span>{{ discount.title }}</span>
+                                      </li>
+                                    {%- endfor -%}
+                                  </ul>
+                                {%- else -%}
+                                  <div class="cart__product-details"></div>
+                                {%- endif -%}
+
+                                <div class="cart__quantity text-right{% if giftId == item.id %} hidden{% endif %}">
+                                  <div class="cart__qty">
+                                    <div class="qtydiv">
+                                      <quantity-input class="quantity">
+                                        <cart-remove-button
+                                          class="quantity__button qtyremove no-js-hidden{% if item.quantity > 1 %} hide{% endif %}"
+                                          id="Remove-{{ item.index | plus: 1 }}"
+                                          data-index="{{ item.index | plus: 1 }}"
+                                          {% if clear_cart %}
+                                            data-clear="true"
+                                          {% endif %}
+                                        >
+                                          <a
+                                            href="{{ item.url_to_remove }}"
+                                            class="btn--link"
+                                            aria-label="{{ 'sections.cart.remove_product' | t: product: item.title }}"
+                                          >
+                                            <i class="icon {{ icon_style }} fa-trash-can"></i>
+                                          </a>
+                                        </cart-remove-button>
+                                        <button
+                                          class="quantity__button no-js-hidden qtyminus"
+                                          name="minus"
+                                          type="button"
+                                        >
+                                          <span class="visually-hidden">
+                                            {{-
+                                              'products.product.quantity.decrease'
+                                              | t: product: item.product.title
+                                              | escape
+                                            -}}
+                                          </span>
+                                          <i
+                                            class="icon icon-minus {{ icon_style }} fa-minus"
+                                            style="--fa-secondary-opacity: 1;"
+                                          ></i>
+                                        </button>
+                                        <input
+                                          class="quantity__input no-js-hidden"
+                                          type="number"
+                                          name="updates[]"
+                                          value="{{ item.quantity }}"
+                                          min="0"
+                                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                          id="Quantity-{{ item.index | plus: 1 }}"
+                                          data-index="{{ item.index | plus: 1 }}"
+                                        >
+                                        <button class="quantity__button no-js-hidden qtyplus" name="plus" type="button">
+                                          <span class="visually-hidden">
+                                            {{-
+                                              'products.product.quantity.increase'
+                                              | t: product: item.product.title
+                                              | escape
+                                            -}}
+                                          </span>
+                                          <i
+                                            class="icon icon-plus {{ icon_style }} fa-plus"
+                                            style="--fa-secondary-opacity: 1;"
+                                          ></i>
+                                        </button>
+                                        <noscript>
+                                          <div class="select select-cart-quantity select--no-background">
+                                            <cart-remove-button
+                                              class="quantity__button qtyremove"
+                                              id="Remove-{{ item.index | plus: 1 }}"
+                                              data-index="{{ item.index | plus: 1 }}"
+                                            >
+                                              <a
+                                                href="{{ item.url_to_remove }}"
+                                                class="btn--link"
+                                                aria-label="{{ 'sections.cart.remove_product' | t: title: item.title }}"
+                                              >
+                                                {% render 'icon-trash-can' %}
+                                              </a>
+                                            </cart-remove-button>
+                                            <select
+                                              class="select__select"
+                                              name="updates[]"
+                                              id="Quantity-{{ item.index | plus: 1 }}"
+                                              aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                              value="{{ item.quantity }}"
+                                            >
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">9</option>
+                                              <option value="10">10</option>
+                                            </select>
+                                            {% render 'icon-chevron-down' %}
+                                          </div>
+                                        </noscript>
+                                      </quantity-input>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="cart__error-wrapper cart__error-wrapper--item cart__error-wrapper--item--hide cart-item__error text-right fade-transition"
+                                id="CartDrawer-LineItemError-{{ item.index | plus: 1 }}"
+                                role="alert"
+                              >
+                                <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                                <span class="cart__error-text"></span>
+                                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                              </div>
+                            </div>
+                            {% render 'skeleton-text-view',
+                              skeleton_layout: 'cart-item',
+                              skeleton_class: 'skeleton-view--cart'
+                            %}
+                          </div>
+                        </div>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+                <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+                <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
+                  {{ 'accessibility.loading' | t }}
+                </p>
+              </div>
+            </div>
+            <div id="CartDrawer-CartErrors" role="alert"></div>
+          </form>
+
+          {% if settings.show_recommendations and cart != empty %}
+            <div
+              class="cart-drawer-recommendations{% unless show_upsells %} close{% endunless %}"
+              data-upsells-source="{{ upsell_product_source }}"
+            >
+              <p class="h4 product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+                {%- if upsell_product_source == 'complementary-products' -%}
+                  {{ 'sections.cart.pairs_well' | t }}
+                {%- else -%}
+                  {{ 'sections.cart.also_like' | t }}
+                {%- endif -%}
+              </p>
+              <div class="cart-drawer-recommendations__inner">
+                {%- case upsell_product_source -%}
+                  {%- when 'related-products', 'complementary-products' -%}
+                    {%- capture upsells_url -%}
+                      {%- if upsell_product_source == 'complementary-products' -%}
+                        {% assign complementary = true %}
+                        {{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product_metafield_active }}&limit={{ settings.upsells_size | plus: 1 }}&intent=complementary
+                      {%- else -%}
+                        {{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ cart.items.first.product_id }}&limit={{ settings.upsells_size | plus: 1 }}"
+                      {%- endif -%}
+                    {%- endcapture -%}
+                    <cart-recommendations
+                      class="no-js-hidden{% if complementary %} complementary-products{% else %} product-recommendations{% endif %}"
+                      data-url="{{ upsells_url }}"
+                    >
+                      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                        <div class="cart-drawer-recommendations__list disable-list">
+                          {%- assign index = 0 -%}
+                          {%- for recommendation in recommendations.products -%}
+                            {% liquid
+                              if giftId == recommendation.variants.first.id
+                                continue
+                              endif
+                              assign index = index | plus: 1
+                              if index > settings.upsells_size
+                                break
+                              endif
+                            %}
+                            <product-item class="cart__row" role="row">
+                              <div class="cart__row-wrapper">
+                                <div class="cart__image-wrapper{% if border_gallery %} product__gallery--border{% endif %}">
+                                  {% liquid
+                                    assign featured_media_aspect_ratio = recommendation.featured_media.aspect_ratio
+
+                                    if recommendation.featured_media.aspect_ratio == null
+                                      assign featured_media_aspect_ratio = 1
+                                    endif
+                                  %}
+                                  <div
+                                    class="cart__image-box media--{{ media_ratio }}{% if recommendation.featured_media %} media{% endif %}"
+                                    {% if media_ratio == 'adapt' %}
+                                      style="padding-top: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+                                    {% endif %}
+                                  >
+                                    {% if recommendation.featured_media %}
+                                      <img
+                                        class="cart__image lazyload"
+                                        src="{{ recommendation.featured_media | image_url: width: 190 }}"
+                                        alt="{{ recommendation.featured_media.alt | escape }}"
+                                        loading="lazy"
+                                        width="80"
+                                        height="{{ 80 | divided_by: recommendation.featured_media.aspect_ratio | ceil }}"
+                                      >
+                                    {% else %}
+                                      <span class="h4">{{ 'general.image_coming' | t }}</span>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                                <div class="cart__meta load-skeleton">
+                                  <div class="cart__product-information">
+                                    <div class="cart__product-information__top">
+                                      <div class="list-view-item__title">
+                                        <a
+                                          href="{{ recommendation.url }}"
+                                          class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
+                                        >
+                                          {{- recommendation.title | escape -}}
+                                        </a>
+                                      </div>
+                                      <div class="product-recommendations__price">
+                                        {% render 'price', product: recommendation, price_class: 'price--listing' %}
+                                      </div>
+                                    </div>
+
+                                    {% if recommendation.has_only_default_variant %}
+                                      {% liquid
+                                        assign hide_buy_buttons = false
+                                        if recommendation.metafields.theme.customization_picker.value == true
+                                          assign hide_buy_buttons = true
+                                        endif
+                                      %}
+                                      {% if hide_buy_buttons %}
+                                        <div class="quick-add__submit">
+                                          <a
+                                            class="btn btn--secondary btn--xs-small"
+                                            href="{{ product.url | within: collection }}"
+                                          >
+                                            <span>{{ 'products.product.customize_it' | t }}</span
+                                            ><i class="btn__icon {{ icon_style }} fa-arrow-right"></i>
+                                          </a>
+                                        </div>
+                                      {% else %}
+                                        {%- assign cart_form_id = 'product_form_mini-cart__'
+                                          | append: recommendation.id
+                                        -%}
+                                        {%- form 'product',
+                                          recommendation,
+                                          id: cart_form_id,
+                                          novalidate: 'novalidate',
+                                          data-type: 'add-to-cart-form',
+                                          data-product-form: ''
+                                        -%}
+                                          <input
+                                            type="hidden"
+                                            name="id"
+                                            value="{{ recommendation.selected_or_first_available_variant.id }}"
+                                          >
+                                          <input type="hidden" name="quantity" value="1">
+                                          <button type="submit" class="btn btn--secondary btn--xs-small">
+                                            <span class="cart__note__btn-text">
+                                              {{- 'products.product.add_to_cart' | t }}
+                                              <i class="btn__icon {{ icon_style }} fa-arrow-right"></i
+                                            ></span>
+                                            <span class="btn__loader" data-loader>
+                                              <div class="loader-bounce">
+                                                <div class="bounce1"></div>
+                                                <div class="bounce2"></div>
+                                                <div class="bounce3"></div>
+                                              </div>
+                                            </span>
+                                          </button>
+                                        {%- endform -%}
+                                      {% endif %}
+                                    {% else %}
+                                      <a
+                                        href="{{ recommendation.url }}"
+                                        class="btn btn--secondary btn--xs-small"
+                                        type="button"
+                                        ><span>{{ 'products.product.select_options' | t }}</span
+                                        ><i class="btn__icon {{ icon_style }} fa-arrow-right"></i
+                                      ></a>
+                                    {% endif %}
+                                  </div>
+                                  {% render 'skeleton-text-view',
+                                    skeleton_layout: 'upsell-item',
+                                    skeleton_class: 'skeleton-view--cart'
+                                  %}
+                                </div>
+                              </div>
+                            </product-item>
+                          {%- endfor -%}
+                        </div>
+                      {%- else -%}
+                        <div class="cart-drawer-recommendations__loader">
+                          <div class="loader-bounce">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                          </div>
+                        </div>
+                      {%- endif -%}
+                    </cart-recommendations>
+                  {% else %}
+                    <div class="cart-drawer-recommendations__list">
+                      {% assign index = 0 %}
+                      {% for product_upsell in product_upsells_list %}
+                        {% liquid
+                          assign product_upsell_id = product_upsell.id
+                          assign product_added = lite_items | where: 'product_id', product_upsell_id
+                          if product_added.size > 0
+                            continue
+                          endif
+                          if index == settings.upsells_size
+                            break
+                          endif
+                        %}
+                        {% assign index = index | plus: 1 %}
+                        <product-item class="cart__row" role="row">
+                          <div class="cart__row-wrapper">
+                            <div class="cart__image-wrapper{% if border_gallery %} product__gallery--border{% endif %}">
+                              {% liquid
+                                assign featured_media_aspect_ratio = product_upsell.featured_media.aspect_ratio
+
+                                if product_upsell.featured_media.aspect_ratio == null
+                                  assign featured_media_aspect_ratio = 1
+                                endif
+                              %}
+                              <div
+                                class="cart__image-box media--{{ media_ratio }}{% if product_upsell.featured_media %} media{% endif %}"
+                                {% if media_ratio == 'adapt' %}
+                                  style="padding-top: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+                                {% endif %}
+                              >
+                                {% if product_upsell.featured_media %}
+                                  <img
+                                    class="cart__image lazyload"
+                                    src="{{ product_upsell.featured_media | image_url: width: 190 }}"
+                                    alt="{{ product_upsell.featured_media.alt | escape }}"
+                                    loading="lazy"
+                                    width="80"
+                                    height="{{ 80 | divided_by: product_upsell.featured_media.aspect_ratio | ceil }}"
+                                  >
+                                {% else %}
+                                  <span class="h4">{{ 'general.image_coming' | t }}</span>
+                                {% endif %}
+                              </div>
+                            </div>
+                            <div class="cart__product-information">
+                              <div class="cart__product-information__top">
+                                <div class="list-view-item__title">
+                                  <a
+                                    href="{{ product_upsell.url }}"
+                                    class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
+                                  >
+                                    {{- product_upsell.title | escape -}}
+                                  </a>
+                                </div>
+                                <div class="product-recommendations__price">
+                                  {% render 'price', product: product_upsell, price_class: 'price--listing' %}
+                                </div>
+                              </div>
+
+                              {% if product_upsell.has_only_default_variant %}
+                                {% liquid
+                                  assign hide_buy_buttons = false
+                                  if product_upsell.metafields.theme.customization_picker.value == true
+                                    assign hide_buy_buttons = true
+                                  endif
+                                %}
+                                {% if hide_buy_buttons %}
+                                  <div class="quick-add__submit">
+                                    <a
+                                      class="btn btn--secondary btn--xs-small"
+                                      href="{{ product.url | within: collection }}"
+                                    >
+                                      <span>{{ 'products.product.customize_it' | t }}</span
+                                      ><i class="btn__icon {{ icon_style }} fa-arrow-right"></i>
+                                    </a>
+                                  </div>
+                                {% else %}
+                                  {%- assign cart_form_id = 'product_form_mini-cart__' | append: product_upsell.id -%}
+                                  {%- form 'product',
+                                    product_upsell,
+                                    id: cart_form_id,
+                                    novalidate: 'novalidate',
+                                    data-type: 'add-to-cart-form',
+                                    data-product-form: ''
+                                  -%}
+                                    <input
+                                      type="hidden"
+                                      name="id"
+                                      value="{{ product_upsell.selected_or_first_available_variant.id }}"
+                                    >
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn--secondary btn--xs-small">
+                                      <span class="cart__note__btn-text">
+                                        {{- 'products.product.add_to_cart' | t }}
+                                        <i class="btn__icon {{ icon_style }} fa-arrow-right"></i
+                                      ></span>
+                                      <span class="btn__loader" data-loader>
+                                        <div class="loader-bounce">
+                                          <div class="bounce1"></div>
+                                          <div class="bounce2"></div>
+                                          <div class="bounce3"></div>
+                                        </div>
+                                      </span>
+                                    </button>
+                                  {%- endform -%}
+                                {% endif %}
+                              {% else %}
+                                <a
+                                  href="{{ product_upsell.url }}"
+                                  class="btn btn--secondary btn--xs-small"
+                                  type="button"
+                                  ><span>{{ 'products.product.select_options' | t }}</span>
+                                  <i class="btn__icon {{ icon_style }} fa-arrow-right"></i
+                                ></a>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </product-item>
+                      {% endfor %}
+                    </div>
+                {%- endcase -%}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </cart-drawer-items>
+
+      <div class="drawer__footer">
+        {% if settings.show_gift_wrapping
+          and linklists['gift-wrapping'].links.size > 0
+          and linklists['gift-wrapping'].links.first.type == 'product_link'
+        %}
+          <cart-gift-wrapping class="cart__footer-gift cart-gift-wrapping" data-gift-id="{{ giftId }}">
+            <input
+              id="gift-wrapping"
+              type="checkbox"
+              name="attributes[gift-wrapping]"
+              value="yes"
+              {% if cart.attributes['gift-wrapping'] %}
+                checked="checked"
+              {% endif %}
+            >
+            <label for="gift-wrapping">
+              <span class="input-check-mark">
+                <i class="icon-check {{ icon_style }} fa-check"></i>
+              </span>
+              {% if settings.show_currency_codes %}
+                {% assign wrap_price = linklists['gift-wrapping'].links.first.object.price | money_with_currency %}
+              {% else %}
+                {% assign wrap_price = linklists['gift-wrapping'].links.first.object.price | money %}
+              {% endif %}
+              {% if linklists['gift-wrapping'].links.first.object.price > 0 %}
+                {{ 'sections.cart.gift_wrapping_html' | t: wrap_price: wrap_price }}
+              {% else %}
+                {{ 'sections.cart.complementary_gift_wrapping' | t }}
+              {% endif %}
+            </label>
+            <div class="cart-gift-wrapping__help">
+              {% if settings.wrapping_tooltip != blank %}
+                <div class="cart-gift-wrapping__help-tooltip">
+                  <i class="{{ icon_style }} fa-circle-question"></i>
+                  <div class="cart-gift-wrapping__help-tooltip-text alt-background">
+                    <span>{{ settings.wrapping_tooltip }}</span>
+                  </div>
+                </div>
+              {% endif %}
+              <span class="cart-gift-wrapping__help-spiner"
+                ><i class="{{ icon_style }} fa-spinner-third fa-spin"></i
+              ></span>
+            </div>
+          </cart-gift-wrapping>
+        {%- endif -%}
+
+        <cart-footer-modal>
+          <div class="cart__footer-notes main-background product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+            {% if settings.show_gift_note %}
+              <button
+                type="button"
+                aria-label="{{ 'sections.cart.open_gift_note' | t }}"
+                onclick="this.closest('cart-footer-modal').openFooterModal('gift-note')"
+              >
+                <i class="icon {{ icon_style }} fa-gift"></i>
+                <span>{{ 'sections.cart.gift_note' | t }}</span>
+              </button>
+            {%- endif -%}
+            {%- if settings.show_cart_note -%}
+              <button
+                type="button"
+                aria-label="{{ 'sections.cart.open_order_note' | t }}"
+                onclick="this.closest('cart-footer-modal').openFooterModal('cart-note')"
+              >
+                <i class="icon {{ icon_style }} fa-file-pen"></i>
+                <span>{{ 'sections.cart.order_note' | t }}</span>
+              </button>
+            {%- endif -%}
+            {%- if settings.show_calculate_shipping -%}
+              <button
+                type="button"
+                aria-label="{{ 'sections.cart.open_calculate_shipping' | t }}"
+                onclick="this.closest('cart-footer-modal').openFooterModal('shipping')"
+              >
+                <i class="icon {{ icon_style }} fa-truck-fast"></i>
+                <span>{{ 'sections.cart.calculate_shipping' | t }}</span>
+              </button>
+            {%- endif -%}
+          </div>
+
+          <div class="cart__footer-modal drawer__footer-modal">
+            <cart-note class="cart__footer-modal__content cart__footer-modal__cart-note hidden">
+              <div class="cart__note field field-wrapper">
+                <textarea
+                  class="text-area text-area--resize-vertical field__input"
+                  name="note"
+                  id="Cart-note"
+                  placeholder="{{ 'sections.cart.note' | t }}"
+                >{{ cart.note }}</textarea>
+                <label for="Cart-note">
+                  <span class="field-wrapper__label-name">{{ 'sections.cart.order_instructions' | t }}</span>
+                </label>
+              </div>
+              <div class="input-group__btn">
+                <button
+                  type="button"
+                  class="btn btn--secondary btn--small"
+                  aria-label="{{ 'sections.cart.close_order_note' | t }}"
+                  onclick="this.closest('cart-footer-modal').closeFooterModal('cart-note')"
+                >
+                  {{ 'accessibility.close' | t }}
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn--small cart__note__btn"
+                  aria-label="{{ 'sections.cart.save_order_note' | t }}"
+                >
+                  <span class="cart__note__btn-text">{{ 'accessibility.save' | t }}</span>
+                  <span class="btn__loader" data-loader>
+                    <div class="loader-bounce">
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+                    </div>
+                  </span>
+                  <span class="cart__note__btn-succes-message">
+                    {%- render 'icon-check' -%}
+                    {{- 'accessibility.saved' | t -}}
+                  </span>
+                </button>
+              </div>
+            </cart-note>
+
+            {% if settings.show_gift_note %}
+              <cart-gift-note class="cart__footer-modal__content cart__footer-modal__gift-note hidden">
+                <div class="cart__note field field-wrapper">
+                  <textarea
+                    class="text-area text-area--resize-vertical field__input"
+                    name="attributes[gift-note]"
+                    id="gift-note"
+                    {% if settings.maximun_gift_note != blank %}
+                      maxlength="{{ settings.maximun_gift_note }}"
+                    {% endif %}
+                    placeholder="{{ 'sections.cart.note' | t }}"
+                  >{{ cart.attributes.gift-note }}</textarea>
+                  <label for="gift-note">
+                    <span class="field-wrapper__label-name">{{ 'sections.cart.gift_note' | t }}</span>
+                  </label>
+                </div>
+                {% if settings.maximun_gift_note != blank %}
+                  <p class="requirement-form">
+                    <span class="gift-note__count">{{ settings.maximun_gift_note }}</span>/
+                    {{- settings.maximun_gift_note }}
+                    {{ 'general.form_errors.characters_remaining' | t }}
+                  </p>
+                {% endif %}
+                <div class="input-group__btn">
+                  <button
+                    type="button"
+                    class="btn btn--secondary btn--small"
+                    data-id="{{ giftId }}"
+                    aria-label="{{ 'sections.cart.close_gift_note' | t }}"
+                    onclick="this.closest('cart-footer-modal').closeFooterModal('gift-note')"
+                  >
+                    {{ 'accessibility.close' | t }}
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn--small cart__note__btn"
+                    aria-label="{{ 'sections.cart.save_gift_note' | t }}"
+                  >
+                    <span class="cart__note__btn-text">{{ 'accessibility.save' | t }}</span>
+                    <span class="btn__loader" data-loader>
+                      <div class="loader-bounce">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                      </div>
+                    </span>
+                    <span class="cart__note__btn-succes-message">
+                      {%- render 'icon-check' -%}
+                      {{- 'accessibility.saved' | t -}}
+                    </span>
+                  </button>
+                </div>
+              </cart-gift-note>
+            {% endif %}
+
+            <cart-shipping-calculator
+              class="cart__footer-modal__content cart__footer-modal__shipping hidden"
+              data-currency-format="{{ shop.money_format }}"
+            >
+              <p class="h5 product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+                {{ 'sections.cart.estimate_shipping' | t }}
+              </p>
+              <form action="/cart" method="post" class="modal__shipping-form">
+                <div class="modal__shipping-form__content">
+                  <div class="modal__shipping-content cart-calculate-shipping active">
+                    <div class="field-wrapper">
+                      <div class="select select--light">
+                        <select
+                          id="CartDrawerCountry"
+                          name="country"
+                          autocomplete="country"
+                          aria-required="true"
+                        >
+                          {{ all_country_option_tags }}
+                        </select>
+                        <label class="field-wrapper__label select-label" for="CartDrawerCountry"
+                          ><span class="field-wrapper__label-name">{{ 'customer.addresses.country' | t }}</span></label
+                        >
+                        <i
+                          class="icon icon-chevron-down {{ icon_style }} fa-chevron-down"
+                          style="--fa-secondary-opacity: 1;"
+                        ></i>
+                        <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                          <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                        </span>
+                      </div>
+                      <span class="input-error-message hide">
+                        <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                        <span class="input-error-message__text">{{ 'general.form_errors.country_required' | t }}</span>
+                      </span>
+                    </div>
+                    <div id="CartDrawerAddressProvinceContainer" style="display: none">
+                      <div class="field-wrapper">
+                        <div class="select select--light">
+                          <select
+                            id="CartDrawerProvince"
+                            name="province"
+                            autocomplete="address-level1"
+                          ></select>
+                          <label class="field-wrapper__label select-label" for="CartDrawerProvince"
+                            ><span class="field-wrapper__label-name">
+                              {{- 'customer.addresses.province' | t -}}
+                            </span></label
+                          >
+                          <i
+                            class="icon icon-chevron-down {{ icon_style }} fa-chevron-down"
+                            style="--fa-secondary-opacity: 1;"
+                          ></i>
+                          <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                            <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                          </span>
+                        </div>
+                        <span class="input-error-message hide">
+                          <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                          <span class="input-error-message__text"></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        id="CartDrawerZip"
+                        name="zip"
+                        autocapitalize="characters"
+                        autocomplete="postal-code"
+                        placeholder="{{ 'customer.addresses.zip' | t }}"
+                        class="field-wrapper__input"
+                      >
+                      <label class="field-wrapper__label" for="CartDrawerZip"
+                        ><span class="field-wrapper__label-name">{{ 'customer.addresses.zip' | t }}</span></label
+                      >
+                      <span class="field-wrapper__icon-error hide" aria-invalid="true">
+                        <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                      </span>
+                    </div>
+                    <span class="input-error-message hide">
+                      <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+                      <span class="input-error-message__text"></span>
+                    </span>
+                  </div>
+
+                  <div class="modal__shipping-content cart-shipping-rates" style="display: none;"></div>
+                </div>
+
+                <div class="modal__shipping-form__buttons">
+                  <div class="calculate-shipping__message hide">
+                    <p>
+                      <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+                      <span class="calculate-shipping__message-text">{{ 'sections.cart.error_shipping' | t }}</span>
+                    </p>
+                  </div>
+                  <div class="input-group__btn">
+                    <button
+                      type="button"
+                      class="btn btn--secondary btn--small"
+                      aria-label="Close gift note"
+                      onclick="this.closest('cart-footer-modal').closeFooterModal()"
+                    >
+                      {{ 'accessibility.close' | t }}
+                    </button>
+                    <div class="modal__shipping-form__calculate-content">
+                      <button type="submit" class="btn btn--small cart__note__btn" aria-label="Save gift note">
+                        <span class="cart__note__btn-text">{{ 'sections.cart.calculate' | t }}</span>
+                        <span class="btn__loader" data-loader>
+                          <div class="loader-bounce">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                          </div>
+                        </span>
+                        <span class="cart__note__btn-succes-message"
+                          ><i class="{{ icon_style }} fa-arrows-rotate"></i> {{ 'sections.cart.recalculate' | t -}}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn--small btn--icon cart__recalculate-btn"
+                        aria-label="Recalcuate"
+                      >
+                        <i class="{{ icon_style }} fa-arrows-rotate"></i> {{ 'sections.cart.recalculate' | t }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </cart-shipping-calculator>
+          </div>
+        </cart-footer-modal>
+
+        <!-- Start blocks -->
+        <!-- Subtotals -->
+
+        <div class="cart-drawer__footer-info">
+          <div class="cart-drawer__footer js-contents" {{ block.shopify_attributes }}>
+            <ul
+              class="cart-savings{% if cart.cart_level_discount_applications.size == 0 %} hide{% endif %}"
+              role="list"
+              aria-label="{{ 'customer.order.discount' | t }}"
+            >
+              {%- for discount in cart.cart_level_discount_applications -%}
+                <li class="order-discount-card-wrapper">
+                  <span class="order-discount">
+                    <i class="icon-saletag {{ icon_style }} fa-tag" style="--fa-secondary-opacity: 1;"></i
+                    ><span>{{- discount.title -}}</span>
+                  </span>
+                  <span class="order-discount txt--number text-right skeleton-text">
+                    {% if settings.show_currency_codes %}
+                      ({{ discount.total_allocated_amount | money_with_currency }})
+                    {% else %}
+                      ({{ discount.total_allocated_amount | money }})
+                    {% endif %}
+                  </span>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+            <div class="cart__totals" role="status">
+              <p class="h2 cart__totals__subtotal">{{ 'sections.cart.estimated_total' | t }}</p>
+              <p class="cart__totals__subtotal-value skeleton-text">
+                {% if settings.show_currency_codes %}
+                  {{ cart.total_price | money_with_currency }}
+                {% else %}
+                  {{ cart.total_price | money }}
+                {% endif %}
+              </p>
+            </div>
+
+            <div class="cart__taxes caption rte">
+              {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- elsif cart.taxes_included -%}
+                {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+              {%- elsif shop.shipping_policy.body != blank -%}
+                {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+              {%- else -%}
+                {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+              {%- endif -%}
+            </div>
+          </div>
+
+          <!-- CTAs -->
+
+          <div class="cart__ctas" {{ block.shopify_attributes }}>
+            <noscript>
+              <button type="submit" class="cart__update-button button button--secondary" form="CartDrawer-Form">
+                {{ 'sections.cart.update' | t }}
+              </button>
+            </noscript>
+
+            <button
+              type="submit"
+              id="CartDrawer-Checkout"
+              class="cart__submit btn btn--from"
+              name="checkout"
+              form="CartDrawer-Form"
+              {% if cart == empty %}
+                disabled
+              {% endif %}
+            >
+              {{ 'sections.cart.checkout' | t }}
+            </button>
+            <div class="cart-drawer__general-error hide-general-error" role="alert" id="cart-drawer-errors">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+              <div class="cart-drawer__general-error__text">
+                <span class="cart__error-text"></span>
+                <i class="icon icon-error {{ icon_style }} fa-circle-exclamation"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</cart-drawer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function isIE() {
+      const ua = window.navigator.userAgent;
+      const msie = ua.indexOf('MSIE ');
+      const trident = ua.indexOf('Trident/');
+
+      return msie > 0 || trident > 0;
+    }
+
+    if (!isIE()) return;
+    const cartSubmitInput = document.createElement('input');
+    cartSubmitInput.setAttribute('name', 'checkout');
+    cartSubmitInput.setAttribute('type', 'hidden');
+    document.querySelector('#cart').appendChild(cartSubmitInput);
+    document.querySelector('#checkout').addEventListener('click', function (event) {
+      document.querySelector('#cart').submit();
+    });
+  });
+</script>

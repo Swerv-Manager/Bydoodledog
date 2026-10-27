@@ -1,0 +1,74 @@
+{% comment %}
+    Renders search field home
+    color_scheme: {String} color scheme of the component
+
+    Usage:
+    {% render 'search-home-field' %}
+{% endcomment %}
+
+<div id="search-home-field" class="search-home {{ settings.home_search_background }}">
+  {% assign icon_style = settings.icons_style %}
+  <template-search-form class="search-home__content page-width">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+      <div class="search-form__input-wrapper">
+        <input class="search__input field__input"
+          id="Search-In-Template"
+          type="search"
+          name="q"
+          value=""
+          placeholder="{{ 'general.search.search' | t }}"
+          {%- if settings.predictive_search_enabled -%}
+            role="combobox"
+            aria-expanded="false"
+            aria-owns="predictive-search-results-list"
+            aria-controls="predictive-search-results-list"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            autocorrect="off"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+          {%- endif -%}
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="button" class="modal__close-button link link--text focus-inset fadeout-transition" aria-label="{{ 'accessibility.close' | t }}">
+          {{ 'templates.search.clear' | t }}
+        </button>
+        <button class="search__button field__button button--icon" aria-label="{{ 'general.search.search' | t }}">
+          <i class="icon icon-search {{ icon_style }} fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </form>
+  </template-search-form>
+</div>
+
+{% style %}
+  .search-home {
+    height: 80px;
+    background: rgb(var(--color-background), var(--background-opacity, 1));
+    position: relative;
+    z-index: 1;
+  }
+
+  .search-home--transparent {
+    background: transparent;
+  }
+
+  .search-home {
+    border: none;
+  }
+
+  .search-home__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50rem;
+    width: 100%;
+    height: 100%;
+    line-height: 1.8;
+  }
+
+  .search-home .search__input {
+    font-size: calc(var(--font-heading-scale) * 1.375rem);
+  }
+{% endstyle %}

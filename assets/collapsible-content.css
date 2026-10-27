@@ -1,0 +1,112 @@
+@keyframes animateCollapsibleFadeIn {
+  0% {
+		opacity: 0;
+		transform: translate3d(20%, 0, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes animateCollapsibleFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.collapsible-content {
+  display: block;
+}
+
+.collapsible-content__wrapper {
+  display: flex;
+  gap: 30px;
+  background: rgb(var(--color-background));
+  border-radius: var(--border-radius-container);
+  overflow: hidden;
+  width: 100%;
+  max-width: 825px;
+  margin: auto;
+  padding: 3.125rem;
+}
+
+.collapsible-content__info,
+.collapsible-content__rows {
+  flex: 1;
+}
+
+.collapsible-content--fade-in-animation {
+  opacity: 0;
+  animation: animateCollapsibleFadeIn 0.3s cubic-bezier(0,.69,.63,.6) forwards;
+  animation-delay: 0.2s;
+}
+
+.collapsible-content.collapsible-content--hide {
+  animation: animateCollapsibleFadeOut 0.15s ease-in-out;
+}
+
+
+.collapsible-content__info h2 {
+  margin-bottom: 0;
+}
+
+.collapsible-content__info .rte {
+  font-size: calc(0.9375rem * var(--font-section-scale, 1));
+  margin-bottom: 1.5625rem;
+}
+
+.collapsible-content__info-contact {
+  font-family: var(--font-subheading-family);
+  font-style: var(--font-subheading-style);
+  font-weight: var(--font-subheading-weight);
+  --font-subheading-size: calc(var(--font-subheading-scale) * 0.9375rem);
+  font-size: calc(var(--font-subheading-size) * var(--font-section-scale, 1));
+  word-break: break-all;
+  text-transform: uppercase;
+}
+
+.collapsible-content__info-contact span {
+  display: block;
+  --font-subheading-size: calc(var(--font-subheading-scale) * 0.75rem);
+  font-size: calc(var(--font-subheading-size) * var(--font-section-scale, 1));
+  color: rgb(var(--color-foreground-2));
+}
+
+.collapsible-content__header {
+  margin-bottom: 1.875rem;
+  color: rgb(var(--color-foreground));
+  text-align: center;
+}
+
+.collapsible-content__header h2 {
+  margin-bottom: 0.625rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .collapsible-content__info .rte {
+    font-size: calc(0.8125rem * var(--font-section-scale, 1));
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .collapsible-content__wrapper {
+    flex-direction: column;
+    padding: 1.875rem;
+  }
+
+  .collapsible-content__info {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .accordion__icon-right img {
+    display: none;
+  }
+}

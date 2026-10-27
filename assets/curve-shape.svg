@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="39px" viewBox="0 0 1024 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Curve Shape (1)</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Curve-Shape-(1)" transform="translate(511.700000, 19.500000) scale(1, -1) translate(-511.700000, -19.500000) translate(0.000000, 0.500000)" fill="#FFFFFF" fill-rule="nonzero" stroke="#000000">
+            <path d="M0,0 C36.6,0 36.6,38 73.1,38 C109.7,38 109.7,0 146.2,0 C182.8,0 182.8,38 219.3,38 C255.9,38 255.9,0 292.4,0 C329,0 329,38 365.5,38 C402.1,38 402.1,0 438.6,0 C475.2,0 475.2,38 511.7,38 C548.3,38 548.3,0 584.8,0 C621.4,0 621.4,38 657.9,38 C694.5,38 694.5,0 731,0 C767.6,0 767.6,38 804.1,38 C840.7,38 840.7,0 877.2,0 C913.8,0 913.8,38 950.3,38 C986.9,38 986.9,0 1023.4,0 L0,0 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

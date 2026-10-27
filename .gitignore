@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+# Node / Shopify CLI
+node_modules/
+.shopify/
+.env
+.env.*
+*.log
+# Scratch
+tmp/
+*.URL

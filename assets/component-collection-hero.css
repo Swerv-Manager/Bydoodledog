@@ -1,0 +1,110 @@
+.collection-header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  background: rgb(var(--color-background));
+  min-height: auto;
+  margin-bottom: 1rem;
+}
+
+.collection-header:before {
+  content: "";
+  display: block;
+  padding-bottom: calc(100% / var(--image-aspect-ratio));
+  width: 0;
+}
+
+.collection-header--list {
+  margin-bottom: 2.75rem;
+}
+
+.collection-hero {
+  width: 100%;
+}
+
+.collection-hero__image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.collection-hero__text-wrapper {
+  position: relative;
+  display: flex;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  z-index: 1;
+}
+
+.collection-hero__title {
+  --font-heading-size: calc(var(--font-heading-scale) * 5rem);
+  color: rgb(var(--color-foreground));
+  width: 100%;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.collection-hero__description {
+  font-size: calc(1.375rem * var(--font-section-scale, 1));
+  text-align: center;
+  color: rgb(var(--color-foreground));
+  font-weight: 400;
+}
+
+.alt-sale .collection-hero__title,
+.alt-sale .collection-hero__description {
+  color: rgb(var(--color-sale));
+}
+
+.collection-hero__description.rte ul {
+  text-align: left;
+  margin: auto;
+  display: inline-block;
+}
+
+.collection-hero__image:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(var(--scrim-lightness), 0.2);
+  z-index: 1;
+}
+
+@media only screen and (max-width: 1024px) {
+  .collection-hero__title {
+    font-size: calc(var(--font-heading-scale) * 3.625rem);
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .collection-header {
+    margin-bottom: 2.1875rem;
+  }
+
+  .collection-hero__text-wrapper {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .collection-description {
+    margin-bottom: 2.1875rem;
+    margin-top: 2.1875rem;
+  }
+
+  .collection-hero__description {
+    font-size: 1rem;
+  }
+
+  .collection-hero__title {
+    font-size: calc(var(--font-heading-scale) * 3rem);
+  }
+}

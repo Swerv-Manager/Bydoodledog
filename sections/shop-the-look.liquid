@@ -1,0 +1,541 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'section-shop-the-look.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign icon_style = settings.icons_style
+  assign uppercase_product_title = settings.uppercase_product_title
+  assign border_gallery = settings.product_gallery_border
+  assign border_color = settings.product_gallery_border_color
+  assign media_ratio = settings.image_ratio
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <shop-the-look class="shop-look-section">
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+    <div class="shop-look" style="--font-section-scale: {{ section.settings.font_size | divided_by: 100.0 }};">
+      {%- if section.settings.title != blank -%}
+        <h2 class="h0 shop-look__title scroll-animate fade-in">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      <div class="shop-look__content{% unless section.settings.full_width %} page-width{% endunless %}">
+        <div class="shop-look__content-media-wrap">
+          <div class="shop-look__content-media-container">
+            <div class="shop-look__content-img">
+              {% if section.settings.image != blank %}
+                <div class="media media--16-9">
+                  {{
+                    section.settings.image
+                    | image_url: width: 1500
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'lazyload',
+                      width: section.settings.image.width,
+                      height: section.settings.image.height,
+                      sizes: '100vw',
+                      widths: '375, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                      alt: section.settings.image.alt
+                    | escape
+                  }}
+                </div>
+              {% else %}
+                <div class="shop-look__empty-image media media--placeholder media--16-9">
+                  <div class="placeholder">{{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+                </div>
+              {% endif %}
+            </div>
+            {% if section.blocks.size > 0 %}
+              <div class="shop-look__dots">
+                <div class="shop-look__dots-container"></div>
+                {% for block in section.blocks %}
+                  <div class="shop-look__dots-item-wrap" style="top: {{ block.settings.vertical_position}}%; left: {{ block.settings.horizontal_position}}%;" {{ block.shopify_attributes }}>
+                    <button
+                      class="shop-look__dots-item {{ section.settings.dot_color }}"
+                      type="button" is="toggle-button"
+                      aria-expanded="false"
+                      data-look-dot="{{ forloop.index }}"
+                    >
+                      <span class="visually-hidden">{{ 'products.product.show_product' | t: product_name: block.settings.product.title }}</span>
+                      <i class="icon {{ icon_style }} fa-plus" style="--fa-secondary-opacity: 1;"></i>
+                    </button>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if section.blocks.size > 0 %}
+          <div class="shop-look__modal-drawer" style="display: none;">
+            <div class="shop-look__modal-scroll">
+              <div class="shop-look__modal-wrap">
+                <div class="shop-look__modal {{ section.settings.background }}{% if section.settings.frosted_glass %} frosted-glass{% endif %}">
+                  <button type="button" class="btn btn--style-2 btn-close-modal-text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+                    {{ 'accessibility.close' | t }}
+                  </button>
+                  {% for block in section.blocks %}
+                    <ul class="shop-look__item-wrap" style="display: none; --border-gallery-color: {{ border_color }};" data-look-group="{{ forloop.index }}">
+                      {% if block.settings.product != blank %}
+                        {% assign product = block.settings.product %}
+                        {% assign block_id = '-' | append: forloop.index %}
+                        <li class="shop-look__item product-modal--lite" {{ block.shopify_attributes }}>
+                          {% liquid
+                            assign height = 400
+                            if product.media.size < 1
+                              assign hide_gallery = true
+                            endif
+                          %}
+                          {% unless hide_gallery %}
+                            <lite-gallery class="product__media-wrapper" id="MediaGallery-{{ section.id | append: block_id }}" data-section="{{ section.id }}" data-block="{{ block_id }}" data-product-swatches="{{ settings.product_swatches | downcase }}">
+                              <script type="application/json">
+                                {
+                                  "optionsGallery": {
+                                    "slidesToShow": 1,
+                                    "slidesToScroll": 1,
+                                    "arrows": false,
+                                    "fade": true
+                                  },
+                                  "galleryNav": true,
+                                  "optionsNav": {
+                                    "slidesToShow": 3,
+                                    "slidesToScroll": 1,
+                                    "centerMode": true,
+                                    "centerPadding": "0px",
+                                    "focusOnSelect": true,
+                                    "arrows": false,
+                                    "draggable": false,
+                                    "swipe": false
+                                  }
+                                }
+                              </script>
+                              {%- if product.media.size > 0 -%}
+                                {%- liquid
+                                  assign featured_media_aspect_ratio = product.media[0].aspect_ratio
+                                  if product.featured_media.aspect_ratio == nil
+                                    assign featured_media_aspect_ratio = 1
+                                  endif
+
+                                  assign height_gallery = '100'
+                                  case media_ratio
+                                    when 'portrait'
+                                      assign height_gallery = '125'
+                                    when 'adapt'
+                                      assign height_gallery =  1 | divided_by: featured_media_aspect_ratio | times: 100
+                                  endcase
+                                -%}
+                                <div class="product-single__media-group no-js-hidden" data-product-single-media-group>
+                                  <a class="skip-to-content-link btn visually-hidden" href="#ProductInfo-{{ section.id | append: block_id }}">
+                                    {{ "accessibility.skip_to_product_info" | t }}
+                                  </a>
+                                  <div class="product-single__media-group__wrap">
+                                    <div class="product-single__wrapper product-single__wrapper-{{ section.id | append: block_id }}" style="--padding: {{ height_gallery | append: '%' }};">
+                                      <ul class="product-single__gallery product-single__gallery-{{ section.id | append: block_id }}{% if border_gallery %} product__gallery--border{% endif %}">
+                                        {%- for media in product.media -%}
+                                          {%- if media.media_type == 'image' -%}
+                                            <li class="product-single__gallery-item" data-alt="{{ media.alt }}" data-media-id="{{ section.id | append: block_id }}-{{ media.id }}">
+                                              {% render 'media', media: media, height: height, enable_image_zoom: false, image_scale: '0' %}
+                                            </li>
+                                          {%- endif -%}
+                                        {%- endfor -%}
+                                      </ul>
+                                    </div>
+                                    {% assign media_images = product.media | where: 'media_type', 'image' %}
+                                    {% if product.media.size > 1 and product.type != 'Gift Card' and media_images.size > 1 %}
+                                      <div class="thumbnails-wrapper thumbnails-wrapper--lite thumbnails-wrapper--horizontal">
+                                        <ul class="product-single__thumbnails product-single__thumbnails-{{ section.id | append: block_id }}">
+                                          {% for media in product.media %}
+                                            {% assign media_alt = media.alt %}
+                                            {%- if media.media_type == 'image' -%}
+                                              <li class="product-single__thumbnails-item js{% if forloop.index > 3 %} product-single__thumbnails--hide{% endif %}">
+                                                <div class="product-single__thumbnail-wrap {% if border_gallery %} product__gallery--border{% endif %}">
+                                                  <div class="media text-link product-single__thumbnail product-single__thumbnail--{{ section.id | append: block_id }} media--{{ media_ratio }}"
+                                                    data-thumbnail-id="{{ section.id | append: block_id }}-{{ media.id }}"
+                                                    {% if media_ratio == 'adapt' %} style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"{% endif %}
+                                                  >
+                                                    {%- capture thumbnail_alt -%}
+                                                      {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media_alt }}
+                                                    {%- endcapture -%}
+
+                                                    <img class="product-single__thumbnail-image lazyload"
+                                                      srcset="{% if media.preview_image.width >= 66 %}{{ media.preview_image | image_url: width: 66 }} 66w,{% endif %}
+                                                              {% if media.preview_image.width >= 110 %}{{ media.preview_image | image_url: width: 110 }} 110w,{% endif %}
+                                                              {% if media.preview_image.width >= 84 %}{{ media.preview_image | image_url: width: 84 }} 84w,{% endif %}
+                                                              {% if media.preview_image.width >= 168 %}{{ media.preview_image | image_url: width: 168 }} 168w,{% endif %}
+                                                              {% if media.preview_image.width >= 132 %}{{ media.preview_image | image_url: width: 132 }} 132w,{% endif %}"
+                                                      src="{{ media | image_url: width: 118 }}"
+                                                      sizes="(min-width: 1000px) 110px, (min-width: 750px) 118px, 168px"
+                                                      alt="{{ thumbnail_alt }}"
+                                                      data-alt="{{ media_alt }}"
+                                                      width="110"
+                                                      height="{{ 110 | divided_by: media.preview_image.aspect_ratio | ceil }}"
+                                                      loading="lazy"
+                                                    >
+                                                  </div>
+                                                </div>
+                                              </li>
+                                            {%- endif %}
+                                          {% endfor %}
+                                        </ul>
+                                      </div>
+                                    {% endif %}
+                                  </div>
+                                </div>
+                                <noscript class="product-single__media__noscript-wrapper-{{ section.id | append: block_id }}">
+                                  <div class="product-single__media-group {% if section.settings.media_size == 'full' %} product-single__media-group--full{% endif %}">
+                                    <div class="product-single__media-group__wrap">
+                                      <div class="product-single__wrapper" style="--padding: {{ height_gallery | append: '%' }};">
+                                        <ul class="product-single__gallery product-single__gallery-{{ section.id | append: block_id }}">
+                                          <li class="product-single__gallery-item" data-alt="{{ product.media.first | escape | camelcase }}">
+                                            <a name="picture{{ forloop.index }}"></a>
+
+                                            {% render 'media', media: product.media.first, height: height %}
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </noscript>
+                              {%- else -%}
+                                <div class="product__media-empty">
+                                  <h4>{{ 'general.image_coming' | t }}</h4>
+                                </div>
+                              {%- endif -%}
+                            </lite-gallery>
+                          {% endunless %}
+                          <div class="product__info-wrapper">
+                            <div id="ProductInfo-{{ section.id | append: block_id }}" class="product__info-container">
+                              <div class="product-single__meta load-skeleton{% if product.type == 'Gift Card' %} product-single__meta--gift-card{% endif %}">
+                                <div class="product__meta-grid">
+                                  {%- assign product_form_id = 'product-form-' | append: section.id | append: block_id -%}
+                                  <h2 class="product__title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+                                    {{ product.title | escape }}
+                                  </h2>
+                                  <div class="product__price no-js-hidden" id="price-{{ section.id | append: block_id }}" {{ block.shopify_attributes }}>
+                                    {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+                                  </div>
+                                  {% render 'product-variant-picker', block: block, product_form_id: product_form_id, product: product, update_url: false, block_id: block_id %}
+                                  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, show_pickup_availability: false, hide_flag_button_mobile: true, show_view_details: true, block_id: block_id %}
+                                </div>
+                                {% render 'skeleton-text-view' skeleton_layout: 'product-info' %}
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      {% else %}
+                        <li class="shop-look__item product-modal--lite" {{ block.shopify_attributes }}>
+                          <div class="product__media-wrapper">
+                            <div class="product__media-placeholder">
+                              <div class="placeholder">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+                            </div>
+                          </div>
+                          <div class="product__info-wrapper">
+                            <h2 class="product__title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
+                              {{ 'onboarding.product_title' | t }}
+                            </h2>
+                            {% if settings.show_currency_codes %}
+                              {% assign price = 1999 | money_with_currency %}
+                            {% else %}
+                              {% assign price = 1999 | money %}
+                            {% endif %}
+                            <div class="product__price">
+                              {{ price }}
+                            </div>
+                            <a
+                              role="link" aria-disabled="true"
+                              class="btn btn--secondary link product__view-details"
+                            >
+                              {{ 'products.product.view_details' | t }}
+                            </a>
+                          </div>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </shop-the-look>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.shop-the-look.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Shop the look",
+      "label": "t:sections.shop-the-look.settings.title.label"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:sections.all.font_size.label",
+      "default": 100,
+      "min": 80,
+      "max": 120,
+      "unit": "%",
+      "step": 1
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.shop-the-look.settings.image.label",
+      "info": "t:sections.shop-the-look.settings.image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.shop-the-look.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "dot_color",
+      "label": "t:sections.shop-the-look.settings.dot_color.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.shop-the-look.settings.background.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "background-modal"
+    },
+    {
+      "type": "checkbox",
+      "id": "frosted_glass",
+      "default": false,
+      "label": "t:sections.shop-the-look.settings.frosted_glass.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "focal_product",
+      "name": "t:sections.shop-the-look.blocks.focal_product.name",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.product.label",
+          "info": "t:sections.shop-the-look.blocks.focal_product.settings.product.info"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.shop-the-look.blocks.focal_product.settings.header__1.content"
+        },
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.featured-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "type": "select",
+          "id": "color_swatch_type",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_type.options__1.label"
+            },
+            {
+              "value": "color",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_type.options__2.label"
+            },
+            {
+              "value": "image_thumbnail",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_type.options__3.label"
+            }
+          ],
+          "default": "none",
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_type.label",
+          "info": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_type.info."
+        },
+        {
+          "type": "select",
+          "id": "color_swatch_shape",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_shape.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_shape.options__2.label"
+            },
+            {
+              "value": "rectangle",
+              "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_shape.options__3.label"
+            }
+          ],
+          "default": "circle",
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_shape.label",
+          "info": "t:sections.shop-the-look.blocks.focal_product.settings.color_swatch_shape.info"
+        },
+        {
+          "type": "range",
+          "id": "swatch_size",
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.swatch_size.label",
+          "default": 36,
+          "min": 30,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "header",
+          "content": "t:sections.shop-the-look.blocks.focal_product.settings.header__2.content"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 95,
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.horizontal_position.label"
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 95,
+          "label": "t:sections.shop-the-look.blocks.focal_product.settings.vertical_position.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.shop-the-look.name",
+      "blocks": [
+        {
+          "type": "focal_product",
+          "settings": {
+            "horizontal_position": 40,
+            "vertical_position": 38
+          }
+        },
+        {
+          "type": "focal_product",
+          "settings": {
+            "horizontal_position": 64,
+            "vertical_position": 30
+          }
+        },
+        {
+          "type": "focal_product",
+          "settings": {
+            "horizontal_position": 54,
+            "vertical_position": 62
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

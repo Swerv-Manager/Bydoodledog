@@ -1,0 +1,430 @@
+{{ 'section-countdown.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% liquid
+  assign image_height_wrap = section.settings.image_height | divided_by: 100.0
+  assign image_aspect_ratio = 4.042105263157895 | divided_by: image_height_wrap
+
+  assign show_image = false
+  if section.settings.image
+    assign show_image = true
+    assign image_aspect_ratio = section.settings.image.aspect_ratio | divided_by: image_height_wrap
+  endif
+%}
+
+<div
+  class="countdown-section-wrapper section-{{ section.id }}-padding"
+  {% if section.settings.hide_timer %}
+    style="display: none;"
+  {% endif %}
+>
+  <div
+    class="countdown-section {{ section.settings.background }} scroll-animate fade-in{% unless show_image %} countdown-section--no-image{% endunless %}"
+    style="--image-aspect-ratio: {{ image_aspect_ratio }};"
+  >
+    {%- if show_image -%}
+      <div class="countdown-section__image-wrapper media">
+        {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+        {{
+          section.settings.image
+          | image_url: width: 2500
+          | image_tag:
+            width: section.settings.image.width,
+            height: image_height,
+            class: 'motion-reduce media__transparent',
+            sizes: '100vw',
+            widths: '300, 400, 500, 1000, 1250, 1580, 2000',
+            alt: section.settings.image.alt
+          | escape
+        }}
+      </div>
+    {%- endif -%}
+    <div
+      class="countdown-section__wrapper page-width{% if show_image %} countdown-section__wrapper--image{% endif %}"
+      {% if show_image %}
+        style="{% if section.settings.show_scrim %} --scrim-lightness: {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}, {{ section.settings.scrim_lightness }}{% endif %};"
+      {% endif %}
+    >
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {%- when 'content' -%}
+            <div
+              class="countdown__content countdown__content--{{ block.settings.content_align }}"
+              style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+            >
+              <div class="countdown__content__start-text countdown__content__active">
+                {% if block.settings.title != blank %}
+                  <h3>{{ block.settings.title }}</h3>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  {{ block.settings.text }}
+                {% endif %}
+                {% if block.settings.button_label != blank %}
+                  <a
+                    href="{{ block.settings.button_link }}"
+                    target="_self"
+                    class="btn btn--small{% if block.settings.button_style == 'ghost' %} btn--secondary{% endif %}"
+                  >
+                    {{- block.settings.button_label -}}
+                  </a>
+                {% endif %}
+              </div>
+              {% assign content_on_complete = section.blocks | where: 'type', 'content_on_complete' | first %}
+              {% if content_on_complete %}
+                <div class="countdown__content__end-text" style="display: none;">
+                  {% if content_on_complete.settings.title != blank %}
+                    <h3>{{ content_on_complete.settings.title }}</h3>
+                  {% endif %}
+                  {% if content_on_complete.settings.text != blank %}
+                    {{ content_on_complete.settings.text }}
+                  {% endif %}
+                  {% if content_on_complete.settings.button_label != blank %}
+                    <a
+                      href="{{ content_on_complete.settings.button_link }}"
+                      target="_self"
+                      class="btn btn--small{% if content_on_complete.settings.button_style == 'ghost' %} btn--secondary{% endif %}"
+                    >
+                      {{- content_on_complete.settings.button_label -}}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {%- when 'timer' -%}
+            <div
+              class="countdown__timer-wrapper"
+              style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+            >
+              <countdown-timer
+                data-timezone="{{ 'now' | date: '%:z' }}"
+                data-end-date="{{ block.settings.end_date }}"
+                data-end-time="{{ block.settings.end_time }}"
+                data-compact="false"
+                data-hide-timer="{{ section.settings.hide_timer }}"
+              >
+                <div class="countdown__timer">
+                  <div class="countdown__timer-item">
+                    <span data-days-placeholder>00</span>
+                    {{ 'general.dateStrings.days' | t }}
+                  </div>
+                  <div class="countdown__timer-item">
+                    <span data-hours-placeholder>00</span>
+                    {{ 'general.dateStrings.hours' | t }}
+                  </div>
+                  <div class="countdown__timer-item">
+                    <span data-minutes-placeholder>00</span>
+                    {{ 'general.dateStrings.minutes' | t }}
+                  </div>
+                  <div class="countdown__timer-item">
+                    <span data-seconds-placeholder>00</span>
+                    {{ 'general.dateStrings.seconds' | t }}
+                  </div>
+                </div>
+              </countdown-timer>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.countdown.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.countdown.settings.image.label",
+      "info": "t:sections.countdown.settings.image.info"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "unit": "%",
+      "label": "t:sections.main-collection-banner.settings.image_height.label",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scrim",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_scrim.label",
+      "info": "t:sections.main-collection-banner.settings.show_scrim.info"
+    },
+    {
+      "type": "range",
+      "id": "scrim_lightness",
+      "min": 0,
+      "max": 255,
+      "step": 15,
+      "default": 0,
+      "label": "t:sections.main-collection-banner.settings.scrim_lightness.label",
+      "info": "t:sections.main-collection-banner.settings.scrim_lightness.info"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        },
+        {
+          "value": "alt-sale",
+          "label": "Sale"
+        }
+      ],
+      "default": "alt-background"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_timer",
+      "label": "t:sections.countdown.settings.hide_timer.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "t:sections.countdown.blocks.content.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.countdown.blocks.content.settings.title.label",
+          "default": "Countdown title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.countdown.blocks.content.settings.text.label",
+          "default": "<p>Use this section to create urgency and boost sales.</p>"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "t:sections.all.font_size.label",
+          "default": 100,
+          "min": 80,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.countdown.blocks.content.settings.button_label.label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.countdown.blocks.content.settings.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:sections.feature-cards.settings.button_style.label",
+          "default": "ghost",
+          "options": [
+            {
+              "value": "solid",
+              "label": "t:sections.feature-cards.settings.button_style.options__1.label"
+            },
+            {
+              "value": "ghost",
+              "label": "t:sections.feature-cards.settings.button_style.options__2.label"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "content_align",
+          "label": "t:sections.countdown.blocks.content.settings.content_align.label",
+          "default": "left",
+          "info": "t:sections.countdown.blocks.content.settings.content_align.info",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.media-with-text.settings.section_align.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.media-with-text.settings.section_align.options__2.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.media-with-text.settings.section_align.options__3.label"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "timer",
+      "name": "t:sections.countdown.blocks.timer.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.countdown.blocks.timer.settings.paragraph.content"
+        },
+        {
+          "type": "text",
+          "id": "end_date",
+          "label": "t:sections.countdown.blocks.timer.settings.end_date.label",
+          "info": "t:sections.countdown.blocks.timer.settings.end_date.info"
+        },
+        {
+          "type": "text",
+          "id": "end_time",
+          "label": "t:sections.countdown.blocks.timer.settings.end_time.label",
+          "info": "t:sections.countdown.blocks.timer.settings.end_time.info",
+          "default": "00:00"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "t:sections.all.font_size.label",
+          "default": 100,
+          "min": 80,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        }
+      ]
+    },
+    {
+      "type": "content_on_complete",
+      "name": "t:sections.countdown.blocks.content_on_complete.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.countdown.blocks.content_on_complete.settings.title.label",
+          "default": "Content after completion"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.countdown.blocks.content_on_complete.settings.text.label",
+          "default": "<p>Use this section to encourage customers to sign-up for the the next drop or sale.</p>"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "t:sections.all.font_size.label",
+          "default": 100,
+          "min": 80,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.countdown.blocks.content_on_complete.settings.button_label.label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.countdown.blocks.content_on_complete.settings.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:sections.feature-cards.settings.button_style.label",
+          "default": "ghost",
+          "options": [
+            {
+              "value": "solid",
+              "label": "t:sections.feature-cards.settings.button_style.options__1.label"
+            },
+            {
+              "value": "ghost",
+              "label": "t:sections.feature-cards.settings.button_style.options__2.label"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown timer",
+      "blocks": [
+        {
+          "type": "content"
+        },
+        {
+          "type": "timer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

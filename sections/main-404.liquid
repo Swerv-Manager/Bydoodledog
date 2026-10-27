@@ -1,0 +1,96 @@
+{{ 'section-main-404.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+
+<div class="template-404">
+  {% assign icon_style = settings.icons_style %}
+  <div class="page-width text-center">
+    <h1 class="title">
+      {{ section.settings.title }}
+    </h1>
+    <div class="subtitle">
+      {{ section.settings.text }}
+    </div>
+  </div>
+  <template-search-form class="template-404__search">
+    <div class="search-modal modal__content main-background" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+      <div class="modal-overlay"></div>
+      <div class="search-modal__content page-width">
+        {%- if settings.predictive_search_enabled -%}
+          <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+        {%- endif -%}
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+            <div class="search-form__input-wrapper">
+              <input class="search__input field__input"
+                id="Search-In-Modal"
+                type="search"
+                name="q"
+                value=""
+                placeholder="{{ 'general.search.search' | t }}"
+                {%- if settings.predictive_search_enabled -%}
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-owns="predictive-search-results-list"
+                  aria-controls="predictive-search-results-list"
+                  aria-haspopup="listbox"
+                  aria-autocomplete="list"
+                  autocorrect="off"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                {%- endif -%}
+              >
+              <input type="hidden" name="options[prefix]" value="last">
+              <button type="button" class="modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+                {{ 'templates.search.clear' | t }}
+              </button>
+              <button class="search__button field__button button--icon" aria-label="{{ 'general.search.search' | t }}">
+                <i class="icon icon-search {{ icon_style }} fa-magnifying-glass"></i>
+              </button>
+            </div>
+
+            {%- if settings.predictive_search_enabled -%}
+              <div class="predictive-search predictive-search--header" data-predictive-search>
+                <div class="predictive-search__loading-state">
+                  <span class="predictive-search__loading-state">
+                    <div class="loader-bounce">
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+                    </div>
+                    <span class="loader-bounce__text">{{ 'templates.search.searching' | t }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+            {%- endif -%}
+          </form>
+        {%- if settings.predictive_search_enabled -%}
+          </predictive-search>
+        {%- endif -%}
+      </div>
+    </div>
+  </template-search-form>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-404.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Sorry, that page doesn’t exist.",
+      "label": "t:sections.main-404.settings.title.label"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>No worries, try searching below or go back.</p>",
+      "label": "t:sections.main-404.settings.text.label"
+    }
+  ]
+}
+{% endschema %}

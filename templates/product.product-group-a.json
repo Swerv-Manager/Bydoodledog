@@ -1,0 +1,430 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "wrapper": "div.template-product-wrapper",
+  "sections": {
+    "countdown_wykGNP": {
+      "type": "countdown",
+      "blocks": {
+        "timer_zgberE": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2025-11-05",
+            "end_time": "23:59",
+            "font_size": 91
+          }
+        },
+        "content_D4rHiF": {
+          "type": "content",
+          "settings": {
+            "title": "Spara 15 % på allt med Doodle15",
+            "text": "<p>Kan inte kombineras med andra erbjudanden eller rabattkoder.</p>",
+            "font_size": 100,
+            "button_label": "Alla produkter",
+            "button_link": "shopify://collections/alla-produkter",
+            "button_style": "solid",
+            "content_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "timer_zgberE",
+        "content_D4rHiF"
+      ],
+      "disabled": true,
+      "name": "Countdown timer",
+      "settings": {
+        "image_height": 0,
+        "show_scrim": true,
+        "scrim_lightness": 255,
+        "background": "background-modal",
+        "hide_timer": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product-information": {
+      "type": "product-information",
+      "blocks": {
+        "selling_features": {
+          "type": "selling_features",
+          "settings": {
+            "show_rating": false,
+            "show_empty_stars": true,
+            "standar_metafields": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "show_vendor": true,
+            "vendor_link": "",
+            "short_description": "Product short description",
+            "font_size": 100
+          }
+        },
+        "judge_me_reviews_preview_badge_dJi9Kf": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "countdown_title": "Sales ends in:",
+            "font_size": 100,
+            "background": "alt-sale"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_type": "color",
+            "color_swatch_shape": "square",
+            "swatch_size": 36
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_inventory_notification": true,
+            "quantity_threshold": 10,
+            "notification_message": "🚛 2-4 dagars leverans",
+            "show_gift_card_recipient": false,
+            "show_dynamic_checkout": false,
+            "show_quantity_selector": true
+          }
+        },
+        "custom_liquid_zQ3jig": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n.section-footer__payment-icons {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  margin: 16px 0;\n  flex-wrap: wrap;\n}\n\n.section-footer__payment-icon {\n  display: block;\n  transition: transform 0.2s ease;\n}\n\n.section-footer__payment-icon:hover {\n  transform: translateY(-1px);\n}\n</style>\n\n<div class=\"section-footer__payment-icons\">\n\n<svg class=\"section-footer__payment-icon\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" x=\"0\" y=\"0\" width=\"38\" height=\"24\" viewBox=\"0 0 165.521 105.965\" xml:space=\"preserve\" aria-labelledby=\"pi-apple_pay\"><title id=\"pi-apple_pay\">Apple Pay</title><path fill=\"#000\" d=\"M150.698 0H14.823c-.566 0-1.133 0-1.698.003-.477.004-.953.009-1.43.022-1.039.028-2.087.09-3.113.274a10.51 10.51 0 0 0-2.958.975 9.932 9.932 0 0 0-4.35 4.35 10.463 10.463 0 0 0-.975 2.96C.113 9.611.052 10.658.024 11.696a70.22 70.22 0 0 0-.022 1.43C0 13.69 0 14.256 0 14.823v76.318c0 .567 0 1.132.002 1.699.003.476.009.953.022 1.43.028 1.036.09 2.084.275 3.11a10.46 10.46 0 0 0 .974 2.96 9.897 9.897 0 0 0 1.83 2.52 9.874 9.874 0 0 0 2.52 1.83c.947.483 1.917.79 2.96.977 1.025.183 2.073.245 3.112.273.477.011.953.017 1.43.02.565.004 1.132.004 1.698.004h135.875c.565 0 1.132 0 1.697-.004.476-.002.952-.009 1.431-.02 1.037-.028 2.085-.09 3.113-.273a10.478 10.478 0 0 0 2.958-.977 9.955 9.955 0 0 0 4.35-4.35c.483-.947.789-1.917.974-2.96.186-1.026.246-2.074.274-3.11.013-.477.02-.954.022-1.43.004-.567.004-1.132.004-1.699V14.824c0-.567 0-1.133-.004-1.699a63.067 63.067 0 0 0-.022-1.429c-.028-1.038-.088-2.085-.274-3.112a10.4 10.4 0 0 0-.974-2.96 9.94 9.94 0 0 0-4.35-4.35A10.52 10.52 0 0 0 156.939.3c-1.028-.185-2.076-.246-3.113-.274a71.417 71.417 0 0 0-1.431-.022C151.83 0 151.263 0 150.698 0z\"></path><path fill=\"#FFF\" d=\"M150.698 3.532l1.672.003c.452.003.905.008 1.36.02.793.022 1.719.065 2.583.22.75.135 1.38.34 1.984.648a6.392 6.392 0 0 1 2.804 2.807c.306.6.51 1.226.645 1.983.154.854.197 1.783.218 2.58.013.45.019.9.02 1.36.005.557.005 1.113.005 1.671v76.318c0 .558 0 1.114-.004 1.682-.002.45-.008.9-.02 1.35-.022.796-.065 1.725-.221 2.589a6.855 6.855 0 0 1-.645 1.975 6.397 6.397 0 0 1-2.808 2.807c-.6.306-1.228.511-1.971.645-.881.157-1.847.2-2.574.22-.457.01-.912.017-1.379.019-.555.004-1.113.004-1.669.004H14.801c-.55 0-1.1 0-1.66-.004a74.993 74.993 0 0 1-1.35-.018c-.744-.02-1.71-.064-2.584-.22a6.938 6.938 0 0 1-1.986-.65 6.337 6.337 0 0 1-1.622-1.18 6.355 6.355 0 0 1-1.178-1.623 6.935 6.935 0 0 1-.646-1.985c-.156-.863-.2-1.788-.22-2.578a66.088 66.088 0 0 1-.02-1.355l-.003-1.327V14.474l.002-1.325a66.7 66.7 0 0 1 .02-1.357c.022-.792.065-1.717.222-2.587a6.924 6.924 0 0 1 .646-1.981c.304-.598.7-1.144 1.18-1.623a6.386 6.386 0 0 1 1.624-1.18 6.96 6.96 0 0 1 1.98-.646c.865-.155 1.792-.198 2.586-.22.452-.012.905-.017 1.354-.02l1.677-.003h135.875\"></path><g><g><path fill=\"#000\" d=\"M43.508 35.77c1.404-1.755 2.356-4.112 2.105-6.52-2.054.102-4.56 1.355-6.012 3.112-1.303 1.504-2.456 3.959-2.156 6.266 2.306.2 4.61-1.152 6.063-2.858\"></path><path fill=\"#000\" d=\"M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048\"></path></g><g><path fill=\"#000\" d=\"M78.973 32.11c7.278 0 12.347 5.017 12.347 12.321 0 7.33-5.173 12.373-12.529 12.373h-8.058V69.62h-5.822V32.11h14.062zm-8.24 19.807h6.68c5.07 0 7.954-2.729 7.954-7.46 0-4.73-2.885-7.434-7.928-7.434h-6.706v14.894z\"></path><path fill=\"#000\" d=\"M92.764 61.847c0-4.809 3.665-7.564 10.423-7.98l7.252-.442v-2.08c0-3.04-2.001-4.704-5.562-4.704-2.938 0-5.07 1.507-5.51 3.82h-5.252c.157-4.86 4.731-8.395 10.918-8.395 6.654 0 10.995 3.483 10.995 8.89v18.663h-5.38v-4.497h-.13c-1.534 2.937-4.914 4.782-8.579 4.782-5.406 0-9.175-3.222-9.175-8.057zm17.675-2.417v-2.106l-6.472.416c-3.64.234-5.536 1.585-5.536 3.95 0 2.288 1.975 3.77 5.068 3.77 3.95 0 6.94-2.522 6.94-6.03z\"></path><path fill=\"#000\" d=\"M120.975 79.652v-4.496c.364.051 1.247.103 1.715.103 2.573 0 4.029-1.09 4.913-3.899l.52-1.663-9.852-27.293h6.082l6.863 22.146h.13l6.862-22.146h5.927l-10.216 28.67c-2.34 6.577-5.017 8.735-10.683 8.735-.442 0-1.872-.052-2.261-.157z\"></path></g></g></svg>\n\n<svg class=\"section-footer__payment-icon\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" viewBox=\"0 0 38 24\" aria-labelledby=\"pi-klarna\"><title id=\"pi-klarna\">Klarna</title><g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z\" fill=\"#FFB3C7\"></path><path d=\"M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32\" fill=\"#FFB3C7\"></path><path d=\"M34.117 13.184c-.487 0-.882.4-.882.892 0 .493.395.893.882.893.488 0 .883-.4.883-.893a.888.888 0 00-.883-.892zm-2.903-.69c0-.676-.57-1.223-1.274-1.223-.704 0-1.274.547-1.274 1.222 0 .675.57 1.223 1.274 1.223.704 0 1.274-.548 1.274-1.223zm.005-2.376h1.406v4.75h-1.406v-.303a2.446 2.446 0 01-1.394.435c-1.369 0-2.478-1.122-2.478-2.507 0-1.384 1.11-2.506 2.478-2.506.517 0 .996.16 1.394.435v-.304zm-11.253.619v-.619h-1.44v4.75h1.443v-2.217c0-.749.802-1.15 1.359-1.15h.016v-1.382c-.57 0-1.096.247-1.378.618zm-3.586 1.756c0-.675-.57-1.222-1.274-1.222-.703 0-1.274.547-1.274 1.222 0 .675.57 1.223 1.274 1.223.704 0 1.274-.548 1.274-1.223zm.005-2.375h1.406v4.75h-1.406v-.303A2.446 2.446 0 0114.99 15c-1.368 0-2.478-1.122-2.478-2.507 0-1.384 1.11-2.506 2.478-2.506.517 0 .997.16 1.394.435v-.304zm8.463-.128c-.561 0-1.093.177-1.448.663v-.535H22v4.75h1.417v-2.496c0-.722.479-1.076 1.055-1.076.618 0 .973.374.973 1.066v2.507h1.405v-3.021c0-1.106-.87-1.858-2.002-1.858zM10.465 14.87h1.472V8h-1.472v6.868zM4 14.87h1.558V8H4v6.87zM9.45 8a5.497 5.497 0 01-1.593 3.9l2.154 2.97H8.086l-2.341-3.228.604-.458A3.96 3.96 0 007.926 8H9.45z\" fill=\"#0A0B09\" fill-rule=\"nonzero\"></path></g></svg>\n\n<svg class=\"section-footer__payment-icon\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" width=\"38\" height=\"24\" role=\"img\" aria-labelledby=\"pi-maestro\"><title id=\"pi-maestro\">Maestro</title><path opacity=\".07\" d=\"M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z\"></path><path fill=\"#fff\" d=\"M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32\"></path><circle fill=\"#EB001B\" cx=\"15\" cy=\"12\" r=\"7\"></circle><circle fill=\"#00A2E5\" cx=\"23\" cy=\"12\" r=\"7\"></circle><path fill=\"#7375CF\" d=\"M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z\"></path></svg>\n\n<svg class=\"section-footer__payment-icon\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-master\"><title id=\"pi-master\">Mastercard</title><path opacity=\".07\" d=\"M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z\"></path><path fill=\"#fff\" d=\"M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32\"></path><circle fill=\"#EB001B\" cx=\"15\" cy=\"12\" r=\"7\"></circle><circle fill=\"#F79E1B\" cx=\"23\" cy=\"12\" r=\"7\"></circle><path fill=\"#FF5F00\" d=\"M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z\"></path></svg>\n\n<svg class=\"section-footer__payment-icon\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-visa\"><title id=\"pi-visa\">Visa</title><path opacity=\".07\" d=\"M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z\"></path><path fill=\"#fff\" d=\"M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32\"></path><path d=\"M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z\" fill=\"#142688\"></path></svg>\n</div>"
+          }
+        }
+      },
+      "block_order": [
+        "selling_features",
+        "text",
+        "judge_me_reviews_preview_badge_dJi9Kf",
+        "title",
+        "price",
+        "countdown",
+        "variant_picker",
+        "buy_buttons",
+        "custom_liquid_zQ3jig"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "enable_all_images": true,
+        "enable_image_zoom": true,
+        "autoplay_video": true,
+        "padding_top": 26,
+        "padding_bottom": 0
+      }
+    },
+    "product-content": {
+      "type": "product-content",
+      "blocks": {
+        "product_features": {
+          "type": "product_features",
+          "disabled": true,
+          "settings": {
+            "font_size": 100,
+            "icon_size": 100,
+            "background": "background-modal",
+            "feature_title_1": "Danskt företag",
+            "feature_icon_1": "dog",
+            "feature_text_1": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "feature_link_1": "",
+            "feature_title_2": "Betala med",
+            "feature_icon_2": "bag-shopping",
+            "feature_text_2": "<p>Klarna, VISA, Mastercard, Apple & Googlepay</p>",
+            "feature_link_2": "",
+            "feature_title_3": "2–4 dagars leverans",
+            "feature_icon_3": "truck-fast",
+            "feature_text_3": "<p>Vi levererar inom 2–4 dagar med GLS</p>",
+            "feature_link_3": "",
+            "feature_title_4": "",
+            "feature_icon_4": "none",
+            "feature_text_4": "",
+            "feature_link_4": "",
+            "feature_title_5": "",
+            "feature_icon_5": "none",
+            "feature_text_5": "",
+            "feature_link_5": "",
+            "feature_title_6": "",
+            "feature_icon_6": "none",
+            "feature_text_6": "",
+            "feature_link_6": "",
+            "padding_top": 0,
+            "padding_bottom": 50
+          }
+        },
+        "checklist_HWRqAx": {
+          "type": "checklist",
+          "settings": {
+            "image": "{{ product.featured_image }}",
+            "show_scrim": false,
+            "scrim_lightness": 0,
+            "icon": "none",
+            "text": "",
+            "font_size": 85,
+            "font_type": "heading-font",
+            "font_style": "all_caps",
+            "icon_1": "badge-check",
+            "text_1": "{{ product.metafields.custom.product_ups_1.value }}",
+            "icon_2": "badge-check",
+            "text_2": "{{ product.metafields.custom.product_ups_2.value }}",
+            "icon_3": "badge-check",
+            "text_3": "{{ product.metafields.custom.product_ups_3.value }}",
+            "icon_4": "badge-check",
+            "text_4": "",
+            "background": "background-modal",
+            "padding_top": 0,
+            "padding_bottom": 50
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "padding_top": 0,
+            "padding_bottom": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_features",
+        "checklist_HWRqAx",
+        "description"
+      ],
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "app_block_padding_top": 0,
+        "app_block_padding_bottom": 50
+      }
+    },
+    "1751277550910b967d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_Fgw43i": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_Fgw43i"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "heading": "Lite extra för vuffi 🐶",
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "featured_collection_3NaFAD": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Kundfavoriter",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "collection": "",
+        "product_list": [
+          "automatisk-hundkoppel-beige-forbestallning-vecka-18",
+          "bjork-bilsate-for-hundar-beige",
+          "bjork-hundbadd-for-hundar-beige",
+          "gul-regnjakke"
+        ],
+        "columns": 4,
+        "font_card_size": 80,
+        "background": "background-modal",
+        "show_view_all": true,
+        "padding_top": 19,
+        "padding_bottom": 35
+      }
+    },
+    "video_column_F7fVVa": {
+      "type": "video-column",
+      "blocks": {
+        "column_6LxLzG": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/IMG_5658.mov",
+            "video_embed": "",
+            "video_link": ""
+          }
+        },
+        "column_DpFXxq": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/Astrid video 3 funktioner 9x16.mov",
+            "video_embed": "",
+            "video_link": ""
+          }
+        },
+        "column_a4CCkJ": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/IMG_4664.MOV",
+            "video_embed": "",
+            "video_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_6LxLzG",
+        "column_DpFXxq",
+        "column_a4CCkJ"
+      ],
+      "disabled": true,
+      "name": "t:sections.video-column.presets.name",
+      "settings": {
+        "title": "Final Sale: Spara upp till 60%",
+        "description": "Följ oss på Instagram för exklusiva releaser, unboxing och try-on-videor, recensioner och mer från våra toppmärken och stylister.",
+        "play_onload": true,
+        "social_handle": "@bydoodledog",
+        "social_link": "social_instagram_link",
+        "font_size": 100,
+        "background": "main-background",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "17514638450452dafb": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_p73AK3": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "disabled": true,
+          "settings": {
+            "title": "@Bydoodledog",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_p73AK3"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "multicolumn_6N7A3j": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_EkGRGa": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-3 dagars leverans",
+            "text": "<p>Vi levererar inom 1-3 dagar med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_YxJGG3": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis frakt",
+            "text": "<p>Vid köp över 1300 SEK får du gratis frakt</p>",
+            "link": ""
+          }
+        },
+        "feature_HPhemw": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 pä Trustpilot",
+            "text": "<p>Vi strävar efter att leverera den bästa servicen till dig och din hund</p>",
+            "link": ""
+          }
+        },
+        "feature_VMgFEh": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog-leashed",
+            "title": "Danskt företag",
+            "text": "<p>Vi har över +10 års erfarenhet av hunduppfödning</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_EkGRGa",
+        "feature_YxJGG3",
+        "feature_HPhemw",
+        "feature_VMgFEh"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "background": "alt-background",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "countdown_wykGNP",
+    "product-information",
+    "product-content",
+    "1751277550910b967d",
+    "product-recommendations",
+    "featured_collection_3NaFAD",
+    "video_column_F7fVVa",
+    "17514638450452dafb",
+    "multicolumn_6N7A3j"
+  ]
+}

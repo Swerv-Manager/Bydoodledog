@@ -1,0 +1,320 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="rich-text-section {{ section.settings.background }} scroll-animate fade-in">
+    <div class="page-width">
+      <div class="rich-text rich-text--{{ section.settings.text_align }}">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              <h2
+                class="h2 {{ block.settings.font_type }}{% if block.settings.font_style == 'all_caps' %} uppercase{% endif %}"
+                style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.heading | escape }}
+              </h2>
+            {%- when 'text' -%}
+              <div
+                class="rte rte-setting {{ block.settings.font_type }}{% if block.settings.font_style == 'all_caps' %} uppercase{% endif %}"
+                style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.text }}
+              </div>
+            {%- when 'button' -%}
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  {% if block.settings.button_link != blank %}
+                    href="{{ block.settings.button_link }}"
+                  {% endif %}
+                  class="btn{% if block.settings.button_style == 'ghost' %} btn--secondary{% endif %}"
+                  {% if block.settings.button_link == blank %}
+                    aria-disabled="true"
+                  {% endif %}
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.rich-text.name",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "t:sections.rich-text.settings.text_align.label",
+      "default": "left",
+      "options": [
+        {
+          "label": "t:sections.rich-text.settings.text_align.options__1.label",
+          "value": "left"
+        },
+        {
+          "label": "t:sections.rich-text.settings.text_align.options__2.label",
+          "value": "center"
+        },
+        {
+          "label": "t:sections.rich-text.settings.text_align.options__3.label",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "t:sections.all.colors.label",
+      "options": [
+        {
+          "value": "main-background",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "alt-background",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "alt-background-2",
+          "label": "t:sections.all.colors.background_3.label"
+        },
+        {
+          "value": "alt-background-3",
+          "label": "t:sections.all.colors.background_4.label"
+        },
+        {
+          "value": "background-modal",
+          "label": "t:sections.all.colors.background_5.label"
+        }
+      ],
+      "default": "main-background"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing.section_spacing_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.spacing.spacing_bottom",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Talk about your brand",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "t:sections.all.font_size.label",
+          "default": 100,
+          "min": 80,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "select",
+          "id": "font_type",
+          "label": "t:sections.all.font_type.label",
+          "options": [
+            {
+              "value": "heading-font",
+              "label": "t:sections.all.font_type.heading.label"
+            },
+            {
+              "value": "body-font",
+              "label": "t:sections.all.font_type.body.label"
+            },
+            {
+              "value": "button-font",
+              "label": "t:sections.all.font_type.button.label"
+            },
+            {
+              "value": "accent-font",
+              "label": "t:sections.all.font_type.accent.label"
+            }
+          ],
+          "default": "heading-font"
+        },
+        {
+          "type": "select",
+          "id": "font_style",
+          "label": "t:sections.all.font_style.label",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.all.font_style.option__1"
+            },
+            {
+              "value": "all_caps",
+              "label": "t:sections.all.font_style.option__2"
+            }
+          ],
+          "default": "all_caps"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "t:sections.all.font_size.label",
+          "default": 100,
+          "min": 80,
+          "max": 120,
+          "unit": "%",
+          "step": 1
+        },
+        {
+          "type": "select",
+          "id": "font_type",
+          "label": "t:sections.all.font_type.label",
+          "options": [
+            {
+              "value": "heading-font",
+              "label": "t:sections.all.font_type.heading.label"
+            },
+            {
+              "value": "body-font",
+              "label": "t:sections.all.font_type.body.label"
+            },
+            {
+              "value": "button-font",
+              "label": "t:sections.all.font_type.button.label"
+            },
+            {
+              "value": "accent-font",
+              "label": "t:sections.all.font_type.accent.label"
+            }
+          ],
+          "default": "body-font"
+        },
+        {
+          "type": "select",
+          "id": "font_style",
+          "label": "t:sections.all.font_style.label",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.all.font_style.option__1"
+            },
+            {
+              "value": "all_caps",
+              "label": "t:sections.all.font_style.option__2"
+            }
+          ],
+          "default": "none"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.rich-text.blocks.button.settings.button_label.label",
+          "default": "Optional button"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.rich-text.blocks.button.settings.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:sections.rich-text.blocks.button.settings.button_style.label",
+          "default": "ghost",
+          "options": [
+            {
+              "value": "solid",
+              "label": "t:sections.rich-text.blocks.button.settings.button_style.options__1.label"
+            },
+            {
+              "value": "ghost",
+              "label": "t:sections.rich-text.blocks.button.settings.button_style.options__2.label"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich-text.presets.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
