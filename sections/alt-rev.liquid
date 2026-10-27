@@ -1,0 +1,20 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+{%- liquid
+  assign ar_rc = product.metafields.reviews.rating_count | plus: 0
+  assign ar_rv = product.metafields.reviews.rating.value.rating | plus: 0
+-%}
+<div class="alt-sec alt-rev" id="alt-reviews">
+  <div class="ar-head">
+    <div class="ar-t"><span class="ar-eb">Anmeldelser</span><h2>{{ section.settings.heading | escape }}</h2></div>
+    {%- if ar_rc > 0 -%}
+    <div class="ar-agg"><span class="ar-big">{{ ar_rv | round: 1 | replace: '.', ',' }}</span><span class="ar-stars" aria-hidden="true">★★★★★</span><span class="ar-cnt">{{ ar_rc }} {% if ar_rc == 1 %}anmeldelse{% else %}anmeldelser{% endif %} på dette produkt</span></div>
+    {%- endif -%}
+  </div>
+  <div class="ar-body">
+    {%- for block in section.blocks -%}{% render block %}{%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"ALT anmeldelser","settings":[{"type":"text","id":"heading","label":"Overskrift","default":"Lad kunderne tale for os"}],"blocks":[{"type":"@app"}],"presets":[{"name":"ALT anmeldelser"}]}
+{% endschema %}
