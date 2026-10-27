@@ -52,6 +52,8 @@ body.bm-on .bm-announcement__slide{color:#b59d88}
 body.bm-on .bm-announcement__nav{color:#7a7068;font-size:18px;line-height:20px;padding:0}
 body.bm-on .bm-announcement__close{display:none}
 @media(max-width:1023px){body.bm-on .bm-announcement{font-family:"Hanken Grotesk",sans-serif;font-size:12px;line-height:16px;letter-spacing:.08em}body.bm-on .bm-announcement__nav{display:none}}
+body.bm-on .bm-announcement__slide{font-family:inherit;font-size:inherit;line-height:20px;letter-spacing:inherit;text-transform:inherit;font-weight:inherit;margin:0}
+@media(max-width:989px){body.bm-on .header-wrapper header.header{padding-top:0;padding-bottom:0;min-height:64px;height:64px}body.bm-on .header__heading-logo{height:34px;width:auto;max-width:none}body.bm-on .header__heading-link{padding:0 12px}body.bm-on .header__heading{display:flex;align-items:center}body.bm-on .header__icon svg{width:22px;height:22px}body.bm-on .ksp-bar{display:none}body.bm-on .shopify-section-group-header-group:has(.ksp-bar){display:none}}
 body.bm-on .bm-footer-note{background:#3a3a3e;border-radius:0;margin:0;max-width:none;width:100%;padding:24px clamp(16px,5vw,72px) 0;border:0;box-shadow:none}
 body.bm-on .bm-footer-note h2{display:none}
 body.bm-on .bm-footer-note p{color:#d8c6b1;font-family:"Playfair Display",Georgia,serif;font-size:14px;line-height:22px;letter-spacing:0;max-width:1296px;margin:0 auto}
