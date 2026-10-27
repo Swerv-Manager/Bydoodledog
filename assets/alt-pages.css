@@ -212,6 +212,22 @@
 
 .alt-col .ac-gi{display:contents}.alt-col product-card.ac-card{display:flex}.alt-col .ac-caption{display:contents}.alt-col variant-swatch-king{display:block;min-height:31px;padding:3px 3px 0}@media(max-width:749px){.alt-col variant-swatch-king{min-height:27px}}
 .alt-col product-card:not(:has(variant-swatch-king)) .ac-caption{display:block;min-height:31px;padding:3px 3px 0}@media(max-width:749px){.alt-col product-card:not(:has(variant-swatch-king)) .ac-caption{min-height:27px}}
+
+/* ===== COLLECTION HERO: face-safe image placement (r6 colhero) =====
+   The photo is no longer a 60% right-hand background under the tag/countdown/title/gradient.
+   Desktop: it is a flex column BETWEEN the title block and the countdown cluster, so nothing overlaps it.
+   Tablet+mobile: stacked layout with a taller band (tag stays top-right; photo box is centred and faded at the edges).
+   --fp = focal point (x% y%) set per collection handle in alt-col.liquid. */
+.alt-sec .bdcol3{background:none}
+.alt-sec .bdcol10{overflow:visible}
+.alt-sec .bdcol11{flex:0 1 auto;min-width:0}
+.alt-sec .bdcol2{display:block;position:relative;right:auto;top:auto;width:auto;height:auto;align-self:stretch;margin:0 0 -40px;flex:0 20 520px;min-width:0;background-size:cover;background-repeat:no-repeat;background-position:var(--fp,50% 40%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 86%,transparent 100%)}
+.alt-sec .bdcol16{position:relative;z-index:3}
+/* 1024-1279: too narrow for title | photo | countdown in one row -> use the stacked layout */
+@media(min-width:1024px) and (max-width:1279px){#alt-col>.alt-d{display:none!important}#alt-col>.alt-m{display:block!important}}
+.alt-sec .bmcol2{height:clamp(220px,42vw,340px)}
+.alt-sec .bmcol3{position:relative;display:block;width:min(100%,calc(clamp(220px,42vw,340px) * 1.8));height:100%;margin:0 auto;background-size:cover;background-repeat:no-repeat;background-position:var(--fp,50% 40%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+.alt-sec .bmcol4{background:linear-gradient(rgba(13,10,7,0) 78%,rgb(13,10,7) 100%)}
 /* ---- PDP (hand-built from ALT I ET dh_30 / dh_31) ---- */
 .alt-pdp{background:#211a13;color:#FCFAF5;font-family:"Hanken Grotesk",sans-serif;padding-bottom:0}
 .alt-pdp h1,.alt-pdp h2{font-family:"Playfair Display",serif;font-weight:400;margin:0;color:#FCFAF5}
