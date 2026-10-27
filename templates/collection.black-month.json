@@ -9,12 +9,22 @@
  */
 {
   "sections": {
-    "sph-col": {
-      "type": "sph-col",
+    "alt-col": {
+      "type": "alt-col",
+      "settings": {}
+    },
+    "alt-cats2": {
+      "type": "alt-cats2",
+      "settings": {}
+    },
+    "alt-trust": {
+      "type": "alt-trust",
       "settings": {}
     }
   },
   "order": [
-    "sph-col"
+    "alt-col",
+    "alt-cats2",
+    "alt-trust"
   ]
 }
