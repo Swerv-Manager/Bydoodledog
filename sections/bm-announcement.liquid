@@ -1,37 +1,6 @@
-{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
-{%- if bm_on == 'true' and settings.bm_announcement_messages != blank -%}
-  {%- assign bm_slides = settings.bm_announcement_messages | newline_to_br | split: '<br />' -%}
-  <div class="bm-announcement" data-bm-announcement role="region" aria-label="{{ settings.bm_menu_label | escape }}">
-    <button type="button" class="bm-announcement__nav" data-bm-ann-prev aria-label="{{ settings.bm_prev_label | escape }}">‹</button>
-    <div class="bm-announcement__viewport">
-      <p class="bm-announcement__slide is-active" data-bm-ann-slide>Black Month · minimum 20 % på hele shoppen</p>
-      {%- assign bm_slide_index = 1 -%}
-      {%- for bm_slide in bm_slides -%}
-        {%- assign bm_slide_text = bm_slide | strip -%}
-        {%- if settings.bm_up_to_enabled == false -%}
-          {%- assign bm_phrase = settings.bm_up_to_text | replace: '.', '' -%}
-          {%- assign bm_slide_text = bm_slide_text | replace: settings.bm_up_to_text, '' | replace: bm_phrase, '' | strip -%}
-        {%- endif -%}
-        {%- assign bm_dup = false -%}{%- if bm_slide_text contains 'inimum 20' -%}{%- assign bm_dup = true -%}{%- endif -%}
-        {%- if bm_slide_text != blank and bm_dup == false -%}
-          <p class="bm-announcement__slide{% if bm_slide_index == 0 %} is-active{% endif %}" data-bm-ann-slide>{{ bm_slide_text }}</p>
-          {%- assign bm_slide_index = bm_slide_index | plus: 1 -%}
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-    <button type="button" class="bm-announcement__nav" data-bm-ann-next aria-label="{{ settings.bm_next_label | escape }}">›</button>
-    <button type="button" class="bm-announcement__close" data-bm-ann-close aria-label="{{ settings.bm_close_label | escape }}">×</button>
-  </div>
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+<div class="alt-sec alt-annwrap"><div class="alt-ann adan1" data-bm-announcement="" role="region"><button aria-label="Forrige" class="adan2" data-bm-ann-prev="" type="button">‹</button><a class="adan3" href="/collections/all-products" title="Se alle produkter"><span style="display: inline-block; white-space: nowrap; animation: 4s ease 0s 1 normal both running sph-rot;" class="alt-ann-slide is-active" data-bm-ann-slide>Black Month · spar op til 80%</span>{%- assign alt_sl = settings.bm_announcement_messages | newline_to_br | split: '<br />' -%}{%- for s in alt_sl -%}{%- assign t = s | strip -%}{%- if t != blank and t != 'Black Month 30.10–30.11' and t != 'Spar op til 80 %' -%}<span style="display: inline-block; white-space: nowrap; animation: 4s ease 0s 1 normal both running sph-rot;" class="alt-ann-slide" data-bm-ann-slide>{{ t }}</span>{%- endif -%}{%- endfor -%}</a><button aria-label="Næste" class="adan2" data-bm-ann-next="" type="button">›</button><button aria-label="Luk" class="scp2 adan4" data-bm-ann-close="" title="Luk" type="button"><svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24" width="16"><path d="M5 5l14 14M19 5L5 19"></path></svg></button></div></div>
 {%- endif -%}
-
 {% schema %}
-{
-  "name": "BM announcement",
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "Teksten styres af tema-indstillingen Black Month → Announcement. Sektionen vises kun på Black Month-sider."
-    }
-  ]
-}
+{"name":"BM announcement","settings":[],"presets":[{"name":"BM announcement"}]}
 {% endschema %}

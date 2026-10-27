@@ -51,10 +51,13 @@
         {% render 'bm-money', amount: settings.bm_free_shipping %}
       {%- endif -%}
     </p>
-    <div class="bm-ship__track" aria-hidden="true">
-      <span class="bm-ship__fill" data-bm-ship-fill style="width: {{ bm_fill }}%;"></span>
-      <span class="bm-ship__mark" style="left: {{ bm_ship_mark }}%;"></span>
+    <div class="bm-ship__box">
+      <div class="bm-ship__track" aria-hidden="true">
+        <span class="bm-ship__fill" data-bm-ship-fill style="width: {{ bm_fill }}%;"></span>
+        <span class="bm-ship__mark" style="left: {{ bm_ship_mark }}%;"></span>
+        <span class="bm-ship__mark" style="left: 100%;"></span>
+      </div>
+      <p class="bm-ship__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
     </div>
-    <p class="bm-ship__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
   </div>
 {%- endif -%}
