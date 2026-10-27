@@ -228,6 +228,7 @@
 .alt-sec .bmcol2{height:clamp(220px,42vw,340px)}
 .alt-sec .bmcol3{position:relative;display:block;width:min(100%,calc(clamp(220px,42vw,340px) * 1.8));height:100%;margin:0 auto;background-size:cover;background-repeat:no-repeat;background-position:var(--fp,50% 40%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
 .alt-sec .bmcol4{background:linear-gradient(rgba(13,10,7,0) 78%,rgb(13,10,7) 100%)}
+.alt-sec .bmcol2.bmno{height:124px}
 /* phones: photo box left-aligned and narrower, so the hanging tag (top-right) sits on dark, not on the dog */
 @media(max-width:749px){.alt-sec .bmcol3{width:min(100%,calc(clamp(220px,42vw,340px) * 1.3));margin:0;-webkit-mask-image:linear-gradient(90deg,#000 62%,transparent 100%);mask-image:linear-gradient(90deg,#000 62%,transparent 100%)}}
 /* ---- PDP (hand-built from ALT I ET dh_30 / dh_31) ---- */
