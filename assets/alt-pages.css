@@ -379,4 +379,50 @@
 .alt-rev .jdgm-widget .jdgm-rev__body,.alt-rev .jdgm-widget .jdgm-rev__timestamp{color:rgba(252,250,245,.78)!important}
 .alt-rev .jdgm-widget .jdgm-rev__author{font-weight:700!important}
 .alt-xs .ax-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+/* ---- Bundle PDP (ALT I ET dh_32 / dh_33) ---- */
+.ap-pak .ap-title{font-size:48px;line-height:54px}
+.ap-pak .ap-chip--solid{background:rgb(181,157,136);color:rgb(33,26,19);border-color:rgb(181,157,136)}
+.ap-pak .ap-sub{font:400 16px/24px "Playfair Display",serif;color:rgba(252,250,245,.66)}
+.ap-pak .pk-comps{display:flex;flex-direction:column;gap:12px}
+.ap-pak .pk-ch{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ap-pak .pk-ct{font:400 22px/28px "Playfair Display",serif;letter-spacing:.04em;text-transform:uppercase;color:#FCFAF5}
+.ap-pak .pk-cn{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(252,250,245,.66)}
+.ap-pak .pk-card{background:rgb(43,33,25);border:1px solid rgba(252,250,245,.12);border-radius:18px;padding:14px;display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:start}
+.ap-pak .pk-img{position:relative;width:76px;height:76px;border-radius:12px;overflow:hidden;background:rgb(58,45,35)}
+.ap-pak .pk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:rgb(33,26,19)}
+.ap-pak .pk-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ap-pak .pk-type{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgb(181,157,136)}
+.ap-pak .pk-name{font:400 17px/22px "Playfair Display",serif;color:#FCFAF5}
+.ap-pak .pk-pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ap-pak .pk-pr b{font:800 16px/20px "Hanken Grotesk",sans-serif;font-variant-numeric:tabular-nums;color:#FCFAF5}
+.ap-pak .pk-pr s,.ap-pak .pk-pr span{font:400 13px/18px "Playfair Display",serif;color:rgba(252,250,245,.66)}
+.ap-pak .pk-pricebox{gap:14px}
+.ap-pak .pk-each{display:flex;justify-content:space-between;font:400 16px/24px "Playfair Display",serif;color:rgba(252,250,245,.66)}
+.ap-pak .pk-deal{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ap-pak .pk-lbl{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgb(181,157,136)}
+.ap-pak .pk-price{font:800 48px/1.1 "Hanken Grotesk",sans-serif;font-variant-numeric:tabular-nums;color:rgb(181,157,136)}
+.ap-pak .pk-perk{display:flex;flex-direction:column;gap:2px;align-items:flex-end;text-align:right}
+.ap-pak .pk-p1{font:700 17px/24px "Hanken Grotesk",sans-serif;color:#FCFAF5}
+.ap-pak .pk-p2{font:400 13px/18px "Hanken Grotesk",sans-serif;color:rgba(252,250,245,.66)}
+.ap-pak .pk-ship{background:rgb(248,242,240);border-radius:14px;padding:14px 16px 12px;display:flex;flex-direction:column;gap:10px}
+.ap-pak .pk-ship p{margin:0;text-align:center;font:400 17px/24px "Playfair Display",serif;color:rgb(47,47,51);text-wrap:balance}
+.ap-pak .pk-track{position:relative;height:24px;margin:0 12px;background:linear-gradient(#fff,#fff) 0 6px/100% 12px no-repeat;border-radius:999px}
+.ap-pak .pk-track i{position:absolute;left:0;top:6px;height:12px;border-radius:999px;background:rgb(58,57,62);min-width:12px}
+.ap-pak .pk-track b{position:absolute;top:0;margin-left:-12px;width:24px;height:24px;border-radius:999px;background:rgb(58,57,62);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:400;line-height:1}
+.ap-pak .pk-marks{display:grid;margin-left:12px;font:500 12px/16px "Hanken Grotesk",sans-serif;color:rgb(92,85,80)}
+.ap-pak .pk-marks span{text-align:right;white-space:nowrap}
+.ap-pak .pk-marks span:first-child{padding-right:16px}
+.ap-pak .pk-info{border:1px solid rgba(252,250,245,.12);border-radius:18px;display:flex;flex-direction:column}
+.ap-pak .pk-ir{padding:14px 18px;display:flex;gap:14px;align-items:flex-start}
+.ap-pak .pk-ir+.pk-ir{border-top:1px solid rgba(252,250,245,.12)}
+.ap-pak .pk-ir svg{flex-shrink:0;margin-top:1px}
+.ap-pak .pk-ir div{display:flex;flex-direction:column;gap:2px}
+.ap-pak .pk-ir span{font:400 16px/22px "Playfair Display",serif;color:#FCFAF5}
+.ap-pak .pk-ir em{font:400 14px/20px "Playfair Display",serif;font-style:normal;color:rgba(252,250,245,.66)}
+.ap-pak .ap-add{height:58px}
+@media(max-width:1023px){
+  .ap-pak .ap-title{font-size:30px;line-height:36px}
+  .ap-pak .pk-price{font-size:40px}
+  .ap-pak .pk-ct{font-size:20px}
+}
 
