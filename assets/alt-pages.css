@@ -339,7 +339,9 @@
   .alt-pdp .ap-acc{margin:0;padding:0 16px;order:3}
   .alt-pdp .ap-gal{display:contents}
   .alt-pdp .ap-main{order:1}.alt-pdp .ap-thumbs{order:2}
-  .alt-pdp .ap-grid{display:flex;flex-direction:column}
+  .alt-pdp .ap-grid{display:flex;flex-direction:column;align-items:stretch}
+  .alt-pdp .ap-main{width:100%}.alt-pdp .ap-thumbs{min-width:0;max-width:100%;box-sizing:border-box}
+  .alt-pdp{overflow-x:clip}
   .alt-pdp .ap-info{order:2;padding:20px 16px 0;gap:18px}
   .alt-pdp .ap-acc{order:3;margin-top:24px}
   .alt-pdp .ap-title{font-size:30px;line-height:36px}
