@@ -11,15 +11,7 @@
   "sections": {
     "alt-pak": {
       "type": "alt-pak",
-      "settings": {
-        "components": [
-          "bjork-bilsaede-til-hunde-beige",
-          "bjork-hundekurv-til-hunde-beige",
-          "by-doodle-dog-bamsen-m-lyd",
-          "nora-kropssele-lys-brun",
-          "automatisk-hundesnor-beige-forudbestilling-uge-18"
-        ]
-      }
+      "settings": {}
     },
     "alt-rev": {
       "type": "alt-rev",
