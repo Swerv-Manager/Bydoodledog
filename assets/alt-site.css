@@ -266,3 +266,5 @@ body.bm-on cart-drawer .cart__product-title,body.bm-on cart-drawer .cart__produc
 .menu-drawer__header .header__heading-logo{height:30px!important;width:auto!important;max-width:none!important}
 /* QA fix: after the campaign end (data-bm-phase="post", set by bm.js without reload) hide campaign-only chrome: hero text, countdown, marquee and the Black Month menu pill */
 body[data-bm-phase="post"] .alt-hero,body[data-bm-phase="post"] .alt-marq,body[data-bm-phase="post"] [data-bm-countdown],body[data-bm-phase="post"] .bm-nav-pill-item,body[data-bm-phase="post"] .bm-pill{display:none!important}
+/* QA fix: collection hero in post phase - hide campaign tag, kicker, subline and countdown block (title + image stay) */
+body[data-bm-phase="post"] .alt-col .bdcol4,body[data-bm-phase="post"] .alt-col .bdcol12,body[data-bm-phase="post"] .alt-col .bdcol14,body[data-bm-phase="post"] .alt-col .bdcol16,body[data-bm-phase="post"] .alt-col .bmcol5,body[data-bm-phase="post"] .alt-col .bmcol12,body[data-bm-phase="post"] .alt-col .bmcol14,body[data-bm-phase="post"] .alt-col .bmcol16,body[data-bm-phase="post"] .alt-col .bmcol17{display:none!important}
