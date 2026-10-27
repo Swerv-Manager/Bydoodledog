@@ -217,12 +217,13 @@
    Image is the design's right-anchored background under tag/title/countdown with the design scrim.
    Per collection (alt-col.liquid): --fp/--iw desktop position+width, --fpt stacked 750-1279, --fpm phone, --bh stacked band height, --gs scrim start. */
 .alt-sec .bdcol2{width:var(--iw,60%);background-position:var(--fp,50% 50%)}
+.alt-sec .bdcol3{background:linear-gradient(90deg,rgb(13,10,7) var(--s1,40%),rgba(13,10,7,var(--a2,.6)) var(--s2,68%),rgba(13,10,7,.25) 100%)}
 @media(min-width:1024px) and (max-width:1279px){#alt-col>.alt-d{display:none!important}#alt-col>.alt-m{display:block!important}}
 .alt-sec .bmcol2{height:var(--bh,124px)}
 .alt-sec .bmcol2.bmno{height:124px}
 .alt-sec .bmcol3{background-position:var(--fpt,50% 50%)}
 .alt-sec .bmcol4{background:linear-gradient(rgba(13,10,7,.15) var(--gs,20%),rgb(13,10,7) 100%)}
-@media(max-width:749px){.alt-sec .bmcol3{background-position:var(--fpm,50% 50%)}}
+@media(max-width:749px){.alt-sec .bmcol3{background-position:var(--fpm,50% 50%);background-size:var(--bsm,cover)}}
 /* ---- PDP (hand-built from ALT I ET dh_30 / dh_31) ---- */
 .alt-pdp{background:#211a13;color:#FCFAF5;font-family:"Hanken Grotesk",sans-serif;padding-bottom:0}
 .alt-pdp h1,.alt-pdp h2{font-family:"Playfair Display",serif;font-weight:400;margin:0;color:#FCFAF5}
