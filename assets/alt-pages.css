@@ -382,6 +382,30 @@
 .alt-rev .jdgm-widget .jdgm-rev__body,.alt-rev .jdgm-widget .jdgm-rev__timestamp{color:rgba(252,250,245,.78)!important}
 .alt-rev .jdgm-widget .jdgm-rev__author{font-weight:700!important}
 .alt-xs .ax-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* ===== Swatch King -> round clean dots (ALT I ET: 52px desktop / 44px mobile, image fill, ring on selected) ===== */
+.alt-pdp variant-swatch-king{display:block;margin:0}
+.alt-pdp variant-swatch-king .swatches{margin:0!important;padding:0!important}
+.alt-pdp variant-swatch-king .swatch-single{margin:0!important;padding:0!important;border:0!important;background:none!important}
+.alt-pdp variant-swatch-king fieldset{border:0;margin:0;padding:0;min-width:0}
+.alt-pdp variant-swatch-king .swatch-label{display:flex!important;align-items:baseline;gap:0;margin:0 0 10px!important;padding:0!important;font:400 15px/22px "Hanken Grotesk",sans-serif!important;letter-spacing:0!important;text-transform:none!important;color:#FCFAF5!important}
+.alt-pdp variant-swatch-king .swatch-label .swatch-option-name,.alt-pdp variant-swatch-king .swatch-label .swatch-variant-name{font:inherit!important;color:inherit!important;letter-spacing:inherit!important}
+.alt-pdp variant-swatch-king .swatch-label .swatch-variant-name{font-weight:700!important}
+.alt-pdp variant-swatch-king .swatch-label .swatch-split-symbol{font-weight:400!important}
+.alt-pdp variant-swatch-king ul.swatch-view{display:flex!important;flex-wrap:wrap;gap:10px!important;margin:0!important;padding:4px!important;list-style:none!important}
+.alt-pdp variant-swatch-king li.swatch-view-item{display:block!important;margin:0!important;padding:0!important;width:52px;height:52px;max-width:none;flex:0 0 auto;border-radius:50%;outline:0}
+.alt-pdp variant-swatch-king li.swatch-view-item .swatch-image-wrapper{display:block!important;box-sizing:border-box;width:52px!important;height:52px!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:50%!important;background:none!important;overflow:visible!important;box-shadow:0 0 0 1px rgba(252,250,245,.28)!important;transition:box-shadow .15s ease;cursor:pointer}
+.alt-pdp variant-swatch-king li.swatch-view-item:hover .swatch-image-wrapper{box-shadow:0 0 0 1px rgba(252,250,245,.7)!important}
+.alt-pdp variant-swatch-king li.swatch-view-item[aria-checked="true"] .swatch-image-wrapper,.alt-pdp variant-swatch-king li.swatch-view-item:has(.swatch-selected) .swatch-image-wrapper{box-shadow:0 0 0 2px #211A13,0 0 0 4px #B59D88!important}
+.alt-pdp variant-swatch-king li.swatch-view-item:focus-visible .swatch-image-wrapper{box-shadow:0 0 0 2px #211A13,0 0 0 4px #FCFAF5!important}
+.alt-pdp variant-swatch-king .swatch-image,.alt-pdp variant-swatch-king .swatch-image.swatch-selected{display:block!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:50%!important;overflow:hidden;background:none!important;box-shadow:none!important}
+.alt-pdp variant-swatch-king .swatch-image::before,.alt-pdp variant-swatch-king .swatch-image::after{display:none!important}
+.alt-pdp variant-swatch-king .star-set-image{display:block!important;width:100%!important;height:100%!important;min-height:0!important;box-sizing:border-box;border:0!important;border-radius:50%!important;background-color:#3A2D23!important;background-size:cover!important;background-position:center center!important;background-repeat:no-repeat!important}
+.alt-pdp variant-swatch-king .swatch-image .star-set-image *{display:none}
+@media(max-width:749px){
+ .alt-pdp variant-swatch-king li.swatch-view-item{width:44px;height:44px}
+ .alt-pdp variant-swatch-king li.swatch-view-item .swatch-image-wrapper{width:44px!important;height:44px!important}
+}
 /* ---- Bundle PDP (ALT I ET dh_32 / dh_33) ---- */
 .ap-pak .ap-title{font-size:48px;line-height:54px}
 .ap-pak .ap-chip--solid{background:rgb(181,157,136);color:rgb(33,26,19);border-color:rgb(181,157,136)}
