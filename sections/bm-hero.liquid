@@ -40,13 +40,46 @@
       endif
     endif
 
-    assign bm_desktop_file = false
+    assign bm_desktop_src = bm_url_desktop
     if bm_video_desktop != blank and bm_video_desktop.sources.size > 0
-      assign bm_desktop_file = true
+      assign bm_picked = ''
+      assign bm_mp4 = ''
+      for bm_source in bm_video_desktop.sources
+        if bm_source.mime_type == 'video/mp4'
+          if bm_mp4 == blank
+            assign bm_mp4 = bm_source.url
+          endif
+          if bm_source.url contains '1080'
+            assign bm_picked = bm_source.url
+          endif
+        endif
+      endfor
+      if bm_picked != blank
+        assign bm_desktop_src = bm_picked
+      elsif bm_mp4 != blank
+        assign bm_desktop_src = bm_mp4
+      endif
     endif
-    assign bm_mobile_file = false
+
+    assign bm_mobile_src = bm_url_mobile
     if bm_video_mobile != blank and bm_video_mobile.sources.size > 0
-      assign bm_mobile_file = true
+      assign bm_picked = ''
+      assign bm_mp4 = ''
+      for bm_source in bm_video_mobile.sources
+        if bm_source.mime_type == 'video/mp4'
+          if bm_mp4 == blank
+            assign bm_mp4 = bm_source.url
+          endif
+          if bm_source.url contains '1080'
+            assign bm_picked = bm_source.url
+          endif
+        endif
+      endfor
+      if bm_picked != blank
+        assign bm_mobile_src = bm_picked
+      elsif bm_mp4 != blank
+        assign bm_mobile_src = bm_mp4
+      endif
     endif
   -%}
   <section class="bm-section bm-hero" id="bm-hero">
@@ -110,43 +143,19 @@
         {%- endif -%}
       {%- endif -%}
 
-      {%- if bm_desktop_file or bm_url_desktop != blank -%}
+      {%- if bm_desktop_src != blank or bm_mobile_src != blank -%}
         <video
-          class="bm-hero__video bm-hero__video--desktop"
-          autoplay
+          class="bm-hero__video"
           muted
           loop
           playsinline
           preload="none"
           poster="{{ bm_poster_desktop_url | escape }}"
-        >
-          {%- if bm_desktop_file -%}
-            {%- for bm_source in bm_video_desktop.sources -%}
-              <source src="{{ bm_source.url }}" type="{{ bm_source.mime_type }}">
-            {%- endfor -%}
-          {%- else -%}
-            <source src="{{ bm_url_desktop | escape }}" type="video/mp4">
-          {%- endif -%}
-        </video>
-      {%- endif -%}
-      {%- if bm_mobile_file or bm_url_mobile != blank -%}
-        <video
-          class="bm-hero__video bm-hero__video--mobile"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="none"
-          poster="{{ bm_poster_mobile_url | escape }}"
-        >
-          {%- if bm_mobile_file -%}
-            {%- for bm_source in bm_video_mobile.sources -%}
-              <source src="{{ bm_source.url }}" type="{{ bm_source.mime_type }}">
-            {%- endfor -%}
-          {%- else -%}
-            <source src="{{ bm_url_mobile | escape }}" type="video/mp4">
-          {%- endif -%}
-        </video>
+          data-bm-src-desktop="{{ bm_desktop_src | escape }}"
+          data-bm-src-mobile="{{ bm_mobile_src | escape }}"
+          data-bm-poster-desktop="{{ bm_poster_desktop_url | escape }}"
+          data-bm-poster-mobile="{{ bm_poster_mobile_url | escape }}"
+        ></video>
       {%- endif -%}
       <div class="bm-hero__scrim" aria-hidden="true"></div>
     </div>
@@ -183,25 +192,32 @@
       (function () {
         var hero = document.currentScript && document.currentScript.closest('.bm-hero');
         if (!hero) return;
+        var video = hero.querySelector('.bm-hero__video');
+        if (!video) return;
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var mobile = window.matchMedia('(max-width: 749px)').matches;
-        if (reduce) hero.classList.add('bm-hero--still');
-        hero.querySelectorAll('.bm-hero__video').forEach(function (video) {
-          var isMobile = video.classList.contains('bm-hero__video--mobile');
-          var isDesktop = video.classList.contains('bm-hero__video--desktop');
-          var unused = reduce || (mobile && isDesktop) || (!mobile && isMobile);
-          if (!unused) {
-            video.muted = true;
-            var play = video.play();
-            if (play && play.catch) play.catch(function () {});
-            return;
-          }
-          video.pause();
-          video.removeAttribute('autoplay');
-          video.querySelectorAll('source').forEach(function (source) { source.remove(); });
-          video.removeAttribute('src');
+        if (reduce) {
+          hero.classList.add('bm-hero--still');
+          return;
+        }
+        var mq = window.matchMedia('(max-width: 749px)');
+        function choose(mobile) {
+          var primary = mobile ? video.getAttribute('data-bm-src-mobile') : video.getAttribute('data-bm-src-desktop');
+          var other = mobile ? video.getAttribute('data-bm-src-desktop') : video.getAttribute('data-bm-src-mobile');
+          return primary || other || '';
+        }
+        function apply(mobile) {
+          var next = choose(mobile);
+          var poster = mobile ? video.getAttribute('data-bm-poster-mobile') : video.getAttribute('data-bm-poster-desktop');
+          if (poster) video.poster = poster;
+          if (!next || video.getAttribute('src') === next) return;
+          video.setAttribute('src', next);
+          video.muted = true;
           video.load();
-        });
+          var play = video.play();
+          if (play && play.catch) play.catch(function () {});
+        }
+        apply(mq.matches);
+        if (mq.addEventListener) mq.addEventListener('change', function (event) { apply(event.matches); });
       })();
     </script>
   </section>
@@ -235,19 +251,19 @@
       "type": "video",
       "id": "video_desktop",
       "label": "Desktop-video, 16:9",
-      "info": "Shopify Files. Forside BLACK, 1920×1080."
+      "info": "Shopify Files, 16:9. DK-standarden er shopify://files/videos/bm-hero-16x9.mp4. SE lader feltet stå tomt, indtil videoen er valgt. Kun denne fil hentes på skærme over 749px."
     },
     {
       "type": "text",
       "id": "video_desktop_url",
       "label": "Desktop-video URL (fallback)",
-      "info": "Bruges kun hvis der ikke er valgt en Shopify-fil. Indsæt MP4-URL fra Shopify Files."
+      "info": "Én MP4-URL. Bruges kun hvis Shopify-filen ikke er valgt. DK-fallback er 1080p-filen i Shopify Files."
     },
     {
       "type": "video",
       "id": "video_mobile",
       "label": "Mobil-video, 9:16",
-      "info": "Shopify Files. Forside BLACK, 1080×1920. Vises under 750px."
+      "info": "Shopify Files, 9:16. DK-standarden er shopify://files/videos/bm-hero-9x16.mp4. Hentes kun under 750px."
     },
     {
       "type": "text",

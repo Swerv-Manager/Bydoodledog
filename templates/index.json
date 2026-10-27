@@ -872,6 +872,10 @@
     "bm-hero": {
       "type": "bm-hero",
       "settings": {
+        "video_desktop": "shopify://files/videos/bm-hero-16x9.mp4",
+        "video_desktop_url": "https://cdn.shopify.com/videos/c/vp/d67c5862d9d64a0d96ae3d2ce0ad343b/d67c5862d9d64a0d96ae3d2ce0ad343b.HD-1080p-4.8Mbps-99048967.mp4",
+        "video_mobile": "shopify://files/videos/bm-hero-9x16.mp4",
+        "video_mobile_url": "https://cdn.shopify.com/videos/c/vp/ac21e7cf3bb44c8c9af41f59e7db2cf3/ac21e7cf3bb44c8c9af41f59e7db2cf3.HD-1080p-4.8Mbps-99048969.mp4",
         "show_hangtag": true
       }
     },
