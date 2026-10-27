@@ -236,8 +236,8 @@
                                           assign original_line_price = item.original_line_price | money_with_currency
                                           assign final_line_price = item.final_line_price | money_with_currency
                                         else
-                                          assign original_line_price = item.original_line_price | money
-                                          assign final_line_price = item.final_line_price | money
+                                          assign original_line_price = item.original_line_price | money_without_trailing_zeros
+                                          assign final_line_price = item.final_line_price | money_without_trailing_zeros
                                         endif
                                       %}
                                       {%- if item.original_line_price != item.final_line_price -%}
@@ -267,7 +267,7 @@
                                             {% if settings.show_currency_codes %}
                                               {{- item.unit_price | money_with_currency -}}
                                             {% else %}
-                                              {{- item.unit_price | money -}}
+                                              {{- item.unit_price | money_without_trailing_zeros -}}
                                             {% endif %}
                                           </span>
                                           <span aria-hidden="true">/</span>
@@ -1120,7 +1120,7 @@
                 {% if settings.show_currency_codes %}
                   {{ cart.total_price | money_with_currency }}
                 {% else %}
-                  {{ cart.total_price | money }}
+                  {{ cart.total_price | money_without_trailing_zeros }}
                 {% endif %}
               </p>
             </div>
