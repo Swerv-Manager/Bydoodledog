@@ -65,6 +65,7 @@ body.bm-on .site-footer a[href^="mailto"]{color:#f9f3f1!important;font-size:16px
 body.bm-on .site-footer svg{color:#f9f3f1}
 body.bm-on .site-footer ul li{margin-bottom:6px}
 /* ---- PDP (BM) ---- */
+body.bm-on.template-suffix-black-month .product-section-main-wrap{max-width:none!important}
 body.bm-on.template-suffix-black-month .breadcrumbs__list{background:transparent!important;box-shadow:none;border:0}
 body.bm-on.template-suffix-black-month .breadcrumbs__link,body.bm-on.template-suffix-black-month .breadcrumbs__item{font-size:14px;line-height:22px;color:#6e6259;text-transform:none;letter-spacing:0}
 body.bm-on.template-suffix-black-month .page-width.breadcrumbs-mobile--hide{max-width:1440px;padding:20px clamp(16px,5vw,72px) 0}
