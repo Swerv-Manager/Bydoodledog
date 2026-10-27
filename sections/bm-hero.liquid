@@ -2,8 +2,15 @@
 {%- assign bm_phase_now = bm_phase_raw | strip -%}
 {%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
   {%- liquid
+    capture bm_campaign_url
+      render 'bm-collection-url', handle: settings.bm_handle_campaign
+    endcapture
+    assign bm_campaign_url = bm_campaign_url | strip
+    if bm_campaign_url == blank
+      assign bm_campaign_url = settings.bm_collection_url
+    endif
     assign bm_primary = settings.bm_cta_primary
-    assign bm_primary_url = settings.bm_collection_url
+    assign bm_primary_url = bm_campaign_url
     if bm_phase_now == 'pre'
       assign bm_primary = settings.bm_signup_cta
       assign bm_primary_url = settings.bm_signup_url
@@ -40,7 +47,9 @@
           <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
         {%- endif -%}
         <div class="bm-hero__actions">
-          <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
+          {%- if bm_primary_url != blank -%}
+            <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
+          {%- endif -%}
           <a class="bm-btn bm-btn--ghost" href="#bm-budget">{{ settings.bm_cta_secondary }}</a>
         </div>
       </div>

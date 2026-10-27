@@ -8,7 +8,24 @@
     </div>
     <div class="bm-gifts__grid">
       {%- for block in section.blocks -%}
-        <a class="bm-gift" href="{{ routes.collections_url }}/{{ block.settings.handle }}" {{ block.shopify_attributes }}>
+        {%- liquid
+          assign bm_handle = ''
+          case forloop.index
+            when 1
+              assign bm_handle = settings.bm_handle_gift_1
+            when 2
+              assign bm_handle = settings.bm_handle_gift_2
+            when 3
+              assign bm_handle = settings.bm_handle_gift_3
+          endcase
+          if bm_handle == blank
+            assign bm_handle = block.settings.handle
+          endif
+        -%}
+        {%- capture bm_href -%}{%- render 'bm-collection-url', handle: bm_handle -%}{%- endcapture -%}
+        {%- assign bm_href = bm_href | strip -%}
+        {%- if bm_href != blank -%}
+        <a class="bm-gift" href="{{ bm_href }}" {{ block.shopify_attributes }}>
           <span class="bm-gift__media">
             {%- if block.settings.image != blank -%}
               {{
@@ -25,6 +42,7 @@
           <span class="bm-gift__text">{{ block.settings.text }}</span>
           <span class="bm-btn bm-btn--ghost">{{ block.settings.button }}</span>
         </a>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </section>
@@ -43,7 +61,7 @@
         { "type": "text", "id": "title", "label": "Beløb", "default": "500 kr." },
         { "type": "text", "id": "text", "label": "Beskrivelse" },
         { "type": "text", "id": "button", "label": "Knap", "default": "Se gaverne" },
-        { "type": "text", "id": "handle", "label": "Kollektions-handle" }
+        { "type": "text", "id": "handle", "label": "Kollektions-handle", "info": "Bruges kun hvis tema-indstillingen bm_handle_gift_1, _2 eller _3 for denne plads er tom." }
       ]
     }
   ],

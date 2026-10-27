@@ -1219,7 +1219,74 @@
         "type": "text",
         "id": "bm_signup_url",
         "label": "signup url",
-        "default": "/pages/black-month-signup"
+        "default": "/pages/black-month-fa-veta-forst"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_campaign",
+        "label": "Handle: Black Month-kollektion",
+        "default": "black-month",
+        "info": "Oprettes i Shopify før launch. Tom = kortet/linket skjules, medmindre collection url er udfyldt."
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_bundles",
+        "label": "Handle: pakke-kollektion",
+        "default": "black-month-paket"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_1",
+        "label": "Handle: kategori 1",
+        "default": "hundkorg"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_2",
+        "label": "Handle: kategori 2",
+        "default": "hundbilsate"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_3",
+        "label": "Handle: kategori 3",
+        "default": "hundtrappa"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_4",
+        "label": "Handle: kategori 4",
+        "default": "hundsele"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_5",
+        "label": "Handle: kategori 5",
+        "default": "hundklader"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_bags",
+        "label": "Handle: väskor",
+        "default": "hundvaska"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_accessories",
+        "label": "Handle: tillbehör",
+        "default": "tillbehor"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_snacks",
+        "label": "Handle: snacks",
+        "default": "snacks"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_grooming",
+        "label": "Handle: pälsvård",
+        "default": "palsvard"
       },
       {
         "type": "text",
@@ -1459,7 +1526,7 @@
         "type": "text",
         "id": "bm_reviews_count",
         "label": "reviews count",
-        "default": "624 recensioner"
+        "default": "300 recensioner"
       },
       {
         "type": "text",

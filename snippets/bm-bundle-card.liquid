@@ -111,6 +111,13 @@
       {{ settings.bm_bundle_cta }}
     </button>
   {%- else -%}
-    <a class="bm-btn bm-btn--primary bm-bundle-card__cta" href="{{ settings.bm_bundles_url }}">{{ settings.bm_bundle_cta }}</a>
+    {%- capture bm_bundles_href -%}{%- render 'bm-collection-url', handle: settings.bm_handle_bundles -%}{%- endcapture -%}
+    {%- assign bm_bundles_href = bm_bundles_href | strip -%}
+    {%- if bm_bundles_href == blank -%}
+      {%- assign bm_bundles_href = settings.bm_bundles_url -%}
+    {%- endif -%}
+    {%- if bm_bundles_href != blank -%}
+      <a class="bm-btn bm-btn--primary bm-bundle-card__cta" href="{{ bm_bundles_href }}">{{ settings.bm_bundle_cta }}</a>
+    {%- endif -%}
   {%- endif -%}
 </article>

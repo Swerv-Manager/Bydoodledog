@@ -768,7 +768,7 @@
           "type": "category",
           "settings": {
             "title": "Trappor",
-            "handle": "trappor",
+            "handle": "hundtrappa",
             "text": ""
           }
         },
@@ -776,7 +776,7 @@
           "type": "category",
           "settings": {
             "title": "Selar",
-            "handle": "selar",
+            "handle": "hundsele",
             "text": ""
           }
         },

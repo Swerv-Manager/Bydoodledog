@@ -17,7 +17,16 @@
       <nav class="bm-crumbs" aria-label="breadcrumb">
         <a href="{{ routes.root_url }}">{{ settings.bm_crumb_home }}</a>
         <span aria-hidden="true">/</span>
-        <a href="{{ settings.bm_collection_url }}">{{ settings.bm_crumb_bm }}</a>
+        {%- capture bm_campaign_url -%}{%- render 'bm-collection-url', handle: settings.bm_handle_campaign -%}{%- endcapture -%}
+        {%- assign bm_campaign_url = bm_campaign_url | strip -%}
+        {%- if bm_campaign_url == blank -%}
+          {%- assign bm_campaign_url = settings.bm_collection_url -%}
+        {%- endif -%}
+        {%- if bm_campaign_url != blank -%}
+          <a href="{{ bm_campaign_url }}">{{ settings.bm_crumb_bm }}</a>
+        {%- else -%}
+          <span>{{ settings.bm_crumb_bm }}</span>
+        {%- endif -%}
         <span aria-hidden="true">/</span>
         <span aria-current="page">{{ collection.title }}</span>
       </nav>
