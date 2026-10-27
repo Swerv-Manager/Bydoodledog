@@ -65,6 +65,14 @@ body.bm-on .site-footer a[href^="mailto"]{color:#f9f3f1!important;font-size:16px
 body.bm-on .site-footer svg{color:#f9f3f1}
 body.bm-on .site-footer ul li{margin-bottom:6px}
 /* ---- PDP (BM) ---- */
+body.bm-on.template-suffix-black-month .product-form__cart-submit{background:#846340!important;border:0!important;color:#fff!important;border-radius:4px!important;min-height:56px;font-size:16px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;box-shadow:none}
+body.bm-on.template-suffix-black-month .product-form__cart-submit::before,body.bm-on.template-suffix-black-month .product-form__cart-submit::after{background:transparent!important;box-shadow:none!important}
+body.bm-on.template-suffix-black-month .product-form__cart-submit *{color:#fff}
+body.bm-on.template-suffix-black-month .product-form__quantity,body.bm-on.template-suffix-black-month .payment_icons,body.bm-on.template-suffix-black-month .product__pickup-availabilities{display:none!important}
+body.bm-on.template-suffix-black-month .product-form__item--submit{display:block}
+body.bm-on.template-suffix-black-month .product-form__item__button-submit{width:100%}
+body.bm-on.template-suffix-black-month .product-form__controls-group--submit .product-form__item--submit{gap:0}
+body.bm-on.template-suffix-black-month .jdgm-star,body.bm-on.template-suffix-black-month .jdgm-prev-badge__stars .jdgm-star{color:#b59d88!important}
 body.bm-on.template-suffix-black-month .product__meta-grid>.product-badges,body.bm-on.template-suffix-black-month .product__meta-grid>.product__badges,body.bm-on.template-suffix-black-month .product-single__badges{display:none}
 body.bm-on.template-suffix-black-month .product-single__thumbnails-item:nth-child(n+5){display:none!important}
 body.bm-on.template-suffix-black-month .product-section-main-wrap{max-width:none!important}
