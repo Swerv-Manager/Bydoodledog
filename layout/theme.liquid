@@ -244,19 +244,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {%- endif -%}
     {%- if bm_load_assets -%}
       {{ 'bm-theme.css' | asset_url | stylesheet_tag }}
-      {%- if template.name == 'index' and bm_active == 'true' and settings.bm_keep_section_ids != blank -%}
-        <style>
-          body.bm-dark #MainContent > .shopify-section { display: none; }
-          body.bm-dark #MainContent > .shopify-section:has(.bm-section) { display: block; }
-          {%- assign bm_keep_ids = settings.bm_keep_section_ids | split: ',' -%}
-          {%- for bm_keep_id in bm_keep_ids -%}
-            {%- assign bm_keep_id_stripped = bm_keep_id | strip -%}
-            {%- if bm_keep_id_stripped != blank -%}
-              body.bm-dark #MainContent > .shopify-section[id$="__{{ bm_keep_id_stripped }}"] { display: block; }
-            {%- endif -%}
-          {%- endfor -%}
-        </style>
-      {%- endif -%}
     {%- endif -%}
   </head>
 
