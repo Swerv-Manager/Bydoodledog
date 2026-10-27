@@ -1,0 +1,35 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-col-foot">
+    <div class="bm-col-foot__nav">
+      <a href="{{ routes.root_url }}">{{ settings.bm_back_home }}</a>
+      {%- if section.settings.show_gift_nav -%}
+        {%- capture bm_gift_url_1 -%}{%- render 'bm-collection-url', handle: settings.bm_handle_gift_1 -%}{%- endcapture -%}
+        {%- capture bm_gift_url_2 -%}{%- render 'bm-collection-url', handle: settings.bm_handle_gift_2 -%}{%- endcapture -%}
+        {%- capture bm_gift_url_3 -%}{%- render 'bm-collection-url', handle: settings.bm_handle_gift_3 -%}{%- endcapture -%}
+        {%- assign bm_gift_url_1 = bm_gift_url_1 | strip -%}
+        {%- assign bm_gift_url_2 = bm_gift_url_2 | strip -%}
+        {%- assign bm_gift_url_3 = bm_gift_url_3 | strip -%}
+        {%- if bm_gift_url_1 != blank -%}<a href="{{ bm_gift_url_1 }}">{{ settings.bm_gift_nav_1 }}</a>{%- endif -%}
+        {%- if bm_gift_url_2 != blank -%}<a href="{{ bm_gift_url_2 }}">{{ settings.bm_gift_nav_2 }}</a>{%- endif -%}
+        {%- if bm_gift_url_3 != blank -%}<a href="{{ bm_gift_url_3 }}">{{ settings.bm_gift_nav_3 }}</a>{%- endif -%}
+      {%- endif -%}
+    </div>
+    <p class="bm-usp">{{ settings.bm_usp }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM kollektion bund",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_gift_nav",
+      "label": "Vis navigation mellem gave-niveauer",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

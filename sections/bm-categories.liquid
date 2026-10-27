@@ -1,0 +1,87 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-cats" data-bm-carousel>
+    <div class="bm-section__head">
+      <div>
+        <p class="bm-eyebrow">{{ settings.bm_cat_eyebrow }}</p>
+        <h2 class="bm-h2">{{ settings.bm_cat_title }}</h2>
+      </div>
+      <div class="bm-carousel__nav">
+        <button type="button" data-bm-prev aria-label="{{ settings.bm_prev_label | escape }}">‹</button>
+        <button type="button" data-bm-next aria-label="{{ settings.bm_next_label | escape }}">›</button>
+      </div>
+    </div>
+    <div class="bm-cats__track" data-bm-track>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign bm_card_text = block.settings.text
+          if bm_card_text == blank
+            assign bm_card_text = settings.bm_cat_card_text
+          endif
+          assign bm_cat_list = settings.bm_handle_cat_1 | append: '||' | append: settings.bm_handle_cat_2 | append: '||' | append: settings.bm_handle_cat_3 | append: '||' | append: settings.bm_handle_cat_4 | append: '||' | append: settings.bm_handle_cat_5
+          assign bm_cat_handles = bm_cat_list | split: '||'
+          assign bm_handle = bm_cat_handles[forloop.index0] | strip
+          if bm_handle == blank
+            assign bm_handle = block.settings.handle
+          endif
+        -%}
+        {%- capture bm_href -%}{%- render 'bm-collection-url', handle: bm_handle -%}{%- endcapture -%}
+        {%- assign bm_href = bm_href | strip -%}
+        {%- if bm_href != blank -%}
+        <a class="bm-cat" href="{{ bm_href }}" {{ block.shopify_attributes }}>
+          <span class="bm-cat__media">
+            {%- liquid
+              assign bm_cat_assets = 'bm-cat-hvalp-kurv.jpg||bm-product-bjork-bilsaede.jpg||bm-product-trappe.jpg||bm-product-nora-sele.jpg||bm-product-eva-jakke.jpg' | split: '||'
+              assign bm_cat_asset = bm_cat_assets[forloop.index0]
+            -%}
+            {%- capture bm_cat_media -%}
+              {%- render 'bm-media',
+                image: block.settings.image,
+                asset: bm_cat_asset,
+                alt: block.settings.title,
+                class: 'bm-cat__img',
+                loading: 'lazy',
+                width: 720,
+                height: 900,
+                widths: '240, 360, 540, 800',
+                sizes: '(min-width: 990px) 18vw, 70vw'
+              -%}
+            {%- endcapture -%}
+            {%- if bm_cat_media != blank -%}
+              {{ bm_cat_media }}
+            {%- else -%}
+              <span class="bm-media-fallback" aria-hidden="true"></span>
+            {%- endif -%}
+            <span class="bm-badge bm-badge--campaign">{{ settings.bm_badge_campaign }}</span>
+            <span class="bm-cat__arrow" aria-hidden="true">→</span>
+          </span>
+          <span class="bm-cat__title">{{ block.settings.title }}</span>
+          <span class="bm-cat__sub">{{ bm_card_text }}</span>
+        </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM kategorier",
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardbilledet for denne plads (kurv, bilsæde, trappe, sele, tøj)." },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Kategori" },
+        { "type": "text", "id": "handle", "label": "Kollektions-handle", "info": "Bruges kun hvis tema-indstillingen for denne plads er tom. Rækkefølgen følger bm_handle_cat_1 til bm_handle_cat_5." },
+        { "type": "text", "id": "text", "label": "Undertekst", "info": "Tom = tema-indstillingen Minimum 20 %." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BM kategorier" }
+  ]
+}
+{% endschema %}

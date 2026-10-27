@@ -1,0 +1,11 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- capture bm_campaign_url -%}{%- render 'bm-collection-url', handle: settings.bm_handle_campaign -%}{%- endcapture -%}
+{%- assign bm_campaign_url = bm_campaign_url | strip -%}
+{%- if bm_campaign_url == blank -%}
+  {%- assign bm_campaign_url = settings.bm_collection_url -%}
+{%- endif -%}
+{%- if bm_on == 'true' and bm_campaign_url != blank -%}
+  <li class="bm-nav-pill-item{% if context == 'drawer' %} bm-nav-pill-item--drawer{% endif %}">
+    <a class="bm-pill" href="{{ bm_campaign_url }}">{{ settings.bm_menu_label }}</a>
+  </li>
+{%- endif -%}

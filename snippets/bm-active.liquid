@@ -1,0 +1,22 @@
+{%- comment -%}
+  Outputs true when Black Month dark styling is in scope for this template.
+  Scope: homepage, any template suffix containing black-month, during pre or live.
+{%- endcomment -%}
+{%- liquid
+  capture bm_phase_raw
+    render 'bm-phase'
+  endcapture
+  assign bm_phase_now = bm_phase_raw | strip
+  assign bm_scope = false
+  if template.name == 'index'
+    assign bm_scope = true
+  endif
+  if template.suffix contains 'black-month'
+    assign bm_scope = true
+  endif
+  if bm_scope and bm_phase_now == 'pre' or bm_scope and bm_phase_now == 'live'
+    echo 'true'
+  else
+    echo 'false'
+  endif
+-%}

@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "bm-collection-hero": {
+      "type": "bm-collection-hero",
+      "settings": {
+        "subtitle": ""
+      }
+    },
+    "bm-collection-footer": {
+      "type": "bm-collection-footer",
+      "settings": {
+        "show_gift_nav": false
+      }
+    },
+    "bm-categories": {
+      "type": "bm-categories",
+      "blocks": {
+        "hundekurve": {
+          "type": "category",
+          "settings": {
+            "title": "Hundkorgar",
+            "handle": "hundkorg",
+            "text": ""
+          }
+        },
+        "bilsaeder": {
+          "type": "category",
+          "settings": {
+            "title": "Hundbilsäten",
+            "handle": "hundbilsate",
+            "text": ""
+          }
+        },
+        "trapper": {
+          "type": "category",
+          "settings": {
+            "title": "Trappor",
+            "handle": "hundtrappa",
+            "text": ""
+          }
+        },
+        "seler": {
+          "type": "category",
+          "settings": {
+            "title": "Selar",
+            "handle": "hundsele",
+            "text": ""
+          }
+        },
+        "toej": {
+          "type": "category",
+          "settings": {
+            "title": "Hundkläder",
+            "handle": "hundklader",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "hundekurve",
+        "bilsaeder",
+        "trapper",
+        "seler",
+        "toej"
+      ],
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 18,
+        "grid": 4,
+        "enable_filtering": true,
+        "color_swatch_shape": "circle",
+        "swatch_size": 22,
+        "enable_sorting": true
+      }
+    }
+  },
+  "order": [
+    "bm-collection-hero",
+    "product-grid",
+    "bm-collection-footer",
+    "bm-categories"
+  ]
+}
