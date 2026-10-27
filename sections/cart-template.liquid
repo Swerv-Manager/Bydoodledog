@@ -152,7 +152,7 @@
                       <div
                         class="cart__row cart__item"
                         id="CartItem-{{ item.index | plus: 1 }}"
-                        data-key="{{ item.key }}"
+                        data-key="{{ item.key }}"{% if item.properties._bm_gift != blank %} data-bm-gift{% endif %}
                         {% if gift_id == item.id %}
                           data-gift-wrapping-id="{{ gift_id }}"
                         {% endif %}
@@ -215,8 +215,8 @@
                                   {%- endif -%}
                                 </div>
                                 <div class="cart__final-price text-right">
-                                  {% if item.final_price == 0 and free_message %}
-                                    <span class="price--free">{{ 'sections.cart.free' | t }}</span>
+                                  {% if item.properties._bm_gift != blank or item.final_price == 0 and free_message %}
+                                    <span class="price--free">{% if item.properties._bm_gift != blank %}Gratis{% else %}{{ 'sections.cart.free' | t }}{% endif %}</span>
                                   {% else %}
                                     <div class="skeleton-text">
                                       {% liquid

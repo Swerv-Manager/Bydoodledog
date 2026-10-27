@@ -162,7 +162,7 @@
                       <div
                         id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                         class="cart__row cart__item"
-                        data-key="{{ item.key }}"
+                        data-key="{{ item.key }}"{% if item.properties._bm_gift != blank %} data-bm-gift{% endif %}
                         {% if giftId == item.id %}
                           data-gift-wrapping-id="{{ giftId }}"
                         {% endif %}
@@ -227,8 +227,8 @@
                                 </div>
                                 <div class="cart__final-price text-right">
                                   {% render 'bm-cart-compare', item: item %}
-                                  {% if item.final_price == 0 and free_message %}
-                                    <span class="price--free">{{ 'sections.cart.free' | t }}</span>
+                                  {% if item.properties._bm_gift != blank or item.final_price == 0 and free_message %}
+                                    <span class="price--free">{% if item.properties._bm_gift != blank %}Gratis{% else %}{{ 'sections.cart.free' | t }}{% endif %}</span>
                                   {% else %}
                                     <div class="skeleton-text">
                                       {% liquid

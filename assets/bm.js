@@ -150,10 +150,151 @@
     });
   }
 
+
+  // ---- Black Month: free snack basket auto-add (one line, qty 1, property _bm_gift) ----
+  function bmIsGift(item, vid) {
+    return !!(item && ((item.properties && item.properties._bm_gift) || (vid && item.variant_id === vid)));
+  }
+  function bmGiftLines(cart, vid) {
+    return ((cart && cart.items) || []).filter(function (it) { return bmIsGift(it, vid); });
+  }
+  function bmBaseTotal(cart) {
+    var total = (cart && cart.total_price) || 0;
+    bmGiftLines(cart, bmGiftCfg().vid).forEach(function (it) { total -= it.final_line_price || 0; });
+    return Math.max(0, total);
+  }
+  var bmGiftTestVid = null;
+  (function () {
+    // preview-only test override: ?bm_gift_vid=<variant id> (honored only with preview_theme_id)
+    try {
+      var q = params.get("bm_gift_vid");
+      if (preview && q && /^\d+$/.test(q)) sessionStorage.setItem("bm_gift_vid", q);
+      if (preview) bmGiftTestVid = Number(sessionStorage.getItem("bm_gift_vid")) || null;
+    } catch (e) {}
+  })();
+  function bmGiftCfg() {
+    var box = document.querySelector("[data-bm-ship]");
+    var live = root.classList.contains("bm-on") && (root.getAttribute("data-bm-phase") || "live") === "live";
+    var vid = box ? Number(box.getAttribute("data-gift-variant") || 0) : 0;
+    if (bmGiftTestVid) vid = bmGiftTestVid;
+    return {
+      box: box,
+      on: !!(box && live && vid),
+      vid: vid || null,
+      threshold: box ? Number(box.getAttribute("data-snack") || 0) : 0
+    };
+  }
+  function bmGiftState(cart) {
+    try {
+      var raw = JSON.parse(sessionStorage.getItem("bm_gift_state") || "null");
+      if (raw && raw.t === cart.token) return raw.s || "";
+    } catch (e) {}
+    return "";
+  }
+  function bmSetGiftState(cart, s) {
+    try {
+      if (!s) sessionStorage.removeItem("bm_gift_state");
+      else sessionStorage.setItem("bm_gift_state", JSON.stringify({ t: cart.token, s: s }));
+    } catch (e) {}
+  }
+  var bmGiftBusy = false, bmGiftGen = 0, bmGiftOps = 0, bmGiftWindow = Date.now();
+  function bmGiftRerender() {
+    // re-render the drawer / cart page via the Section Rendering API (the theme has no cart-update listener)
+    var drawer = document.querySelector("cart-drawer");
+    var main = document.getElementById("main-cart");
+    var ids = ["cart-icon-bubble"];
+    if (drawer) ids.push("cart-drawer");
+    if (main && main.dataset.id) ids.push(main.dataset.id);
+    var url = new URL(window.location.href);
+    url.searchParams.set("sections", ids.join(","));
+    return fetch(url.toString(), { credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("bm-gift-sections"); return r.json(); })
+      .then(function (sections) {
+        var parse = function (html, sel) {
+          var el = html ? new DOMParser().parseFromString(html, "text/html").querySelector(sel) : null;
+          return el ? el.innerHTML : null;
+        };
+        var bubble = document.getElementById("cart-icon-bubble");
+        var bubbleHtml = parse(sections["cart-icon-bubble"], ".shopify-section");
+        if (bubble && bubbleHtml !== null) bubble.innerHTML = bubbleHtml;
+        if (drawer) {
+          var inner = drawer.querySelector("#CartDrawer") || document.getElementById("CartDrawer");
+          var drawerHtml = parse(sections["cart-drawer"], "#CartDrawer");
+          if (inner && drawerHtml !== null) {
+            inner.innerHTML = drawerHtml;
+            var overlay = drawer.querySelector("#CartDrawer-Overlay");
+            if (overlay && drawer.close) overlay.addEventListener("click", drawer.close.bind(drawer));
+          }
+        }
+        if (main && main.dataset.id) {
+          var mainHtml = parse(sections[main.dataset.id], "#main-cart");
+          if (mainHtml !== null) main.innerHTML = mainHtml;
+        }
+      })
+      .catch(function () {});
+  }
+  function bmGiftRequest(url, body, cart, nextState) {
+    // loop guard: max 6 automatic cart writes per 30 s
+    if (Date.now() - bmGiftWindow > 30000) { bmGiftWindow = Date.now(); bmGiftOps = 0; }
+    if (++bmGiftOps > 6) return;
+    bmGiftBusy = true;
+    bmGiftGen++;
+    fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body)
+    })
+      .then(function (r) { if (!r.ok) throw new Error("bm-gift"); return r.json(); })
+      .then(function () {
+        bmSetGiftState(cart, nextState);
+        return bmGiftRerender();
+      })
+      .then(function () {
+        bmGiftBusy = false;
+        bmGiftGen++;
+        if (window.publish) publish("cart-update", { source: "bm-gift" });
+        return refreshCart();
+      })
+      .catch(function () { bmGiftBusy = false; bmGiftGen++; });
+  }
+  function bmGiftSync(cart) {
+    if (!cart || !cart.items || bmGiftBusy) return;
+    var cfg = bmGiftCfg();
+    var lines = bmGiftLines(cart, cfg.vid);
+    var changeUrl = ((window.routes && window.routes.cart_change_url) || "/cart/change") + ".js";
+    changeUrl = changeUrl.replace(/\.js\.js$/, ".js");
+    var auto = lines.filter(function (it) { return it.properties && it.properties._bm_gift; });
+    if (!cfg.on) {
+      // campaign over / not live: drop auto-added gift lines we put there
+      if (auto.length) bmGiftRequest(changeUrl, { id: auto[0].key, quantity: 0 }, cart, "");
+      return;
+    }
+    var qualifies = cfg.threshold > 0 && bmBaseTotal(cart) >= cfg.threshold;
+    var state = bmGiftState(cart);
+    if (!qualifies) {
+      if (auto.length) return bmGiftRequest(changeUrl, { id: auto[0].key, quantity: 0 }, cart, "");
+      if (state) bmSetGiftState(cart, "");
+      return;
+    }
+    if (auto.length > 1) return bmGiftRequest(changeUrl, { id: auto[1].key, quantity: 0 }, cart, "on");
+    if (auto.length === 1) {
+      if (auto[0].quantity > 1) return bmGiftRequest(changeUrl, { id: auto[0].key, quantity: 1 }, cart, "on");
+      if (state !== "on") bmSetGiftState(cart, "on");
+      return;
+    }
+    if (lines.length) return; // customer added the gift variant themselves; leave it
+    if (state === "on") { bmSetGiftState(cart, "off"); return; } // customer removed it: respect until cart drops below the threshold
+    if (state === "off") return;
+    bmGiftRequest((window.routes && window.routes.cart_add_url) || "/cart/add.js",
+      { items: [{ id: cfg.vid, quantity: 1, properties: { _bm_gift: "1" } }] }, cart, "on");
+  }
+
   function refreshCart() {
+    var gen = bmGiftGen;
     return fetch((window.routes && window.routes.cart_url ? window.routes.cart_url : "/cart") + ".js", { credentials: "same-origin" })
       .then(function (response) { return response.json(); })
-      .then(function (cart) { paintShip(cart.total_price || 0); return cart; })
+      .then(function (cart) { paintShip(bmBaseTotal(cart)); if (gen === bmGiftGen) bmGiftSync(cart); return cart; })
       .catch(function () {});
   }
 
@@ -165,6 +306,7 @@
       if (++tries < 40) setTimeout(hook, 250);
     }
     hook();
+    if (document.querySelector("[data-bm-ship]") || sessionStorage.getItem("bm_gift_state")) refreshCart();
     // fallback: repaint when the drawer / cart items are re-rendered by the section rendering API
     var t;
     var mo = new MutationObserver(function (list) {
