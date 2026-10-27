@@ -157,7 +157,8 @@
           "settings": {
             "padding_top": 0,
             "padding_bottom": 50
-          }
+          },
+          "disabled": true
         },
         "complementary": {
           "type": "complementary",

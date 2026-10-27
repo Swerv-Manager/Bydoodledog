@@ -64,6 +64,29 @@ body.bm-on .site-footer p,body.bm-on .site-footer p a{color:#d8c6b1!important;fo
 body.bm-on .site-footer a[href^="mailto"]{color:#f9f3f1!important;font-size:16px;line-height:26px;text-transform:none;letter-spacing:0}
 body.bm-on .site-footer svg{color:#f9f3f1}
 body.bm-on .site-footer ul li{margin-bottom:6px}
+/* ---- PDP about ---- */
+.sph-about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;padding:96px clamp(16px,5vw,72px);max-width:1440px;margin:0 auto}
+.sph-about__l{grid-column:span 7;display:flex;flex-direction:column}
+.sph-about__h{margin:0 0 24px;font:400 32px/40px "Playfair Display",serif;letter-spacing:.06em;text-transform:uppercase;color:#111}
+.sph-about__d{border-top:1px solid #3a3a3e}
+.sph-about__d:last-child{border-bottom:1px solid #3a3a3e}
+.sph-about__d summary{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;font-size:20px;line-height:28px;letter-spacing:.04em;text-transform:uppercase;color:#111}
+.sph-about__d summary::-webkit-details-marker{display:none}
+.sph-about__d summary i{font-style:normal;font-size:24px;line-height:24px}
+.sph-about__d summary i::before{content:"+"}
+.sph-about__d[open] summary i::before{content:"2"}
+.sph-about__b{padding:0 0 24px;max-width:640px;font-size:16px;line-height:26px;color:#111}
+.sph-about__b h2,.sph-about__b h3{font:400 18px/26px "Playfair Display",serif;letter-spacing:.04em;text-transform:uppercase;margin:20px 0 8px}
+.sph-about__b p{margin:0 0 12px}
+.sph-about__r{grid-column:9 / span 4;display:flex;flex-direction:column;gap:24px}
+.sph-about__score{display:flex;align-items:flex-end;gap:16px}
+.sph-about__big{font:900 96px/88px "Playfair Display",serif;letter-spacing:-.03em;color:#111}
+.sph-about__score>div{display:flex;flex-direction:column;gap:2px;padding-bottom:6px}
+.sph-about__stars{font-size:18px;line-height:22px;letter-spacing:2px;color:#b59d88}
+.sph-about__cnt{font-size:14px;line-height:22px;color:#111}
+.sph-about__more{font-size:16px;line-height:24px;font-weight:600;color:#846340;text-decoration:none}
+.sph-reviews-h{max-width:1440px;margin-left:auto;margin-right:auto}
+@media(max-width:989px){.sph-about{padding:48px 16px;display:flex;flex-direction:column}.sph-about__h{font-size:24px;line-height:32px}.sph-about__d summary{font-size:16px}.sph-about__big{font-size:72px;line-height:68px}}
 /* ---- PDP (BM) ---- */
 body.bm-on.template-suffix-black-month .product-form__cart-submit{background:#846340!important;border:0!important;color:#fff!important;border-radius:4px!important;min-height:56px;font-size:16px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;box-shadow:none}
 body.bm-on.template-suffix-black-month .product-form__cart-submit::before,body.bm-on.template-suffix-black-month .product-form__cart-submit::after{background:transparent!important;box-shadow:none!important}
