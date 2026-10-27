@@ -255,7 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {%- endif -%}
   </head>
 
-  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-dark{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}">
+  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-dark{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}" data-bm-phase-mode="{{ settings.bm_phase_override | default: 'auto' | escape }}">
     <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

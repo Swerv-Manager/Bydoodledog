@@ -103,7 +103,7 @@
           "type": "heading",
           "disabled": true,
           "settings": {
-            "heading": "<p>15 % på allt</p><p>med koden Doodle15</p>",
+            "heading": "",
             "heading_custom": false,
             "heading_font": "playfair_display_n7",
             "heading_size": 40,

@@ -1035,6 +1035,31 @@
         "default": "2026-11-30T23:59:00+01:00"
       },
       {
+        "type": "select",
+        "id": "bm_phase_override",
+        "label": "Fase",
+        "info": "Standard er fuld Black Month indtil slutdatoen, med signup-siden som del af kampagnen. Der er ingen automatisk før-fase. De andre valg er kun til test.",
+        "default": "auto",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Fuld Black Month indtil slutdato"
+          },
+          {
+            "value": "live",
+            "label": "Fuld Black Month, også efter slutdato"
+          },
+          {
+            "value": "pre",
+            "label": "Kun signup-tilstand"
+          },
+          {
+            "value": "post",
+            "label": "Efter kampagnen"
+          }
+        ]
+      },
+      {
         "type": "checkbox",
         "id": "bm_show_percent_on_singles",
         "label": "Vis Spar X % på enkeltprodukter",

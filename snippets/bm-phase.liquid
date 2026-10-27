@@ -1,24 +1,26 @@
 {%- comment -%}
-  Outputs off | pre | live | post from theme settings and the shop clock.
-  Preview override ?bm_now= is applied in bm.js and does not change this server value.
+  Outputs off | pre | live | post.
+  Default (auto): full Black Month until bm_end, then phase C. There is no
+  automatic pre-launch phase. bm_phase_override can force pre, live or post.
 {%- endcomment -%}
 {%- liquid
   if settings.bm_enabled != true
     echo 'off'
   else
-    assign bm_start_raw = settings.bm_start | default: '2026-10-30T00:01:00+01:00'
-    assign bm_end_raw = settings.bm_end | default: '2026-11-30T23:59:00+01:00'
-    assign bm_start_ts = bm_start_raw | date: '%s' | plus: 0
-    assign bm_end_ts = bm_end_raw | date: '%s' | plus: 0
-    assign bm_now_ts = 'now' | date: '%s' | plus: 0
-    if bm_start_ts == 0 or bm_end_ts == 0
-      echo 'live'
-    elsif bm_now_ts < bm_start_ts
-      echo 'pre'
-    elsif bm_now_ts > bm_end_ts
-      echo 'post'
+    assign bm_mode = settings.bm_phase_override | default: 'auto' | strip
+    if bm_mode == 'pre' or bm_mode == 'live' or bm_mode == 'post'
+      echo bm_mode
     else
-      echo 'live'
+      assign bm_end_raw = settings.bm_end | default: '2026-11-30T23:59:00+01:00'
+      assign bm_end_ts = bm_end_raw | date: '%s' | plus: 0
+      assign bm_now_ts = 'now' | date: '%s' | plus: 0
+      if bm_end_ts == 0
+        echo 'live'
+      elsif bm_now_ts > bm_end_ts
+        echo 'post'
+      else
+        echo 'live'
+      endif
     endif
   endif
 -%}
