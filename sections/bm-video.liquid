@@ -2,27 +2,70 @@
 {%- assign bm_phase_now = bm_phase_raw | strip -%}
 {%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
   <section class="bm-section bm-video">
-    <div class="bm-video__media">
-      {%- if section.settings.video != blank -%}
-        {{ section.settings.video | video_tag: autoplay: false, loop: true, controls: true, image_size: '1200x' }}
-      {%- elsif section.settings.image != blank -%}
-        {{
-          section.settings.image
-          | image_url: width: 1600
-          | image_tag: loading: 'lazy', widths: '600, 1000, 1600', sizes: '100vw', alt: settings.bm_video_eyebrow, class: 'bm-video__img'
-        }}
+    <div class="bm-section__intro">
+      <p class="bm-eyebrow">{{ settings.bm_video_eyebrow }}</p>
+      {%- if section.settings.link != blank -%}
+        <a class="bm-btn bm-btn--ghost" href="{{ section.settings.link }}">{{ settings.bm_video_cta }}</a>
       {%- else -%}
-        <div class="bm-media-fallback bm-media-fallback--video" aria-hidden="true"></div>
+        <p class="bm-btn bm-btn--ghost">{{ settings.bm_video_cta }}</p>
       {%- endif -%}
-      <div class="bm-video__copy">
-        <p class="bm-eyebrow">{{ settings.bm_video_eyebrow }}</p>
-        {%- if section.settings.link != blank -%}
-          <a class="bm-btn bm-btn--ghost" href="{{ section.settings.link }}">{{ settings.bm_video_cta }}</a>
+    </div>
+    {%- if section.settings.video != blank -%}
+      <div class="bm-video__media">
+        {{ section.settings.video | video_tag: autoplay: false, loop: true, controls: true, image_size: '1200x' }}
+      </div>
+    {%- elsif section.settings.image != blank -%}
+      <div class="bm-video__media">
+        {% render 'bm-media',
+          image: section.settings.image,
+          alt: settings.bm_video_eyebrow,
+          class: 'bm-video__img',
+          loading: 'lazy',
+          width: 1600,
+          widths: '600, 1000, 1600',
+          sizes: '100vw'
+        %}
+      </div>
+    {%- else -%}
+      {%- assign bm_posters = 'bm-video-laura-bil.jpg|bm-video-laura-outfit.jpg|bm-video-laura-skilt.jpg|bm-video-torben-skilt.jpg' | split: '|' -%}
+      <div class="bm-video__posters">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign bm_poster = bm_posters[forloop.index0] -%}
+            <div class="bm-video__poster" {{ block.shopify_attributes }}>
+              {%- if block.settings.video != blank -%}
+                {{ block.settings.video | video_tag: autoplay: false, loop: true, controls: true, image_size: '800x' }}
+              {%- else -%}
+                {% render 'bm-media',
+                  image: block.settings.image,
+                  asset: bm_poster,
+                  alt: settings.bm_video_eyebrow,
+                  class: 'bm-video__img',
+                  loading: 'lazy',
+                  width: 1080,
+                  height: 1920,
+                  widths: '240, 400, 700',
+                  sizes: '(min-width: 990px) 22vw, 50vw'
+                %}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
         {%- else -%}
-          <p class="bm-btn bm-btn--ghost">{{ settings.bm_video_cta }}</p>
+          {%- for bm_poster in bm_posters -%}
+            <div class="bm-video__poster">
+              {% render 'bm-media',
+                asset: bm_poster,
+                alt: settings.bm_video_eyebrow,
+                class: 'bm-video__img',
+                loading: 'lazy',
+                width: 1080,
+                height: 1920
+              %}
+            </div>
+          {%- endfor -%}
         {%- endif -%}
       </div>
-    </div>
+    {%- endif -%}
   </section>
 {%- endif -%}
 
@@ -34,10 +77,20 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Fallback-billede",
-      "info": "Bruges hvis der ikke er valgt en video. Eksisterende shop-videoer kan vælges i video-feltet."
+      "label": "Ét fallback-billede",
+      "info": "Valgfrit. Uden video og uden dette billede vises de fire plakater."
     },
     { "type": "url", "id": "link", "label": "Knap-link" }
+  ],
+  "blocks": [
+    {
+      "type": "poster",
+      "name": "Plakat",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardplakaten for denne plads." },
+        { "type": "video", "id": "video", "label": "Video" }
+      ]
+    }
   ],
   "presets": [
     { "name": "BM video" }

@@ -34,12 +34,22 @@
               assign bm_parts = settings.bm_bundle_parts
             endif
           -%}
+          {%- liquid
+            assign bm_bundle_asset = ''
+            case forloop.index
+              when 1
+                assign bm_bundle_asset = 'bm-product-hjalmar.jpg'
+              when 3
+                assign bm_bundle_asset = 'bm-bundle-carl.jpg'
+            endcase
+          -%}
           <div {{ block.shopify_attributes }}>
             {% render 'bm-bundle-card',
               title: block.settings.title,
               parts_label: bm_parts,
               products: block.settings.products,
-              image: block.settings.image
+              image: block.settings.image,
+              asset: bm_bundle_asset
             %}
           </div>
         {%- endfor -%}
@@ -76,7 +86,7 @@
       "settings": [
         { "type": "text", "id": "title", "label": "Titel", "default": "Pakke" },
         { "type": "text", "id": "parts", "label": "Dele-linje", "default": "4 dele", "info": "Fx 4 dele. Vises som PAKKE · 4 dele." },
-        { "type": "image_picker", "id": "image", "label": "Billede" },
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardbilledet, hvor der er et (Hjalmar og Carl). Den midterste pakke har intet produktionsbillede endnu." },
         { "type": "product_list", "id": "products", "label": "Delprodukter", "limit": 8 }
       ]
     }

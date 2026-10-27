@@ -31,12 +31,25 @@
         {%- if bm_href != blank -%}
         <a class="bm-cat" href="{{ bm_href }}" {{ block.shopify_attributes }}>
           <span class="bm-cat__media">
-            {%- if block.settings.image != blank -%}
-              {{
-                block.settings.image
-                | image_url: width: 800
-                | image_tag: loading: 'lazy', widths: '240, 360, 540, 800', sizes: '(min-width: 990px) 18vw, 70vw', alt: block.settings.title, class: 'bm-cat__img'
-              }}
+            {%- liquid
+              assign bm_cat_assets = 'bm-cat-hvalp-kurv.jpg||bm-product-bjork-bilsaede.jpg||bm-product-trappe.jpg||bm-product-nora-sele.jpg||bm-product-eva-jakke.jpg' | split: '||'
+              assign bm_cat_asset = bm_cat_assets[forloop.index0]
+            -%}
+            {%- capture bm_cat_media -%}
+              {%- render 'bm-media',
+                image: block.settings.image,
+                asset: bm_cat_asset,
+                alt: block.settings.title,
+                class: 'bm-cat__img',
+                loading: 'lazy',
+                width: 720,
+                height: 900,
+                widths: '240, 360, 540, 800',
+                sizes: '(min-width: 990px) 18vw, 70vw'
+              -%}
+            {%- endcapture -%}
+            {%- if bm_cat_media != blank -%}
+              {{ bm_cat_media }}
             {%- else -%}
               <span class="bm-media-fallback" aria-hidden="true"></span>
             {%- endif -%}
@@ -60,7 +73,7 @@
       "type": "category",
       "name": "Kategori",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Billede" },
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardbilledet for denne plads (kurv, bilsæde, trappe, sele, tøj)." },
         { "type": "text", "id": "title", "label": "Titel", "default": "Kategori" },
         { "type": "text", "id": "handle", "label": "Kollektions-handle", "info": "Bruges kun hvis tema-indstillingen for denne plads er tom. Rækkefølgen følger bm_handle_cat_1 til bm_handle_cat_5." },
         { "type": "text", "id": "text", "label": "Undertekst", "info": "Tom = tema-indstillingen Minimum 20 %." }

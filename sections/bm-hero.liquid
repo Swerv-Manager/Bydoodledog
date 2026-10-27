@@ -18,21 +18,19 @@
   -%}
   <section class="bm-section bm-hero" id="bm-hero">
     <div class="bm-hero__media">
-      {%- if section.settings.image != blank -%}
-        {{
-          section.settings.image
-          | image_url: width: 2400
-          | image_tag:
-            loading: 'eager',
-            fetchpriority: 'high',
-            widths: '600, 900, 1200, 1600, 2000, 2400',
-            sizes: '100vw',
-            class: 'bm-hero__img',
-            alt: section.settings.image.alt | default: settings.bm_hero_title
-        }}
-      {%- else -%}
-        <div class="bm-media-fallback bm-media-fallback--hero" aria-hidden="true"></div>
-      {%- endif -%}
+      {%- capture bm_hero_alt -%}{{ section.settings.image.alt | default: settings.bm_hero_title }}{%- endcapture -%}
+      {% render 'bm-media',
+        image: section.settings.image,
+        asset: 'bm-hero-hundekurve.jpg',
+        alt: bm_hero_alt,
+        class: 'bm-hero__img',
+        loading: 'eager',
+        fetchpriority: 'high',
+        width: 1779,
+        height: 700,
+        widths: '600, 900, 1200, 1600, 2000, 2400',
+        sizes: '100vw'
+      %}
       <div class="bm-hero__scrim" aria-hidden="true"></div>
     </div>
     <div class="bm-hero__inner">
@@ -70,7 +68,7 @@
       "type": "image_picker",
       "id": "image",
       "label": "Hero-billede",
-      "info": "Sort/hvid foto af bilsæde i veteranbil. Vises med mørk gradient mod venstre. Produktionsbilledet er ikke i temaet endnu."
+      "info": "Tom = standardbilledet bm-hero-hundekurve.jpg. Vælg et billede her for at skifte det."
     }
   ],
   "presets": [

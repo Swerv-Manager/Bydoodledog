@@ -12,12 +12,21 @@
         {%- for bm_product in section.settings.products limit: 4 -%}
           <a class="bm-bello__card" href="{{ bm_product.url }}?view=black-month">
             <span class="bm-bello__media">
+              {%- assign bm_bello_assets = 'bm-product-bjork-kurv.jpg|bm-product-hjalmar.jpg|bm-product-nora-sele.jpg|bm-product-julius.jpg' | split: '|' -%}
               {%- if bm_product.featured_image -%}
                 {{
                   bm_product.featured_image
                   | image_url: width: 800
                   | image_tag: loading: 'lazy', widths: '240, 400, 700', sizes: '(min-width: 990px) 22vw, 50vw', alt: bm_product.title, class: 'bm-bello__img'
                 }}
+              {%- elsif bm_bello_assets[forloop.index0] != blank -%}
+                {% render 'bm-media',
+                  asset: bm_bello_assets[forloop.index0],
+                  alt: bm_product.title,
+                  class: 'bm-bello__img',
+                  loading: 'lazy',
+                  width: 800
+                %}
               {%- else -%}
                 <span class="bm-media-fallback" aria-hidden="true"></span>
               {%- endif -%}
@@ -31,8 +40,26 @@
             <span class="bm-bello__name">{{ bm_product.title }}</span>
           </a>
         {%- endfor -%}
-      {%- elsif request.design_mode -%}
-        <p class="bm-editor-note">{{ settings.bm_bello_empty }}</p>
+      {%- else -%}
+        {%- assign bm_bello_assets = 'bm-product-bjork-kurv.jpg|bm-product-hjalmar.jpg|bm-product-nora-sele.jpg|bm-product-julius.jpg' | split: '|' -%}
+        {%- assign bm_bello_names = settings.bm_bello_names | default: 'Bjørk|Hjalmar|Nora|Julius' | split: '|' -%}
+        {%- for bm_bello_asset in bm_bello_assets -%}
+          <div class="bm-bello__card">
+            <span class="bm-bello__media">
+              {% render 'bm-media',
+                asset: bm_bello_asset,
+                alt: bm_bello_names[forloop.index0],
+                class: 'bm-bello__img',
+                loading: 'lazy',
+                width: 800
+              %}
+            </span>
+            <span class="bm-bello__name">{{ bm_bello_names[forloop.index0] }}</span>
+          </div>
+        {%- endfor -%}
+        {%- if request.design_mode -%}
+          <p class="bm-editor-note">{{ settings.bm_bello_empty }}</p>
+        {%- endif -%}
       {%- endif -%}
     </div>
   </section>

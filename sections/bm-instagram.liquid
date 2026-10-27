@@ -3,21 +3,30 @@
 {%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
   <section class="bm-section bm-instagram">
     <h2 class="bm-h2 bm-h2--center">{{ settings.bm_ig_title }}</h2>
-    {%- if section.blocks.size > 0 -%}
-      <div class="bm-ig__grid">
+    {%- assign bm_ig_assets = 'bm-cat-cafe.jpg|bm-cat-taske.jpg' | split: '|' -%}
+    <div class="bm-ig__grid">
+      {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}
           <a href="{{ section.settings.profile_url | default: 'https://www.instagram.com/bydoodledog/' }}" {{ block.shopify_attributes }}>
-            {%- if block.settings.image != blank -%}
-              {{
-                block.settings.image
-                | image_url: width: 600
-                | image_tag: loading: 'lazy', widths: '200, 400, 600', sizes: '25vw', alt: settings.bm_ig_title
-              }}
-            {%- endif -%}
+            {% render 'bm-media',
+              image: block.settings.image,
+              asset: bm_ig_assets[forloop.index0],
+              alt: settings.bm_ig_title,
+              loading: 'lazy',
+              width: 600,
+              widths: '200, 400, 600',
+              sizes: '25vw'
+            %}
           </a>
         {%- endfor -%}
-      </div>
-    {%- endif -%}
+      {%- else -%}
+        {%- for bm_ig_asset in bm_ig_assets -%}
+          <a href="{{ section.settings.profile_url | default: 'https://www.instagram.com/bydoodledog/' }}">
+            {% render 'bm-media', asset: bm_ig_asset, alt: settings.bm_ig_title, loading: 'lazy', width: 600 %}
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
   </section>
 {%- endif -%}
 
@@ -36,7 +45,7 @@
       "type": "image",
       "name": "Billede",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Billede" }
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardbilledet for denne plads. Instafeed-appen ligger under sektionen." }
       ]
     }
   ],

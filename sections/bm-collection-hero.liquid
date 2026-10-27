@@ -11,7 +11,28 @@
       assign bm_sub = bm_sub | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
     endif
   -%}
+  {%- liquid
+    assign bm_col_asset = ''
+    if template.suffix == 'black-month-bundles'
+      assign bm_col_asset = 'bm-hero-saet.jpg'
+    endif
+  -%}
   <section class="bm-section bm-col-hero">
+    {%- if section.settings.image != blank or bm_col_asset != blank -%}
+      <div class="bm-col-hero__media">
+        {% render 'bm-media',
+          image: section.settings.image,
+          asset: bm_col_asset,
+          alt: collection.title,
+          class: 'bm-col-hero__img',
+          loading: 'eager',
+          width: 2400,
+          height: 944,
+          widths: '600, 1200, 1800, 2400',
+          sizes: '100vw'
+        %}
+      </div>
+    {%- endif -%}
     <div class="bm-col-hero__copy">
       <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
       <nav class="bm-crumbs" aria-label="breadcrumb">
@@ -52,6 +73,12 @@
       "id": "subtitle",
       "label": "Undertekst",
       "info": "Tom = standardteksten. Sæt-siden bruger sin egen undertekst."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero-billede",
+      "info": "Tom på sæt-siden = bm-hero-saet.jpg. Andre kollektioner har intet standardbillede."
     }
   ]
 }

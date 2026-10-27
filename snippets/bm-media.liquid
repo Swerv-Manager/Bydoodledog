@@ -1,0 +1,35 @@
+{%- comment -%}
+  Image picker first, then a theme asset. Renders nothing when both are blank.
+  Accepts: image, asset, alt, class, loading, width, widths, sizes, fetchpriority
+{%- endcomment -%}
+{%- liquid
+  assign bm_width = width | default: 1600
+  assign bm_height = height | default: bm_width
+  assign bm_loading = loading | default: 'lazy'
+  assign bm_alt = alt | default: ''
+-%}
+{%- if image != blank -%}
+  {%- if fetchpriority != blank -%}
+    {{
+      image
+      | image_url: width: bm_width
+      | image_tag: loading: bm_loading, class: class, alt: bm_alt, widths: widths, sizes: sizes, fetchpriority: fetchpriority
+    }}
+  {%- else -%}
+    {{
+      image
+      | image_url: width: bm_width
+      | image_tag: loading: bm_loading, class: class, alt: bm_alt, widths: widths, sizes: sizes
+    }}
+  {%- endif -%}
+{%- elsif asset != blank -%}
+  <img
+    src="{{ asset | asset_url }}"
+    alt="{{ bm_alt | escape }}"
+    class="{{ class }}"
+    width="{{ bm_width }}"
+    height="{{ bm_height }}"
+    loading="{{ bm_loading }}"
+    {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
+  >
+{%- endif -%}
