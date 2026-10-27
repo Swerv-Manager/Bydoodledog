@@ -1,0 +1,6 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+<div class="alt-sec alt-sticky"><div class="alt-m"><div class="amst1"><div class="amst2"><span class="amst3"><span class="amst4"><span class="amst5"></span><span class="amst6"></span></span>Black Month slutter om</span><span class="amst7" data-bm-countdown="" data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}"><span data-bm-days="">07</span>d <span data-bm-hours="">13</span>t <span data-bm-minutes="">59</span>m <span data-bm-seconds="">00</span>s</span></div><a class="amst8" href="/collections/black-month?view=black-month">Se tilbud</a></div></div></div>
+{%- endif -%}
+{% schema %}
+{"name":"ALT sticky","settings":[],"presets":[{"name":"ALT sticky"}]}
+{% endschema %}
