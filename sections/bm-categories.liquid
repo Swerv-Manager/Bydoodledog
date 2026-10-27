@@ -19,8 +19,17 @@
           if bm_card_text == blank
             assign bm_card_text = settings.bm_cat_card_text
           endif
+          assign bm_cat_list = settings.bm_handle_cat_1 | append: '||' | append: settings.bm_handle_cat_2 | append: '||' | append: settings.bm_handle_cat_3 | append: '||' | append: settings.bm_handle_cat_4 | append: '||' | append: settings.bm_handle_cat_5
+          assign bm_cat_handles = bm_cat_list | split: '||'
+          assign bm_handle = bm_cat_handles[forloop.index0] | strip
+          if bm_handle == blank
+            assign bm_handle = block.settings.handle
+          endif
         -%}
-        <a class="bm-cat" href="{{ routes.collections_url }}/{{ block.settings.handle }}" {{ block.shopify_attributes }}>
+        {%- capture bm_href -%}{%- render 'bm-collection-url', handle: bm_handle -%}{%- endcapture -%}
+        {%- assign bm_href = bm_href | strip -%}
+        {%- if bm_href != blank -%}
+        <a class="bm-cat" href="{{ bm_href }}" {{ block.shopify_attributes }}>
           <span class="bm-cat__media">
             {%- if block.settings.image != blank -%}
               {{
@@ -37,6 +46,7 @@
           <span class="bm-cat__title">{{ block.settings.title }}</span>
           <span class="bm-cat__sub">{{ bm_card_text }}</span>
         </a>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </section>
@@ -52,7 +62,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Billede" },
         { "type": "text", "id": "title", "label": "Titel", "default": "Kategori" },
-        { "type": "text", "id": "handle", "label": "Kollektions-handle", "default": "all" },
+        { "type": "text", "id": "handle", "label": "Kollektions-handle", "info": "Bruges kun hvis tema-indstillingen for denne plads er tom. Rækkefølgen følger bm_handle_cat_1 til bm_handle_cat_5." },
         { "type": "text", "id": "text", "label": "Undertekst", "info": "Tom = tema-indstillingen Minimum 20 %." }
       ]
     }

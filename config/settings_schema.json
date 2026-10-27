@@ -1231,7 +1231,74 @@
         "type": "text",
         "id": "bm_signup_url",
         "label": "signup url",
-        "default": "/pages/black-month-signup"
+        "default": "/pages/black-month-faa-besked-foerst"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_campaign",
+        "label": "Handle: Black Month-kollektion",
+        "default": "black-month",
+        "info": "Oprettes i Shopify før launch. Tom = kortet/linket skjules, medmindre collection url er udfyldt."
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_bundles",
+        "label": "Handle: pakke-kollektion",
+        "default": "black-month-pakker"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_1",
+        "label": "Handle: kategori 1",
+        "default": "hundekurv"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_2",
+        "label": "Handle: kategori 2",
+        "default": "hunde-bilsaede"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_3",
+        "label": "Handle: kategori 3",
+        "default": "hundetrapper"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_4",
+        "label": "Handle: kategori 4",
+        "default": "hundesele"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_cat_5",
+        "label": "Handle: kategori 5",
+        "default": "hundetoj-1"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_bags",
+        "label": "Handle: tasker",
+        "default": "hundetaske"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_accessories",
+        "label": "Handle: tilbehør",
+        "default": "tilbehor"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_snacks",
+        "label": "Handle: snacks",
+        "default": "snacks-1"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_grooming",
+        "label": "Handle: pelspleje",
+        "default": "pelspleje-1"
       },
       {
         "type": "text",
@@ -1471,7 +1538,7 @@
         "type": "text",
         "id": "bm_reviews_count",
         "label": "reviews count",
-        "default": "624 anmeldelser"
+        "default": "628 anmeldelser"
       },
       {
         "type": "text",
@@ -1789,7 +1856,7 @@
         "type": "textarea",
         "id": "bm_menu_footer_links",
         "label": "menu footer links",
-        "default": "Handelsbetingelser|/pages/handelsbetingelser\nReturnering|/pages/returnering\nKontakt os|/pages/contact\nOm By Doodle Dog|/pages/om-by-doodle-dog"
+        "default": "Handelsbetingelser|/pages/handelsbetingelser\nReturnering|/pages/returnering\nKontakt os|/pages/contact\nOm By Doodle Dog|/pages/om-doodledog"
       },
       {
         "type": "text",

@@ -900,7 +900,7 @@
           "type": "category",
           "settings": {
             "title": "Trapper",
-            "handle": "trapper",
+            "handle": "hundetrapper",
             "text": ""
           }
         },
@@ -908,7 +908,7 @@
           "type": "category",
           "settings": {
             "title": "Seler",
-            "handle": "seler",
+            "handle": "hundesele",
             "text": ""
           }
         },
@@ -916,7 +916,7 @@
           "type": "category",
           "settings": {
             "title": "Hundetøj",
-            "handle": "hundetoj",
+            "handle": "hundetoj-1",
             "text": ""
           }
         }
