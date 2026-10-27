@@ -73,6 +73,7 @@ body.bm-on .bm-ship__box .bm-ship__fill{display:block;height:6px;background:#3a3
 body.bm-on .bm-ship__box .bm-ship__mark{position:absolute;top:-2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#3a393e;box-shadow:inset 0 0 0 1.5px #3a393e}
 body.bm-on .bm-ship__box .bm-ship__msg{font:400 12px/15px var(--alt-serif);color:#2f2f33;margin:0}
 @media(max-width:989px){.bm-ship{display:none!important}}
+body.bm-on .header__icons .bm-ship,body.bm-on .header-wrapper .bm-ship{display:none!important}
 /* mobile header (design: 64px, burger left, logo centre, tools right) */
 @media(max-width:989px){
  body.bm-on header.header{padding:0!important;min-height:64px;height:64px;display:flex!important;align-items:center;justify-content:space-between;position:relative}

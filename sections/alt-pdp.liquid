@@ -9,7 +9,7 @@
   endif
   assign ap_col = product.collections | first
 -%}
-<div class="alt-sec alt-pdp" id="alt-pdp-{{ section.id }}" data-ap data-ap-name="{{ product.title | escape }}">
+<div class="alt-sec alt-pdp product-page-section" id="alt-pdp-{{ section.id }}" data-section-type="product" data-ap data-ap-name="{{ product.title | escape }}">
 <nav class="ap-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> › <span>{{ product.title | escape }}</span></nav>
 <div class="ap-grid">
   <div class="ap-gal" data-ap-gal>
@@ -62,6 +62,7 @@
         </div>
       </div>
     </div>
+    <noscript class="product-form__noscript-wrapper-{{ section.id }}"></noscript>
     {%- if ap_multi -%}
     <div class="ap-opts">
       {%- for o in product.options_with_values -%}
@@ -84,9 +85,9 @@
     <span class="ap-ql">Vælg antal</span>
     <div class="ap-buy">
       <div class="ap-qty"><button type="button" data-ap-q="-1" aria-label="Færre">−</button><span data-ap-qv>1</span><button type="button" data-ap-q="1" aria-label="Flere">+</button></div>
-      <button type="button" class="ap-add" data-ap-add{% unless ap_v.available %} disabled{% endunless %}>
+      <button type="button" name="add" class="ap-add product-form__cart-submit" data-ap-add{% unless ap_v.available %} disabled{% endunless %}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h2.5l2.2 10.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20 7H6"></path><circle cx="9.5" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle><path d="M13 8.5v4M11 10.5h4"></path></svg>
-        <span data-ap-addt>{% if ap_v.available %}Tilføj til kurven{% else %}Udsolgt{% endif %}</span>
+        <span class="product-form__add-text" data-ap-addt>{% if ap_v.available %}Tilføj til kurven{% else %}Udsolgt{% endif %}</span>
       </button>
     </div>
     <p class="ap-err" data-ap-err hidden></p>

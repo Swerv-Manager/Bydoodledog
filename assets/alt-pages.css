@@ -153,8 +153,8 @@
 .alt-col .ac-p{font-weight:800;font-variant-numeric:tabular-nums;font-size:18px;line-height:24px;color:#b59d88;white-space:nowrap}
 .alt-col .ac-was{font-size:13px;line-height:18px;color:rgba(252,250,245,.66);text-decoration:line-through;white-space:nowrap}
 .alt-col .ac-save{font-weight:600;font-size:13px;line-height:18px;color:#b59d88;white-space:nowrap}
-.alt-col .ac-title{text-transform:uppercase;letter-spacing:.04em;font-size:15px;line-height:21px;color:#FCFAF5;overflow-wrap:anywhere}
-.alt-col .ac-title::after{content:"";position:absolute;inset:0;z-index:1}
+.alt-col .ac-nm{text-transform:uppercase;letter-spacing:.04em;font-size:15px;line-height:21px;color:#FCFAF5;overflow-wrap:anywhere}
+.alt-col .ac-nm::after{content:"";position:absolute;inset:0;z-index:1}
 .alt-col .ac-sw{min-height:31px;padding:3px 3px 0}
 .alt-col .ac-rate{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .alt-col .ac-st{font-size:13px;line-height:16px;letter-spacing:2px;color:#b59d88}
@@ -198,7 +198,7 @@
 .alt-col .ac-prices{gap:6px}
 .alt-col .ac-p{font-size:16px}
 .alt-col .ac-save{flex-basis:100%}
-.alt-col .ac-title{font-size:13px;line-height:18px;min-height:54px}
+.alt-col .ac-nm{font-size:13px;line-height:18px;min-height:54px}
 .alt-col .ac-sw{min-height:27px}
 .alt-col .ac-td{display:none}
 .alt-col .ac-tm{display:flex;gap:10px}
@@ -209,6 +209,9 @@
 .alt-col .ac-th{font-size:22px;line-height:28px}
 }
 .alt-col h1,.alt-col h2,.alt-col h3{font-family:"Playfair Display",Georgia,serif}
+
+.alt-col .ac-gi{display:contents}.alt-col product-card.ac-card{display:flex}.alt-col .ac-caption{display:contents}.alt-col variant-swatch-king{display:block;min-height:31px;padding:3px 3px 0}@media(max-width:749px){.alt-col variant-swatch-king{min-height:27px}}
+.alt-col product-card:not(:has(variant-swatch-king)) .ac-caption{display:block;min-height:31px;padding:3px 3px 0}@media(max-width:749px){.alt-col product-card:not(:has(variant-swatch-king)) .ac-caption{min-height:27px}}
 /* ---- PDP (hand-built from ALT I ET dh_30 / dh_31) ---- */
 .alt-pdp{background:#211a13;color:#FCFAF5;font-family:"Hanken Grotesk",sans-serif;padding-bottom:0}
 .alt-pdp h1,.alt-pdp h2{font-family:"Playfair Display",serif;font-weight:400;margin:0;color:#FCFAF5}

@@ -77,7 +77,7 @@
       endif
       assign ac_i = forloop.index
     -%}
-    <div class="ac-card{% if paginate.current_page == 1 and ac_i > 8 %} ac-mx{% endif %}">
+    <div class="grid__item ac-gi"><product-card class="ac-card{% if paginate.current_page == 1 and ac_i > 8 %} ac-mx{% endif %}">
       <div class="ac-media">
         {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: product.featured_image.alt | default: product.title, class: 'ac-img' }}{%- endif -%}
         {%- if product.images.size > 1 -%}{{ product.images[1] | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: '', class: 'ac-img ac-h' }}{%- endif -%}
@@ -89,10 +89,10 @@
         </div>
       </div>
       <div class="ac-prices"><span class="ac-p">{% if product.price_varies %}Fra {% endif %}{{ product.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- if ac_has_cmp -%}<span class="ac-was">{{ product.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span><span class="ac-save">Spar {{ ac_save | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- endif -%}</div>
-      <a class="ac-title" href="{{ product.url | within: collection }}{% if product.tags contains 'bm-bundle' %}{% assign ac_v = 'black-month-bundle' %}{% else %}{% assign ac_v = 'black-month' %}{% endif %}{% if product.url contains '?' %}&{% else %}?{% endif %}view={{ ac_v }}"><span>{{ product.title | escape }}</span></a>
-      <div class="ac-sw"></div>
+      <a class="ac-nm" href="{{ product.url | within: collection }}{% if product.tags contains 'bm-bundle' %}{% assign ac_v = 'black-month-bundle' %}{% else %}{% assign ac_v = 'black-month' %}{% endif %}{% if product.url contains '?' %}&{% else %}?{% endif %}view={{ ac_v }}"><span>{{ product.title | escape }}</span></a>
+      <div class="product-card__information__wrapper ac-caption" data-product-information></div>
       <div class="ac-rate">{%- if ac_rc > 0 -%}<span class="ac-st">{{ ac_stars }}</span><span class="ac-rt">{{ ac_rat | replace: '.', ',' }} ({{ ac_rc }})</span>{%- else -%}<span class="ac-rt">Ingen anmeldelser</span>{%- endif -%}</div>
-    </div>
+    </product-card></div>
     {%- if paginate.current_page == 1 and ac_bm -%}
       {%- if ac_i == 8 -%}
       <div class="ac-tile ac-td"><div class="ac-tph ac-tph1"><img src="{{ 'alt-img_4797.jpg' | asset_url }}" alt="Hund i bilsæde i en veteranbil" loading="lazy" decoding="async"></div><div class="ac-tcap"><span class="ac-te">Det bedste sted i huset</span><span class="ac-th">Spar minimum 20%</span></div></div>
