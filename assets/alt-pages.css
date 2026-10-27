@@ -135,7 +135,7 @@
 .alt-col .ac-right{display:flex;align-items:center;gap:20px}
 .alt-col .ac-count{font-size:15px;line-height:20px;color:rgba(252,250,245,.66)}
 .alt-col .ac-sort{display:flex;align-items:center;gap:12px;margin:0}
-.alt-col .ac-sortl{font-size:14px;line-height:20px;color:rgba(252,250,245,.66)}
+.alt-col .ac-sortl{font-size:14px;line-height:20px;color:rgba(252,250,245,.66);text-transform:none;letter-spacing:normal;font-weight:400}
 .alt-col .ac-sel{position:relative;display:flex;width:240px}
 .alt-col .ac-sel select{appearance:none;-webkit-appearance:none;width:100%;height:44px;padding:0 44px 0 18px;border-radius:999px;border:0;background:rgb(58,45,35);color:#FCFAF5;font:15px/20px "Hanken Grotesk",sans-serif;cursor:pointer;outline:none}
 .alt-col .ac-sel svg{position:absolute;right:16px;top:15px;pointer-events:none}
@@ -170,8 +170,11 @@
 .alt-col .ac-th{font:700 30px/36px "Playfair Display",serif;color:#FCFAF5;text-wrap:balance}
 .alt-col .ac-more{display:flex;flex-direction:column;align-items:center;gap:12px;padding:28px 0 8px}
 .alt-col .ac-morebtn{height:48px;padding:0 32px;color:#FCFAF5;box-shadow:inset 0 0 0 1px rgba(252,250,245,.12);font:600 15px/20px "Hanken Grotesk",sans-serif;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.alt-col .ac-mobonly{display:none}
 .alt-col .ac-morebtn.is-loading{opacity:.5;pointer-events:none}
 @media(max-width:1023px){
+.alt-col .ac-mobonly{display:flex}
+.alt-col .ac-grid:not(.is-all) .ac-mx{display:none}
 .alt-col .ac-plainhero{padding:32px 16px 0}.alt-col .ac-plainhero h1{font-size:40px;line-height:44px}
 .alt-col .ac-wrap{padding:20px 16px 0;gap:14px}
 .alt-col .ac-bar{flex-wrap:wrap;gap:14px;padding:0;border:0;margin:0}

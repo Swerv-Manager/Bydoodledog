@@ -77,7 +77,7 @@
       endif
       assign ac_i = forloop.index
     -%}
-    <div class="ac-card">
+    <div class="ac-card{% if paginate.current_page == 1 and ac_i > 8 %} ac-mx{% endif %}">
       <div class="ac-media">
         {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: product.featured_image.alt | default: product.title, class: 'ac-img' }}{%- endif -%}
         {%- if product.images.size > 1 -%}{{ product.images[1] | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: '', class: 'ac-img ac-h' }}{%- endif -%}
@@ -88,7 +88,7 @@
           {%- if ac_bm -%}<span class="ac-b2">Black Month</span>{%- endif -%}
         </div>
       </div>
-      <div class="ac-prices"><span class="ac-p">{% if product.price_varies %}Fra {% endif %}{{ product.price | money_without_trailing_zeros }}</span>{%- if ac_has_cmp -%}<span class="ac-was">{{ product.compare_at_price | money_without_trailing_zeros }}</span><span class="ac-save">Spar {{ ac_save | money_without_trailing_zeros }}</span>{%- endif -%}</div>
+      <div class="ac-prices"><span class="ac-p">{% if product.price_varies %}Fra {% endif %}{{ product.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- if ac_has_cmp -%}<span class="ac-was">{{ product.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span><span class="ac-save">Spar {{ ac_save | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- endif -%}</div>
       <a class="ac-title" href="{{ product.url | within: collection }}{% if product.tags contains 'bm-bundle' %}{% assign ac_v = 'black-month-bundle' %}{% else %}{% assign ac_v = 'black-month' %}{% endif %}{% if product.url contains '?' %}&{% else %}?{% endif %}view={{ ac_v }}"><span>{{ product.title | escape }}</span></a>
       <div class="ac-sw"></div>
       <div class="ac-rate">{%- if ac_rc > 0 -%}<span class="ac-st">{{ ac_stars }}</span><span class="ac-rt">{{ ac_rat | replace: '.', ',' }} ({{ ac_rc }})</span>{%- else -%}<span class="ac-rt">Ingen anmeldelser</span>{%- endif -%}</div>
@@ -109,9 +109,9 @@
     {%- endif -%}
   {%- endfor -%}
   </div>
-  {%- if paginate.next -%}
-  {%- assign ac_nu = paginate.next.url -%}
-  <div class="ac-more"><a class="ac-morebtn" data-ac-more href="{{ ac_nu }}{% unless ac_nu contains 'view=' %}{% if ac_nu contains '?' %}&{% else %}?{% endif %}view=black-month{% endunless %}">Se mere</a></div>
+  {%- if paginate.next or collection.products.size > 8 -%}
+  {%- assign ac_nu = paginate.next.url | default: '' -%}
+  <div class="ac-more{% unless paginate.next %} ac-mobonly{% endunless %}"><a class="ac-morebtn" data-ac-more href="{% if paginate.next %}{{ ac_nu }}{% unless ac_nu contains 'view=' %}{% if ac_nu contains '?' %}&{% else %}?{% endif %}view=black-month{% endunless %}{% else %}#{% endif %}">Se mere</a></div>
   {%- endif -%}
 </div>
 </div>

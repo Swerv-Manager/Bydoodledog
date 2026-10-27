@@ -30,6 +30,8 @@
       var grid=document.querySelector('[data-ac-grid]');
       more.addEventListener('click',function(ev){
         ev.preventDefault();
+        if(window.matchMedia('(max-width: 1023px)').matches&&!grid.classList.contains('is-all')){grid.classList.add('is-all');if(more.getAttribute('href')==='#'||!more.getAttribute('href'))more.parentNode.removeChild(more);return;}
+        if(more.getAttribute('href')==='#'){more.parentNode.removeChild(more);return;}
         var url=new URL(more.getAttribute('href'),location.href);
         ['preview_theme_id','bm_now'].forEach(function(k){var v=new URLSearchParams(location.search).get(k);if(v)url.searchParams.set(k,v);});
         more.classList.add('is-loading');

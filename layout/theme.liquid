@@ -249,6 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {{ 'alt-site.css' | asset_url | stylesheet_tag }}
       {{ 'alt-home.css' | asset_url | stylesheet_tag }}
       {{ 'alt-pages.css' | asset_url | stylesheet_tag }}
+      <style>@font-face{font-family:"Playfair Display";font-style:normal;font-weight:700;font-display:swap;src:url({{ 'alt-playfair-700.woff2' | asset_url }}) format('woff2')}@font-face{font-family:"Playfair Display";font-style:normal;font-weight:900;font-display:swap;src:url({{ 'alt-playfair-900.woff2' | asset_url }}) format('woff2')}@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:800;font-display:swap;src:url({{ 'alt-hanken-800.woff2' | asset_url }}) format('woff2')}</style>
     {%- endif -%}
   </head>
 
