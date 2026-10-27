@@ -398,7 +398,7 @@
 .ap-pak .pk-pr s,.ap-pak .pk-pr span{font:400 13px/18px "Playfair Display",serif;color:rgba(252,250,245,.66)}
 .ap-pak .pk-pricebox{gap:14px}
 .ap-pak .pk-each{display:flex;justify-content:space-between;font:400 16px/24px "Playfair Display",serif;color:rgba(252,250,245,.66)}
-.ap-pak .pk-deal{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ap-pak .pk-deal{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:14px;border-bottom:1px solid rgba(252,250,245,.12)}
 .ap-pak .pk-lbl{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgb(181,157,136)}
 .ap-pak .pk-price{font:800 48px/1.1 "Hanken Grotesk",sans-serif;font-variant-numeric:tabular-nums;color:rgb(181,157,136)}
 .ap-pak .pk-perk{display:flex;flex-direction:column;gap:2px;align-items:flex-end;text-align:right}
@@ -421,8 +421,8 @@
 .ap-pak .pk-ir em{font:400 14px/20px "Playfair Display",serif;font-style:normal;color:rgba(252,250,245,.66)}
 .ap-pak .ap-add{height:58px}
 @media(max-width:1023px){
-  .ap-pak .ap-title{font-size:30px;line-height:36px}
-  .ap-pak .pk-price{font-size:40px}
+  .ap-pak .ap-title{font-size:34px;line-height:40px}
+  .ap-pak .pk-price{font-size:38px}
   .ap-pak .pk-ct{font-size:20px}
 }
 
