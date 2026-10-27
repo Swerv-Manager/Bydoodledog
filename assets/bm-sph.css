@@ -190,6 +190,8 @@ body.bm-on.template-suffix-black-month .product__price{padding:20px 16px 12px}
 body.bm-on.template-suffix-black-month .product-form__selected-status,body.bm-on.template-suffix-black-month .product-form__stock-message{font-size:12px;padding:0 10px}
 body.bm-on.template-suffix-black-month .product-form__stock-message{text-align:center}
 }
+body.bm-on.template-suffix-black-month .sph-reviews-h{color:#111!important}
+@media(max-width:989px){body.bm-on.template-suffix-black-month .breadcrumbs__item{display:inline-flex!important}body.bm-on.template-suffix-black-month .breadcrumbs__list{flex-wrap:wrap;gap:4px}}
 /* ---- collection ---- */
 .sph-cardlink{position:absolute;inset:0;z-index:1}
 .sph-rel :is(button,a.sph-ovx){position:relative;z-index:2}
