@@ -179,22 +179,22 @@
 .alt-sec .advi5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
 .alt-sec .advi6{font-size:16px;line-height:24px;color:rgb(252, 250, 245);text-decoration:underline;text-underline-offset:4px;cursor:pointer;white-space:nowrap}
 .alt-sec .advi7{display:grid;grid-template-columns:repeat(4, minmax(0px, 1fr));gap:16px}
-.alt-sec .advi8{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video1-laura-bil-t8.0s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25)}
+.alt-sec .advi8{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
 .alt-sec .advi9{position:absolute;inset:0px;width:100%;height:100%;object-fit:cover}
-.alt-sec .advi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video2-laura-outfit-t11.25s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25)}
-.alt-sec .advi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video3-laura-skilt-t2.25s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25)}
-.alt-sec .advi12{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video4-torben-skilt-t8.0s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25)}
+.alt-sec .advi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .advi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .advi12{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
 .alt-sec .amvi1{padding:56px 0px 0px;display:flex;flex-direction:column;gap:20px}
 .alt-sec .amvi2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0px 16px}
 .alt-sec .amvi3{display:flex;flex-direction:column;gap:8px}
 .alt-sec .amvi4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
 .alt-sec .amvi5{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
 .alt-sec .amvi6{display:flex;gap:12px;overflow-x:auto;padding:0px 16px 4px;scrollbar-width:none;align-items:flex-start}
-.alt-sec .amvi7{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video1-laura-bil-t8.0s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi7{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
 .alt-sec .amvi8{position:absolute;inset:0px;width:100%;height:100%;object-fit:cover}
-.alt-sec .amvi9{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video2-laura-outfit-t11.25s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25);flex:0 0 200px}
-.alt-sec .amvi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video3-laura-skilt-t2.25s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25);flex:0 0 200px}
-.alt-sec .amvi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:url("img/bm-video4-torben-skilt-t8.0s.jpg") 50% 50% / cover no-repeat rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi9{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
 .alt-sec .adgi1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:32px}
 .alt-sec .adgi2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
 .alt-sec .adgi3{display:flex;flex-direction:column;gap:12px}
