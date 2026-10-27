@@ -64,6 +64,82 @@ body.bm-on .site-footer p,body.bm-on .site-footer p a{color:#d8c6b1!important;fo
 body.bm-on .site-footer a[href^="mailto"]{color:#f9f3f1!important;font-size:16px;line-height:26px;text-transform:none;letter-spacing:0}
 body.bm-on .site-footer svg{color:#f9f3f1}
 body.bm-on .site-footer ul li{margin-bottom:6px}
+/* ---- PDP (BM) ---- */
+body.bm-on.template-suffix-black-month .breadcrumbs__list{background:transparent!important;box-shadow:none;border:0}
+body.bm-on.template-suffix-black-month .breadcrumbs__link,body.bm-on.template-suffix-black-month .breadcrumbs__item{font-size:14px;line-height:22px;color:#6e6259;text-transform:none;letter-spacing:0}
+body.bm-on.template-suffix-black-month .page-width.breadcrumbs-mobile--hide{max-width:1440px;padding:20px clamp(16px,5vw,72px) 0}
+body.bm-on.template-suffix-black-month .product-page__content{max-width:1440px;width:100%;padding:0 clamp(16px,5vw,72px) 64px}
+body.bm-on.template-suffix-black-month .product-single__wrapper{border-radius:8px;overflow:hidden;background:#f9f3f1}
+body.bm-on.template-suffix-black-month .thumbnails-wrapper{height:auto!important;overflow:visible!important;margin-top:12px;background:transparent!important}
+body.bm-on.template-suffix-black-month .product-single__thumbnails{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;transform:none!important;width:100%!important;height:auto!important}
+body.bm-on.template-suffix-black-month .product-single__thumbnails-item{width:auto!important;margin:0!important}
+body.bm-on.template-suffix-black-month .product-single__thumbnail-wrap{border:1px solid #e9e1d7!important;border-radius:8px;overflow:hidden;background:#f9f3f1}
+body.bm-on.template-suffix-black-month .product-single__thumbnail-wrap.active-thumb{border:2px solid #111!important}
+body.bm-on.template-suffix-black-month .product__meta-grid{display:flex!important;flex-direction:column;gap:0}
+body.bm-on.template-suffix-black-month .product__meta-grid>*{margin:0 0 20px!important;order:20}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product-promo-content{order:0}
+body.bm-on.template-suffix-black-month .product__meta-grid>.bm-pdp-badge-row{order:1}
+body.bm-on.template-suffix-black-month .product__meta-grid>.shopify-app-block{order:2;margin-bottom:8px!important}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product__title{order:3}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product__price{order:4;margin:0!important}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product-header__info{display:none}
+body.bm-on.template-suffix-black-month .product__meta-grid>.sph-pcd{order:5}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product-form__controls-group{order:8}
+body.bm-on.template-suffix-black-month .product__meta-grid>.sph-ponly{order:9;margin-bottom:12px!important}
+body.bm-on.template-suffix-black-month .product__meta-grid>.product-form__buy-buttons{order:10}
+body.bm-on.template-suffix-black-month .product__meta-grid>.sph-pship{order:11}
+body.bm-on.template-suffix-black-month .product__meta-grid>.sph-ppay{order:12}
+body.bm-on.template-suffix-black-month .product__meta-grid>.sph-pinfo{order:13}
+body.bm-on.template-suffix-black-month .product__meta-grid>.bm-pdp-delivery,body.bm-on.template-suffix-black-month .product__meta-grid>.bm-sticky-atc{display:none}
+.sph-pchips{display:flex;flex-wrap:wrap;gap:4px}
+.sph-chip{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:6px 8px;border-radius:4px;background:#c8baab;color:#3a3a3e}
+.sph-chip--bm{background:#111;color:#b59d88}
+body.bm-on.template-suffix-black-month .product__title{font-size:32px!important;line-height:40px!important;letter-spacing:.04em;font-weight:400;text-transform:uppercase;margin:0}
+body.bm-on.template-suffix-black-month .product__price{background:#111;border-radius:8px 8px 0 0;padding:24px 24px 16px}
+body.bm-on.template-suffix-black-month .product__price *{color:#f9f3f1!important;font-size:48px!important;line-height:56px!important;font-weight:600!important;font-variant-numeric:tabular-nums}
+body.bm-on.template-suffix-black-month .product__price s,body.bm-on.template-suffix-black-month .product__price .price__sale .price-item--regular,body.bm-on.template-suffix-black-month .product__price .price__sale s *{font-size:18px!important;line-height:24px!important;color:#9a8f84!important;font-weight:400!important}
+.sph-pcd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;background:#111;border-radius:0 0 8px 8px;padding:0 24px 24px;margin-bottom:20px}
+.sph-pcd::before{content:"";flex:0 0 100%;border-top:1px solid #34312e;margin:0 -0px}
+.sph-pcd__t{display:flex;flex-direction:column;gap:2px}
+.sph-pcd__l{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#b59d88}
+.sph-pcd__d{font-size:14px;line-height:22px;color:#d8c6b1}
+.sph-pcd__g{display:flex;gap:6px}
+.sph-pcd__g>div{display:flex;flex-direction:column;gap:2px;align-items:center}
+.sph-pcd__g>div>span{width:52px;height:44px;border-radius:4px;background:#1c1b1a;border:1px solid #34312e;display:flex;align-items:center;justify-content:center;font:600 24px/28px "Hanken Grotesk",sans-serif;font-variant-numeric:tabular-nums;color:#f9f3f1}
+.sph-pcd__g>div>span.sph-pcd__s{color:#b59d88}
+.sph-pcd__g small{font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9a8f84}
+.sph-ponly{display:flex;align-items:center;gap:8px;font-size:14px;line-height:22px;color:#3a3a3e;margin:0}
+.sph-ponly i{width:8px;height:8px;border-radius:50%;background:#b59d88;flex:none}
+body.bm-on.template-suffix-black-month .product-form__stock-notification .selected-status--left-quantity{display:flex;gap:8px;background:transparent!important;padding:0;border:0}
+body.bm-on.template-suffix-black-month .product-form__selected-status{height:44px;padding:0 16px;border-radius:4px;background:#3a3a3e;color:#fff;display:flex;align-items:center;gap:8px;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+body.bm-on.template-suffix-black-month .product-form__selected-status::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+body.bm-on.template-suffix-black-month .product-form__selected-status *{color:#fff}
+body.bm-on.template-suffix-black-month .product-form__stock-message{flex:1;height:44px;border-radius:4px;background:#f9f3f1;display:flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#3a3a3e}
+body.bm-on.template-suffix-black-month .product-form__submit{background:#846340!important;border-color:#846340!important;color:#fff!important;border-radius:4px!important;min-height:56px;font-size:16px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.sph-pship{background:#f9f3f1;border-radius:8px;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.sph-pship__t{margin:0;font-size:14px;line-height:22px;color:#3a3a3e}
+.sph-pship__bar{position:relative;height:6px;background:#e9e1d7;border-radius:4px}
+.sph-pship__bar i{display:block;height:6px;border-radius:4px;background:#b59d88}
+.sph-pship__bar b{position:absolute;top:-3px;width:2px;height:12px;background:#3a3a3e}
+.sph-pship__l{display:grid;font:500 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6e6259}
+.sph-ppay{display:flex;flex-direction:column;gap:10px}
+.sph-ppay__c{display:flex;gap:8px}
+.sph-ppay__c span{height:28px;padding:0 10px;border-radius:4px;background:#f9f3f1;color:#3a3a3e;display:flex;align-items:center;font:600 12px/16px "Hanken Grotesk",sans-serif;letter-spacing:.08em}
+.sph-ppay__r{margin:0;font-size:16px;line-height:24px}
+.sph-ppay__s{margin:0;font-size:14px;line-height:22px}
+.sph-ppay__s a{color:#3a3a3e;text-decoration:underline}
+.sph-pinfo{border:1px solid #3a3a3e;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+.sph-pinfo__h{display:flex;align-items:center;gap:10px}
+.sph-pinfo__h i{width:8px;height:8px;border-radius:50%;background:#b59d88;flex:none}
+.sph-pinfo__h span{font-size:18px;line-height:24px;font-weight:700;color:#111}
+.sph-pinfo__r{display:flex;gap:12px;font-size:14px;line-height:22px}
+.sph-pinfo__r b{width:6px;height:6px;flex:none;background:#846340;margin-top:8px}
+.sph-pinfo__r strong{font-weight:600}
+@media(min-width:990px){
+body.bm-on.template-suffix-black-month .product-page__content{display:grid!important;grid-template-columns:minmax(0,746px) minmax(0,526px);gap:24px;align-items:start;margin:0 auto}
+body.bm-on.template-suffix-black-month .product__media-wrapper,body.bm-on.template-suffix-black-month .product__info-wrapper{width:auto!important;max-width:none!important;float:none!important;padding:0!important;margin:0!important}
+}
+@media(max-width:989px){body.bm-on.template-suffix-black-month .product__title{font-size:24px!important;line-height:32px!important}body.bm-on.template-suffix-black-month .product__price *{font-size:40px!important;line-height:48px!important}.sph-pcd{flex-direction:column}}
 /* ---- collection ---- */
 .sph-cardlink{position:absolute;inset:0;z-index:1}
 .sph-rel :is(button,a.sph-ovx){position:relative;z-index:2}

@@ -12,8 +12,48 @@
 -%}
 {%- if bm_pdp -%}
   {%- if part == 'badge' -%}
-    <div class="bm-pdp-badge-row">
-      <span class="bm-badge bm-badge--campaign">{{ settings.bm_badge_campaign }}</span>
+    <div class="bm-pdp-badge-row sph-pchips">
+      <span class="sph-chip sph-chip--bm">{{ settings.bm_badge_campaign }}</span>
+      {%- if product.tags contains 'Final Sale' -%}<span class="sph-chip">Lagerhylden</span>{%- endif -%}
+      {%- if product.tags contains 'Bestseller' -%}<span class="sph-chip">Bestseller</span>{%- endif -%}
+      {%- if product.tags contains 'nyhed' -%}<span class="sph-chip">Ny</span>{%- endif -%}
+    </div>
+  {%- elsif part == 'info' -%}
+    {%- liquid
+      assign sph_cart = cart.total_price
+      assign sph_free = 89900
+      assign sph_gift = 129900
+      assign sph_pct = sph_cart | times: 100.0 | divided_by: sph_gift
+      if sph_pct > 100
+        assign sph_pct = 100
+      endif
+      assign sph_tick = sph_free | times: 100.0 | divided_by: sph_gift
+      assign sph_tickr = 100.0 | minus: sph_tick
+    -%}
+    <div class="sph-pship">
+      <p class="sph-pship__t">
+        {%- if sph_cart < sph_free -%}
+          Køb for {{ sph_free | minus: sph_cart | money_without_trailing_zeros }} for at få fri fragt
+        {%- elsif sph_cart < sph_gift -%}
+          Du har fri fragt – køb for {{ sph_gift | minus: sph_cart | money_without_trailing_zeros }} for at få den gratis gave
+        {%- else -%}
+          Du har fri fragt og den gratis gave
+        {%- endif -%}
+      </p>
+      <div class="sph-pship__bar"><i style="width:{{ sph_pct }}%"></i><b style="left:{{ sph_tick }}%"></b></div>
+      <div class="sph-pship__l" style="grid-template-columns:{{ sph_tick }}fr {{ sph_tickr }}fr"><span>Fri fragt 899 kr.</span><span>Gave 1.299 kr.</span></div>
+    </div>
+    <div class="sph-ppay">
+      <div class="sph-ppay__c"><span>VISA</span><span>MASTERCARD</span><span>MOBILEPAY</span></div>
+      <p class="sph-ppay__r">✓ Normalt klar inden for 24 timer</p>
+      <p class="sph-ppay__s"><a href="{{ routes.root_url }}policies/legal-notice">Se butiksoplysninger</a></p>
+    </div>
+    <div class="sph-pinfo">
+      <div class="sph-pinfo__h"><i></i><span>Black Month-info</span></div>
+      <div class="sph-pinfo__r"><b></b><span><strong>Minimum 20 %</strong> på hele shoppen – til og med mandag 30.11 kl. 23.59.</span></div>
+      <div class="sph-pinfo__r"><b></b><span><strong>Gratis gave</strong>, når du handler for 1.299 kr.</span></div>
+      <div class="sph-pinfo__r"><b></b><span><strong>Fri fragt</strong> fra 899 kr. til pakkeshop.</span></div>
+      <div class="sph-pinfo__r"><b></b><span><strong>Udvidet bytteret</strong> – byt til og med 11.12.</span></div>
     </div>
   {%- else -%}
     {%- liquid
@@ -35,7 +75,18 @@
         <span>{{ settings.bm_save_word }} {{ bm_save | money_without_trailing_zeros }}</span>
       </p>
     {%- endif -%}
-    {% render 'bm-countdown', compact: true %}
+    <div class="sph-pcd" data-bm-countdown data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" role="timer">
+      <div class="sph-pcd__t"><span class="sph-pcd__l" data-bm-countdown-label data-label-live="Black Month-prisen slutter om" data-label-pre="Black Month starter om">{% if bm_phase_now == 'pre' %}Black Month starter om{% else %}Black Month-prisen slutter om{% endif %}</span><span class="sph-pcd__d">Mandag 30.11 kl. 23.59</span></div>
+      <div class="sph-pcd__g">
+        <div><span><span data-bm-days>00</span></span><small>Dage</small></div>
+        <div><span><span data-bm-hours>00</span></span><small>Timer</small></div>
+        <div><span><span data-bm-minutes>00</span></span><small>Min</small></div>
+        <div><span class="sph-pcd__s"><span data-bm-seconds>00</span></span><small>Sek</small></div>
+      </div>
+    </div>
+    {%- if bm_phase_now == 'live' -%}
+      <p class="sph-ponly"><i></i>Kun i Black Month · til og med mandag 30.11</p>
+    {%- endif -%}
     <p class="bm-pdp-delivery">{{ settings.bm_pdp_delivery }}</p>
     <div class="bm-sticky-atc" data-bm-sticky-atc>
       <p class="bm-sticky-atc__price">
