@@ -61,7 +61,8 @@
   assign pk_snackv = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
   assign pk_rc = product.metafields.reviews.rating_count | plus: 0
 -%}
-<div class="alt-sec alt-pdp ap-pak" id="alt-pak-{{ section.id }}" data-ap data-ap-name="{{ product.title | escape }}">
+<div class="alt-sec alt-pdp ap-pak product-page-section" id="alt-pak-{{ section.id }}" data-section-type="product" data-ap data-ap-name="{{ product.title | escape }}">
+<noscript class="product-form__noscript-wrapper-{{ section.id }}"></noscript>
 <nav class="ap-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> › <a href="{{ settings.bm_bundles_url | default: '/collections/black-month-pakker' }}">Pakker</a> › <span>{{ product.title | escape }}</span></nav>
 <div class="ap-grid">
   <div class="ap-gal" data-ap-gal>
