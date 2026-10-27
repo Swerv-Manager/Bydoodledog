@@ -1065,3 +1065,4 @@ body.bm-on .cart__taxes { display: none; }
   .bm-hero__scrim { background: linear-gradient(180deg, rgba(17, 17, 17, 0) 28%, rgba(17, 17, 17, 0.35) 50%, rgba(17, 17, 17, 0.9) 100%); }
   .bm-hero__scrim::after { display: none; }
 }
+.bm-pdp-details .bm-h2 { margin-top: 2.5rem; margin-bottom: 0; }
