@@ -817,25 +817,55 @@
         "show_hangtag": true
       }
     },
-    "sph-a": {
-      "type": "sph-home-a",
+    "alt-cats": {
+      "type": "alt-cats",
       "settings": {}
     },
-    "sph-b": {
-      "type": "sph-home-b",
+    "alt-packs": {
+      "type": "alt-packs",
       "settings": {}
     },
-    "sph-c": {
-      "type": "sph-home-c",
+    "alt-videos": {
+      "type": "alt-videos",
+      "settings": {}
+    },
+    "alt-gifts": {
+      "type": "alt-gifts",
+      "settings": {}
+    },
+    "alt-good": {
+      "type": "alt-good",
+      "settings": {}
+    },
+    "alt-bello": {
+      "type": "alt-bello",
+      "settings": {}
+    },
+    "alt-social": {
+      "type": "alt-social",
+      "settings": {}
+    },
+    "alt-faq": {
+      "type": "alt-faq",
+      "settings": {}
+    },
+    "alt-sticky": {
+      "type": "alt-sticky",
       "settings": {}
     }
   },
   "order": [
     "bm-hero",
-    "sph-a",
+    "alt-cats",
+    "alt-packs",
+    "alt-videos",
+    "alt-gifts",
+    "alt-good",
+    "alt-bello",
+    "alt-social",
+    "alt-faq",
+    "alt-sticky",
     "1735829689aa888868",
-    "sph-b",
-    "sph-c",
     "173626154782c38b67",
     "ss_hero_33_wBbPrE",
     "media-grid",
