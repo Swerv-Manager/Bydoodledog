@@ -32,6 +32,8 @@
     endif
     assign bm_snack_value = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
   -%}
+  {%- assign bm_ship_label = settings.bm_free_shipping | times: 100 | money_without_trailing_zeros -%}
+  {%- assign bm_snack_label = settings.bm_snack_threshold | times: 100 | money_without_trailing_zeros -%}
   <div
     class="bm-cart-progress"
     data-bm-ship
@@ -45,11 +47,14 @@
     data-msg-empty="{{ settings.bm_msg_empty | escape }}"
     data-money-format="{{ shop.money_format | escape }}"
   >
-    <div class="bm-ship__track" aria-hidden="true">
-      <span class="bm-ship__fill" data-bm-ship-fill style="width: {{ bm_fill }}%;"></span>
-      <span class="bm-ship__mark" style="left: {{ bm_ship_mark }}%;"></span>
+    <p class="bm-cp__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
+    <div class="bm-cp__rail" aria-hidden="true">
+      <span class="bm-cp__bar"></span>
+      <span class="bm-cp__fill" data-bm-ship-fill style="width: {{ bm_fill }}%;"></span>
+      <span class="bm-cp__mk{% if bm_total >= bm_ship and bm_ship > 0 %} is-on{% endif %}" data-bm-m1 style="left: {{ bm_ship_mark }}%;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 6h11v10H2z"/><path d="M13 9h4.5l3.5 3.5V16h-8"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span>
+      <span class="bm-cp__mk{% if bm_total >= bm_snack and bm_snack > 0 %} is-on{% endif %}" data-bm-m2 style="left: 100%;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 11h16v9H4z"/><path d="M3 7h18v4H3z"/><path d="M12 7v13"/><path d="M12 7c-1.5-3-5-3-5-1s3 1 5 1zM12 7c1.5-3 5-3 5-1s-3 1-5 1z"/></svg></span>
     </div>
-    <p class="bm-ship__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
+    <div class="bm-cp__lbl" style="grid-template-columns: {{ bm_ship_mark }}fr {{ 100 | minus: bm_ship_mark }}fr;"><span>Fri fragt · {{ bm_ship_label }}</span><span>Snackkurv · {{ bm_snack_label }}</span></div>
   </div>
   {%- if bm_total >= bm_snack and bm_snack > 0 -%}
     <div class="bm-cart-gift" role="status">

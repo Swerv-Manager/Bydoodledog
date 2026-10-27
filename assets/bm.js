@@ -121,12 +121,13 @@
     var snack = Number(box.getAttribute("data-snack") || 0);
     var goal = Math.max(ship, snack);
     var format = box.getAttribute("data-money-format");
+    var fm = function (c) { return formatMoney(c, format).replace(/,00(?=\D|$)/, ""); };
     if (snack > 0 && total >= snack) return box.getAttribute("data-msg-both");
     if (ship > 0 && total >= ship) {
-      return box.getAttribute("data-msg-ship") + " · " + box.getAttribute("data-msg-need") + " " + formatMoney(snack - total, format) + " " + box.getAttribute("data-msg-goal-snack");
+      return box.getAttribute("data-msg-ship") + " · " + box.getAttribute("data-msg-need") + " " + fm(snack - total) + " " + box.getAttribute("data-msg-goal-snack");
     }
     if (total > 0 && ship > 0) {
-      return box.getAttribute("data-msg-need") + " " + formatMoney(ship - total, format) + " " + box.getAttribute("data-msg-goal-ship");
+      return box.getAttribute("data-msg-need") + " " + fm(ship - total) + " " + box.getAttribute("data-msg-goal-ship");
     }
     return box.getAttribute("data-msg-empty");
   }
@@ -141,6 +142,9 @@
       var msg = box.querySelector("[data-bm-ship-msg]");
       var amount = box.querySelector("[data-bm-ship-amount]");
       if (fillEl) fillEl.style.width = fill + "%";
+      var m1 = box.querySelector("[data-bm-m1]"), m2 = box.querySelector("[data-bm-m2]");
+      if (m1) m1.classList.toggle("is-on", ship > 0 && total >= ship);
+      if (m2) m2.classList.toggle("is-on", snack > 0 && total >= snack);
       if (msg) msg.textContent = messageFor(total, box);
       if (amount) amount.textContent = total > 0 ? formatMoney(total, box.getAttribute("data-money-format")) : formatMoney(ship, box.getAttribute("data-money-format"));
     });

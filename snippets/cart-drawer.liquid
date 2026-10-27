@@ -69,7 +69,7 @@
         <h2 class="drawer__heading product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
           {{ 'sections.cart.title' | t }}
           <span class="skeleton-text js-contents" aria-hidden="true">
-            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+            {%- if cart.item_count == 1 -%}1 produkt{%- else -%}{{- 'sections.header.cart_count' | t: count: cart.item_count -}}{%- endif -%}
           </span>
         </h2>
         <button
@@ -624,6 +624,7 @@
                                         {%- endform -%}
                                       {% endif %}
                                     {% else %}
+                                      {%- if recommendation.compare_at_price > recommendation.price -%}{%- render 'bm-cart-pill' -%}{%- endif -%}
                                       <a
                                         href="{{ recommendation.url }}"
                                         class="btn btn--secondary btn--xs-small"
@@ -753,6 +754,7 @@
                                   {%- endform -%}
                                 {% endif %}
                               {% else %}
+                                {%- if product_upsell.compare_at_price > product_upsell.price -%}{%- render 'bm-cart-pill' -%}{%- endif -%}
                                 <a
                                   href="{{ product_upsell.url }}"
                                   class="btn btn--secondary btn--xs-small"
