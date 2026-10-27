@@ -24,7 +24,7 @@
 <div class="ac-plainhero"><h1>{{ collection.title | escape }}</h1></div>
 {%- endif -%}
 <div class="ac-wrap">
-  <nav class="ac-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> / {% if ac_bm %}<a href="/collections/black-month?view=black-month">Black Month</a> / {% endif %}{{ collection.title | escape }}</nav>
+  <nav class="ac-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> / {% if ac_bm and collection.handle != 'black-month' %}<a href="/collections/black-month?view=black-month">Black Month</a> / {% endif %}{{ collection.title | escape }}</nav>
   <form class="ac-bar" method="get" action="{{ collection.url }}" data-ac-form>
     <input type="hidden" name="view" value="black-month">
     <button type="button" class="ac-mbtn" data-ac-mbtn aria-expanded="false"><svg fill="none" height="18" stroke="#FCFAF5" stroke-linecap="round" stroke-width="1.6" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg>Filter</button>
