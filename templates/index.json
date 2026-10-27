@@ -848,10 +848,6 @@
     "alt-faq": {
       "type": "alt-faq",
       "settings": {}
-    },
-    "alt-sticky": {
-      "type": "alt-sticky",
-      "settings": {}
     }
   },
   "order": [
@@ -864,7 +860,6 @@
     "alt-bello",
     "alt-social",
     "alt-faq",
-    "alt-sticky",
     "1735829689aa888868",
     "173626154782c38b67",
     "ss_hero_33_wBbPrE",

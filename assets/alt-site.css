@@ -92,13 +92,11 @@ body.bm-on .menu-drawer,body.bm-on .menu-drawer.alt-background-2{background:var(
 body.bm-on .menu-drawer a,body.bm-on .menu-drawer summary,body.bm-on .menu-drawer .list-menu__item{color:var(--alt-tx)!important;font-family:var(--alt-serif)}
 body.bm-on .menu-drawer .bm-pill{color:var(--alt-bg)!important}
 /* ---- sticky countdown (mobile) ---- */
-.alt-sticky{background:transparent}
-.alt-sticky .alt-m{display:none}
-@media(max-width:1023px){.alt-sticky .alt-m{display:block}}
+.alt-sec.alt-sticky,.alt-sticky,.alt-sec .amst1{display:none!important;position:static!important}
 /* ---- footer ---- */
 .alt-footer{display:block}
 body.bm-on #MainContent+.bm-footer-note{display:none}
-@media(max-width:1023px){.alt-sec.alt-sticky .alt-m .amst1{position:fixed;left:0;right:0;bottom:0;z-index:40}body.bm-on .alt-footer{padding-bottom:72px}}
+
 /* r6 header fixes */
 body.bm-on .header-wrapper::before,body.bm-on .header-wrapper::after{border:0!important;background:none!important;box-shadow:none!important}
 @media(min-width:990px){
