@@ -63,7 +63,7 @@
           {{ 'sections.cart.title' | t }}
         </h2>
         <span aria-hidden="true" class="skeleton-text js-contents">
-          {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+          {%- if cart.item_count == 1 -%}1 produkt{%- else -%}{{- 'sections.header.cart_count' | t: count: cart.item_count -}}{%- endif -%}
         </span>
       </div>
 
@@ -107,6 +107,7 @@
       {%- endif -%}
     </div>
 
+    {%- if cart != empty -%}{%- render 'bm-cart-progress' -%}{%- endif -%}
     <div class="main-cart-wrapper">
       <div class="main-cart-content">
         <cart-items
@@ -224,7 +225,7 @@
                                           assign final_line_price = item.final_line_price | money_with_currency
                                         else
                                           assign original_line_price = item.original_line_price | money
-                                          assign final_line_price = item.final_line_price | money
+                                          assign final_line_price = item.final_line_price | money_without_trailing_zeros
                                         endif
                                       %}
                                       {%- if item.original_line_price != item.final_line_price -%}
@@ -254,7 +255,7 @@
                                             {% if settings.show_currency_codes %}
                                               {{- item.unit_price | money_with_currency -}}
                                             {% else %}
-                                              {{- item.unit_price | money -}}
+                                              {{- item.unit_price | money_without_trailing_zeros -}}
                                             {% endif %}
                                           </span>
                                           <span aria-hidden="true">/</span>
@@ -843,7 +844,7 @@
                           {% if settings.show_currency_codes %}
                             {{ cart.total_price | money_with_currency }}
                           {% else %}
-                            {{ cart.total_price | money }}
+                            {{ cart.total_price | money_without_trailing_zeros }}
                           {% endif %}
                         </p>
                       </div>
