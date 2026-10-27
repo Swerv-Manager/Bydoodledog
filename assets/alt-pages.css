@@ -392,7 +392,7 @@
 .alt-pdp variant-swatch-king .swatch-label .swatch-option-name,.alt-pdp variant-swatch-king .swatch-label .swatch-variant-name{font:inherit!important;color:inherit!important;letter-spacing:inherit!important}
 .alt-pdp variant-swatch-king .swatch-label .swatch-variant-name{font-weight:700!important}
 .alt-pdp variant-swatch-king .swatch-label .swatch-split-symbol{font-weight:400!important}
-.alt-pdp variant-swatch-king ul.swatch-view{display:flex!important;flex-wrap:wrap;gap:10px!important;margin:0!important;padding:4px!important;list-style:none!important}
+.alt-pdp variant-swatch-king ul.swatch-view{display:flex!important;flex-wrap:wrap;gap:10px!important;margin:0!important;padding:4px 0!important;list-style:none!important}
 .alt-pdp variant-swatch-king li.swatch-view-item{display:block!important;margin:0!important;padding:0!important;width:52px;height:52px;max-width:none;flex:0 0 auto;border-radius:50%;outline:0}
 .alt-pdp variant-swatch-king li.swatch-view-item .swatch-image-wrapper{display:block!important;box-sizing:border-box;width:52px!important;height:52px!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:50%!important;background:none!important;overflow:visible!important;box-shadow:0 0 0 1px rgba(252,250,245,.28)!important;transition:box-shadow .15s ease;cursor:pointer}
 .alt-pdp variant-swatch-king li.swatch-view-item:hover .swatch-image-wrapper{box-shadow:0 0 0 1px rgba(252,250,245,.7)!important}
