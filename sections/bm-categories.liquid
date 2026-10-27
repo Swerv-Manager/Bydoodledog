@@ -1,0 +1,64 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-cats" data-bm-carousel>
+    <div class="bm-section__head">
+      <div>
+        <p class="bm-eyebrow">{{ settings.bm_cat_eyebrow }}</p>
+        <h2 class="bm-h2">{{ settings.bm_cat_title }}</h2>
+      </div>
+      <div class="bm-carousel__nav">
+        <button type="button" data-bm-prev aria-label="{{ settings.bm_prev_label | escape }}">‹</button>
+        <button type="button" data-bm-next aria-label="{{ settings.bm_next_label | escape }}">›</button>
+      </div>
+    </div>
+    <div class="bm-cats__track" data-bm-track>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign bm_card_text = block.settings.text
+          if bm_card_text == blank
+            assign bm_card_text = settings.bm_cat_card_text
+          endif
+        -%}
+        <a class="bm-cat" href="{{ routes.collections_url }}/{{ block.settings.handle }}" {{ block.shopify_attributes }}>
+          <span class="bm-cat__media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag: loading: 'lazy', widths: '240, 360, 540, 800', sizes: '(min-width: 990px) 18vw, 70vw', alt: block.settings.title, class: 'bm-cat__img'
+              }}
+            {%- else -%}
+              <span class="bm-media-fallback" aria-hidden="true"></span>
+            {%- endif -%}
+            <span class="bm-badge bm-badge--campaign">{{ settings.bm_badge_campaign }}</span>
+            <span class="bm-cat__arrow" aria-hidden="true">→</span>
+          </span>
+          <span class="bm-cat__title">{{ block.settings.title }}</span>
+          <span class="bm-cat__sub">{{ bm_card_text }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM kategorier",
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Billede" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Kategori" },
+        { "type": "text", "id": "handle", "label": "Kollektions-handle", "default": "all" },
+        { "type": "text", "id": "text", "label": "Undertekst", "info": "Tom = tema-indstillingen Minimum 20 %." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BM kategorier" }
+  ]
+}
+{% endschema %}

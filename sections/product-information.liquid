@@ -346,6 +346,7 @@
                     {% endif %}
                   </p>
                 {%- when 'title' -%}
+                  {% render 'bm-pdp-extras', product: product, part: 'badge' %}
                   <h1
                     class="product__title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
                     style="--font-section-scale: {{ block.settings.font_size | divided_by: 100.0 }};"
@@ -396,6 +397,7 @@
                       </div>
                     </div>
                   </div>
+                  {% render 'bm-pdp-extras', product: product, part: 'after-price' %}
                 {%- when 'countdown' -%}
                   {% if product.metafields.theme.countdown_date.value != blank %}
                     {%- assign date_end = product.metafields.theme.countdown_date.value | date: '%Y-%m-%d' -%}

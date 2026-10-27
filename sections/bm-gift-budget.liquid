@@ -1,0 +1,54 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now != 'off' -%}
+  <section class="bm-section bm-gifts{% if bm_phase_now == 'post' %} bm-gifts--post{% endif %}" id="bm-budget">
+    <div class="bm-section__intro">
+      <p class="bm-eyebrow">{{ settings.bm_gift_eyebrow }}</p>
+      <h2 class="bm-h2">{{ settings.bm_gift_title }}</h2>
+    </div>
+    <div class="bm-gifts__grid">
+      {%- for block in section.blocks -%}
+        <a class="bm-gift" href="{{ routes.collections_url }}/{{ block.settings.handle }}" {{ block.shopify_attributes }}>
+          <span class="bm-gift__media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag: loading: 'lazy', widths: '300, 500, 800', sizes: '(min-width: 990px) 30vw, 100vw', alt: block.settings.title, class: 'bm-gift__img'
+              }}
+            {%- else -%}
+              <span class="bm-media-fallback" aria-hidden="true"></span>
+            {%- endif -%}
+          </span>
+          <span class="bm-gift__kicker">{{ block.settings.kicker }}</span>
+          <span class="bm-gift__title">{{ block.settings.title }}</span>
+          <span class="bm-gift__text">{{ block.settings.text }}</span>
+          <span class="bm-btn bm-btn--ghost">{{ block.settings.button }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM gaver efter budget",
+  "blocks": [
+    {
+      "type": "gift",
+      "name": "Budget",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Billede" },
+        { "type": "text", "id": "kicker", "label": "Eyebrow", "default": "Gaver under" },
+        { "type": "text", "id": "title", "label": "Beløb", "default": "500 kr." },
+        { "type": "text", "id": "text", "label": "Beskrivelse" },
+        { "type": "text", "id": "button", "label": "Knap", "default": "Se gaverne" },
+        { "type": "text", "id": "handle", "label": "Kollektions-handle" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BM gaver efter budget" }
+  ]
+}
+{% endschema %}

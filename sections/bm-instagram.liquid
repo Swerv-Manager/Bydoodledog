@@ -1,0 +1,47 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-instagram">
+    <h2 class="bm-h2 bm-h2--center">{{ settings.bm_ig_title }}</h2>
+    {%- if section.blocks.size > 0 -%}
+      <div class="bm-ig__grid">
+        {%- for block in section.blocks -%}
+          <a href="{{ section.settings.profile_url | default: 'https://www.instagram.com/bydoodledog/' }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', widths: '200, 400, 600', sizes: '25vw', alt: settings.bm_ig_title
+              }}
+            {%- endif -%}
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM Instagram",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Overskrift over det eksisterende Instafeed-app-blok. Statiske billeder er kun fallback, hvis feedet ikke er tilgængeligt."
+    },
+    { "type": "url", "id": "profile_url", "label": "Profil-link" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Billede",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Billede" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BM Instagram" }
+  ]
+}
+{% endschema %}

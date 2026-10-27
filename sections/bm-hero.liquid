@@ -1,0 +1,71 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- liquid
+    assign bm_primary = settings.bm_cta_primary
+    assign bm_primary_url = settings.bm_collection_url
+    if bm_phase_now == 'pre'
+      assign bm_primary = settings.bm_signup_cta
+      assign bm_primary_url = settings.bm_signup_url
+    endif
+  -%}
+  <section class="bm-section bm-hero" id="bm-hero">
+    <div class="bm-hero__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '600, 900, 1200, 1600, 2000, 2400',
+            sizes: '100vw',
+            class: 'bm-hero__img',
+            alt: section.settings.image.alt | default: settings.bm_hero_title
+        }}
+      {%- else -%}
+        <div class="bm-media-fallback bm-media-fallback--hero" aria-hidden="true"></div>
+      {%- endif -%}
+      <div class="bm-hero__scrim" aria-hidden="true"></div>
+    </div>
+    <div class="bm-hero__inner">
+      <div class="bm-hero__copy">
+        <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
+        <h1 class="bm-hero__title">{{ settings.bm_hero_title }}<span class="bm-dot">.</span></h1>
+        {%- if settings.bm_up_to_enabled and settings.bm_up_to_text != blank -%}
+          <p class="bm-hero__upto">{{ settings.bm_up_to_text }}</p>
+        {%- endif -%}
+        <p class="bm-hero__italic">{{ settings.bm_hero_italic }}</p>
+        {%- if bm_phase_now == 'pre' -%}
+          <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
+        {%- endif -%}
+        <div class="bm-hero__actions">
+          <a class="bm-btn bm-btn--primary" href="{{ bm_primary_url }}">{{ bm_primary }}</a>
+          <a class="bm-btn bm-btn--ghost" href="#bm-budget">{{ settings.bm_cta_secondary }}</a>
+        </div>
+      </div>
+      <div class="bm-hero__aside">
+        <p class="bm-hangtag">{{ settings.bm_hangtag }}</p>
+        {% render 'bm-countdown' %}
+        <p class="bm-hero__trust">{{ settings.bm_trust_line }}</p>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero-billede",
+      "info": "Sort/hvid foto af bilsæde i veteranbil. Vises med mørk gradient mod venstre. Produktionsbilledet er ikke i temaet endnu."
+    }
+  ],
+  "presets": [
+    { "name": "BM hero" }
+  ]
+}
+{% endschema %}

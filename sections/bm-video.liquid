@@ -1,0 +1,46 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-video">
+    <div class="bm-video__media">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: autoplay: false, loop: true, controls: true, image_size: '1200x' }}
+      {%- elsif section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag: loading: 'lazy', widths: '600, 1000, 1600', sizes: '100vw', alt: settings.bm_video_eyebrow, class: 'bm-video__img'
+        }}
+      {%- else -%}
+        <div class="bm-media-fallback bm-media-fallback--video" aria-hidden="true"></div>
+      {%- endif -%}
+      <div class="bm-video__copy">
+        <p class="bm-eyebrow">{{ settings.bm_video_eyebrow }}</p>
+        {%- if section.settings.link != blank -%}
+          <a class="bm-btn bm-btn--ghost" href="{{ section.settings.link }}">{{ settings.bm_video_cta }}</a>
+        {%- else -%}
+          <p class="bm-btn bm-btn--ghost">{{ settings.bm_video_cta }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM video",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Video" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fallback-billede",
+      "info": "Bruges hvis der ikke er valgt en video. Eksisterende shop-videoer kan vælges i video-feltet."
+    },
+    { "type": "url", "id": "link", "label": "Knap-link" }
+  ],
+  "presets": [
+    { "name": "BM video" }
+  ]
+}
+{% endschema %}

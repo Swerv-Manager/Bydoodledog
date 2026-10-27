@@ -1,0 +1,6 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' -%}
+  <li class="bm-nav-pill-item{% if context == 'drawer' %} bm-nav-pill-item--drawer{% endif %}">
+    <a class="bm-pill" href="{{ settings.bm_collection_url }}">{{ settings.bm_menu_label }}</a>
+  </li>
+{%- endif -%}

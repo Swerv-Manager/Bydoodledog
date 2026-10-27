@@ -1,0 +1,24 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-reviews-summary">
+    <h2 class="bm-h2">{{ settings.bm_reviews_summary_title }}</h2>
+    <div class="bm-prose bm-reviews-summary__body">{{ settings.bm_reviews_summary }}</div>
+    <p class="bm-footnote">{{ settings.bm_reviews_summary_note }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM anmeldelses-resumé",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Godkendt resumétekst fra portalen. Det er ikke et live Judge.me AI-kald."
+    }
+  ],
+  "presets": [
+    { "name": "BM anmeldelses-resumé" }
+  ]
+}
+{% endschema %}
