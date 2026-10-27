@@ -74,7 +74,7 @@ body.bm-on .site-footer ul li{margin-bottom:6px}
 .sph-about__d summary::-webkit-details-marker{display:none}
 .sph-about__d summary i{font-style:normal;font-size:24px;line-height:24px}
 .sph-about__d summary i::before{content:"+"}
-.sph-about__d[open] summary i::before{content:"2"}
+.sph-about__d[open] summary i::before{content:"−"}
 .sph-about__b{padding:0 0 24px;max-width:640px;font-size:16px;line-height:26px;color:#111}
 .sph-about__b h2,.sph-about__b h3{font:400 18px/26px "Playfair Display",serif;letter-spacing:.04em;text-transform:uppercase;margin:20px 0 8px}
 .sph-about__b p{margin:0 0 12px}
