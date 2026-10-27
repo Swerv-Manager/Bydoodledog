@@ -1,8 +1,18 @@
+{%- comment -%}Gift start gate (bm_gift_start_iso) must equal startsAt of the Gratis snackkurv automatic discount. Before it no gift is promised; bm.js re-evaluates with bm_now in preview.{%- endcomment -%}
 {%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
 {%- if bm_on == 'true' -%}
   {%- liquid
     assign bm_ship = settings.bm_free_shipping | times: 100
-    assign bm_snack = settings.bm_snack_threshold | times: 100
+    assign bm_snack_full = settings.bm_snack_threshold | times: 100
+    assign bm_gift_start_iso = '2026-10-29T23:01:00Z'
+    assign bm_gift_start_ts = bm_gift_start_iso | date: '%s' | plus: 0
+    assign bm_now_ts = 'now' | date: '%s' | plus: 0
+    assign bm_snack = bm_snack_full
+    assign bm_gift_open = true
+    if bm_now_ts < bm_gift_start_ts
+      assign bm_gift_open = false
+      assign bm_snack = 0
+    endif
     assign bm_gift_handle = settings.bm_gift_handle | default: 'gratis-snackkurv'
     assign bm_gift_product = all_products[bm_gift_handle]
     assign bm_gift_variant = bm_gift_product.selected_or_first_available_variant
@@ -14,6 +24,7 @@
         assign bm_gift_sum = bm_gift_sum | plus: bm_item.final_line_price
       endif
     endfor
+    assign bm_ship_label_pre = settings.bm_free_shipping | times: 100 | money_without_trailing_zeros
     assign bm_total = cart.total_price | minus: bm_gift_sum
     assign bm_goal = bm_snack
     if bm_ship > bm_goal
@@ -32,6 +43,8 @@
     endif
     if bm_total >= bm_snack and bm_snack > 0
       assign bm_ship_msg = settings.bm_msg_both
+    elsif bm_total >= bm_ship and bm_ship > 0 and bm_snack == 0
+      assign bm_ship_msg = settings.bm_msg_ship
     elsif bm_total >= bm_ship and bm_ship > 0
       assign bm_remain = bm_snack | minus: bm_total | money_without_trailing_zeros
       assign bm_ship_msg = settings.bm_msg_ship | append: ' · ' | append: settings.bm_msg_need | append: ' ' | append: bm_remain | append: ' ' | append: settings.bm_msg_goal_snack
@@ -40,16 +53,20 @@
       assign bm_ship_msg = settings.bm_msg_need | append: ' ' | append: bm_remain | append: ' ' | append: settings.bm_msg_goal_ship
     else
       assign bm_ship_msg = settings.bm_msg_empty
+      unless bm_gift_open
+        assign bm_ship_msg = 'Fri fragt fra ' | append: bm_ship_label_pre
+      endunless
     endif
     assign bm_snack_value = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
   -%}
   {%- assign bm_ship_label = settings.bm_free_shipping | times: 100 | money_without_trailing_zeros -%}
-  {%- assign bm_snack_label = settings.bm_snack_threshold | times: 100 | money_without_trailing_zeros -%}
+  {%- assign bm_snack_label = bm_snack_full | money_without_trailing_zeros -%}
   <div
-    class="bm-cart-progress"
+    class="bm-cart-progress{% unless bm_gift_open %} is-pregift{% endunless %}"
     data-bm-ship
+    data-gift-start="{{ bm_gift_start_iso }}"
     data-ship="{{ bm_ship }}"
-    data-snack="{{ bm_snack }}"
+    data-snack="{{ bm_snack_full }}"
     data-gift-handle="{{ bm_gift_handle | escape }}"
     data-gift-variant="{% if bm_gift_variant and bm_gift_variant.available %}{{ bm_gift_variant.id }}{% endif %}"
     data-msg-both="{{ settings.bm_msg_both | escape }}"
@@ -58,6 +75,7 @@
     data-msg-goal-ship="{{ settings.bm_msg_goal_ship | escape }}"
     data-msg-goal-snack="{{ settings.bm_msg_goal_snack | escape }}"
     data-msg-empty="{{ settings.bm_msg_empty | escape }}"
+    data-msg-empty-pre="Fri fragt fra {{ bm_ship_label_pre | escape }}"
     data-money-format="{{ shop.money_format | escape }}"
   >
     <p class="bm-cp__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
@@ -69,8 +87,8 @@
     </div>
     <div class="bm-cp__lbl" style="grid-template-columns: {{ bm_ship_mark }}fr {{ 100 | minus: bm_ship_mark }}fr;"><span>Fri fragt · {{ bm_ship_label }}</span><span>Snackkurv · {{ bm_snack_label }}</span></div>
   </div>
-  {%- if bm_total >= bm_snack and bm_snack > 0 -%}
-    <div class="bm-cart-gift" role="status" data-bm-gift-block>
+  {%- if bm_total >= bm_snack_full and bm_snack_full > 0 -%}
+    <div class="bm-cart-gift" role="status" data-bm-gift-block{% unless bm_gift_open %} hidden{% endunless %}>
       <span class="bm-badge bm-badge--campaign">{{ settings.bm_gift_kicker }}</span>
       <p class="bm-cart-gift__title">{{ settings.bm_gift_title }} ({{ settings.bm_gift_value_word }} {{ bm_snack_value }})</p>
       <p class="bm-cart-gift__price">Gratis</p>
@@ -84,6 +102,8 @@
     </div>
   {%- endif -%}
   <style>
+    .bm-cart-progress.is-pregift [data-bm-m2], .bm-cart-progress.is-pregift .bm-cp__lbl > span:nth-child(2) { display: none !important; }
+    .bm-cart-gift[hidden], [data-bm-gift-block][hidden] { display: none !important; }
     [data-bm-gift] .qtyplus, [data-bm-gift] .quantity__button.qtyplus { display: none !important; }
     [data-bm-gift] .cart__final-price .price--free { font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
     body.bm-on #main-cart .bm-cart-gift { background: var(--alt-card, #2f2620); color: var(--alt-tx, #f6efe8); border-radius: 12px; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 12px 14px; }

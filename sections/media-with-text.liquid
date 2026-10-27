@@ -195,13 +195,15 @@
                 </div>
               </div>
 
-              <noscript>
-                {{
-                  section.settings.image
-                  | image_url: width: 1200
-                  | image_tag: alt: section.settings.image.alt, class: 'feature-row__image'
-                }}
-              </noscript>
+              {%- if section.settings.image != blank -%}
+                <noscript>
+                  {{
+                    section.settings.image
+                    | image_url: width: 1200
+                    | image_tag: alt: section.settings.image.alt, class: 'feature-row__image'
+                  }}
+                </noscript>
+              {%- endif -%}
             {% else %}
               <div
                 class="media media--placeholder media--{{ image_ratio }}"

@@ -260,3 +260,9 @@ body.bm-on.template-cart .product-card-wrapper .product-card__title{color:var(--
 body.bm-on.template-cart .product-card-wrapper .price-item--regular:not(:only-child){color:var(--alt-mut)}
 body.bm-on.template-cart .product-card-wrapper .price-item--sale__save-tag{color:var(--alt-mut)}
 body.bm-on cart-drawer .cart__product-title,body.bm-on cart-drawer .cart__product-title:visited,body.bm-on #main-cart .cart__product-title,body.bm-on #main-cart .cart__product-title:visited{color:var(--alt-tx)!important;opacity:1!important}
+/* QA fix: logo inside the mobile menu drawer sat absolutely positioned in the middle of the list; keep it in the drawer header row */
+.menu-drawer__header .header__heading{position:static!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;margin:0!important;width:auto;grid-area:heading;justify-self:start;display:block}
+.menu-drawer__header .header__heading-link{padding-left:.4rem;display:inline-flex;align-items:center}
+.menu-drawer__header .header__heading-logo{height:30px!important;width:auto!important;max-width:none!important}
+/* QA fix: after the campaign end (data-bm-phase="post", set by bm.js without reload) hide campaign-only chrome: hero text, countdown, marquee and the Black Month menu pill */
+body[data-bm-phase="post"] .alt-hero,body[data-bm-phase="post"] .alt-marq,body[data-bm-phase="post"] [data-bm-countdown],body[data-bm-phase="post"] .bm-nav-pill-item,body[data-bm-phase="post"] .bm-pill{display:none!important}

@@ -13,6 +13,7 @@
   ac_d = desktop >=1280 vars on .bdcol1 (--fp position, --iw image width, --s1/--s2/--a2 scrim); ac_m = stacked <1280 vars on .bmcol2 (--bh band height, --gs scrim start, --fpt position 750-1279, --fpm position <750, --bsm phone background-size). Face boxes checked with /workspace/r6/fbshot.py. {%- endcomment -%}
 {%- assign ac_d = '' -%}{%- assign ac_m = '--bh:124px' -%}
 {%- case collection.handle -%}
+    {%- when 'bestsellers' -%}{%- assign ac_d = '--fp:50% 11%;--iw:64%;--s1:30%;--s2:46%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(190px,40vw,340px);--gs:66%;--fpt:50% 9%;--fpm:50% 12%' -%}
   {%- when 'hundekurv' -%}{%- assign ac_d = '--fp:50% 30%;--iw:75%;--s1:34%;--s2:47%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(152px,39vw,400px);--gs:64%;--fpt:50% 40%;--fpm:50% 0%' -%}
   {%- when 'hunde-bilsaede' -%}{%- assign ac_d = '--fp:50% 20%;--iw:74%;--s1:34%;--s2:47%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(200px,38vw,340px);--gs:62%;--fpt:50% 21%;--fpm:50% 24%' -%}
   {%- when 'hundetoj-1' -%}{%- assign ac_d = '--fp:50% 26%;--iw:79%;--s1:30%;--s2:44%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(260px,44vw,420px);--gs:66%;--fpt:50% 28%;--fpm:100% 26%;--bsm:133% auto' -%}

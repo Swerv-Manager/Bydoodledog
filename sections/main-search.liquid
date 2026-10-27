@@ -118,7 +118,44 @@
   endpaginate
 -%}
 
-<div class="template-search spaced-section{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
+{%- liquid
+  # QA fix: Shopify returns loosely related products for nonsense queries. If no result actually contains the search term,
+  # treat it as "no results": hide the grid and point to the bestsellers instead.
+  assign ms_real = true
+  if search.performed and search.terms != blank
+    assign ms_real = false
+    assign ms_words = search.terms | downcase | split: ' '
+    for ms_item in search.results limit: 24
+      assign ms_hay = ms_item.title | append: ' ' | append: ms_item.url | append: ' ' | append: ms_item.type | append: ' ' | append: ms_item.vendor | append: ' ' | append: ms_item.content | strip_html | downcase
+      assign ms_tags = ms_item.tags | join: ' ' | downcase
+      assign ms_hay = ms_hay | downcase | append: ' ' | append: ms_tags
+      for ms_w in ms_words
+        assign ms_len = ms_w.size
+        assign ms_stem = ms_w
+        if ms_len > 4
+          assign ms_cut = ms_len | minus: 2
+          assign ms_stem = ms_w | slice: 0, ms_cut
+        endif
+        if ms_stem != blank and ms_hay contains ms_stem
+          assign ms_real = true
+          break
+        endif
+      endfor
+      if ms_real
+        break
+      endif
+    endfor
+  endif
+  assign ms_none = false
+  if search.performed and search.results_count == 0 and search.filters == empty
+    assign ms_none = true
+  endif
+  if ms_real == false
+    assign ms_none = true
+  endif
+-%}
+
+<div class="template-search spaced-section{% unless search.performed and search.results_count > 0 and ms_real %} template-search--empty{% endunless %}">
   <div class="template-search__header">
     <template-search-form class="page-width">
       <div class="template-search__search">
@@ -151,7 +188,7 @@
 
   <div class="template-search__no-results page-width center">
     {%- if search.performed -%}
-      {%- if search.results_count == 0 and search.filters == empty -%}
+      {%- if ms_none -%}
         <h1 class="h3">
           {{ 'templates.search.no_results' | t }}
         </h1>
@@ -163,13 +200,17 @@
           </p>
         {%- endif -%}
       {%- endunless -%}
-      {%- if search.results_count == 0 and search.filters == empty -%}
+      {%- if ms_none -%}
         <p role="status">{{ 'templates.search.check_spelling' | t }}</p>
+      {%- endif -%}
+      {%- if ms_none -%}
+        <h2 class="h4" style="margin:2.4rem 0 1.2rem;">Se vores bestsellere</h2>
+        <p><a class="button button--primary" href="{{ routes.collections_url }}/bestsellers?view=black-month">Se vores bestsellere</a></p>
       {%- endif -%}
     {%- endif -%}
   </div>
 
-  {%- if search.performed -%}
+  {%- if search.performed and ms_real -%}
     {%- if search.filters != empty -%}
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <div

@@ -125,26 +125,43 @@
       .replace(/\{\{\s*amount\s*\}\}/g, amount);
   }
 
+  // ---- Gift start gate: the free snack basket must not be promised or auto-added before the BXGY discount starts ----
+  // Must equal the startsAt of the "Black Month | Gratis snackkurv" automatic discount (2026-10-29T23:01:00Z = 30.10 00:01 CET).
+  var BM_GIFT_START = "2026-10-29T23:01:00Z";
+  function giftOpen(box) {
+    var raw = (box && box.getAttribute("data-gift-start")) || BM_GIFT_START;
+    var t = Date.parse(raw);
+    if (isNaN(t)) return true;
+    return Date.now() + clockOffset >= t;
+  }
+  function gated(box) { return !!(box && box.hasAttribute("data-gift-start")); }
+  function effSnack(box) {
+    var snack = Number(box.getAttribute("data-snack") || 0);
+    return gated(box) && !giftOpen(box) ? 0 : snack;
+  }
+
   function messageFor(total, box) {
     var ship = Number(box.getAttribute("data-ship") || 0);
-    var snack = Number(box.getAttribute("data-snack") || 0);
+    var snack = effSnack(box);
     var goal = Math.max(ship, snack);
     var format = box.getAttribute("data-money-format");
     var fm = function (c) { return formatMoney(c, format).replace(/,00(?=\D|$)/, ""); };
     if (snack > 0 && total >= snack) return box.getAttribute("data-msg-both");
+    if (ship > 0 && total >= ship && snack <= 0) return box.getAttribute("data-msg-ship");
     if (ship > 0 && total >= ship) {
       return box.getAttribute("data-msg-ship") + " · " + box.getAttribute("data-msg-need") + " " + fm(snack - total) + " " + box.getAttribute("data-msg-goal-snack");
     }
     if (total > 0 && ship > 0) {
       return box.getAttribute("data-msg-need") + " " + fm(ship - total) + " " + box.getAttribute("data-msg-goal-ship");
     }
+    if (snack <= 0 && box.getAttribute("data-msg-empty-pre")) return box.getAttribute("data-msg-empty-pre");
     return box.getAttribute("data-msg-empty");
   }
 
   function paintShip(total) {
     document.querySelectorAll("[data-bm-ship]").forEach(function (box) {
       var ship = Number(box.getAttribute("data-ship") || 0);
-      var snack = Number(box.getAttribute("data-snack") || 0);
+      var snack = effSnack(box);
       var goal = Math.max(ship, snack, 1);
       var fill = Math.min(100, Math.round((total / goal) * 100));
       var fillEl = box.querySelector("[data-bm-ship-fill]");
@@ -154,6 +171,14 @@
       var m1 = box.querySelector("[data-bm-m1]"), m2 = box.querySelector("[data-bm-m2]");
       if (m1) m1.classList.toggle("is-on", ship > 0 && total >= ship);
       if (m2) m2.classList.toggle("is-on", snack > 0 && total >= snack);
+      if (gated(box)) {
+        box.classList.toggle("is-pregift", snack <= 0);
+        if (m1) m1.style.left = Math.round((ship / goal) * 100) + "%";
+        var lbl = box.querySelector(".bm-cp__lbl");
+        if (lbl) lbl.style.gridTemplateColumns = Math.round((ship / goal) * 100) + "fr " + (100 - Math.round((ship / goal) * 100)) + "fr";
+        var open = snack > 0;
+        document.querySelectorAll("[data-bm-gift-block]").forEach(function (g) { g.hidden = !open; });
+      }
       if (msg) msg.textContent = messageFor(total, box);
       if (amount) amount.textContent = total > 0 ? formatMoney(total, box.getAttribute("data-money-format")) : formatMoney(ship, box.getAttribute("data-money-format"));
     });
@@ -188,7 +213,7 @@
     if (bmGiftTestVid) vid = bmGiftTestVid;
     return {
       box: box,
-      on: !!(box && live && vid),
+      on: !!(box && live && vid && giftOpen(box)),
       vid: vid || null,
       threshold: box ? Number(box.getAttribute("data-snack") || 0) : 0
     };
