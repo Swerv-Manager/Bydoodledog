@@ -5,7 +5,7 @@
 {%- liquid
   assign bm_width = width | default: 1600
   assign bm_height = height | default: bm_width
-  assign bm_loading = loading | default: 'lazy'
+  assign bm_loading = loading | default: 'eager'
   assign bm_alt = alt | default: ''
 -%}
 {%- if image != blank -%}

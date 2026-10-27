@@ -26,8 +26,7 @@
       clockOffset = parsed - Date.now();
       var phase = phaseFor(Date.now() + clockOffset);
       root.setAttribute("data-bm-phase", phase);
-      var scoped = root.classList.contains("template-index") || (root.className.indexOf("black-month") !== -1);
-      root.classList.toggle("bm-dark", scoped && (phase === "pre" || phase === "live"));
+      root.classList.toggle("bm-on", phase === "pre" || phase === "live");
     }
   }
 

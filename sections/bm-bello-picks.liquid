@@ -17,14 +17,14 @@
                 {{
                   bm_product.featured_image
                   | image_url: width: 800
-                  | image_tag: loading: 'lazy', widths: '240, 400, 700', sizes: '(min-width: 990px) 22vw, 50vw', alt: bm_product.title, class: 'bm-bello__img'
+                  | image_tag: loading: 'eager', widths: '240, 400, 700', sizes: '(min-width: 990px) 22vw, 50vw', alt: bm_product.title, class: 'bm-bello__img'
                 }}
               {%- elsif bm_bello_assets[forloop.index0] != blank -%}
                 {% render 'bm-media',
                   asset: bm_bello_assets[forloop.index0],
                   alt: bm_product.title,
                   class: 'bm-bello__img',
-                  loading: 'lazy',
+                  loading: 'eager',
                   width: 800
                 %}
               {%- else -%}
@@ -50,7 +50,7 @@
                 asset: bm_bello_asset,
                 alt: bm_bello_names[forloop.index0],
                 class: 'bm-bello__img',
-                loading: 'lazy',
+                loading: 'eager',
                 width: 800
               %}
             </span>
