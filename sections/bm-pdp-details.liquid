@@ -13,10 +13,12 @@
   -%}
   <section class="bm-section bm-pdp-details">
     <div class="bm-acc">
-      <details open>
-        <summary>{{ settings.bm_acc_desc }}</summary>
-        <div class="rte">{{ product.description }}</div>
-      </details>
+      {%- if section.settings.show_description -%}
+        <details open>
+          <summary>{{ settings.bm_acc_desc }}</summary>
+          <div class="rte">{{ product.description }}</div>
+        </details>
+      {%- endif -%}
       <details>
         <summary>{{ settings.bm_acc_measures }}</summary>
         <div class="rte">{{ bm_measures }}</div>
@@ -41,6 +43,13 @@
     {
       "type": "paragraph",
       "content": "Beskrivelse er produktets beskrivelse. Mål og vask bruger metafelterne custom.bm_measures og custom.bm_care, ellers en generel fallback."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Vis beskrivelse i harmonikaen",
+      "info": "Slå fra, når temaets egen beskrivelsesblok vises på samme side.",
+      "default": true
     }
   ]
 }

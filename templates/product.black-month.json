@@ -170,6 +170,7 @@
         }
       },
       "block_order": [
+        "description",
         "complementary"
       ],
       "settings": {
@@ -332,14 +333,20 @@
     },
     "bm-pdp-details": {
       "type": "bm-pdp-details",
-      "settings": {}
+      "settings": {
+        "show_description": false
+      }
     }
   },
   "order": [
+    "countdown_RGwENP",
     "product-information",
     "bm-pdp-details",
     "product-content",
     "1734279790d2b66dc6",
-    "product-recommendations"
+    "product-recommendations",
+    "featured_collection_khdtnV",
+    "video_column_MREqfP",
+    "multicolumn_rt4TMP"
   ]
 }
