@@ -136,8 +136,8 @@ body.bm-on.template-suffix-black-month .product-form__submit{background:#846340!
 .sph-pinfo__r b{width:6px;height:6px;flex:none;background:#846340;margin-top:8px}
 .sph-pinfo__r strong{font-weight:600}
 @media(min-width:990px){
-body.bm-on.template-suffix-black-month .product-page__content{display:grid!important;grid-template-columns:minmax(0,746px) minmax(0,526px);gap:24px;align-items:start;margin:0 auto}
-body.bm-on.template-suffix-black-month .product__media-wrapper,body.bm-on.template-suffix-black-month .product__info-wrapper{width:auto!important;max-width:none!important;float:none!important;padding:0!important;margin:0!important}
+body.bm-on.template-suffix-black-month .product-page__content{max-width:1440px!important;width:100%!important;display:grid!important;grid-template-columns:minmax(0,746px) minmax(0,526px);gap:24px;align-items:start;margin:0 auto}
+body.bm-on.template-suffix-black-month .product__media-wrapper,body.bm-on.template-suffix-black-month .product__info-wrapper{position:static!important;inset:auto!important;width:auto!important;max-width:none!important;float:none!important;padding:0!important;margin:0!important}
 }
 @media(max-width:989px){body.bm-on.template-suffix-black-month .product__title{font-size:24px!important;line-height:32px!important}body.bm-on.template-suffix-black-month .product__price *{font-size:40px!important;line-height:48px!important}.sph-pcd{flex-direction:column}}
 /* ---- collection ---- */
