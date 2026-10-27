@@ -1,0 +1,111 @@
+{%- liquid
+  capture sph_ph
+    render 'bm-phase'
+  endcapture
+  assign sph_ph = sph_ph | strip
+  assign sph_bm_on = false
+  if sph_ph == 'pre' or sph_ph == 'live'
+    assign sph_bm_on = true
+  endif
+  assign sph_word = 'produkter'
+  if collection.handle contains 'kurv'
+    assign sph_word = 'kurve'
+  endif
+  assign sph_sub = 'Minimum 20 % på hele shoppen. Udgåede farver ligger på Lagerhylden – op til 80 %.'
+  if collection.handle contains 'kurv'
+    assign sph_sub = 'Minimum 20 % på alle kurve. Udgåede farver ligger på Lagerhylden – op til 80 %.'
+  endif
+  assign sph_chip = collection.current_tags.first | handleize
+  assign sph_tile = false
+  assign sph_tile_h = 'bjork-hundekurv-mork-brun-i-bred-flojl,by-doodle-dog-skaleunderlag-beige,bali-skalen-mocca,hvalpe-bone-tandplejerne-legetoj' | split: ','
+  if all_products[sph_tile_h.first].handle != blank
+    assign sph_tile = true
+  endif
+-%}
+{%- paginate collection.products by 14 -%}
+{%- liquid
+  assign sph_shown = paginate.current_offset | plus: collection.products.size
+-%}
+<section class="sph sph-col" id="sph-col">
+<div class="sph-d">
+{%- if sph_bm_on -%}<div class="cold1"><div class="cold2"><span class="cold3"><a href="{{ routes.root_url }}">Forside</a> / {{ collection.title | escape }}</span><span class="cold4">Black Month · 30.10–30.11</span><h1 class="cold5">{{ collection.title | escape }}</h1><p class="cold6">{{ sph_sub }}</p></div><div class="cold7" data-bm-countdown="" data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}" role="timer"><span class="cold4">Black Month slutter om</span><div class="cold8"><div class="cold9"><span class="cold10"><span data-bm-days="">00</span></span><span class="cold11">Dage</span></div><div class="cold9"><span class="cold10"><span data-bm-hours="">00</span></span><span class="cold11">Timer</span></div><div class="cold9"><span class="cold10"><span data-bm-minutes="">00</span></span><span class="cold11">Min</span></div><div class="cold9"><span class="cold12"><span data-bm-seconds="">00</span></span><span class="cold11">Sek</span></div></div><span class="cold13">Mandag 30.11 kl. 23.59</span></div></div>{%- else -%}<div class="sph-plain"><nav class="sph-crumb"><a href="{{ routes.root_url }}">Forside</a> / {{ collection.title | escape }}</nav><h1>{{ collection.title | escape }}</h1></div>{%- endif -%}
+<form class="sph-ff" method="get" action="{{ collection.url }}"><input type="hidden" name="view" value="black-month"><div class="cold14"><div class="cold15"><a class="{% if sph_chip == '' %}cold16{% else %}cold17{% endif %}"{% if sph_chip == '' %} aria-current="true"{% endif %} href="{{ collection.url }}?view=black-month"><span class="sc-interp">Alle</span></a><a class="{% if sph_chip == '__none__' %}cold16{% else %}cold17{% endif %}"{% if sph_chip == '__none__' %} aria-current="true"{% endif %} href="{{ collection.url }}?view=black-month"><span class="sc-interp">Black Month</span></a><a class="{% if sph_chip == 'bestseller' %}cold16{% else %}cold17{% endif %}"{% if sph_chip == 'bestseller' %} aria-current="true"{% endif %} href="{{ collection.url }}/bestseller?view=black-month"><span class="sc-interp">Bestsellere</span></a><a class="{% if sph_chip == 'final-sale' %}cold16{% else %}cold17{% endif %}"{% if sph_chip == 'final-sale' %} aria-current="true"{% endif %} href="{{ collection.url }}/final-sale?view=black-month"><span class="sc-interp">Lagerhylden</span></a><a class="{% if sph_chip == 'nyhed' %}cold16{% else %}cold17{% endif %}"{% if sph_chip == 'nyhed' %} aria-current="true"{% endif %} href="{{ collection.url }}/nyhed?view=black-month"><span class="sc-interp">Nyheder</span></a><span class="cold18"></span>{%- if collection.filters != empty -%}{% for f in collection.filters %}<details class="sph-fd"><summary class="cold19">{{ f.label | escape }}{%- if f.active_values.size > 0 %} ({{ f.active_values.size }}){% endif %} <span class="cold20">▾</span></summary><div class="sph-fpanel">{%- case f.type -%}{%- when 'price_range' -%}<label class="sph-fr">Fra <input type="number" min="0" name="{{ f.min_value.param_name }}" value="{% if f.min_value.value %}{{ f.min_value.value | divided_by: 100 }}{% endif %}" placeholder="0" data-sph-money></label><label class="sph-fr">Til <input type="number" min="0" name="{{ f.max_value.param_name }}" value="{% if f.max_value.value %}{{ f.max_value.value | divided_by: 100 }}{% endif %}" placeholder="{{ f.range_max | divided_by: 100 }}" data-sph-money></label>{%- else -%}{% for v in f.values %}<label class="sph-fl"><input type="checkbox" name="{{ v.param_name }}" value="{{ v.value }}"{% if v.active %} checked{% endif %}{% if v.count == 0 and v.active == false %} disabled{% endif %}> <span>{{ v.label | escape }}</span> <small>{{ v.count }}</small></label>{% endfor %}{%- endcase -%}<button type="submit" class="sph-fapply">Vis resultater</button></div></details>{% endfor %}{%- endif -%}</div><div class="cold21"><span class="cold22">{{ sph_shown }} af {{ paginate.items }} {{ sph_word }}</span><label class="cold19 sph-rel"><span>Sortér: {% for o in collection.sort_options %}{% if o.value == collection.sort_by %}{{ o.name | escape }}{% endif %}{% endfor %}{% unless collection.sort_by != blank %}{{ collection.sort_options.first.name | escape }}{% endunless %}</span> <span class="cold20">▾</span><select name="sort_by" class="sph-sortsel" aria-label="Sortér" data-sph-sort>{% for o in collection.sort_options %}<option value="{{ o.value }}"{% if o.value == collection.sort_by %} selected{% endif %}>{{ o.name | escape }}</option>{% endfor %}</select></label></div></div></form>
+<div data-sph-grid class="cold23">
+{%- for product in collection.products -%}
+{%- liquid
+  assign sph_bm = false
+  if sph_bm_on
+    assign sph_bm = true
+  endif
+  assign sph_is_lh = false
+  assign sph_is_new = false
+  assign sph_is_best = false
+  if product.tags contains 'Final Sale'
+    assign sph_is_lh = true
+  endif
+  if product.tags contains 'nyhed'
+    assign sph_is_new = true
+  endif
+  if product.tags contains 'Bestseller'
+    assign sph_is_best = true
+  endif
+  assign sph_has_cmp = false
+  if product.compare_at_price > product.price
+    assign sph_has_cmp = true
+  endif
+  assign sph_rc = product.metafields.reviews.rating_count | default: 0 | plus: 0
+  assign sph_rating = ''
+  if sph_rc > 0
+    assign sph_rating = product.metafields.reviews.rating.value.rating | round: 1 | replace: '.', ','
+  endif
+-%}
+<div class="cold24 sph-rel" data-sph-card=""><div class="cold25"><span class="cold26" style="background-image:url('{%- if product.featured_image -%}{{ product.featured_image | image_url: width: 640 }}{%- endif -%}')" role="img" aria-label="{{ product.title | escape }}" role="img" style="background-image:url('{{ 'sph-bjork-kurv-morkbrun-bred_1.jpg' | asset_url }}')"></span><div class="cold27">{%- unless sph_is_lh -%} {%- if sph_bm -%}<span class="cold28"><span class="sc-interp">BLACK MONTH</span></span>{%- endif -%}{%- endunless -%}{%- if sph_is_lh -%}<span class="cold52"><span class="sc-interp">LAGERHYLDEN</span></span>{%- endif -%}{%- if sph_is_new -%}<span class="cold39"><span class="sc-interp">NY</span></span>{%- endif -%}{%- if sph_is_best -%}<span class="cold29"><span class="sc-interp">BESTSELLER</span></span>{%- endif -%}</div></div><div class="cold30">{%- if sph_rc > 0 -%}<div class="cold31"><span class="cold32">★★★★★</span><span class="cold22">{{ sph_rating }}</span></div>{%- endif -%}<div class="cold33">{{ product.title | escape }}</div><div class="cold34"><span class="cold35">{%- if product.price_varies -%}Fra {% endif -%}{{ product.price | money_without_currency }} kr.</span>{%- if sph_has_cmp -%}<span class="cold36">Før {{ product.compare_at_price | money_without_currency }} kr.</span>{%- endif -%}</div>{%- if sph_has_cmp -%}<span class="cold37">Du sparer {{ product.compare_at_price | minus: product.price | money_without_currency }} kr.</span>{%- endif -%}{%- if product.variants.size > 1 or product.available == false -%}<a class="cold38 sph-ovx" href="{{ product.url }}"><span class="sc-interp">Vælg størrelse</span></a>{%- else -%}<form action="/cart/add" method="post" class="sph-form"><input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><button class="cold54" type="submit"><span class="sc-interp">Læg i kurven</span></button></form>{%- endif -%}</div><a class="sph-cardlink" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a></div>
+{%- if forloop.index == 4 and sph_tile and paginate.current_page == 1 -%}
+<div class="cold40"><div class="cold41"><img alt="Hjemmet" class="cold42" decoding="async" loading="lazy" src="{{ 'sph-skaaleunderlag-beige_1.jpg' | asset_url }}"/><span class="cold43">SÆT</span></div><div class="cold44"><span class="cold4">Fuldend kurven</span><div class="cold45">Hjemmet</div><div class="cold13">Bjørk kurv mørk brun S + skåleunderlag + Bali skål + Hvalpe bone</div><div class="cold46"><span class="cold13">Sætpris</span><span class="cold47">Sætpris afventer</span><span class="cold48">Hver for sig {% assign sph_sum = 0 %}{% for h in sph_tile_h %}{% assign sph_sum = sph_sum | plus: all_products[h].price %}{% endfor %}{{ sph_sum | money_without_currency }} kr.</span></div><a class="cold50" href="{{ all_products[sph_tile_h.first].url }}">Se sættet</a><a class="cold51" href="{{ routes.root_url }}#sph-saet">Byg dit eget sæt →</a></div></div>
+{%- endif -%}
+{%- endfor -%}
+<div class="cold55" data-sph-last=""><span class="cold56">Du har set <span class="sc-interp">{{ sph_shown }}</span> af {{ paginate.items }} {{ sph_word }}</span>{%- if paginate.next -%}<a class="cold57" data-sph-more="" href="{{ paginate.next.url }}{% if paginate.next.url contains '?' %}&amp;{% else %}?{% endif %}view=black-month">Vis flere {{ sph_word }}</a>{%- endif -%}</div></div>
+</div>
+<div class="sph-m">
+{%- if sph_bm_on -%}<div class="colm1" data-bm-countdown="" data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}" role="timer"><span class="colm2"><a href="{{ routes.root_url }}">Forside</a> / {{ collection.title | escape }}</span><h1 class="colm3">{{ collection.title | escape }}</h1><p class="colm4">{{ sph_sub }}</p><div class="colm5"><span class="colm6">Black Month slutter om</span><span class="colm7">man 30.11 kl. 23.59</span></div><div class="colm8"><span class="colm9"><span data-bm-days="">00</span><span class="colm10">D</span></span><span class="colm9"><span data-bm-hours="">00</span><span class="colm10">T</span></span><span class="colm9"><span data-bm-minutes="">00</span><span class="colm10">M</span></span><span class="colm11"><span data-bm-seconds="">00</span><span class="colm10">S</span></span></div></div>{%- else -%}<div class="sph-plain"><nav class="sph-crumb"><a href="{{ routes.root_url }}">Forside</a> / {{ collection.title | escape }}</nav><h1>{{ collection.title | escape }}</h1></div>{%- endif -%}
+<form class="sph-ff" method="get" action="{{ collection.url }}"><input type="hidden" name="view" value="black-month"><div class="colm12"><div class="colm13"><a class="{% if sph_chip == '' %}colm14{% else %}colm15{% endif %}"{% if sph_chip == '' %} aria-current="true"{% endif %} href="{{ collection.url }}?view=black-month"><span class="sc-interp">Alle</span></a><a class="{% if sph_chip == '__none__' %}colm14{% else %}colm15{% endif %}"{% if sph_chip == '__none__' %} aria-current="true"{% endif %} href="{{ collection.url }}?view=black-month"><span class="sc-interp">Black Month</span></a><a class="{% if sph_chip == 'bestseller' %}colm14{% else %}colm15{% endif %}"{% if sph_chip == 'bestseller' %} aria-current="true"{% endif %} href="{{ collection.url }}/bestseller?view=black-month"><span class="sc-interp">Bestsellere</span></a><a class="{% if sph_chip == 'final-sale' %}colm14{% else %}colm15{% endif %}"{% if sph_chip == 'final-sale' %} aria-current="true"{% endif %} href="{{ collection.url }}/final-sale?view=black-month"><span class="sc-interp">Lagerhylden</span></a><a class="{% if sph_chip == 'nyhed' %}colm14{% else %}colm15{% endif %}"{% if sph_chip == 'nyhed' %} aria-current="true"{% endif %} href="{{ collection.url }}/nyhed?view=black-month"><span class="sc-interp">Nyheder</span></a></div><div class="colm16">{%- if collection.filters != empty -%}<details class="sph-fmob"><summary class="colm17">Filtrér · størrelse, farve, pris</summary><div class="sph-fpanel sph-fpanel--m">{% for f in collection.filters %}<fieldset class="sph-fg"><legend>{{ f.label | escape }}</legend>{%- case f.type -%}{%- when 'price_range' -%}<label class="sph-fr">Fra <input type="number" min="0" name="{{ f.min_value.param_name }}" value="{% if f.min_value.value %}{{ f.min_value.value | divided_by: 100 }}{% endif %}" data-sph-money></label><label class="sph-fr">Til <input type="number" min="0" name="{{ f.max_value.param_name }}" value="{% if f.max_value.value %}{{ f.max_value.value | divided_by: 100 }}{% endif %}" placeholder="{{ f.range_max | divided_by: 100 }}" data-sph-money></label>{%- else -%}{% for v in f.values %}<label class="sph-fl"><input type="checkbox" name="{{ v.param_name }}" value="{{ v.value }}"{% if v.active %} checked{% endif %}{% if v.count == 0 and v.active == false %} disabled{% endif %}> <span>{{ v.label | escape }}</span> <small>{{ v.count }}</small></label>{% endfor %}{%- endcase -%}</fieldset>{% endfor %}<fieldset class="sph-fg"><legend>Sortér</legend><select name="sort_by" class="sph-sortsel2" data-sph-sort>{% for o in collection.sort_options %}<option value="{{ o.value }}"{% if o.value == collection.sort_by %} selected{% endif %}>{{ o.name | escape }}</option>{% endfor %}</select></fieldset><button type="submit" class="sph-fapply">Vis resultater</button></div></details>{%- else -%}<span class="colm17">Filtrér</span>{%- endif -%}<span class="colm18">{{ sph_shown }} af {{ paginate.items }} {{ sph_word }}</span></div></div></form>
+<div data-sph-grid class="colm19">
+{%- for product in collection.products -%}
+{%- liquid
+  assign sph_bm = false
+  if sph_bm_on
+    assign sph_bm = true
+  endif
+  assign sph_is_lh = false
+  assign sph_is_new = false
+  assign sph_is_best = false
+  if product.tags contains 'Final Sale'
+    assign sph_is_lh = true
+  endif
+  if product.tags contains 'nyhed'
+    assign sph_is_new = true
+  endif
+  if product.tags contains 'Bestseller'
+    assign sph_is_best = true
+  endif
+  assign sph_has_cmp = false
+  if product.compare_at_price > product.price
+    assign sph_has_cmp = true
+  endif
+  assign sph_rc = product.metafields.reviews.rating_count | default: 0 | plus: 0
+  assign sph_rating = ''
+  if sph_rc > 0
+    assign sph_rating = product.metafields.reviews.rating.value.rating | round: 1 | replace: '.', ','
+  endif
+-%}
+<div class="colm20 sph-rel" data-sph-card=""><div class="colm21"><span class="colm22" style="background-image:url('{%- if product.featured_image -%}{{ product.featured_image | image_url: width: 640 }}{%- endif -%}')" role="img" aria-label="{{ product.title | escape }}" role="img" style="background-image:url('{{ 'sph-bjork-kurv-morkbrun-bred_1.jpg' | asset_url }}')"></span><div class="colm23">{%- unless sph_is_lh -%} {%- if sph_bm -%}<span class="colm24"><span class="sc-interp">BLACK MONTH</span></span>{%- endif -%}{%- endunless -%}{%- if sph_is_lh -%}<span class="colm43"><span class="sc-interp">LAGERHYLDEN</span></span>{%- endif -%}{%- if sph_is_new -%}<span class="colm32"><span class="sc-interp">NY</span></span>{%- endif -%}{%- if sph_is_best -%}<span class="colm25"><span class="sc-interp">BESTSELLER</span></span>{%- endif -%}</div></div><div class="colm26"><div class="colm27">{{ product.title | escape }}</div><span class="colm28">{%- if product.price_varies -%}Fra {% endif -%}{{ product.price | money_without_currency }} kr.</span>{%- if sph_has_cmp -%}<span class="colm29">Før {{ product.compare_at_price | money_without_currency }} kr.</span>{%- endif -%}{%- if sph_has_cmp -%}<span class="colm30">Du sparer {{ product.compare_at_price | minus: product.price | money_without_currency }} kr.</span>{%- endif -%}{%- if product.variants.size > 1 or product.available == false -%}<a class="colm31 sph-ovx" href="{{ product.url }}"><span class="sc-interp">Vælg størrelse</span></a>{%- else -%}<form action="/cart/add" method="post" class="sph-form"><input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><button class="colm45" type="submit"><span class="sc-interp">Læg i kurven</span></button></form>{%- endif -%}</div><a class="sph-cardlink" href="{{ product.url }}" aria-label="{{ product.title | escape }}"></a></div>
+{%- if forloop.index == 4 and sph_tile and paginate.current_page == 1 -%}
+<div class="colm33"><div class="colm34"><img alt="Hjemmet" class="colm35" decoding="async" loading="lazy" src="{{ 'sph-skaaleunderlag-beige_1.jpg' | asset_url }}"/><span class="colm36">SÆT</span></div><div class="colm37"><span class="colm6">Fuldend kurven</span><span class="colm38">Hjemmet</span><span class="colm39">Kurv + skåleunderlag + Bali skål + Hvalpe bone</span><span class="colm40">815,90 kr.</span><a class="colm42" href="{{ all_products[sph_tile_h.first].url }}">Se sættet</a></div></div>
+{%- endif -%}
+{%- endfor -%}
+<div class="colm46" data-sph-last=""><span class="colm47">Du har set <span class="sc-interp">{{ sph_shown }}</span> af {{ paginate.items }} {{ sph_word }}</span>{%- if paginate.next -%}<a class="colm48" data-sph-more="" href="{{ paginate.next.url }}{% if paginate.next.url contains '?' %}&amp;{% else %}?{% endif %}view=black-month">Vis flere {{ sph_word }}</a>{%- endif -%}</div></div>
+</div></section>
+{%- endpaginate -%}
+{% schema %}
+{"name":"SPH Kollektion","settings":[],"presets":[{"name":"SPH Kollektion"}]}
+{% endschema %}
