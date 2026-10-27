@@ -188,7 +188,7 @@ body.bm-on .announcement-bar {
 }
 
 .bm-nav-pill-item { display: flex; align-items: center; }
-.bm-nav-pill-item--drawer { padding: 0.75rem 1.5rem 0.25rem; }
+.bm-nav-pill-item--drawer { padding: 0.75rem 1.5rem 0.25rem 30px; }
 
 .bm-drawer-links { padding: 1rem 1.5rem 1.5rem; }
 .bm-drawer-links__list { list-style: none; margin: 0; padding: 0.75rem 0 0; border-top: 1px solid rgba(249, 243, 241, 0.15); }
