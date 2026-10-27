@@ -224,7 +224,7 @@
                                           assign original_line_price = item.original_line_price | money_with_currency
                                           assign final_line_price = item.final_line_price | money_with_currency
                                         else
-                                          assign original_line_price = item.original_line_price | money
+                                          assign original_line_price = item.original_line_price | money_without_trailing_zeros
                                           assign final_line_price = item.final_line_price | money_without_trailing_zeros
                                         endif
                                       %}
@@ -515,7 +515,7 @@
                   {% if settings.show_currency_codes %}
                     {% assign wrap_price = linklists['gift-wrapping'].links.first.object.price | money_with_currency %}
                   {% else %}
-                    {% assign wrap_price = linklists['gift-wrapping'].links.first.object.price | money %}
+                    {% assign wrap_price = linklists['gift-wrapping'].links.first.object.price | money_without_trailing_zeros %}
                   {% endif %}
                   {% if linklists['gift-wrapping'].links.first.object.price > 0 %}
                     {{ 'sections.cart.gift_wrapping_html' | t: wrap_price: wrap_price }}
@@ -832,7 +832,7 @@
                               {% if settings.show_currency_codes %}
                                 ({{ discount.total_allocated_amount | money_with_currency }})
                               {% else %}
-                                ({{ discount.total_allocated_amount | money }})
+                                ({{ discount.total_allocated_amount | money_without_trailing_zeros }})
                               {% endif %}
                             </span>
                           </li>
