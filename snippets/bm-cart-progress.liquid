@@ -1,0 +1,62 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' -%}
+  {%- liquid
+    assign bm_ship = settings.bm_free_shipping | times: 100
+    assign bm_snack = settings.bm_snack_threshold | times: 100
+    assign bm_total = cart.total_price
+    assign bm_goal = bm_snack
+    if bm_ship > bm_goal
+      assign bm_goal = bm_ship
+    endif
+    assign bm_fill = 0
+    if bm_goal > 0
+      assign bm_fill = bm_total | times: 100 | divided_by: bm_goal
+    endif
+    if bm_fill > 100
+      assign bm_fill = 100
+    endif
+    assign bm_ship_mark = 0
+    if bm_goal > 0
+      assign bm_ship_mark = bm_ship | times: 100 | divided_by: bm_goal
+    endif
+    if bm_total >= bm_snack and bm_snack > 0
+      assign bm_ship_msg = settings.bm_msg_both
+    elsif bm_total >= bm_ship and bm_ship > 0
+      assign bm_remain = bm_snack | minus: bm_total | money_without_trailing_zeros
+      assign bm_ship_msg = settings.bm_msg_ship | append: ' · ' | append: settings.bm_msg_need | append: ' ' | append: bm_remain | append: ' ' | append: settings.bm_msg_goal_snack
+    elsif bm_total > 0
+      assign bm_remain = bm_ship | minus: bm_total | money_without_trailing_zeros
+      assign bm_ship_msg = settings.bm_msg_need | append: ' ' | append: bm_remain | append: ' ' | append: settings.bm_msg_goal_ship
+    else
+      assign bm_ship_msg = settings.bm_msg_empty
+    endif
+    assign bm_snack_value = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
+  -%}
+  <div
+    class="bm-cart-progress"
+    data-bm-ship
+    data-ship="{{ bm_ship }}"
+    data-snack="{{ bm_snack }}"
+    data-msg-both="{{ settings.bm_msg_both | escape }}"
+    data-msg-ship="{{ settings.bm_msg_ship | escape }}"
+    data-msg-need="{{ settings.bm_msg_need | escape }}"
+    data-msg-goal-ship="{{ settings.bm_msg_goal_ship | escape }}"
+    data-msg-goal-snack="{{ settings.bm_msg_goal_snack | escape }}"
+    data-msg-empty="{{ settings.bm_msg_empty | escape }}"
+    data-money-format="{{ shop.money_format | escape }}"
+  >
+    <div class="bm-ship__track" aria-hidden="true">
+      <span class="bm-ship__fill" data-bm-ship-fill style="width: {{ bm_fill }}%;"></span>
+      <span class="bm-ship__mark" style="left: {{ bm_ship_mark }}%;"></span>
+    </div>
+    <p class="bm-ship__msg" data-bm-ship-msg>{{ bm_ship_msg }}</p>
+  </div>
+  {%- if bm_total >= bm_snack and bm_snack > 0 -%}
+    <div class="bm-cart-gift" role="status">
+      <span class="bm-badge bm-badge--campaign">{{ settings.bm_gift_kicker }}</span>
+      <p class="bm-cart-gift__title">{{ settings.bm_gift_title }} ({{ settings.bm_gift_value_word }} {{ bm_snack_value }})</p>
+      <p class="bm-cart-gift__price">{{ 0 | money }}</p>
+      <p class="bm-cart-gift__note">{{ settings.bm_gift_note }}</p>
+    </div>
+  {%- endif -%}
+{%- endif -%}

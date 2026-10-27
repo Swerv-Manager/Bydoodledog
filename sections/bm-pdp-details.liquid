@@ -1,0 +1,47 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- liquid
+    assign bm_measures = product.metafields.custom.bm_measures.value | default: product.metafields.custom.bm_measures
+    assign bm_care = product.metafields.custom.bm_care.value | default: product.metafields.custom.bm_care
+    if bm_measures == blank
+      assign bm_measures = settings.bm_pdp_measures_fallback
+    endif
+    if bm_care == blank
+      assign bm_care = settings.bm_pdp_care_fallback
+    endif
+  -%}
+  <section class="bm-section bm-pdp-details">
+    <div class="bm-acc">
+      <details open>
+        <summary>{{ settings.bm_acc_desc }}</summary>
+        <div class="rte">{{ product.description }}</div>
+      </details>
+      <details>
+        <summary>{{ settings.bm_acc_measures }}</summary>
+        <div class="rte">{{ bm_measures }}</div>
+      </details>
+      <details>
+        <summary>{{ settings.bm_acc_care }}</summary>
+        <div class="rte">{{ bm_care }}</div>
+      </details>
+      <details>
+        <summary>{{ settings.bm_acc_shipping }}</summary>
+        <div class="rte">{{ settings.bm_pdp_delivery_long }}</div>
+      </details>
+    </div>
+    <h2 class="bm-h2">{{ settings.bm_acc_reviews }}</h2>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM PDP detaljer",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Beskrivelse er produktets beskrivelse. Mål og vask bruger metafelterne custom.bm_measures og custom.bm_care, ellers en generel fallback."
+    }
+  ]
+}
+{% endschema %}

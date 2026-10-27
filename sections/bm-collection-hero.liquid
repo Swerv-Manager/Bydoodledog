@@ -1,0 +1,49 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- liquid
+    assign bm_sub = settings.bm_collection_sub
+    if section.settings.subtitle != blank
+      assign bm_sub = section.settings.subtitle
+    endif
+    if settings.bm_up_to_enabled == false
+      assign bm_phrase = settings.bm_up_to_text | replace: '.', ''
+      assign bm_sub = bm_sub | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
+    endif
+  -%}
+  <section class="bm-section bm-col-hero">
+    <div class="bm-col-hero__copy">
+      <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
+      <nav class="bm-crumbs" aria-label="breadcrumb">
+        <a href="{{ routes.root_url }}">{{ settings.bm_crumb_home }}</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ settings.bm_collection_url }}">{{ settings.bm_crumb_bm }}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ collection.title }}</span>
+      </nav>
+      <h1 class="bm-col-hero__title">{{ collection.title }}</h1>
+      {%- if bm_sub != blank -%}
+        <p class="bm-lead">{{ bm_sub }}</p>
+      {%- endif -%}
+      <p class="bm-col-hero__count">{{ collection.products_count }} {{ settings.bm_products_word }}</p>
+    </div>
+    <div class="bm-col-hero__aside">
+      <p class="bm-hangtag">{{ settings.bm_hangtag }}</p>
+      {% render 'bm-countdown' %}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM kollektion hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Undertekst",
+      "info": "Tom = standardteksten. Sæt-siden bruger sin egen undertekst."
+    }
+  ]
+}
+{% endschema %}

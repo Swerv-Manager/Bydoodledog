@@ -1,0 +1,46 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- liquid
+    assign bm_components = product.metafields.custom.bm_components.value
+    assign bm_parts = ''
+    if bm_components != blank
+      assign bm_parts = bm_components.size | append: ' ' | append: settings.bm_bundle_parts_word
+    endif
+  -%}
+  <section class="bm-section bm-bundle-detail">
+    <div class="bm-bundle-detail__hero">
+      <p class="bm-eyebrow">{{ settings.bm_hero_eyebrow }}</p>
+      <h1 class="bm-h2">{{ product.title }}</h1>
+      {%- if bm_parts != blank -%}
+        <p class="bm-bundle-card__kicker">{{ settings.bm_bundle_package }} · {{ bm_parts }}</p>
+      {%- endif -%}
+      {% render 'bm-countdown', compact: true %}
+    </div>
+    {% render 'bm-bundle-card',
+      title: product.title,
+      parts_label: bm_parts,
+      products: bm_components,
+      fallback: product,
+      image: product.featured_image
+    %}
+    <div class="bm-bundle-detail__copy">
+      <h2>{{ settings.bm_bundle_contents_title }}</h2>
+      <div class="bm-prose rte">{{ product.description }}</div>
+      <p>{{ settings.bm_bundle_detail_note }}</p>
+    </div>
+    <p class="bm-usp">{{ settings.bm_usp }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM pakke-detalje",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Delprodukter kommer fra metafeltet custom.bm_components på produktet. Uden metafeltet vises selve pakkeproduktets pris."
+    }
+  ]
+}
+{% endschema %}

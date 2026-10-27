@@ -1020,5 +1020,782 @@
         "info": "t:settings_schema.favicon.settings.favicon.info"
       }
     ]
+  },
+  {
+    "name": "Black Month",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Black Month"
+      },
+      {
+        "type": "checkbox",
+        "id": "bm_enabled",
+        "label": "Slå Black Month til",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "bm_start",
+        "label": "Start (ISO, Europe/Copenhagen)",
+        "default": "2026-10-30T00:01:00+01:00"
+      },
+      {
+        "type": "text",
+        "id": "bm_end",
+        "label": "Slut (ISO, Europe/Copenhagen)",
+        "default": "2026-11-30T23:59:00+01:00"
+      },
+      {
+        "type": "checkbox",
+        "id": "bm_show_percent_on_singles",
+        "label": "Vis Spar X % på enkeltprodukter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "bm_up_to_enabled",
+        "label": "Vis teksten Spar op til 80 %",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "bm_bundle_percent",
+        "label": "Pakkerabat i procent, når compare-at ikke er sat",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "bm_free_shipping",
+        "label": "Fri fragt fra (hele kroner)",
+        "default": 899
+      },
+      {
+        "type": "number",
+        "id": "bm_snack_threshold",
+        "label": "Snackkurv fra (hele kroner)",
+        "default": 1499
+      },
+      {
+        "type": "number",
+        "id": "bm_snack_value",
+        "label": "Snackkurvens værdi (hele kroner)",
+        "default": 399
+      },
+      {
+        "type": "number",
+        "id": "bm_giftcard_count",
+        "label": "Antal gavekort 1.11",
+        "default": 20
+      },
+      {
+        "type": "number",
+        "id": "bm_giftcard_amount",
+        "label": "Gavekortbeløb (hele kroner)",
+        "default": 5000
+      },
+      {
+        "type": "text",
+        "id": "bm_up_to_text",
+        "label": "up to text",
+        "default": "Spar op til 80 %."
+      },
+      {
+        "type": "text",
+        "id": "bm_hero_title",
+        "label": "hero title",
+        "default": "Black Month"
+      },
+      {
+        "type": "text",
+        "id": "bm_hero_eyebrow",
+        "label": "hero eyebrow",
+        "default": "BLACK MONTH · 30.10-30.11"
+      },
+      {
+        "type": "text",
+        "id": "bm_hero_italic",
+        "label": "hero italic",
+        "default": "Minimum 20 % på hele shoppen"
+      },
+      {
+        "type": "text",
+        "id": "bm_cta_primary",
+        "label": "cta primary",
+        "default": "Se Black Month"
+      },
+      {
+        "type": "text",
+        "id": "bm_cta_secondary",
+        "label": "cta secondary",
+        "default": "Find efter budget"
+      },
+      {
+        "type": "text",
+        "id": "bm_hangtag",
+        "label": "hangtag",
+        "default": "Black Month 30.10-30.11"
+      },
+      {
+        "type": "text",
+        "id": "bm_countdown_live",
+        "label": "countdown live",
+        "default": "BLACK MONTH SLUTTER OM"
+      },
+      {
+        "type": "text",
+        "id": "bm_countdown_pre",
+        "label": "countdown pre",
+        "default": "BLACK MONTH STARTER OM"
+      },
+      {
+        "type": "text",
+        "id": "bm_unit_days",
+        "label": "unit days",
+        "default": "DAGE"
+      },
+      {
+        "type": "text",
+        "id": "bm_unit_hours",
+        "label": "unit hours",
+        "default": "TIMER"
+      },
+      {
+        "type": "text",
+        "id": "bm_unit_minutes",
+        "label": "unit minutes",
+        "default": "MINUTTER"
+      },
+      {
+        "type": "text",
+        "id": "bm_unit_seconds",
+        "label": "unit seconds",
+        "default": "SEKUNDER"
+      },
+      {
+        "type": "text",
+        "id": "bm_trust_line",
+        "label": "trust line",
+        "default": "Fri fragt fra 899 kr. · ★★★★★ 4,8 på Trustpilot"
+      },
+      {
+        "type": "textarea",
+        "id": "bm_marquee_text",
+        "label": "marquee text",
+        "default": "Black Month 30.10–30.11 · Spar op til 80 % · Minimum 20 % på hele shoppen · Fri fragt fra 899 kr. · Gratis snackkurv (værdi 399 kr.) ved 1.499 kr."
+      },
+      {
+        "type": "textarea",
+        "id": "bm_announcement_messages",
+        "label": "announcement messages",
+        "default": "Black Month 30.10–30.11\nSpar op til 80 %\nMinimum 20 % på hele shoppen\nFri fragt fra 899 kr.\nGratis snackkurv (værdi 399 kr.) ved 1.499 kr."
+      },
+      {
+        "type": "text",
+        "id": "bm_collection_url",
+        "label": "collection url",
+        "default": "/collections/black-month"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundles_url",
+        "label": "bundles url",
+        "default": "/collections/black-month-pakker"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_url",
+        "label": "signup url",
+        "default": "/pages/black-month-signup"
+      },
+      {
+        "type": "text",
+        "id": "bm_menu_label",
+        "label": "menu label",
+        "default": "Black Month"
+      },
+      {
+        "type": "text",
+        "id": "bm_cat_eyebrow",
+        "label": "cat eyebrow",
+        "default": "MINIMUM 20 % PÅ HELE SHOPPEN"
+      },
+      {
+        "type": "text",
+        "id": "bm_cat_title",
+        "label": "cat title",
+        "default": "BLACK MONTH-KATEGORIER"
+      },
+      {
+        "type": "text",
+        "id": "bm_cat_card_text",
+        "label": "cat card text",
+        "default": "Minimum 20 %"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_eyebrow",
+        "label": "bundle eyebrow",
+        "default": "PAKKER, DER HØRER SAMMEN"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_title",
+        "label": "bundle title",
+        "default": "TOP 3 BLACK MONTH-PAKKER"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_sub",
+        "label": "bundle sub",
+        "default": "En pakke til hver størrelse hund. 30 % på pakkerne hele Black Month."
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_each",
+        "label": "bundle each",
+        "default": "HVER FOR SIG"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_price",
+        "label": "bundle price",
+        "default": "BLACK MONTH-PRIS"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_perk",
+        "label": "bundle perk",
+        "default": "Fri fragt + gratis snackkurv (værdi [value])"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_cta",
+        "label": "bundle cta",
+        "default": "Læg pakken i kurven"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_package",
+        "label": "bundle package",
+        "default": "PAKKE"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_parts",
+        "label": "bundle parts",
+        "default": "4 dele"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_parts_word",
+        "label": "bundle parts word",
+        "default": "dele"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_empty",
+        "label": "bundle empty",
+        "default": "Vælg delprodukter på pakken. Priser hentes fra Shopify."
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_contents_title",
+        "label": "bundle contents title",
+        "default": "Hvad er med i pakken"
+      },
+      {
+        "type": "text",
+        "id": "bm_bundle_detail_note",
+        "label": "bundle detail note",
+        "default": "30 % på pakken hele Black Month. Fri fragt + gratis snackkurv er dine, når beløbet er nået."
+      },
+      {
+        "type": "text",
+        "id": "bm_video_eyebrow",
+        "label": "video eyebrow",
+        "default": "VIDEO · HUNDEN I HJEMMET"
+      },
+      {
+        "type": "text",
+        "id": "bm_video_cta",
+        "label": "video cta",
+        "default": "Se Black Month i hjemmet"
+      },
+      {
+        "type": "text",
+        "id": "bm_promo_text",
+        "label": "promo text",
+        "default": "Spar 20 % på ALT · 80 % på udvalgte varer"
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_eyebrow",
+        "label": "gift eyebrow",
+        "default": "JULEGAVER"
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_title",
+        "label": "gift title",
+        "default": "Gratis snackkurv"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_eyebrow",
+        "label": "gtk eyebrow",
+        "default": "GENERELT OM BLACK MONTH"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_title",
+        "label": "gtk title",
+        "default": "GODT AT VIDE"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_sub",
+        "label": "gtk sub",
+        "default": "Black Month løber fra fredag 30.10 kl. 00.01 til mandag 30.11 kl. 23.59."
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_when_title",
+        "label": "gtk when title",
+        "default": "HVORNÅR"
+      },
+      {
+        "type": "textarea",
+        "id": "bm_gtk_when_body",
+        "label": "gtk when body",
+        "default": "Black Month 30.10–30.11\nBlack Friday fredag 27.11\nUge 48 23.–29.11\nSidste dag mandag 30.11\nSøndag 1.11: 20 gavekort à 5.000 kr. til de første ordrer"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_save_title",
+        "label": "gtk save title",
+        "default": "HVAD KAN DU SPARE"
+      },
+      {
+        "type": "textarea",
+        "id": "bm_gtk_save_body",
+        "label": "gtk save body",
+        "default": "Spar op til 80 %\nMinimum 20 % på hele shoppen"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_ship_title",
+        "label": "gtk ship title",
+        "default": "FRAGT OG SNACKKURV"
+      },
+      {
+        "type": "textarea",
+        "id": "bm_gtk_ship_body",
+        "label": "gtk ship body",
+        "default": "Fri fragt fra 899 kr.\nGratis snackkurv (værdi 399 kr.) ved 1.499 kr.\nLevering på 1-2 dage med GLS til pakkeshop"
+      },
+      {
+        "type": "text",
+        "id": "bm_gtk_footnote",
+        "label": "gtk footnote",
+        "default": "Forpris er den laveste pris i de 30 dage før kampagnen. Rabatter kan ikke lægges sammen, og pakkepriser gælder for hele pakker. Black Month lukker mandag 30.11 ved midnat."
+      },
+      {
+        "type": "text",
+        "id": "bm_bello_eyebrow",
+        "label": "bello eyebrow",
+        "default": "BELLO, VORES TESTER"
+      },
+      {
+        "type": "text",
+        "id": "bm_bello_title",
+        "label": "bello title",
+        "default": "DET, BELLO SELV VÆLGER"
+      },
+      {
+        "type": "text",
+        "id": "bm_bello_text",
+        "label": "bello text",
+        "default": "Bello har testet det hele. Det her ligger han helst i, leger med og går tur i – nu til Black Month-pris."
+      },
+      {
+        "type": "text",
+        "id": "bm_bello_empty",
+        "label": "bello empty",
+        "default": "Vælg de fire produkter i temaeditoren."
+      },
+      {
+        "type": "text",
+        "id": "bm_ig_title",
+        "label": "ig title",
+        "default": "FØLG @BYDOODLEDOG PÅ INSTAGRAM"
+      },
+      {
+        "type": "text",
+        "id": "bm_reviews_kicker",
+        "label": "reviews kicker",
+        "default": "BLACK MONTH"
+      },
+      {
+        "type": "text",
+        "id": "bm_reviews_title",
+        "label": "reviews title",
+        "default": "KUNDERNE TALER FOR OS"
+      },
+      {
+        "type": "text",
+        "id": "bm_reviews_count",
+        "label": "reviews count",
+        "default": "624 anmeldelser"
+      },
+      {
+        "type": "text",
+        "id": "bm_reviews_summary_title",
+        "label": "reviews summary title",
+        "default": "HVAD KUNDERNE SYNES OM BUTIKKEN"
+      },
+      {
+        "type": "textarea",
+        "id": "bm_reviews_summary",
+        "label": "reviews summary",
+        "default": "Denne butik tilbyder kæledyrsprodukter af høj kvalitet med hurtig levering og fremragende kundeservice. Kunder roser det smukke design, holdbare materialer og komforten ved genstande som hundesenge, bilsæder og tilbehør. Hunde elsker produkterne, og ejere sætter pris på de vaskbare funktioner og stilfulde æstetik, der passer godt i hjemmet."
+      },
+      {
+        "type": "text",
+        "id": "bm_reviews_summary_note",
+        "label": "reviews summary note",
+        "default": "AI-genereret ud fra kundeanmeldelser."
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_both",
+        "label": "msg both",
+        "default": "Fri fragt og snackkurv er dine 🥳"
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_ship",
+        "label": "msg ship",
+        "default": "Fri fragt er din"
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_need",
+        "label": "msg need",
+        "default": "Du mangler"
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_goal_ship",
+        "label": "msg goal ship",
+        "default": "til fri fragt"
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_goal_snack",
+        "label": "msg goal snack",
+        "default": "til gratis snackkurv"
+      },
+      {
+        "type": "text",
+        "id": "bm_msg_empty",
+        "label": "msg empty",
+        "default": "Fri fragt fra 899 kr. · Snackkurv ved 1.499 kr."
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_kicker",
+        "label": "gift kicker",
+        "default": "GAVE"
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_value_word",
+        "label": "gift value word",
+        "default": "værdi"
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_note",
+        "label": "gift note",
+        "default": "Gaven lægges på ordren i kassen, når beløbet er nået. Temaet viser den kun."
+      },
+      {
+        "type": "text",
+        "id": "bm_cart_tax_note",
+        "label": "cart tax note",
+        "default": "Moms er inkluderet. Fragt beregnes ved kassen."
+      },
+      {
+        "type": "text",
+        "id": "bm_cart_upsell",
+        "label": "cart upsell",
+        "default": "Det her vil du elske!"
+      },
+      {
+        "type": "text",
+        "id": "bm_badge_campaign",
+        "label": "badge campaign",
+        "default": "Black Month"
+      },
+      {
+        "type": "text",
+        "id": "bm_save_word",
+        "label": "save word",
+        "default": "Spar"
+      },
+      {
+        "type": "text",
+        "id": "bm_from_label",
+        "label": "from label",
+        "default": "Fra"
+      },
+      {
+        "type": "text",
+        "id": "bm_atc_label",
+        "label": "atc label",
+        "default": "Læg i kurv"
+      },
+      {
+        "type": "text",
+        "id": "bm_pdp_delivery",
+        "label": "pdp delivery",
+        "default": "1-2 dages levering"
+      },
+      {
+        "type": "text",
+        "id": "bm_pdp_delivery_long",
+        "label": "pdp delivery long",
+        "default": "Levering 1-2 hverdage med GLS til pakkeshop. Fri fragt fra 899 kr. og 30 dages returret."
+      },
+      {
+        "type": "text",
+        "id": "bm_pdp_measures_fallback",
+        "label": "pdp measures fallback",
+        "default": "Mål og materialer står på produktet og i størrelsesguiden."
+      },
+      {
+        "type": "text",
+        "id": "bm_pdp_care_fallback",
+        "label": "pdp care fallback",
+        "default": "Se vaskeanvisningen på mærket."
+      },
+      {
+        "type": "text",
+        "id": "bm_acc_desc",
+        "label": "acc desc",
+        "default": "Beskrivelse"
+      },
+      {
+        "type": "text",
+        "id": "bm_acc_measures",
+        "label": "acc measures",
+        "default": "Mål & materialer"
+      },
+      {
+        "type": "text",
+        "id": "bm_acc_care",
+        "label": "acc care",
+        "default": "Vask & pleje"
+      },
+      {
+        "type": "text",
+        "id": "bm_acc_shipping",
+        "label": "acc shipping",
+        "default": "Levering"
+      },
+      {
+        "type": "text",
+        "id": "bm_acc_reviews",
+        "label": "acc reviews",
+        "default": "Lad kunderne tale for os"
+      },
+      {
+        "type": "text",
+        "id": "bm_collection_sub",
+        "label": "collection sub",
+        "default": "Spar op til 80 % · minimum 20 % på hele shoppen"
+      },
+      {
+        "type": "text",
+        "id": "bm_crumb_home",
+        "label": "crumb home",
+        "default": "Forside"
+      },
+      {
+        "type": "text",
+        "id": "bm_crumb_bm",
+        "label": "crumb bm",
+        "default": "Black Month"
+      },
+      {
+        "type": "text",
+        "id": "bm_products_word",
+        "label": "products word",
+        "default": "produkter"
+      },
+      {
+        "type": "text",
+        "id": "bm_back_home",
+        "label": "back home",
+        "default": "← Til forsiden"
+      },
+      {
+        "type": "text",
+        "id": "bm_usp",
+        "label": "usp",
+        "default": "Fri fragt fra 899 kr. · 30 dages returret · Trustpilot 4,8 · Designet i Danmark · Levering 1-2 hverdage · Byt eller returnér"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_gift_1",
+        "label": "handle gift 1",
+        "default": "gaver-under-500"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_gift_2",
+        "label": "handle gift 2",
+        "default": "gaver-under-1000"
+      },
+      {
+        "type": "text",
+        "id": "bm_handle_gift_3",
+        "label": "handle gift 3",
+        "default": "gaver-under-1500"
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_nav_1",
+        "label": "gift nav 1",
+        "default": "Under 500 kr."
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_nav_2",
+        "label": "gift nav 2",
+        "default": "Under 1.000 kr."
+      },
+      {
+        "type": "text",
+        "id": "bm_gift_nav_3",
+        "label": "gift nav 3",
+        "default": "Under 1.500 kr."
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_title",
+        "label": "signup title",
+        "default": "Få besked først"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_text",
+        "label": "signup text",
+        "default": "Skriv dig op, så sender vi besked, når der er nyt i shoppen."
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_placeholder",
+        "label": "signup placeholder",
+        "default": "Din e-mail"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_cta",
+        "label": "signup cta",
+        "default": "Skriv mig op"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_dismiss",
+        "label": "signup dismiss",
+        "default": "Nej tak"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_legal",
+        "label": "signup legal",
+        "default": "Du kan altid afmelde dig igen."
+      },
+      {
+        "type": "text",
+        "id": "bm_privacy_label",
+        "label": "privacy label",
+        "default": "Læs vores privatlivspolitik."
+      },
+      {
+        "type": "text",
+        "id": "bm_privacy_url",
+        "label": "privacy url",
+        "default": "/policies/privacy-policy"
+      },
+      {
+        "type": "text",
+        "id": "bm_signup_success",
+        "label": "signup success",
+        "default": "Du er på listen."
+      },
+      {
+        "type": "text",
+        "id": "bm_phase_a_line",
+        "label": "phase a line",
+        "default": "Fredag 30.10 åbner Black Month. I nat kl. 00.01 åbner vi."
+      },
+      {
+        "type": "text",
+        "id": "bm_post_deadline",
+        "label": "post deadline",
+        "default": "Bestil senest fredag 18.12"
+      },
+      {
+        "type": "text",
+        "id": "bm_footer_compare_title",
+        "label": "footer compare title",
+        "default": "Om førpriser"
+      },
+      {
+        "type": "text",
+        "id": "bm_footer_compare_body",
+        "label": "footer compare body",
+        "default": "Den overstregede førpris er den laveste pris i de 30 dage før kampagnen. Black Month begyndte fredag 30.10."
+      },
+      {
+        "type": "textarea",
+        "id": "bm_menu_footer_links",
+        "label": "menu footer links",
+        "default": "Handelsbetingelser|/pages/handelsbetingelser\nReturnering|/pages/returnering\nKontakt os|/pages/contact\nOm By Doodle Dog|/pages/om-by-doodle-dog"
+      },
+      {
+        "type": "text",
+        "id": "bm_klaviyo_form_id",
+        "label": "Klaviyo form-id",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "bm_prev_label",
+        "label": "prev label",
+        "default": "Forrige"
+      },
+      {
+        "type": "text",
+        "id": "bm_next_label",
+        "label": "next label",
+        "default": "Næste"
+      },
+      {
+        "type": "text",
+        "id": "bm_close_label",
+        "label": "close label",
+        "default": "Luk"
+      },
+      {
+        "type": "text",
+        "id": "bm_keep_section_ids",
+        "label": "Forsidesektioner der beholdes (id, kommasepareret)",
+        "default": "173626154782c38b67,1735829689aa888868,FAQ"
+      }
+    ]
   }
 ]

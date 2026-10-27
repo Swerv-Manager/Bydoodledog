@@ -1,0 +1,29 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-col-foot">
+    <div class="bm-col-foot__nav">
+      <a href="{{ routes.root_url }}">{{ settings.bm_back_home }}</a>
+      {%- if section.settings.show_gift_nav -%}
+        <a href="{{ routes.collections_url }}/{{ settings.bm_handle_gift_1 }}">{{ settings.bm_gift_nav_1 }}</a>
+        <a href="{{ routes.collections_url }}/{{ settings.bm_handle_gift_2 }}">{{ settings.bm_gift_nav_2 }}</a>
+        <a href="{{ routes.collections_url }}/{{ settings.bm_handle_gift_3 }}">{{ settings.bm_gift_nav_3 }}</a>
+      {%- endif -%}
+    </div>
+    <p class="bm-usp">{{ settings.bm_usp }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM kollektion bund",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_gift_nav",
+      "label": "Vis navigation mellem gave-niveauer",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

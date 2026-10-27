@@ -13,6 +13,8 @@
   }
 </style>
 
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- assign bm_on = bm_on | strip -%}
 {% liquid
   assign free_message = settings.free_message
   assign media_ratio = settings.image_ratio
@@ -130,6 +132,7 @@
           </div>
         </cart-free-shipping>
       {%- endif -%}
+      {% render 'bm-cart-progress' %}
 
       <cart-drawer-items
         {% if cart == empty %}
@@ -195,6 +198,7 @@
                             <div class="cart__product-information">
                               <div class="cart__information-td">
                                 <div class="list-view-item__title">
+                                  {% render 'bm-cart-pill' %}
                                   {% if giftId == item.id %}
                                     <div
                                       class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
@@ -222,6 +226,7 @@
                                   {%- endif -%}
                                 </div>
                                 <div class="cart__final-price text-right">
+                                  {% render 'bm-cart-compare', item: item %}
                                   {% if item.final_price == 0 and free_message %}
                                     <span class="price--free">{{ 'sections.cart.free' | t }}</span>
                                   {% else %}
@@ -500,11 +505,7 @@
               data-upsells-source="{{ upsell_product_source }}"
             >
               <h4 class="product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
-                {%- if upsell_product_source == 'complementary-products' -%}
-                  {{ 'sections.cart.pairs_well' | t }}
-                {%- else -%}
-                  {{ 'sections.cart.also_like' | t }}
-                {%- endif -%}
+                {%- render 'bm-cart-upsell-title', source: upsell_product_source -%}
               </h4>
               <div class="cart-drawer-recommendations__inner">
                 {%- case upsell_product_source -%}
@@ -1133,6 +1134,7 @@
                 {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
               {%- endif -%}
             </div>
+            {% render 'bm-cart-tax-note' %}
           </div>
 
           <!-- CTAs -->

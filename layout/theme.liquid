@@ -231,9 +231,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     </script>
     
+    {%- capture bm_phase -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+    {%- assign bm_phase = bm_phase | strip -%}
+    {%- capture bm_active -%}{%- render 'bm-active' -%}{%- endcapture -%}
+    {%- assign bm_active = bm_active | strip -%}
+    {%- assign bm_load_assets = false -%}
+    {%- if bm_active == 'true' -%}
+      {%- assign bm_load_assets = true -%}
+    {%- endif -%}
+    {%- if template.name == 'index' and bm_phase == 'post' and settings.bm_enabled -%}
+      {%- assign bm_load_assets = true -%}
+    {%- endif -%}
+    {%- if bm_load_assets -%}
+      {{ 'bm-theme.css' | asset_url | stylesheet_tag }}
+      {%- if template.name == 'index' and bm_active == 'true' and settings.bm_keep_section_ids != blank -%}
+        <style>
+          body.bm-dark #MainContent > .shopify-section { display: none; }
+          body.bm-dark #MainContent > .shopify-section:has(.bm-section) { display: block; }
+          {%- assign bm_keep_ids = settings.bm_keep_section_ids | split: ',' -%}
+          {%- for bm_keep_id in bm_keep_ids -%}
+            {%- assign bm_keep_id_stripped = bm_keep_id | strip -%}
+            {%- if bm_keep_id_stripped != blank -%}
+              body.bm-dark #MainContent > .shopify-section[id$="__{{ bm_keep_id_stripped }}"] { display: block; }
+            {%- endif -%}
+          {%- endfor -%}
+        </style>
+      {%- endif -%}
+    {%- endif -%}
   </head>
 
-  <body class="template-{{ request.page_type | handle }} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}">
+  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-dark{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}">
     <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -242,6 +269,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {%- section 'cart-drawer' -%}
     {%- endif -%}
 
+    {%- if bm_active == 'true' -%}
+      {%- section 'bm-announcement' -%}
+      {%- render 'bm-sticky-countdown' -%}
+    {%- endif -%}
     {% sections 'header-group' %}
     <div class="page-container drawer-page-content" id="PageContainer">
       {% if settings.home_search_enabled == true and request.page_type == 'index' %}
@@ -252,6 +283,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {{ content_for_layout }}
       </main>
 
+      {%- if bm_active == 'true' -%}
+        {%- section 'bm-footer-note' -%}
+      {%- endif -%}
       {% sections 'footer-group' %}
       <template data-swatch-template="">
         <div
@@ -331,5 +365,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVP9QGNX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+    {%- if bm_load_assets -%}
+      <script src="{{ 'bm.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </body>
 </html>

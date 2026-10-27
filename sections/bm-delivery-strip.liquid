@@ -1,0 +1,22 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'post' and settings.bm_post_deadline != blank -%}
+  <section class="bm-section bm-delivery">
+    <p>{{ settings.bm_post_deadline }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM leveringsstrip",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Vises kun efter Black Month (fase C), sammen med julegave-sektionen."
+    }
+  ],
+  "presets": [
+    { "name": "BM leveringsstrip" }
+  ]
+}
+{% endschema %}

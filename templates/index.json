@@ -868,9 +868,199 @@
         "padding_top": 44,
         "padding_bottom": 0
       }
+    },
+    "bm-hero": {
+      "type": "bm-hero",
+      "settings": {}
+    },
+    "bm-marquee": {
+      "type": "bm-marquee",
+      "settings": {}
+    },
+    "bm-categories": {
+      "type": "bm-categories",
+      "blocks": {
+        "hundekurve": {
+          "type": "category",
+          "settings": {
+            "title": "Hundekurve",
+            "handle": "hundekurv",
+            "text": ""
+          }
+        },
+        "bilsaeder": {
+          "type": "category",
+          "settings": {
+            "title": "Hundebilsæder",
+            "handle": "hunde-bilsaede",
+            "text": ""
+          }
+        },
+        "trapper": {
+          "type": "category",
+          "settings": {
+            "title": "Trapper",
+            "handle": "trapper",
+            "text": ""
+          }
+        },
+        "seler": {
+          "type": "category",
+          "settings": {
+            "title": "Seler",
+            "handle": "seler",
+            "text": ""
+          }
+        },
+        "toej": {
+          "type": "category",
+          "settings": {
+            "title": "Hundetøj",
+            "handle": "hundetoj",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "hundekurve",
+        "bilsaeder",
+        "trapper",
+        "seler",
+        "toej"
+      ],
+      "settings": {}
+    },
+    "bm-bundles": {
+      "type": "bm-bundles",
+      "blocks": {
+        "b1": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den lille hund – Hjalmar",
+            "parts": "4 dele",
+            "products": []
+          }
+        },
+        "b2": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den mellemstore hund",
+            "parts": "5 dele",
+            "products": []
+          }
+        },
+        "b3": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den store hund – Carl",
+            "parts": "3 dele",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "use_collection": false,
+        "limit": 6
+      }
+    },
+    "bm-video": {
+      "type": "bm-video",
+      "settings": {}
+    },
+    "bm-gift-budget": {
+      "type": "bm-gift-budget",
+      "blocks": {
+        "g1": {
+          "type": "gift",
+          "settings": {
+            "kicker": "GAVER UNDER",
+            "title": "500 kr.",
+            "text": "Kaninen, bandana, Nora sele og Eva jakke",
+            "button": "SE GAVERNE",
+            "handle": "gaver-under-500"
+          }
+        },
+        "g2": {
+          "type": "gift",
+          "settings": {
+            "kicker": "GAVER UNDER",
+            "title": "1.000 kr.",
+            "text": "Kurve, bilsæder og trapper",
+            "button": "SE GAVE",
+            "handle": "gaver-under-1000"
+          }
+        },
+        "g3": {
+          "type": "gift",
+          "settings": {
+            "kicker": "GAVER UNDER",
+            "title": "1.500 kr.",
+            "text": "Pakkerne til den lille hund, Bjørk-serien og de store kurve",
+            "button": "SE GAVERNE",
+            "handle": "gaver-under-1500"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3"
+      ],
+      "settings": {}
+    },
+    "bm-good-to-know": {
+      "type": "bm-good-to-know",
+      "settings": {}
+    },
+    "bm-bello": {
+      "type": "bm-bello-picks",
+      "settings": {
+        "products": []
+      }
+    },
+    "bm-promo": {
+      "type": "bm-promo-banner",
+      "settings": {}
+    },
+    "bm-instagram": {
+      "type": "bm-instagram",
+      "settings": {}
+    },
+    "bm-reviews": {
+      "type": "bm-reviews",
+      "settings": {}
+    },
+    "bm-reviews-summary": {
+      "type": "bm-reviews-summary",
+      "settings": {}
+    },
+    "bm-delivery": {
+      "type": "bm-delivery-strip",
+      "settings": {}
     }
   },
   "order": [
+    "bm-hero",
+    "bm-marquee",
+    "bm-categories",
+    "bm-bundles",
+    "bm-video",
+    "bm-gift-budget",
+    "bm-good-to-know",
+    "bm-bello",
+    "bm-promo",
+    "bm-instagram",
+    "173626154782c38b67",
+    "bm-reviews",
+    "1735829689aa888868",
+    "bm-reviews-summary",
+    "FAQ",
+    "bm-delivery",
     "countdown_mFjPrT",
     "ss_hero_33_QM9xzT",
     "ss_hero_33_wBbPrE",
@@ -881,10 +1071,7 @@
     "video_column_7bhLrH",
     "featured-product",
     "collage",
-    "173626154782c38b67",
-    "1735829689aa888868",
     "featured_blog_WFKPtV",
-    "FAQ",
     "multicolumn-banner"
   ]
 }

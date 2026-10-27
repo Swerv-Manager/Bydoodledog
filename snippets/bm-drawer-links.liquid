@@ -1,0 +1,16 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' and settings.bm_menu_footer_links != blank -%}
+  {%- assign bm_footer_lines = settings.bm_menu_footer_links | newline_to_br | split: '<br />' -%}
+  <li class="bm-drawer-links">
+    <ul class="bm-drawer-links__list" role="list">
+      {%- for bm_line in bm_footer_lines -%}
+        {%- assign bm_parts = bm_line | split: '|' -%}
+        {%- assign bm_label = bm_parts[0] | strip -%}
+        {%- assign bm_href = bm_parts[1] | strip -%}
+        {%- if bm_label != blank and bm_href != blank -%}
+          <li><a href="{{ bm_href }}">{{ bm_label }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </li>
+{%- endif -%}

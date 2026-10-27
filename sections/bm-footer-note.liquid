@@ -1,0 +1,19 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' -%}
+  <section class="bm-section bm-footer-note">
+    <h2>{{ settings.bm_footer_compare_title }}</h2>
+    <p>{{ settings.bm_footer_compare_body }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM førpris-note",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Vises over footeren på Black Month-sider. Footerens egne kolonner og betalingsikoner bevares."
+    }
+  ]
+}
+{% endschema %}

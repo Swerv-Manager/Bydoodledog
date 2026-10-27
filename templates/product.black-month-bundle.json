@@ -1,0 +1,350 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "wrapper": "div.template-product-wrapper",
+  "sections": {
+    "countdown_RGwENP": {
+      "type": "countdown",
+      "blocks": {
+        "timer_y3m98F": {
+          "type": "timer",
+          "settings": {
+            "end_date": "2025-11-05",
+            "end_time": "23:59",
+            "font_size": 91
+          }
+        },
+        "content_xKj7MY": {
+          "type": "content",
+          "settings": {
+            "title": "",
+            "text": "<p>Kan ikke kombineres med andre tilbud eller rabatkoder.</p>",
+            "font_size": 108,
+            "button_label": "Alle produkter",
+            "button_link": "shopify://collections/all-products",
+            "button_style": "solid",
+            "content_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "timer_y3m98F",
+        "content_xKj7MY"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_height": 0,
+        "show_scrim": true,
+        "scrim_lightness": 255,
+        "background": "background-modal",
+        "hide_timer": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product-information": {
+      "type": "product-information",
+      "blocks": {
+        "selling_features": {
+          "type": "selling_features",
+          "settings": {
+            "show_rating": false,
+            "show_empty_stars": true,
+            "standar_metafields": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "show_vendor": false,
+            "vendor_link": "",
+            "short_description": "SPAR 20% MED RABATKODEN: Julehunden",
+            "font_size": 100
+          }
+        },
+        "judge_me_reviews_preview_badge_V7cejm": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "font_size": 100
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "countdown_title": "☀️ Summer Sale Slutter Om",
+            "font_size": 100,
+            "background": "alt-background-3"
+          }
+        },
+        "custom_liquid_B7pQmH": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_type": "none",
+            "color_swatch_shape": "circle",
+            "swatch_size": 36
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_inventory_notification": true,
+            "quantity_threshold": 10,
+            "notification_message": "1-2 dages levering",
+            "show_gift_card_recipient": false,
+            "show_dynamic_checkout": false,
+            "show_quantity_selector": true
+          }
+        }
+      },
+      "block_order": [
+        "selling_features",
+        "text",
+        "judge_me_reviews_preview_badge_V7cejm",
+        "title",
+        "price",
+        "countdown",
+        "custom_liquid_B7pQmH",
+        "variant_picker",
+        "buy_buttons"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "enable_all_images": true,
+        "enable_image_zoom": true,
+        "autoplay_video": true,
+        "padding_top": 26,
+        "padding_bottom": 0
+      }
+    },
+    "product-content": {
+      "type": "product-content",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "padding_top": 0,
+            "padding_bottom": 50
+          }
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Pairs well with",
+            "product_list_limit": 10,
+            "show_rating": false,
+            "show_empty_stars": false,
+            "standar_metafields": false,
+            "picker_type": "button",
+            "color_swatch_type": "none",
+            "color_swatch_shape": "circle",
+            "swatch_size": 36,
+            "padding_top": 0,
+            "padding_bottom": 50
+          }
+        }
+      },
+      "block_order": [
+        "complementary"
+      ],
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "app_block_padding_top": 0,
+        "app_block_padding_bottom": 50
+      }
+    },
+    "1734279790d2b66dc6": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_MjgdVf": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_MjgdVf"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": false,
+      "settings": {
+        "heading": "Lidt ekstra til vuffi",
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 25
+      }
+    },
+    "featured_collection_khdtnV": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Jeres hunds favoritter",
+        "font_size": 100,
+        "color_text": "primary-text-1",
+        "collection": "bestsellers",
+        "product_list": [],
+        "columns": 4,
+        "font_card_size": 80,
+        "background": "background-modal",
+        "show_view_all": true,
+        "padding_top": 19,
+        "padding_bottom": 35
+      }
+    },
+    "video_column_MREqfP": {
+      "type": "video-column",
+      "blocks": {
+        "column_fxjAW8": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/IMG_4734 (2).MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/hundetaske"
+          }
+        },
+        "column_JQVwGH": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/Hakkō 9x16.MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/bestsellers"
+          }
+        },
+        "column_PMAWxh": {
+          "type": "column",
+          "settings": {
+            "video": "shopify://files/videos/8cad640f310240b4ba0292cf9961dd4e (1).MOV",
+            "video_embed": "",
+            "video_link": "shopify://collections/hunde-bilsaede"
+          }
+        }
+      },
+      "block_order": [
+        "column_fxjAW8",
+        "column_JQVwGH",
+        "column_PMAWxh"
+      ],
+      "settings": {
+        "title": "Følg os på TikTok for eksklusive tips",
+        "description": "Få eksklusive indsigter i hundepleie, udpakning af nye produkter og tips fra vores stylister. Følg @bydoodledog for daglig inspiration!",
+        "play_onload": true,
+        "social_handle": "@bydoodledog",
+        "social_link": "social_instagram_link",
+        "font_size": 100,
+        "background": "main-background",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn_rt4TMP": {
+      "type": "multicolumn",
+      "blocks": {
+        "feature_hEQGFL": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck-fast",
+            "title": "1-2 dages levering",
+            "text": "<p>Vi leverer indenfor 1-2 dage med GLS</p>",
+            "link": ""
+          }
+        },
+        "feature_7jiCBp": {
+          "type": "feature",
+          "settings": {
+            "icon": "box-check",
+            "title": "Gratis fragt",
+            "text": "<p>Ved køb over 899 kr får du gratis fragt</p>",
+            "link": ""
+          }
+        },
+        "feature_fXaxL7": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "4.9 på Trustpilot",
+            "text": "<p>Vi stræber efter, at kunne levere den bedste service til dig og din hund </p>",
+            "link": ""
+          }
+        },
+        "feature_LqBj9c": {
+          "type": "feature",
+          "settings": {
+            "icon": "dog",
+            "title": "Dansk virksomhed",
+            "text": "<p>Vi har over +10 års erfaring med opdræt af hunde</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_hEQGFL",
+        "feature_7jiCBp",
+        "feature_fXaxL7",
+        "feature_LqBj9c"
+      ],
+      "settings": {
+        "background": "alt-background-2",
+        "custom_background": "none",
+        "gradient_background": "",
+        "gradient_text_color": "",
+        "text_align": "center",
+        "font_size": 95,
+        "icon_align": "center",
+        "icon_size": 100,
+        "columns": 4,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "bm-pdp-details": {
+      "type": "bm-pdp-details",
+      "settings": {}
+    },
+    "bm-bundle-detail": {
+      "type": "bm-bundle-detail",
+      "settings": {}
+    }
+  },
+  "order": [
+    "bm-bundle-detail",
+    "product-information",
+    "bm-pdp-details",
+    "product-content",
+    "1734279790d2b66dc6",
+    "product-recommendations"
+  ]
+}
