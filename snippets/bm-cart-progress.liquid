@@ -86,5 +86,10 @@
   <style>
     [data-bm-gift] .qtyplus, [data-bm-gift] .quantity__button.qtyplus { display: none !important; }
     [data-bm-gift] .cart__final-price .price--free { font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    body.bm-on #main-cart .bm-cart-gift { background: var(--alt-card, #2f2620); color: var(--alt-tx, #f6efe8); border-radius: 12px; display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 12px 14px; }
+    body.bm-on #main-cart .bm-cart-gift .bm-badge { grid-column: 1 / -1; justify-self: start; }
+    body.bm-on #main-cart .bm-cart-gift__title { font: 400 15px/20px var(--alt-serif, serif); color: inherit; }
+    body.bm-on #main-cart .bm-cart-gift__price { font: 800 15px/20px var(--alt-sans, sans-serif); color: var(--alt-acc, inherit); }
+    body.bm-on #main-cart .bm-cart-gift__note { font: 400 12px/16px var(--alt-sans, sans-serif); color: var(--alt-mut, #d9cfc4); }
   </style>
 {%- endif -%}
