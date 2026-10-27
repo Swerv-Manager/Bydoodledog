@@ -602,7 +602,10 @@ body.bm-on .announcement-bar {
   width: min(1280px, calc(100% - 3rem));
   margin: 0 auto 2.5rem;
   padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.bm-cats__track::-webkit-scrollbar { display: none; }
 
 .bm-cat {
   flex: 0 0 220px;
@@ -683,6 +686,7 @@ body.bm-on .announcement-bar {
 @media screen and (max-width: 749px) {
   .bm-bundles__grid,
   .bm-gifts__grid,
+  .bm-gtk__grid,
   .bm-signup { grid-template-columns: 1fr; }
 }
 
@@ -798,9 +802,9 @@ body.bm-on .grid-view-item__link {
 }
 
 .bm-promo {
-  width: min(1280px, calc(100% - 3rem));
-  margin: 0 auto;
-  padding: 1.4rem 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 1.4rem 1.5rem;
   text-align: center;
   border-top: 1px solid rgba(181, 157, 136, 0.4);
   border-bottom: 1px solid rgba(181, 157, 136, 0.4);
@@ -1027,3 +1031,37 @@ body.bm-on .cart__taxes { display: none; }
 .bm-pdp-details { color: #3a3a3e; --bm-text: #3a3a3e; --bm-muted: #6b6258; }
 .bm-pdp-details .bm-h2 { color: #111111; }
 .bm-pdp-details summary { color: #3a3a3e; }
+
+/* Round 3 */
+.bm-countdown--compact {
+  width: auto;
+  max-width: 280px;
+  padding: 0.45rem 0.8rem 0.4rem;
+  border-radius: 10px;
+}
+.bm-countdown--compact .bm-countdown__label { margin: 0 0 0.3rem; font-size: 10px; }
+.bm-countdown--compact .bm-countdown__unit span { font-size: 18px; }
+.bm-countdown--compact .bm-countdown__unit small { margin-top: 0.2rem; font-size: 9px; }
+.bm-countdown--compact .bm-countdown__sep { font-size: 16px; }
+.bm-pdp-delivery { margin: 0.4rem 0 0.8rem; }
+
+/* Hero text stays legible over the light video */
+.bm-hero__panel .bm-eyebrow,
+.bm-hero__panel .bm-hero__title,
+.bm-hero__panel .bm-hero__upto,
+.bm-hero__panel .bm-hero__italic,
+.bm-hero__panel .bm-hero__phase { text-shadow: 0 1px 3px rgba(17, 17, 17, 0.55), 0 0 18px rgba(17, 17, 17, 0.45); }
+.bm-hero__panel .bm-eyebrow { color: #f9f3f1; }
+.bm-hero__scrim::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(640px, 100%);
+  height: 70%;
+  background: radial-gradient(ellipse at 85% 95%, rgba(17, 17, 17, 0.6) 0%, rgba(17, 17, 17, 0) 70%);
+}
+@media screen and (max-width: 749px) {
+  .bm-hero__scrim { background: linear-gradient(180deg, rgba(17, 17, 17, 0) 28%, rgba(17, 17, 17, 0.35) 50%, rgba(17, 17, 17, 0.9) 100%); }
+  .bm-hero__scrim::after { display: none; }
+}
