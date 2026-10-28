@@ -1352,7 +1352,7 @@
         "type": "text",
         "id": "bm_bundle_sub",
         "label": "bundle sub",
-        "default": "En pakke til hver størrelse hund. 30 % på pakkerne hele Black Month."
+        "default": "En pakke til hver størrelse hund."
       },
       {
         "type": "text",
@@ -1412,7 +1412,7 @@
         "type": "text",
         "id": "bm_bundle_detail_note",
         "label": "bundle detail note",
-        "default": "30 % på pakken hele Black Month. Fri fragt + gratis snackkurv er dine, når beløbet er nået."
+        "default": "Fri fragt + gratis snackkurv er dine, når beløbet er nået."
       },
       {
         "type": "text",
@@ -1472,7 +1472,7 @@
         "type": "textarea",
         "id": "bm_gtk_when_body",
         "label": "gtk when body",
-        "default": "Black Month 30.10–30.11\nBlack Friday fredag 27.11\nUge 48 23.–29.11\nSidste dag mandag 30.11\nSøndag 1.11: 20 gavekort à 5.000 kr. til de første ordrer"
+        "default": "Black Month 30.10–30.11\nBlack Friday fredag 27.11\nUge 48 23.–29.11\nSidste dag mandag 30.11\n20 gavekort à 5.000 kr. Vi trækker lod blandt de første ordrer søndag 1.11."
       },
       {
         "type": "text",
