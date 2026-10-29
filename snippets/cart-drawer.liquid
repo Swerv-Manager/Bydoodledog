@@ -87,12 +87,20 @@
         <div class="cookie-message">
           <p>{{ 'sections.cart.cookies_required' | t }}</p>
         </div>
+        {%- if bm_on == 'true' -%}
+          <p class="bm-empty__sub">Find noget godt til hunden. Black Month 30.10–30.11.</p>
+          <div class="bm-empty__cta">
+            <a href="{{ settings.bm_collection_url | default: routes.all_products_collection_url }}" class="btn bm-empty__btn bm-empty__btn--main">{{ settings.bm_cta_primary | default: 'Black Month' }}</a>
+            {%- if settings.bm_bundles_url != blank -%}<a href="{{ settings.bm_bundles_url }}" class="btn bm-empty__btn bm-empty__btn--ghost">Se pakkerne</a>{%- endif -%}
+          </div>
+        {%- else -%}
         <a
           href="{% if settings.empty_button_link != blank %}{{ settings.empty_button_link }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"
           class="btn"
         >
           {{ 'general.continue_shopping' | t }}
         </a>
+        {%- endif -%}
       </div>
       {%- if cart != empty and settings.show_shipping_indicator -%}
         {% liquid
