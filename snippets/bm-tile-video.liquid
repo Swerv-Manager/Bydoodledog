@@ -1,0 +1,24 @@
+{%- comment -%}
+  Black Month tile video. Params: file (video setting), poster_asset (asset filename of the still), label.
+  Shows a muted looping video (lazy: src is set by the section script when visible), else the play-icon still.
+{%- endcomment -%}
+{%- liquid
+  assign tv_src = ''
+  if file != blank and file.sources.size > 0
+    assign tv_best = 99999
+    for tv_s in file.sources
+      if tv_s.mime_type == 'video/mp4' and tv_s.height >= 720 and tv_s.height < tv_best
+        assign tv_best = tv_s.height
+        assign tv_src = tv_s.url
+      endif
+    endfor
+    if tv_src == ''
+      for tv_s in file.sources
+        if tv_s.mime_type == 'video/mp4' and tv_src == ''
+          assign tv_src = tv_s.url
+        endif
+      endfor
+    endif
+  endif
+-%}
+{%- if tv_src != '' -%}<video class="alt-tilevid" muted loop playsinline preload="none" poster="{{ poster_asset | asset_url }}" data-bm-tile="{{ tv_src | escape }}" aria-label="{{ label | escape }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>{%- else -%}<span aria-hidden="true" class="alt-play">▶</span>{%- endif -%}

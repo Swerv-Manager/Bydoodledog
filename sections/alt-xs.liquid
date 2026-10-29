@@ -1,0 +1,36 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+<div class="alt-sec alt-xs">
+  <div class="ax-head"><h2>{{ section.settings.heading | escape }}</h2></div>
+  <div class="ax-row">
+  {%- for p in section.settings.products -%}
+    {%- liquid
+      assign x_rc = p.metafields.reviews.rating_count | plus: 0
+      assign x_rv = p.metafields.reviews.rating.value.rating | plus: 0
+      assign x_url = p.url
+      if p.tags contains 'bm-bundle'
+        assign x_url = p.url | append: '?view=black-month-bundle'
+      else
+        assign x_url = p.url | append: '?view=black-month'
+      endif
+    -%}
+    <div class="ax-card">
+      <a class="ax-img" href="{{ x_url }}" tabindex="-1" aria-hidden="true">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '88px', alt: '' }}{%- endif -%}</a>
+      <div class="ax-txt">
+        <span class="ax-tag">Black Month</span>
+        <a class="ax-name" href="{{ x_url }}"><span>{{ p.title | escape }}</span></a>
+        <div class="ax-pr"><span class="ax-p">{{ p.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{% if p.compare_at_price > p.price %}<span class="ax-w">{{ p.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{% endif %}</div>
+        <div class="ax-rt">{%- if x_rc > 0 -%}<span class="ax-st">★★★★★</span><span>{{ x_rv | round: 1 | replace: '.', ',' }} ({{ x_rc }})</span>{%- else -%}<span class="ax-st">☆☆☆☆☆</span><span>Ingen anmeldelser</span>{%- endif -%}</div>
+      </div>
+      {%- if p.has_only_default_variant and p.available -%}
+      <button type="button" class="ax-btn" data-ap-quick="{{ p.selected_or_first_available_variant.id }}"><span>Tilføj til kurven</span></button>
+      {%- else -%}
+      <a class="ax-btn" href="{{ x_url }}"><span>{% if p.available %}Vælg{% else %}Se produktet{% endif %}</span></a>
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"ALT cross-sell","settings":[{"type":"text","id":"heading","label":"Overskrift","default":"Lidt ekstra til vuffi 🐶"},{"type":"product_list","id":"products","label":"Produkter","limit":6}],"presets":[{"name":"ALT cross-sell"}]}
+{% endschema %}

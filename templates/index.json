@@ -160,7 +160,7 @@
           "type": "heading",
           "disabled": true,
           "settings": {
-            "heading": "<p>15% på alt</p><p>med koden Doodle15</p>",
+            "heading": "",
             "heading_custom": false,
             "heading_font": "playfair_display_n7",
             "heading_size": 40,
@@ -747,68 +747,6 @@
         "padding_bottom": 44
       }
     },
-    "FAQ": {
-      "type": "collapsible-content",
-      "blocks": {
-        "collapsible_row1": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Har By Doodle Dog en fysisk butik ?",
-            "row_content": "<p>Nej, det har vi ikke, men du er velkommen til at hente dine varer på vores lager efter aftale, i tidsrummet 11.00-13.00.Kontakt os på : 29900589</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row2": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Kan vores hundekurve og bilsæder vaskes?",
-            "row_content": "<p>Alle vores hundekurve og bilsæder kan vaskes. Nogle af dem, kan man tage betrækket af, og andre kan gå direkte i vaskemaskinen.</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row3": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Hvordan sætter man bilsædet fast i bilen ?",
-            "row_content": "<p>Der er 1 eller 2 remme ( forskelligt fra sæde til sæde ) der skal rundt om bilens sæde. <br/><br/>Den ene rundt om nakkestøtten og den anden rundt om sædet. <br/><br/>Er der en rem, skal den rundt om bilens sæde. Endvidere kan sikkerhedsselen fra bilen sættes fast bagpå sædet på de fleste bilsæder. </p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_qcHmVE": {
-          "type": "collapsible_row",
-          "settings": {
-            "row_icon": "none",
-            "title": "Kan min hund spændes fast i jeres bilsæde?",
-            "row_content": "<p>Ja, hunden kan spændes fast i bilsædet med en rem. Remmen er i bilsædet og fastspændes til hundens kropssele. </p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row1",
-        "collapsible_row2",
-        "collapsible_row3",
-        "collapsible_row_qcHmVE"
-      ],
-      "settings": {
-        "show_information": true,
-        "title": "Har du spørgsmål?",
-        "description": "<p>Har du spørgsmål om vores produkter? Vi er her for at hjælpe! Du er velkommen til at kontakte os - vi glæder os til at høre fra dig.</p>",
-        "email_label": "Email",
-        "email": "Kundeservice@bydoodledog.dk",
-        "phone_label": "Telefon",
-        "phone": "29900589. Åben tirsdag og torsdag fra kl. 11.00-13-00.",
-        "hours_label": "Adresse",
-        "hours": "Systemvej 4, 8963 Auning",
-        "font_size": 120,
-        "background": "background-modal",
-        "padding_top": 44,
-        "padding_bottom": 44
-      }
-    },
     "multicolumn-banner": {
       "type": "multicolumn",
       "blocks": {
@@ -868,23 +806,78 @@
         "padding_top": 44,
         "padding_bottom": 0
       }
+    },
+    "bm-hero": {
+      "type": "bm-hero",
+      "settings": {
+        "video_desktop": "shopify://files/videos/bm-hero-16x9.mp4",
+        "video_desktop_url": "https://cdn.shopify.com/videos/c/vp/d67c5862d9d64a0d96ae3d2ce0ad343b/d67c5862d9d64a0d96ae3d2ce0ad343b.HD-1080p-4.8Mbps-99048967.mp4",
+        "video_mobile": "shopify://files/videos/bm-hero-9x16.mp4",
+        "video_mobile_url": "https://cdn.shopify.com/videos/c/vp/ac21e7cf3bb44c8c9af41f59e7db2cf3/ac21e7cf3bb44c8c9af41f59e7db2cf3.HD-1080p-4.8Mbps-99048969.mp4",
+        "show_hangtag": true
+      }
+    },
+    "alt-cats": {
+      "type": "alt-cats",
+      "settings": {}
+    },
+    "alt-packs": {
+      "type": "alt-packs",
+      "settings": {}
+    },
+    "alt-videos": {
+      "type": "alt-videos",
+      "settings": {
+        "video_1": "shopify://files/videos/fp-video-laura-bil.mp4",
+        "video_2": "shopify://files/videos/fp-video-laura-outfit.mp4",
+        "video_3": "shopify://files/videos/fp-video-laura-skilt.mp4",
+        "video_4": "shopify://files/videos/fp-video-torben-skilt.mp4"
+      }
+    },
+    "alt-gifts": {
+      "type": "alt-gifts",
+      "settings": {}
+    },
+    "alt-good": {
+      "type": "alt-good",
+      "settings": {}
+    },
+    "alt-bello": {
+      "type": "alt-bello",
+      "settings": {}
+    },
+    "alt-social": {
+      "type": "alt-social",
+      "settings": {}
+    },
+    "alt-faq": {
+      "type": "alt-faq",
+      "settings": {}
     }
   },
   "order": [
-    "countdown_mFjPrT",
-    "ss_hero_33_QM9xzT",
+    "bm-hero",
+    "alt-cats",
+    "alt-packs",
+    "alt-videos",
+    "alt-gifts",
+    "alt-good",
+    "alt-bello",
+    "alt-social",
+    "alt-faq",
+    "1735829689aa888868",
+    "173626154782c38b67",
     "ss_hero_33_wBbPrE",
-    "countdown_6MmAHA",
-    "hero_image_Uy44Uj",
-    "feature-cards",
     "media-grid",
     "video_column_7bhLrH",
     "featured-product",
+    "multicolumn-banner",
+    "countdown_mFjPrT",
+    "ss_hero_33_QM9xzT",
+    "countdown_6MmAHA",
+    "hero_image_Uy44Uj",
+    "feature-cards",
     "collage",
-    "173626154782c38b67",
-    "1735829689aa888868",
-    "featured_blog_WFKPtV",
-    "FAQ",
-    "multicolumn-banner"
+    "featured_blog_WFKPtV"
   ]
 }

@@ -1,0 +1,28 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-reviews">
+    <div class="bm-section__intro">
+      <p class="bm-eyebrow">{{ settings.bm_reviews_kicker }}</p>
+      <h2 class="bm-h2">{{ settings.bm_reviews_title }}</h2>
+      {%- if settings.bm_reviews_count != blank -%}
+        <p class="bm-lead">{{ settings.bm_reviews_count }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM anmeldelser",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Overskrifter omkring det eksisterende Judge.me-karrusel. Selve anmeldelseskortene kommer fra appen."
+    }
+  ],
+  "presets": [
+    { "name": "BM anmeldelser" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{%- comment -%}
+  Outputs true when the Black Month chrome (announcement bar, nav pill, shipping widget,
+  cart extras) should show. Site-wide during pre or live. Page-level BM sections are
+  scoped separately (see bm-scope). No page-wide dark mode.
+{%- endcomment -%}
+{%- liquid
+  capture bm_phase_raw
+    render 'bm-phase'
+  endcapture
+  assign bm_phase_now = bm_phase_raw | strip
+  if bm_phase_now == 'pre' or bm_phase_now == 'live'
+    echo 'true'
+  else
+    echo 'false'
+  endif
+-%}

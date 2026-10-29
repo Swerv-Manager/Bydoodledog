@@ -13,6 +13,8 @@
   }
 </style>
 
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- assign bm_on = bm_on | strip -%}
 {% liquid
   assign free_message = settings.free_message
   assign media_ratio = settings.image_ratio
@@ -67,7 +69,7 @@
         <h2 class="drawer__heading product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
           {{ 'sections.cart.title' | t }}
           <span class="skeleton-text js-contents" aria-hidden="true">
-            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+            {%- if cart.item_count == 1 -%}1 produkt{%- else -%}{{- 'sections.header.cart_count' | t: count: cart.item_count -}}{%- endif -%}
           </span>
         </h2>
         <button
@@ -85,12 +87,20 @@
         <div class="cookie-message">
           <p>{{ 'sections.cart.cookies_required' | t }}</p>
         </div>
+        {%- if bm_on == 'true' -%}
+          <p class="bm-empty__sub">Find noget godt til hunden. Black Month 30.10–30.11.</p>
+          <div class="bm-empty__cta">
+            <a href="{{ settings.bm_collection_url | default: routes.all_products_collection_url }}" class="btn bm-empty__btn bm-empty__btn--main">{{ settings.bm_cta_primary | default: 'Black Month' }}</a>
+            {%- if settings.bm_bundles_url != blank -%}<a href="{{ settings.bm_bundles_url }}" class="btn bm-empty__btn bm-empty__btn--ghost">Se pakkerne</a>{%- endif -%}
+          </div>
+        {%- else -%}
         <a
           href="{% if settings.empty_button_link != blank %}{{ settings.empty_button_link }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"
           class="btn"
         >
           {{ 'general.continue_shopping' | t }}
         </a>
+        {%- endif -%}
       </div>
       {%- if cart != empty and settings.show_shipping_indicator -%}
         {% liquid
@@ -130,6 +140,7 @@
           </div>
         </cart-free-shipping>
       {%- endif -%}
+      {% render 'bm-cart-progress' %}
 
       <cart-drawer-items
         {% if cart == empty %}
@@ -159,7 +170,7 @@
                       <div
                         id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                         class="cart__row cart__item"
-                        data-key="{{ item.key }}"
+                        data-key="{{ item.key }}"{% if item.properties._bm_gift != blank %} data-bm-gift{% endif %}
                         {% if giftId == item.id %}
                           data-gift-wrapping-id="{{ giftId }}"
                         {% endif %}
@@ -195,6 +206,7 @@
                             <div class="cart__product-information">
                               <div class="cart__information-td">
                                 <div class="list-view-item__title">
+                                  {% render 'bm-cart-pill' %}
                                   {% if giftId == item.id %}
                                     <div
                                       class="cart-item__name cart__product-title product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}"
@@ -222,8 +234,9 @@
                                   {%- endif -%}
                                 </div>
                                 <div class="cart__final-price text-right">
-                                  {% if item.final_price == 0 and free_message %}
-                                    <span class="price--free">{{ 'sections.cart.free' | t }}</span>
+                                  {% render 'bm-cart-compare', item: item %}
+                                  {% if item.properties._bm_gift != blank or item.final_price == 0 and free_message %}
+                                    <span class="price--free">{% if item.properties._bm_gift != blank %}Gratis{% else %}{{ 'sections.cart.free' | t }}{% endif %}</span>
                                   {% else %}
                                     <div class="skeleton-text">
                                       {% liquid
@@ -231,8 +244,8 @@
                                           assign original_line_price = item.original_line_price | money_with_currency
                                           assign final_line_price = item.final_line_price | money_with_currency
                                         else
-                                          assign original_line_price = item.original_line_price | money
-                                          assign final_line_price = item.final_line_price | money
+                                          assign original_line_price = item.original_line_price | money_without_trailing_zeros
+                                          assign final_line_price = item.final_line_price | money_without_trailing_zeros
                                         endif
                                       %}
                                       {%- if item.original_line_price != item.final_line_price -%}
@@ -262,7 +275,7 @@
                                             {% if settings.show_currency_codes %}
                                               {{- item.unit_price | money_with_currency -}}
                                             {% else %}
-                                              {{- item.unit_price | money -}}
+                                              {{- item.unit_price | money_without_trailing_zeros -}}
                                             {% endif %}
                                           </span>
                                           <span aria-hidden="true">/</span>
@@ -500,11 +513,7 @@
               data-upsells-source="{{ upsell_product_source }}"
             >
               <h4 class="product-title-style{% if uppercase_product_title == 'all_caps' %} uppercase{% endif %}">
-                {%- if upsell_product_source == 'complementary-products' -%}
-                  {{ 'sections.cart.pairs_well' | t }}
-                {%- else -%}
-                  {{ 'sections.cart.also_like' | t }}
-                {%- endif -%}
+                {%- render 'bm-cart-upsell-title', source: upsell_product_source -%}
               </h4>
               <div class="cart-drawer-recommendations__inner">
                 {%- case upsell_product_source -%}
@@ -623,6 +632,7 @@
                                         {%- endform -%}
                                       {% endif %}
                                     {% else %}
+                                      {%- if recommendation.compare_at_price > recommendation.price -%}{%- render 'bm-cart-pill' -%}{%- endif -%}
                                       <a
                                         href="{{ recommendation.url }}"
                                         class="btn btn--secondary btn--xs-small"
@@ -752,6 +762,7 @@
                                   {%- endform -%}
                                 {% endif %}
                               {% else %}
+                                {%- if product_upsell.compare_at_price > product_upsell.price -%}{%- render 'bm-cart-pill' -%}{%- endif -%}
                                 <a
                                   href="{{ product_upsell.url }}"
                                   class="btn btn--secondary btn--xs-small"
@@ -1117,7 +1128,7 @@
                 {% if settings.show_currency_codes %}
                   {{ cart.total_price | money_with_currency }}
                 {% else %}
-                  {{ cart.total_price | money }}
+                  {{ cart.total_price | money_without_trailing_zeros }}
                 {% endif %}
               </p>
             </div>
@@ -1133,6 +1144,7 @@
                 {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
               {%- endif -%}
             </div>
+            {% render 'bm-cart-tax-note' %}
           </div>
 
           <!-- CTAs -->

@@ -231,9 +231,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     </script>
     
+    {%- capture bm_phase -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+    {%- assign bm_phase = bm_phase | strip -%}
+    {%- capture bm_active -%}{%- render 'bm-active' -%}{%- endcapture -%}
+    {%- assign bm_active = bm_active | strip -%}
+    {%- capture bm_scoped -%}{%- render 'bm-scope' -%}{%- endcapture -%}
+    {%- assign bm_scoped = bm_scoped | strip -%}
+    {%- assign bm_load_assets = false -%}
+    {%- if bm_active == 'true' -%}
+      {%- assign bm_load_assets = true -%}
+    {%- endif -%}
+    {%- if template.name == 'index' and bm_phase == 'post' and settings.bm_enabled -%}
+      {%- assign bm_load_assets = true -%}
+    {%- endif -%}
+    {%- if bm_load_assets -%}
+      {{ 'bm-theme.css' | asset_url | stylesheet_tag }}
+      {{ 'alt-site.css' | asset_url | stylesheet_tag }}
+      {{ 'alt-home.css' | asset_url | stylesheet_tag }}
+      {{ 'alt-pages.css' | asset_url | stylesheet_tag }}
+      <style>@font-face{font-family:"Playfair Display";font-style:normal;font-weight:700;font-display:swap;src:url({{ 'alt-playfair-700.woff2' | asset_url }}) format('woff2')}@font-face{font-family:"Playfair Display";font-style:normal;font-weight:900;font-display:swap;src:url({{ 'alt-playfair-900.woff2' | asset_url }}) format('woff2')}@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:800;font-display:swap;src:url({{ 'alt-hanken-800.woff2' | asset_url }}) format('woff2')}</style>
+    {%- endif -%}
   </head>
 
-  <body class="template-{{ request.page_type | handle }} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}">
+  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %} skeleton-font--loading{% if  uppercase_headings == 'all_caps' %} body-headings--uppercase{% endif %}{% if bm_active == 'true' %} bm-on{% endif %}{% if bm_scoped == 'true' %} bm-scoped{% endif %}" data-bm-phase="{{ bm_phase }}" data-bm-start="{{ settings.bm_start | escape }}" data-bm-end="{{ settings.bm_end | escape }}" data-bm-enabled="{% if settings.bm_enabled %}true{% else %}false{% endif %}" data-bm-phase-mode="{{ settings.bm_phase_override | default: 'auto' | escape }}">
     <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -242,6 +262,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {%- section 'cart-drawer' -%}
     {%- endif -%}
 
+    {%- if bm_active == 'true' -%}
+      {%- section 'bm-announcement' -%}
+    {%- endif -%}
     {% sections 'header-group' %}
     <div class="page-container drawer-page-content" id="PageContainer">
       {% if settings.home_search_enabled == true and request.page_type == 'index' %}
@@ -252,7 +275,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {{ content_for_layout }}
       </main>
 
-      {% sections 'footer-group' %}
+      {%- if bm_active == 'true' -%}
+        {%- section 'alt-footer' -%}
+      {%- else -%}
+        {% sections 'footer-group' %}
+      {%- endif -%}
       <template data-swatch-template="">
         <div
           class="color-swatch color-swatch-button chip-color"
@@ -331,5 +358,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVP9QGNX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+    {%- if bm_load_assets -%}
+      <script src="{{ 'bm.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'alt.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </body>
 </html>

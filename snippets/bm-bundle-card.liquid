@@ -1,0 +1,131 @@
+{%- comment -%}
+  Renders one bundle card.
+  Accepts: title, parts_label, products (array), image, handles_note
+{%- endcomment -%}
+{%- liquid
+  assign bm_sum = 0
+  assign bm_compare_sum = 0
+  assign bm_count = 0
+  assign bm_ids = ''
+  assign bm_products = products
+  if bm_products != blank
+    for bm_product in bm_products
+      assign bm_count = bm_count | plus: 1
+      assign bm_sum = bm_sum | plus: bm_product.price
+      if bm_product.compare_at_price > bm_product.price
+        assign bm_compare_sum = bm_compare_sum | plus: bm_product.compare_at_price
+      else
+        assign bm_compare_sum = bm_compare_sum | plus: bm_product.price
+      endif
+      assign bm_vid = bm_product.selected_or_first_available_variant.id
+      if bm_ids == blank
+        assign bm_ids = bm_vid
+      else
+        assign bm_ids = bm_ids | append: ',' | append: bm_vid
+      endif
+    endfor
+  elsif fallback != blank
+    assign bm_count = 1
+    assign bm_sum = fallback.price
+    if fallback.compare_at_price > fallback.price
+      assign bm_compare_sum = fallback.compare_at_price
+    else
+      assign bm_compare_sum = fallback.price
+    endif
+    assign bm_ids = fallback.selected_or_first_available_variant.id
+  endif
+  assign bm_each = bm_compare_sum
+  assign bm_deal = bm_sum
+  if bm_compare_sum <= bm_sum and bm_sum > 0
+    assign bm_each = bm_sum
+    assign bm_rate = 100 | minus: settings.bm_bundle_percent
+    assign bm_deal = bm_sum | times: bm_rate | divided_by: 100
+  endif
+  assign bm_perk = settings.bm_bundle_perk
+  assign bm_value = settings.bm_snack_value | times: 100 | money_without_trailing_zeros
+  assign bm_perk = bm_perk | replace: '[value]', bm_value
+-%}
+<article class="bm-bundle-card">
+  <div class="bm-bundle-card__media">
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 900
+        | image_tag: loading: 'eager', widths: '300, 450, 700, 900', sizes: '(min-width: 990px) 30vw, 80vw', alt: title, class: 'bm-bundle-card__img'
+      }}
+    {%- elsif bm_products.first.featured_image or fallback.featured_image -%}
+      {%- assign bm_fallback_image = bm_products.first.featured_image | default: fallback.featured_image -%}
+      {{
+        bm_fallback_image
+        | image_url: width: 900
+        | image_tag: loading: 'eager', widths: '300, 450, 700, 900', sizes: '(min-width: 990px) 30vw, 80vw', alt: title, class: 'bm-bundle-card__img'
+      }}
+    {%- elsif asset != blank -%}
+      {% render 'bm-media',
+        asset: asset,
+        alt: title,
+        class: 'bm-bundle-card__img',
+        loading: 'eager',
+        width: 900
+      %}
+    {%- else -%}
+      <div class="bm-media-fallback" aria-hidden="true"></div>
+    {%- endif -%}
+    <div class="bm-card-badges">
+      <span class="bm-badge bm-badge--campaign">{{ settings.bm_badge_campaign }}</span>
+      <span class="bm-badge bm-badge--save">{{ settings.bm_bundle_percent }} %</span>
+    </div>
+  </div>
+  <p class="bm-bundle-card__kicker">{{ settings.bm_bundle_package }} · {{ parts_label }}</p>
+  <h3 class="bm-bundle-card__title">{{ title }}</h3>
+  {%- if bm_products != blank -%}
+    <ul class="bm-bundle-card__parts">
+      {%- for bm_product in bm_products -%}
+        <li>
+          <span>{{ bm_product.title }}</span>
+          <span>{{ bm_product.price | money_without_trailing_zeros }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <p class="bm-bundle-card__each">
+      <span>{{ settings.bm_bundle_each }}</span>
+      <s>{{ bm_each | money_without_trailing_zeros }}</s>
+    </p>
+    <p class="bm-bundle-card__deal">
+      <span>{{ settings.bm_bundle_price }}</span>
+      <strong>{{ bm_deal | money_without_trailing_zeros }}</strong>
+    </p>
+  {%- elsif fallback != blank -%}
+    <ul class="bm-bundle-card__parts">
+      <li>
+        <span>{{ fallback.title }}</span>
+        <span>{{ fallback.price | money_without_trailing_zeros }}</span>
+      </li>
+    </ul>
+    <p class="bm-bundle-card__each">
+      <span>{{ settings.bm_bundle_each }}</span>
+      <s>{{ bm_each | money_without_trailing_zeros }}</s>
+    </p>
+    <p class="bm-bundle-card__deal">
+      <span>{{ settings.bm_bundle_price }}</span>
+      <strong>{{ bm_deal | money_without_trailing_zeros }}</strong>
+    </p>
+  {%- elsif request.design_mode -%}
+    <p class="bm-editor-note">{{ settings.bm_bundle_empty }}</p>
+  {%- endif -%}
+  <p class="bm-bundle-card__perk">{{ bm_perk }}</p>
+  {%- if bm_ids != blank -%}
+    <button type="button" class="bm-btn bm-btn--primary bm-bundle-card__cta" data-bm-bundle-add data-ids="{{ bm_ids }}" data-name="{{ title | escape }}">
+      {{ settings.bm_bundle_cta }}
+    </button>
+  {%- else -%}
+    {%- capture bm_bundles_href -%}{%- render 'bm-collection-url', handle: settings.bm_handle_bundles -%}{%- endcapture -%}
+    {%- assign bm_bundles_href = bm_bundles_href | strip -%}
+    {%- if bm_bundles_href == blank -%}
+      {%- assign bm_bundles_href = settings.bm_bundles_url -%}
+    {%- endif -%}
+    {%- if bm_bundles_href != blank -%}
+      <a class="bm-btn bm-btn--primary bm-bundle-card__cta" href="{{ bm_bundles_href }}">{{ settings.bm_bundle_cta }}</a>
+    {%- endif -%}
+  {%- endif -%}
+</article>

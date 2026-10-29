@@ -1,0 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "alt-col": {
+      "type": "alt-col",
+      "settings": {}
+    },
+    "alt-cats2": {
+      "type": "alt-cats2",
+      "settings": {}
+    },
+    "alt-trust": {
+      "type": "alt-trust",
+      "settings": {}
+    }
+  },
+  "order": [
+    "alt-col",
+    "alt-cats2",
+    "alt-trust"
+  ]
+}

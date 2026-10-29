@@ -1,0 +1,131 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+{%- liquid
+  capture ac_ph
+    render 'bm-phase'
+  endcapture
+  assign ac_ph = ac_ph | strip
+  assign ac_bm = false
+  if ac_ph == 'pre' or ac_ph == 'live'
+    assign ac_bm = true
+  endif
+-%}
+{%- comment -%} Face-safe hero (r6 colhero_fb): full-bleed design image; per collection focal points so dog faces stay clear of tag/title/countdown.
+  ac_d = desktop >=1280 vars on .bdcol1 (--fp position, --iw image width, --s1/--s2/--a2 scrim); ac_m = stacked <1280 vars on .bmcol2 (--bh band height, --gs scrim start, --fpt position 750-1279, --fpm position <750, --bsm phone background-size). Face boxes checked with /workspace/r6/fbshot.py. {%- endcomment -%}
+{%- assign ac_d = '' -%}{%- assign ac_m = '--bh:124px' -%}
+{%- case collection.handle -%}
+    {%- when 'bestsellers' -%}{%- assign ac_d = '--fp:50% 11%;--iw:64%;--s1:30%;--s2:46%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(190px,40vw,340px);--gs:66%;--fpt:50% 9%;--fpm:50% 12%' -%}
+  {%- when 'hundekurv' -%}{%- assign ac_d = '--fp:50% 30%;--iw:75%;--s1:34%;--s2:47%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(152px,39vw,400px);--gs:64%;--fpt:50% 40%;--fpm:50% 0%' -%}
+  {%- when 'hunde-bilsaede' -%}{%- assign ac_d = '--fp:50% 20%;--iw:74%;--s1:34%;--s2:47%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(200px,38vw,340px);--gs:62%;--fpt:50% 21%;--fpm:50% 24%' -%}
+  {%- when 'hundetoj-1' -%}{%- assign ac_d = '--fp:50% 26%;--iw:79%;--s1:30%;--s2:44%;--a2:.42' -%}{%- assign ac_m = '--bh:clamp(260px,44vw,420px);--gs:66%;--fpt:50% 28%;--fpm:100% 26%;--bsm:133% auto' -%}
+{%- endcase -%}
+{%- paginate collection.products by 18 -%}
+<div class="alt-sec alt-col" id="alt-col">
+{%- if ac_bm -%}
+<div class="alt-d"><div class="bdcol1" style="{{ ac_d }}"><span aria-label="{{ collection.title | escape }}" class="bdcol2" role="img" style="{%- if collection.handle contains 'kurv' -%}background-image:url('{{ 'alt-hundekurve-hero-img_8097.jpg' | asset_url }}'){%- elsif collection.image -%}background-image:url('{{ collection.image | image_url: width: 1600 }}'){%- endif -%}"></span><div class="bdcol3"></div><div class="bdcol4"><span class="bdcol5"></span><span class="bdcol6"></span><div class="bdcol7"><span class="bdcol8">Black Month</span><span class="bdcol9">30.10–30.11</span></div></div><div class="bdcol10"><div class="bdcol11"><span class="bdcol12">Black Month · 30.10–30.11</span><h1 class="bdcol13">{{ collection.title | escape }}</h1><p class="bdcol14">Spar op til 80% · <span class="bdcol15">minimum 20% på hele shoppen</span></p></div><div class="bdcol16"><span class="bdcol12">Black Month slutter om</span><div class="bdcol17" data-bm-countdown="" data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}"><div class="bdcol18"><span class="bdcol19"><span data-bm-days="">07</span></span><span class="bdcol20">Dage</span></div><span class="bdcol21">:</span><div class="bdcol18"><span class="bdcol19"><span data-bm-hours="">13</span></span><span class="bdcol20">Timer</span></div><span class="bdcol21">:</span><div class="bdcol18"><span class="bdcol19"><span data-bm-minutes="">59</span></span><span class="bdcol20">Minuter</span></div><span class="bdcol21">:</span><div class="bdcol18"><span class="bdcol22"><span data-bm-seconds="">00</span></span><span class="bdcol20">Sekunder</span></div></div></div></div></div></div><div class="alt-m"><div class="bmcol1"><div class="bmcol2{% unless collection.image or collection.handle contains 'kurv' %} bmno{% endunless %}" style="{{ ac_m }}"><span aria-label="{{ collection.title | escape }}" class="bmcol3" role="img" style="{%- if collection.handle contains 'kurv' -%}background-image:url('{{ 'alt-hundekurve-hero-img_8097.jpg' | asset_url }}'){%- elsif collection.image -%}background-image:url('{{ collection.image | image_url: width: 1600 }}'){%- endif -%}"></span><div class="bmcol4"></div><div class="bmcol5"><span class="bmcol6"></span><span class="bmcol7"></span><div class="bmcol8"><span class="bmcol9">Black Month</span><span class="bmcol10">30.10–30.11</span></div></div></div><div class="bmcol11"><span class="bmcol12">Black Month · 30.10–30.11</span><h1 class="bmcol13">{{ collection.title | escape }}</h1><p class="bmcol14">Spar op til 80% · <span class="bmcol15">minimum 20% på hele shoppen</span></p><div class="bmcol16"><span class="bmcol12">Black Month slutter om</span></div><div class="bmcol17" data-bm-countdown="" data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}"><div class="bmcol18"><span class="bmcol19"><span data-bm-days="">07</span></span><span class="bmcol20">Dage</span></div><span class="bmcol21">:</span><div class="bmcol18"><span class="bmcol19"><span data-bm-hours="">13</span></span><span class="bmcol20">Timer</span></div><span class="bmcol21">:</span><div class="bmcol18"><span class="bmcol19"><span data-bm-minutes="">59</span></span><span class="bmcol20">Minuter</span></div><span class="bmcol21">:</span><div class="bmcol18"><span class="bmcol22"><span data-bm-seconds="">00</span></span><span class="bmcol20">Sekunder</span></div></div></div></div></div>
+{%- else -%}
+<div class="ac-plainhero"><h1>{{ collection.title | escape }}</h1></div>
+{%- endif -%}
+<div class="ac-wrap">
+  <nav class="ac-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> / {% if ac_bm and collection.handle != 'black-month' %}<a href="/collections/black-month?view=black-month">Black Month</a> / {% endif %}{{ collection.title | escape }}</nav>
+  <form class="ac-bar" method="get" action="{{ collection.url }}" data-ac-form>
+    <input type="hidden" name="view" value="black-month">
+    <button type="button" class="ac-mbtn" data-ac-mbtn aria-expanded="false"><svg fill="none" height="18" stroke="#FCFAF5" stroke-linecap="round" stroke-width="1.6" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg>Filter</button>
+    <div class="ac-pills">
+    {%- for f in collection.filters -%}
+      {%- assign ac_lab = f.label -%}
+      {%- if f.param_name contains 'v_gt' or f.label contains 'vægt' -%}{%- assign ac_lab = 'Hundens vægt' -%}{%- endif -%}
+      {%- assign ac_act = f.active_values.size -%}
+      {%- if f.type == 'price_range' -%}{%- if f.min_value.value != null or f.max_value.value != null -%}{%- assign ac_act = 1 -%}{%- endif -%}{%- endif -%}
+      <details class="ac-pill" data-ac-pill>
+        <summary><span>{{ ac_lab | escape }}</span>{%- if ac_act > 0 -%}<span class="ac-n">{{ ac_act }}</span>{%- endif -%}<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="14" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+        <div class="ac-dd">
+        {%- if f.type == 'price_range' -%}
+          <div class="ac-price">
+            <label>Fra<input type="number" inputmode="numeric" min="0" max="{{ f.range_max | money_without_currency | split: ',' | first | remove: '.' }}" name="{{ f.min_value.param_name }}" value="{% if f.min_value.value != null %}{{ f.min_value.value | money_without_currency | split: ',' | first | remove: '.' }}{% endif %}" placeholder="0"></label>
+            <label>Til<input type="number" inputmode="numeric" min="0" name="{{ f.max_value.param_name }}" value="{% if f.max_value.value != null %}{{ f.max_value.value | money_without_currency | split: ',' | first | remove: '.' }}{% endif %}" placeholder="{{ f.range_max | money_without_currency | split: ',' | first | remove: '.' }}"></label>
+            <span class="ac-unit">kr.</span>
+          </div>
+        {%- else -%}
+          {%- for v in f.values -%}
+          <label class="ac-opt{% if v.count == 0 and v.active == false %} is-off{% endif %}"><input type="checkbox" name="{{ v.param_name }}" value="{{ v.value | escape }}"{% if v.active %} checked{% endif %}{% if v.count == 0 and v.active == false %} disabled{% endif %}><span class="ac-box" aria-hidden="true"></span><span class="ac-ol">{{ v.label | escape }}</span><span class="ac-oc">{{ v.count }}</span></label>
+          {%- endfor -%}
+        {%- endif -%}
+          <button type="submit" class="ac-apply">Vis resultater</button>
+        </div>
+      </details>
+    {%- endfor -%}
+    </div>
+    <div class="ac-right">
+      <span class="ac-count">{{ paginate.items }} {% if paginate.items == 1 %}produkt{% else %}produkter{% endif %}</span>
+      <label class="ac-sort"><span class="ac-sortl">Sorter efter: </span><span class="ac-sel"><select name="sort_by" aria-label="Sortér efter" data-ac-sort>
+        {%- assign ac_sb = collection.sort_by | default: collection.default_sort_by -%}
+        {%- for o in collection.sort_options -%}<option value="{{ o.value }}"{% if o.value == ac_sb %} selected{% endif %}>{{ o.name | escape }}</option>{%- endfor -%}
+      </select><svg fill="none" height="14" stroke="#FCFAF5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="14" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span></label>
+    </div>
+    <noscript><button type="submit" class="ac-apply">Opdatér</button></noscript>
+  </form>
+
+  {%- if collection.products.size == 0 -%}
+  <p class="ac-empty">Ingen produkter matcher dine filtre. <a href="{{ collection.url }}?view=black-month">Nulstil filtre</a></p>
+  {%- endif -%}
+  <div class="ac-grid" data-ac-grid>
+  {%- for product in collection.products -%}
+    {%- liquid
+      assign ac_has_cmp = false
+      if product.compare_at_price > product.price
+        assign ac_has_cmp = true
+        assign ac_save = product.compare_at_price | minus: product.price
+        assign ac_pct = ac_save | times: 100.0 | divided_by: product.compare_at_price | round
+      endif
+      assign ac_rc = product.metafields.reviews.rating_count | default: 0 | plus: 0
+      assign ac_stars = ''
+      if ac_rc > 0
+        assign ac_rat = product.metafields.reviews.rating.value.rating | round: 1
+        assign ac_ri = ac_rat | round
+        assign ac_stars = '★★★★★' | slice: 0, ac_ri
+      endif
+      assign ac_i = forloop.index
+    -%}
+    <div class="grid__item ac-gi"><product-card class="ac-card{% if paginate.current_page == 1 and ac_i > 8 %} ac-mx{% endif %}">
+      <div class="ac-media">
+        {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: product.featured_image.alt | default: product.title, class: 'ac-img' }}{%- endif -%}
+        {%- if product.images.size > 1 -%}{{ product.images[1] | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '(min-width: 1024px) 22vw, 46vw', alt: '', class: 'ac-img ac-h' }}{%- endif -%}
+        <div class="ac-badges">
+          {%- if ac_has_cmp -%}<span class="ac-b1">Spar {{ ac_pct }}%</span>
+          {%- elsif product.tags contains 'Final Sale' -%}<span class="ac-b1">Lagerhylden</span>
+          {%- elsif product.available == false -%}<span class="ac-b1">Udsolgt</span>{%- endif -%}
+          {%- if ac_bm -%}<span class="ac-b2">Black Month</span>{%- endif -%}
+        </div>
+      </div>
+      <div class="ac-prices"><span class="ac-p">{% if product.price_varies %}Fra {% endif %}{{ product.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- if ac_has_cmp -%}<span class="ac-was">{{ product.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span><span class="ac-save">Spar {{ ac_save | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>{%- endif -%}</div>
+      <a class="ac-nm" href="{{ product.url | within: collection }}{% if product.tags contains 'bm-bundle' %}{% assign ac_v = 'black-month-bundle' %}{% else %}{% assign ac_v = 'black-month' %}{% endif %}{% if product.url contains '?' %}&{% else %}?{% endif %}view={{ ac_v }}"><span>{{ product.title | escape }}</span></a>
+      <div class="product-card__information__wrapper ac-caption" data-product-information></div>
+      <div class="ac-rate">{%- if ac_rc > 0 -%}<span class="ac-st">{{ ac_stars }}</span><span class="ac-rt">{{ ac_rat | replace: '.', ',' }} ({{ ac_rc }})</span>{%- else -%}<span class="ac-rt">Ingen anmeldelser</span>{%- endif -%}</div>
+    </product-card></div>
+    {%- if paginate.current_page == 1 and ac_bm -%}
+      {%- if ac_i == 8 -%}
+      <div class="ac-tile ac-td"><div class="ac-tph ac-tph1"><img src="{{ 'alt-img_4797.jpg' | asset_url }}" alt="Hund i bilsæde i en veteranbil" loading="lazy" decoding="async"></div><div class="ac-tcap"><span class="ac-te">Det bedste sted i huset</span><span class="ac-th">Spar minimum 20%</span></div></div>
+      {%- endif -%}
+      {%- if ac_i == 14 -%}
+      <div class="ac-tile ac-td"><div class="ac-tph ac-tph2"><img src="{{ 'alt-img_4884.jpg' | asset_url }}" alt="Hund i ternet bilsæde i en veteranbil" loading="lazy" decoding="async"></div><div class="ac-tcap"><span class="ac-th">Hundeting, der må stå fremme</span></div></div>
+      {%- endif -%}
+      {%- if ac_i == 4 -%}
+      <div class="ac-tile ac-tm"><div class="ac-tph ac-tph1"><img src="{{ 'alt-img_4797.jpg' | asset_url }}" alt="Hund i bilsæde i en veteranbil" loading="lazy" decoding="async"></div><div class="ac-tcap"><span class="ac-te">Det bedste sted i huset</span><span class="ac-th">Spar minimum 20%</span></div></div>
+      {%- endif -%}
+      {%- if ac_i == 8 -%}
+      <div class="ac-tile ac-tm"><div class="ac-tph ac-tph2"><img src="{{ 'alt-img_4884.jpg' | asset_url }}" alt="Hund i ternet bilsæde i en veteranbil" loading="lazy" decoding="async"></div><div class="ac-tcap"><span class="ac-th">Hundeting, der må stå fremme</span></div></div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  </div>
+  {%- if paginate.next or collection.products.size > 8 -%}
+  {%- assign ac_nu = paginate.next.url | default: '' -%}
+  <div class="ac-more{% unless paginate.next %} ac-mobonly{% endunless %}"><a class="ac-morebtn" data-ac-more href="{% if paginate.next %}{{ ac_nu }}{% unless ac_nu contains 'view=' %}{% if ac_nu contains '?' %}&{% else %}?{% endif %}view=black-month{% endunless %}{% else %}#{% endif %}">Se mere</a></div>
+  {%- endif -%}
+</div>
+</div>
+{%- endpaginate -%}
+{%- endif -%}
+{% schema %}
+{"name":"ALT kollektion","settings":[],"presets":[{"name":"ALT kollektion"}]}
+{% endschema %}

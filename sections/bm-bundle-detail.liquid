@@ -1,0 +1,31 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- assign bm_components = product.metafields.custom.bm_components.value -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- if bm_components != blank -%}
+  {%- assign bm_parts = bm_components.size | append: ' ' | append: settings.bm_bundle_parts_word -%}
+  <section class="bm-section bm-bundle-detail sph-bundle">
+    <p class="sph-bundle__k">Sæt, der hører sammen</p>
+    <h2 class="sph-bundle__h">Fuldend sættet</h2>
+    {% render 'bm-bundle-card',
+      title: product.title,
+      parts_label: bm_parts,
+      products: bm_components,
+      fallback: product,
+      image: product.featured_image
+    %}
+  </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM pakke-detalje",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Delprodukter kommer fra metafeltet custom.bm_components på produktet. Uden metafeltet skjules sektionen, og siden bruger det almindelige produktlayout."
+    }
+  ]
+}
+{% endschema %}

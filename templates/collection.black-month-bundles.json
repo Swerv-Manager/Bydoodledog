@@ -1,0 +1,122 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "bm-collection-hero": {
+      "type": "bm-collection-hero",
+      "settings": {
+        "subtitle": "Én pakke til hver størrelse hund."
+      }
+    },
+    "bm-collection-footer": {
+      "type": "bm-collection-footer",
+      "settings": {
+        "show_gift_nav": false
+      }
+    },
+    "bm-categories": {
+      "type": "bm-categories",
+      "blocks": {
+        "hundekurve": {
+          "type": "category",
+          "settings": {
+            "title": "Hundekurve",
+            "handle": "hundekurv",
+            "text": ""
+          }
+        },
+        "bilsaeder": {
+          "type": "category",
+          "settings": {
+            "title": "Hundebilsæder",
+            "handle": "hunde-bilsaede",
+            "text": ""
+          }
+        },
+        "trapper": {
+          "type": "category",
+          "settings": {
+            "title": "Trapper",
+            "handle": "hundetrapper",
+            "text": ""
+          }
+        },
+        "seler": {
+          "type": "category",
+          "settings": {
+            "title": "Seler",
+            "handle": "hundesele",
+            "text": ""
+          }
+        },
+        "toej": {
+          "type": "category",
+          "settings": {
+            "title": "Hundetøj",
+            "handle": "hundetoj-1",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "hundekurve",
+        "bilsaeder",
+        "trapper",
+        "seler",
+        "toej"
+      ],
+      "settings": {}
+    },
+    "bm-bundles": {
+      "type": "bm-bundles",
+      "blocks": {
+        "b1": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den lille hund – Hjalmar",
+            "parts": "4 dele",
+            "products": []
+          }
+        },
+        "b2": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den mellemstore hund",
+            "parts": "5 dele",
+            "products": []
+          }
+        },
+        "b3": {
+          "type": "bundle",
+          "settings": {
+            "title": "Til den store hund – Carl",
+            "parts": "3 dele",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "use_collection": true,
+        "limit": 6
+      }
+    }
+  },
+  "order": [
+    "bm-collection-hero",
+    "bm-bundles",
+    "bm-collection-footer",
+    "bm-categories"
+  ]
+}
