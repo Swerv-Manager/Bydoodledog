@@ -320,3 +320,79 @@ html body.bm-on a.bm-cat:hover{color:var(--alt-tx)!important}
 html body.bm-on a.bm-cat:hover *{color:inherit}
 html body.bm-on .alt-sec a.adhe12:hover,html body.bm-on .alt-sec a.amhe26:hover,html body.bm-on a.bm-pill:hover{color:#211a13!important}
 html body.bm-on .alt-sec a.adhe12:hover,html body.bm-on .alt-sec a.amhe26:hover{background:#c8a98a}
+
+/* ===== BM search overlay (full width, on-brand) — v1 ===== */
+body.bm-on .header-wrapper:has(details[open] > .search-modal){-webkit-backdrop-filter:none;backdrop-filter:none}
+body.bm-on .header__search details[open]>.search-modal,
+body.bm-on .header__search .search-modal{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;max-width:none;height:100vh;height:100dvh;margin:0;padding:0;border:0;border-radius:0;transform:none;background:#211A13;color:#FCFAF5;z-index:2147483000;overflow:hidden;box-shadow:none}
+body.bm-on .search-modal .modal-overlay{display:none}
+body.bm-on .search-modal .search-modal__content{position:relative;inset:auto;display:block;width:100%;max-width:1240px;height:100%;margin:0 auto;padding:36px 48px 0;box-sizing:border-box;background:transparent;transform:none}
+body.bm-on .search-modal predictive-search.search-modal__form,
+body.bm-on .search-modal form.search-modal__form{display:block;width:100%;height:100%;margin:0;padding:0;background:transparent}
+body.bm-on .search-modal .search-form__input-wrapper{position:relative;display:flex;align-items:center;gap:16px;width:100%;height:auto;margin:0;padding:0 0 14px;border-bottom:1px solid #B59D88;background:transparent}
+body.bm-on .search-modal .search__input.field__input{order:1;flex:1 1 auto;width:auto;min-width:0;height:64px;margin:0;padding:0 4px;border:0;border-radius:0;box-shadow:none;background:transparent;color:#FCFAF5;-webkit-text-fill-color:#FCFAF5;caret-color:#B59D88;font-family:"Playfair Display",Georgia,serif;font-size:34px;font-weight:400;line-height:1.2;text-transform:none;letter-spacing:0;outline:none;-webkit-appearance:none;appearance:none}
+body.bm-on .search-modal .search__input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+body.bm-on .search-modal .search-form__input-wrapper:has(input:placeholder-shown)::after{content:"Søg efter produkter";position:absolute;left:4px;top:0;height:64px;display:flex;align-items:center;pointer-events:none;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:34px;color:rgba(252,250,245,.42)}
+body.bm-on .search-modal .search__button.field__button{order:2;position:static;inset:auto;transform:none;flex:0 0 auto;width:48px;height:48px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#B59D88}
+body.bm-on .search-modal .search__button svg,body.bm-on .search-modal .search__button i{width:24px;height:24px;color:#B59D88;fill:currentColor}
+body.bm-on .search-modal .modal__close-button{order:3;position:static;inset:auto;transform:none;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:auto;height:44px;margin:0;padding:0 24px;border:1px solid #B59D88;border-radius:999px;background:transparent;color:#FCFAF5;font-family:"Playfair Display",Georgia,serif;font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+body.bm-on .search-modal .modal__close-button:hover{background:#B59D88;color:#211A13}
+/* results */
+body.bm-on .search-modal .predictive-search.predictive-search--header{position:static;inset:auto;display:block;width:100%;max-width:none;height:calc(100vh - 150px);height:calc(100dvh - 150px);margin:0;padding:0;border:0;box-shadow:none;background:transparent;color:#FCFAF5;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+body.bm-on .search-modal .predictive-search-scroll-content,body.bm-on .search-modal #predictive-search-results{position:static;height:auto;max-height:none;overflow:visible;background:transparent}
+body.bm-on .search-modal .predictive-search__results-groups-wrapper{display:flex;align-items:flex-start;gap:64px;width:100%;max-width:none;margin:0;padding:36px 0 24px;background:transparent}
+body.bm-on .search-modal .predictive-search__result-group{margin:0;padding:0;border:0;background:transparent}
+body.bm-on .search-modal .predictive-search__result-group:first-child{flex:0 0 260px}
+body.bm-on .search-modal .predictive-search__result-group:only-child{flex:1 1 auto}
+body.bm-on .search-modal .predictive-search__result-group:not(:first-child){flex:1 1 0;min-width:0}
+body.bm-on .search-modal .predictive-search__heading{margin:0 0 18px;padding:0 0 12px;border:0;border-bottom:1px solid rgba(252,250,245,.14);background:transparent;color:#B59D88;font-family:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+body.bm-on .search-modal .predictive-search__results-list{margin:0;padding:0;list-style:none}
+body.bm-on .search-modal #predictive-search-results-products-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px 24px}
+body.bm-on .search-modal .predictive-search__list-item{margin:0;padding:0;background:transparent}
+body.bm-on .search-modal .predictive-search__item,
+body.bm-on .search-modal .predictive-search__item.link{display:flex;align-items:center;gap:16px;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:#FCFAF5;text-decoration:none;transition:background .2s}
+body.bm-on .search-modal .predictive-search__list-item:hover>.predictive-search__item,
+body.bm-on .search-modal .predictive-search__list-item[aria-selected=true]>.predictive-search__item,
+body.bm-on .search-modal .predictive-search__item:focus-visible{background:#3A2D23;color:#FCFAF5}
+body.bm-on .search-modal .predictive-search__item-heading,
+body.bm-on .search-modal .predictive-search__item-heading.h6{margin:0;padding:0;color:#FCFAF5;font-family:"Playfair Display",Georgia,serif;font-size:16px;font-weight:500;line-height:1.35;letter-spacing:.02em;text-transform:none;word-break:normal;overflow-wrap:anywhere}
+body.bm-on .search-modal .predictive-search__item-query-result{font-size:20px;font-weight:400}
+body.bm-on .search-modal .predictive-search__item-price{margin:4px 0 0;color:#B59D88;font-family:"Playfair Display",Georgia,serif;font-size:15px;font-weight:500}
+body.bm-on .search-modal .predictive-search__item-price s,body.bm-on .search-modal .predictive-search__item-price .price-item--regular{color:rgba(252,250,245,.5)}
+body.bm-on .search-modal .predictive-search__image{flex:0 0 84px;width:84px;height:84px;margin:0;border:0;border-radius:8px;overflow:hidden;background:#2B2119}
+body.bm-on .search-modal .predictive-search__image img{width:100%;height:100%;object-fit:cover;border-radius:0}
+body.bm-on .search-modal .predictive-search__item-content{flex:1 1 auto;min-width:0;margin:0;padding:0;text-align:left;background:transparent}
+body.bm-on .search-modal .predictive-search__item-vendor,body.bm-on .search-modal .predictive-search__item-description{color:rgba(252,250,245,.66)}
+body.bm-on .search-modal mark{background:#B59D88;color:#211A13;-webkit-text-fill-color:#211A13;padding:0 2px;border-radius:3px;font-weight:600}
+body.bm-on .search-modal .predictive-search__loading-state,body.bm-on .search-modal .predictive-search__loading-state *{color:#B59D88}
+body.bm-on .search-modal .predictive-search__no-results,body.bm-on .search-modal .predictive-search__no-results-text{color:rgba(252,250,245,.8);font-family:"Playfair Display",Georgia,serif}
+/* "Se alle resultater" bar */
+body.bm-on .search-modal .predictive-search__load-results,
+body.bm-on .search-modal .predictive-search__load-results.alt-background-3{position:sticky;top:auto;bottom:0;left:auto;right:auto;z-index:2;width:100%;margin:0;padding:18px 0 28px;border:0;border-top:1px solid rgba(252,250,245,.14);background:#211A13;box-shadow:none}
+body.bm-on .search-modal .predictive-search__load-results .page-width{max-width:none;padding:0;margin:0;display:flex;justify-content:flex-start}
+body.bm-on .search-modal .predictive-search__view-all,
+body.bm-on .search-modal .predictive-search__view-all.link{display:inline-flex;align-items:center;gap:12px;height:48px;margin:0;padding:0 30px;border:0;border-radius:999px;background:#B59D88;color:#211A13;font-family:"Playfair Display",Georgia,serif;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .2s}
+body.bm-on .search-modal .predictive-search__view-all:hover{background:#FCFAF5;color:#211A13}
+body.bm-on .search-modal .predictive-search__view-all svg,body.bm-on .search-modal .predictive-search__view-all i{width:14px;height:14px;color:currentColor;fill:currentColor}
+body.bm-on .search-modal .predictive-search-status{display:none}
+@media (max-width:989px){
+body.bm-on .search-modal .predictive-search__results-groups-wrapper{flex-direction:column;gap:28px}
+body.bm-on .search-modal .predictive-search__result-group:first-child{flex:0 0 auto;width:100%}
+body.bm-on .search-modal .predictive-search__result-group:not(:first-child){width:100%}
+}
+@media (max-width:749px){
+body.bm-on .search-modal .search-modal__content{padding:calc(16px + env(safe-area-inset-top,0px)) 18px 0}
+body.bm-on .search-modal .search-form__input-wrapper{gap:6px;padding-bottom:10px}
+body.bm-on .search-modal .search__input.field__input{height:52px;font-size:22px}
+body.bm-on .search-modal .search-form__input-wrapper:has(input:placeholder-shown)::after{height:52px;font-size:22px}
+body.bm-on .search-modal .search__button.field__button{width:40px;height:40px}
+body.bm-on .search-modal .modal__close-button{height:38px;padding:0 16px;font-size:11px}
+body.bm-on .search-modal .predictive-search.predictive-search--header{height:calc(100vh - 100px);height:calc(100dvh - 100px)}
+body.bm-on .search-modal .predictive-search__results-groups-wrapper{padding:22px 0 12px}
+body.bm-on .search-modal #predictive-search-results-products-list{grid-template-columns:1fr;gap:6px}
+body.bm-on .search-modal .predictive-search__image{flex-basis:72px;width:72px;height:72px}
+body.bm-on .search-modal .predictive-search__item-heading{font-size:15px}
+body.bm-on .search-modal .predictive-search__load-results{padding:14px 0 calc(20px + env(safe-area-inset-bottom,0px))}
+body.bm-on .search-modal .predictive-search__view-all{width:100%;justify-content:center}
+}
+/* ===== /BM search overlay ===== */
