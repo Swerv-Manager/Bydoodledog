@@ -1117,7 +1117,7 @@
         "type": "number",
         "id": "bm_snack_value",
         "label": "Snackkurvens værdi (hele kroner)",
-        "default": 399
+        "default": 349
       },
       {
         "type": "number",
@@ -1219,13 +1219,13 @@
         "type": "textarea",
         "id": "bm_marquee_text",
         "label": "marquee text",
-        "default": "Black Month 30.10–30.11 · Spar op til 80 % · Minimum 20 % på hele shoppen · Fri fragt fra 899 kr. · Gratis snackkurv (værdi 399 kr.) ved 1.499 kr."
+        "default": "Black Month 30.10–30.11 · Spar op til 80 % · Minimum 20 % på hele shoppen · Fri fragt fra 899 kr. · Gratis snackkurv (værdi 349 kr.) ved 1.499 kr."
       },
       {
         "type": "textarea",
         "id": "bm_announcement_messages",
         "label": "announcement messages",
-        "default": "Black Month 30.10–30.11\nSpar op til 80 %\nMinimum 20 % på hele shoppen\nFri fragt fra 899 kr.\nGratis snackkurv (værdi 399 kr.) ved 1.499 kr."
+        "default": "Black Month 30.10–30.11\nSpar op til 80 %\nMinimum 20 % på hele shoppen\nFri fragt fra 899 kr.\nGratis snackkurv (værdi 349 kr.) ved 1.499 kr."
       },
       {
         "type": "text",
@@ -1496,7 +1496,7 @@
         "type": "textarea",
         "id": "bm_gtk_ship_body",
         "label": "gtk ship body",
-        "default": "Fri fragt fra 899 kr.\nGratis snackkurv (værdi 399 kr.) ved 1.499 kr.\nLevering på 1-2 dage med GLS til pakkeshop"
+        "default": "Fri fragt fra 899 kr.\nGratis snackkurv (værdi 349 kr.) ved 1.499 kr.\nLevering på 1-2 dage med GLS til pakkeshop"
       },
       {
         "type": "text",
