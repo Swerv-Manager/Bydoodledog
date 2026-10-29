@@ -106,37 +106,7 @@
     <div class="ap-chips">{%- if pk_pct > 0 -%}<span class="ap-chip ap-chip--solid">{{ pk_pct }}%</span>{%- endif -%}<span class="ap-chip">BLACK MONTH</span></div>
     <div class="ap-head">
       <h1 class="ap-title">{{ product.title | escape }}</h1>
-      {%- if pk_names != blank -%}<span class="ap-sub">{{ pk_names | escape }}</span>{%- endif -%}
     </div>
-    {%- if pk_n > 0 -%}
-    <div class="pk-comps">
-      <div class="pk-ch"><span class="pk-ct">Hvad er med i pakken</span><span class="pk-cn">{{ pk_n }} {% if pk_n == 1 %}del{% else %}dele{% endif %}</span></div>
-      {%- for c in pk_comps -%}
-      {%- liquid
-        assign cp = c.product
-        if cp == blank
-          assign cp = c
-          assign cv = c.selected_or_first_available_variant
-        else
-          assign cv = c
-        endif
-        assign c_img = cv.featured_image | default: cp.featured_image
-        assign c_nm = cp.title
-        if cv.title != 'Default Title' and cv.title != blank
-          assign c_nm = c_nm | append: ' – ' | append: cv.title
-        endif
-      -%}
-      <div class="pk-card">
-        <div class="pk-img">{%- if c_img -%}{{ c_img | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c_nm }}{%- endif -%}</div>
-        <div class="pk-txt">
-          {%- if cp.type != blank -%}<span class="pk-type">{{ cp.type | escape }}</span>{%- endif -%}
-          <span class="pk-name">{{ c_nm | escape }}</span>
-          <div class="pk-pr"><b>{{ cv.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</b>{%- if cv.compare_at_price > cv.price -%}<s>{{ cv.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s>{%- endif -%}<span>normalpris</span></div>
-        </div>
-      </div>
-      {%- endfor -%}
-    </div>
-    {%- endif -%}
     <div class="ap-pricebox pk-pricebox">
       {%- if pk_each > pk_deal -%}
       <div class="pk-each"><span>Hver for sig</span><s data-ap-was>{{ pk_each | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s></div>
@@ -179,6 +149,35 @@
       <p class="ap-err" data-ap-err hidden></p>
       <div class="ap-pay"><img src="{{ 'alt-pay-visa.svg' | asset_url }}" alt="Visa" height="24" loading="lazy"><img src="{{ 'alt-pay-mastercard.svg' | asset_url }}" alt="Mastercard" height="24" loading="lazy"><img src="{{ 'alt-pay-mobilepay.svg' | asset_url }}" alt="MobilePay" height="24" loading="lazy"></div>
     </div>
+    {%- if pk_n > 0 -%}
+    <div class="pk-comps">
+      <div class="pk-ch"><span class="pk-ct">Hvad er med i pakken</span><span class="pk-cn">{{ pk_n }} {% if pk_n == 1 %}del{% else %}dele{% endif %}</span></div>
+      {%- for c in pk_comps -%}
+      {%- liquid
+        assign cp = c.product
+        if cp == blank
+          assign cp = c
+          assign cv = c.selected_or_first_available_variant
+        else
+          assign cv = c
+        endif
+        assign c_img = cv.featured_image | default: cp.featured_image
+        assign c_nm = cp.title
+        if cv.title != 'Default Title' and cv.title != blank
+          assign c_nm = c_nm | append: ' – ' | append: cv.title
+        endif
+      -%}
+      <div class="pk-card">
+        <div class="pk-img">{%- if c_img -%}{{ c_img | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c_nm }}{%- endif -%}</div>
+        <div class="pk-txt">
+          {%- if cp.type != blank -%}<span class="pk-type">{{ cp.type | escape }}</span>{%- endif -%}
+          <span class="pk-name">{{ c_nm | escape }}</span>
+          <div class="pk-pr"><b>{{ cv.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</b>{%- if cv.compare_at_price > cv.price -%}<s>{{ cv.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s>{%- endif -%}<span>normalpris</span></div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
     <div class="pk-info">
       <div class="pk-ir"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCFAF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h11v9H2zM13 9h4l3 3v3h-7"></path><circle cx="6.5" cy="17" r="1.6"></circle><circle cx="16.5" cy="17" r="1.6"></circle></svg><div><span>Levering 1–2 hverdage med GLS</span><em>Fri fragt fra 899 kr. til pakkeshop</em></div></div>
       <div class="pk-ir"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCFAF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"></path></svg><div><span>30 dages returret</span><em>Byt eller returnér – også i Black Month</em></div></div>
