@@ -161,14 +161,14 @@
         else
           assign cv = c
         endif
-        assign c_img = cv.featured_image | default: cp.featured_image
+        assign c_img = cv.featured_image | default: cp.featured_image | default: cp.media.first.preview_image
         assign c_nm = cp.title
         if cv.title != 'Default Title' and cv.title != blank
           assign c_nm = c_nm | append: ' – ' | append: cv.title
         endif
       -%}
       <div class="pk-card">
-        <div class="pk-img">{%- if c_img -%}{{ c_img | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c_nm }}{%- endif -%}</div>
+        <div class="pk-img">{%- if c_img -%}{{ c_img | image_url: width: 240 | image_tag: loading: 'eager', widths: '120, 240', sizes: '76px', alt: c_nm }}{%- endif -%}</div>
         <div class="pk-txt">
           {%- if cp.type != blank -%}<span class="pk-type">{{ cp.type | escape }}</span>{%- endif -%}
           <span class="pk-name">{{ c_nm | escape }}</span>
