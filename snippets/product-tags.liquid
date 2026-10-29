@@ -60,7 +60,7 @@
     {%- assign badge_label = tag | strip -%}
     {%- assign badge_key = badge_label | downcase -%}
     {%- if badge_key == 'doodle15' or badge_key == 'doodle5' or badge_key == 'vuf10' or badge_key == 'woof10' or badge_key == 'wheelio' -%}
-      {%- if template.name == 'index' or template.suffix contains 'black-month' -%}
+      {%- if template.name == 'index' or template.name == 'collection' or template.name == 'product' or template.name == 'search' or template.suffix contains 'black-month' -%}
         {%- continue -%}
       {%- endif -%}
     {%- endif -%}

@@ -9,7 +9,7 @@
   assign bm_phase_now = bm_phase_raw | strip
   assign bm_show = false
   if settings.bm_enabled and bm_phase_now == 'live'
-    if template.name == 'index' or template.suffix contains 'black-month'
+    if template.name == 'index' or template.name == 'collection' or template.name == 'product' or template.name == 'search' or template.suffix contains 'black-month'
       assign bm_show = true
     endif
   endif

@@ -14,6 +14,9 @@
   if template.suffix contains 'black-month'
     assign bm_scope = true
   endif
+  if template.name == 'product' or template.name == 'collection'
+    assign bm_scope = true
+  endif
   if bm_scope and bm_phase_now == 'pre' or bm_scope and bm_phase_now == 'live'
     echo 'true'
   else

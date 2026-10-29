@@ -4,7 +4,7 @@
   endcapture
   assign bm_phase_now = bm_phase_raw | strip
   assign bm_pdp = false
-  if settings.bm_enabled and template.suffix contains 'black-month'
+  if settings.bm_enabled and template.name == 'product'
     if bm_phase_now == 'pre' or bm_phase_now == 'live'
       assign bm_pdp = true
     endif
