@@ -39,19 +39,19 @@
       endif
     endfor
   endif
-  assign pk_each = pk_cmp
-  assign pk_deal = pk_sum
+  comment
+    Pakkens pris = pakkeproduktets EGEN pris (variant) med compare-at. Komponenterne er kun visning.
+  endcomment
+  assign pk_deal = ap_v.price
+  assign pk_each = 0
   assign pk_pct = 0
-  if pk_n > 0
-    if pk_cmp <= pk_sum and pk_sum > 0
-      assign pk_each = pk_sum
-      assign pk_pct = settings.bm_bundle_percent
-      assign pk_rate = 100 | minus: pk_pct
-      assign pk_deal = pk_sum | times: pk_rate | divided_by: 100
-    endif
-  else
-    assign pk_deal = ap_v.price
+  if ap_v.compare_at_price > ap_v.price
     assign pk_each = ap_v.compare_at_price
+    assign pk_pct = pk_each | minus: pk_deal | times: 100.0 | divided_by: pk_each | round
+  endif
+  assign ap_multi = false
+  if product.variants.size > 1
+    assign ap_multi = true
   endif
   assign pk_ship = settings.bm_free_shipping | times: 100
   assign pk_snack = settings.bm_snack_threshold | times: 100
@@ -138,8 +138,8 @@
     </div>
     {%- endif -%}
     <div class="ap-pricebox pk-pricebox">
-      {%- if pk_n > 0 and pk_each > pk_deal -%}
-      <div class="pk-each"><span>Hver for sig</span><s>{{ pk_each | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s></div>
+      {%- if pk_each > pk_deal -%}
+      <div class="pk-each"><span>Hver for sig</span><s data-ap-was>{{ pk_each | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s></div>
       {%- endif -%}
       <div class="pk-deal"><span class="pk-lbl">Black Month-pris</span><span class="pk-price" data-ap-price>{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
       <div class="pk-perk"><span class="pk-p1">Fri fragt</span><span class="pk-p2">+ gratis snackkurv (værdi {{ pk_snackv }})</span></div>
@@ -157,13 +157,24 @@
         </div>
       </div>
     </div>
+    {%- if ap_multi -%}
+    <div class="ap-opts">
+      {%- for o in product.options_with_values -%}
+      {%- assign ap_pos = forloop.index0 -%}
+      <div class="ap-opt" data-ap-opt="{{ ap_pos }}">
+        <div class="ap-optl">{{ o.name | escape }}: <b data-ap-optv>{{ o.selected_value | escape }}</b></div>
+        <div class="ap-pills" role="radiogroup">
+          {%- for val in o.values -%}
+          <label class="ap-pill"><input type="radio" name="ap-o{{ ap_pos }}-{{ section.id }}" value="{{ val | escape }}"{% if val == o.selected_value %} checked{% endif %}><span>{{ val | escape }}</span></label>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
     <div class="ap-buywrap">
       <div class="ap-buy">
-      {%- if pk_n > 0 -%}
-        <button type="button" class="ap-add" data-bm-bundle-add data-ids="{{ pk_ids }}" data-name="{{ product.title | escape }}"><span>Læg pakken i kurven</span></button>
-      {%- else -%}
-        <button type="button" class="ap-add" data-ap-add{% unless ap_v.available %} disabled{% endunless %}><span>{% if ap_v.available %}Læg pakken i kurven{% else %}Udsolgt{% endif %}</span></button>
-      {%- endif -%}
+      <button type="button" class="ap-add" data-ap-add{% unless ap_v.available %} disabled{% endunless %}><span>{% if ap_v.available %}Læg pakken i kurven{% else %}Udsolgt{% endif %}</span></button>
       </div>
       <p class="ap-err" data-ap-err hidden></p>
       <div class="ap-pay"><img src="{{ 'alt-pay-visa.svg' | asset_url }}" alt="Visa" height="24" loading="lazy"><img src="{{ 'alt-pay-mastercard.svg' | asset_url }}" alt="Mastercard" height="24" loading="lazy"><img src="{{ 'alt-pay-mobilepay.svg' | asset_url }}" alt="MobilePay" height="24" loading="lazy"></div>
@@ -175,14 +186,10 @@
   </div>
 </div>
 <div class="ap-sticky" data-ap-sticky>
-  <div class="ap-st1"><span class="ap-st2">{{ product.title | escape }} · Black Month-pris</span><span class="ap-st3">{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
-  {%- if pk_n > 0 -%}
-  <button type="button" class="ap-st4" data-bm-bundle-add data-ids="{{ pk_ids }}" data-name="{{ product.title | escape }}"><span>Læg pakken i kurven</span></button>
-  {%- else -%}
+  <div class="ap-st1"><span class="ap-st2">{{ product.title | escape }} · Black Month-pris</span><span class="ap-st3" data-ap-price2>{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
   <button type="button" class="ap-st4" data-ap-add2{% unless ap_v.available %} disabled{% endunless %}><span>{% if ap_v.available %}Læg pakken i kurven{% else %}Udsolgt{% endif %}</span></button>
-  {%- endif -%}
 </div>
-<script type="application/json" data-ap-json>[{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | money_without_trailing_zeros | json }},"was":"","save":"","mid":{% if v.featured_media %}{{ v.featured_media.id }}{% else %}0{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]</script>
+<script type="application/json" data-ap-json>[{"id":{{ ap_v.id }},"options":{{ ap_v.options | json }},"available":{{ ap_v.available | json }},"price":{{ ap_v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }},"was":{% if ap_v.compare_at_price > ap_v.price %}{{ ap_v.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }}{% else %}""{% endif %},"save":"","mid":{% if ap_v.featured_media %}{{ ap_v.featured_media.id }}{% else %}0{% endif %}}{%- for v in product.variants -%}{%- unless v.id == ap_v.id -%},{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }},"was":{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }}{% else %}""{% endif %},"save":"","mid":{% if v.featured_media %}{{ v.featured_media.id }}{% else %}0{% endif %}}{%- endunless -%}{%- endfor -%}]</script>
 </div>
 {%- endif -%}
 {% schema %}

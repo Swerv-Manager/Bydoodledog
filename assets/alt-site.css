@@ -285,3 +285,36 @@ body.bm-on cart-drawer .drawer__inner-empty .btn.bm-empty__btn--main:hover{backg
 body.bm-on cart-drawer .drawer__inner-empty .btn.bm-empty__btn--ghost{background:transparent;color:var(--alt-tx);border:1px solid var(--alt-acc)}
 body.bm-on cart-drawer .drawer__inner-empty .btn.bm-empty__btn--ghost:hover{background:rgba(181,157,136,.16);color:var(--alt-tx)}
 body.bm-on cart-drawer .drawer__inner-empty .btn.bm-empty__btn::before,body.bm-on cart-drawer .drawer__inner-empty .btn.bm-empty__btn::after{content:none!important;display:none!important}
+body.bm-on cart-drawer.is-empty cart-drawer-items{display:none!important}
+body.bm-on cart-drawer .drawer__inner-empty .bm-empty__sub{text-wrap:balance}
+
+/* ===== BM hover fix: readable hover on dark (overrides base.css a:hover rgba(0,0,0,.6)) ===== */
+html body.bm-on .header__inline-menu a.header__menu-item:not(.bm-pill):hover,
+html body.bm-on .header__inline-menu a.header__menu-item:not(.bm-pill):focus-visible,
+html body.bm-on .header__inline-menu a.header__menu-item:not(.bm-pill):hover span,
+html body.bm-on .header__inline-menu summary:hover,
+html body.bm-on .header__inline-menu summary:hover span,
+html body.bm-on .header__inline-menu summary:focus-visible,
+html body.bm-on .header__inline-menu details[open]>summary,
+html body.bm-on .header__inline-menu details[open]>summary span,
+html body.bm-on .header__submenu a.header__menu-item:hover,
+html body.bm-on .header__submenu a.header__menu-item:hover span,
+html body.bm-on .menu-drawer a:hover,html body.bm-on .menu-drawer summary:hover,
+html body.bm-on .menu-drawer a:hover span,html body.bm-on .menu-drawer summary:hover span{color:#d2b99e!important;-webkit-text-fill-color:#d2b99e}
+html body.bm-on .header__inline-menu a.header__menu-item:not(.bm-pill):hover span,
+html body.bm-on .header__submenu a.header__menu-item:hover,
+html body.bm-on .menu-drawer a:hover{text-decoration:underline;text-decoration-color:var(--alt-acc);text-underline-offset:6px;text-decoration-thickness:1px}
+html body.bm-on .header__inline-menu summary:hover span{text-decoration:underline;text-decoration-color:var(--alt-acc);text-underline-offset:6px;text-decoration-thickness:1px}
+html body.bm-on .header__inline-menu summary .icon{color:inherit}
+html body.bm-on .header a.bm-pill:hover{color:var(--alt-bg)!important;filter:brightness(1.08)}
+/* category / Black Month cards: text stays cream, title turns tan */
+html body.bm-on .alt-sec a:hover:not(.btn){color:var(--alt-tx)}
+html body.bm-on :is(.alt-cats,.alt-cats2) a:hover{color:var(--alt-tx)!important}
+html body.bm-on :is(.alt-cats,.alt-cats2) a:hover>div:last-child>span:first-child,
+html body.bm-on :is(.alt-cats,.alt-cats2) a:hover>div:last-child>span:first-child *{color:#d2b99e!important;text-decoration:underline;text-decoration-color:var(--alt-acc);text-underline-offset:5px;text-decoration-thickness:1px}
+html body.bm-on :is(.alt-cats,.alt-cats2) a:hover>div:last-child>span+span,html body.bm-on :is(.alt-cats,.alt-cats2) a:hover>div:last-child>span+span *{color:var(--alt-tx)!important}
+/* announcement strip + footer links stay legible */
+html body.bm-on .alt-sec a.adan3:hover,html body.bm-on .alt-sec a[class*="an3"]:hover{color:#d2b99e}
+html body.bm-on footer a:hover,html body.bm-on .footer a:hover{color:#d2b99e!important}
+html body.bm-on a.bm-cat:hover{color:var(--alt-tx)!important}
+html body.bm-on a.bm-cat:hover *{color:inherit}
