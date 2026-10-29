@@ -33,7 +33,7 @@ body.bm-on announcement-bar,body.bm-on .shopify-section-group-header-group:has(a
 /* ---- header (design: logo centred, tools right, pills below) ---- */
 body.bm-on sticky-header.header-wrapper,body.bm-on .header-wrapper,body.bm-on .header-wrapper.alt-background-2,body.bm-on .header-wrapper::before,body.bm-on .header-wrapper::after{background:rgba(33,26,19,.86)!important;background-color:rgba(33,26,19,.86)!important;color:var(--alt-tx)}
 body.bm-on .header-wrapper{border-bottom:1px solid var(--alt-line)!important;box-shadow:none!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-body.bm-on .header-wrapper .page-width{max-width:none;padding:0;width:100%}
+body.bm-on .header-wrapper .page-width:not(.site-header__categories__menu){max-width:none;padding:0;width:100%}
 body.bm-on .header-wrapper a,body.bm-on .header-wrapper summary,body.bm-on .header-wrapper .header__icon,body.bm-on .header-wrapper .list-menu__item{color:var(--alt-tx)}
 body.bm-on .header__inline-menu .list-menu__item,body.bm-on .header__inline-menu a.header__menu-item,body.bm-on .header__inline-menu summary{font-family:var(--alt-serif);font-size:18px;line-height:24px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--alt-tx);padding:0;height:auto;min-height:0;display:flex;align-items:center;gap:6px;white-space:nowrap}
 body.bm-on .header__inline-menu .list-menu__item--link:hover,body.bm-on .header__inline-menu summary:hover{color:var(--alt-acc);text-decoration:none}
