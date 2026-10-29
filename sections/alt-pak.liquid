@@ -145,7 +145,7 @@
       <div class="pk-perk"><span class="pk-p1">Fri fragt</span><span class="pk-p2">+ gratis snackkurv (værdi {{ pk_snackv }})</span></div>
       <div class="ap-pbb">
         <div class="pk-ship">
-          <p>{%- if pk_deal >= pk_snack -%}Fri fragt og gratis snackkurv er dine 🥳{%- elsif pk_deal >= pk_ship -%}Fri fragt er dine – gratis snackkurv fra {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- else -%}Fri fragt fra {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- endif -%}</p>
+          <p>{%- if pk_deal >= pk_snack -%}Fri fragt og gratis snackkurv er dine 🥳{%- elsif pk_deal >= pk_ship -%}Fri fragt er din – gratis snackkurv fra {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- else -%}Fri fragt fra {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- endif -%}</p>
           <div class="pk-track"><i style="width:{{ pk_fill }}%"></i><b style="left:{{ pk_mark }}%">🚚</b><b style="left:100%">🎁</b></div>
           <div class="pk-marks" style="grid-template-columns:{{ pk_mark }}fr {{ 100 | minus: pk_mark }}fr"><span>Fri fragt · {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span><span>Snackkurv · {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
         </div>
