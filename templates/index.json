@@ -827,7 +827,12 @@
     },
     "alt-videos": {
       "type": "alt-videos",
-      "settings": {}
+      "settings": {
+        "video_1": "shopify://files/videos/fp-video-laura-bil.mp4",
+        "video_2": "shopify://files/videos/fp-video-laura-outfit.mp4",
+        "video_3": "shopify://files/videos/fp-video-laura-skilt.mp4",
+        "video_4": "shopify://files/videos/fp-video-torben-skilt.mp4"
+      }
     },
     "alt-gifts": {
       "type": "alt-gifts",

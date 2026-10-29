@@ -12,20 +12,30 @@
   assign pk_names = ''
   if pk_comps != blank
     for c in pk_comps
-      assign pk_n = pk_n | plus: 1
-      assign pk_sum = pk_sum | plus: c.price
-      if c.compare_at_price > c.price
-        assign pk_cmp = pk_cmp | plus: c.compare_at_price
+      comment
+        c er en variant (metafelt list.variant_reference) eller et produkt (product_list fallback)
+      endcomment
+      assign cp = c.product
+      if cp == blank
+        assign cp = c
+        assign cv = c.selected_or_first_available_variant
       else
-        assign pk_cmp = pk_cmp | plus: c.price
+        assign cv = c
       endif
-      assign pk_vid = c.selected_or_first_available_variant.id
+      assign pk_n = pk_n | plus: 1
+      assign pk_sum = pk_sum | plus: cv.price
+      if cv.compare_at_price > cv.price
+        assign pk_cmp = pk_cmp | plus: cv.compare_at_price
+      else
+        assign pk_cmp = pk_cmp | plus: cv.price
+      endif
+      assign pk_vid = cv.id
       if pk_ids == ''
         assign pk_ids = pk_vid
-        assign pk_names = c.title
+        assign pk_names = cp.title
       else
         assign pk_ids = pk_ids | append: ',' | append: pk_vid
-        assign pk_names = pk_names | append: ' + ' | append: c.title
+        assign pk_names = pk_names | append: ' + ' | append: cp.title
       endif
     endfor
   endif
@@ -102,12 +112,26 @@
     <div class="pk-comps">
       <div class="pk-ch"><span class="pk-ct">Hvad er med i pakken</span><span class="pk-cn">{{ pk_n }} {% if pk_n == 1 %}del{% else %}dele{% endif %}</span></div>
       {%- for c in pk_comps -%}
+      {%- liquid
+        assign cp = c.product
+        if cp == blank
+          assign cp = c
+          assign cv = c.selected_or_first_available_variant
+        else
+          assign cv = c
+        endif
+        assign c_img = cv.featured_image | default: cp.featured_image
+        assign c_nm = cp.title
+        if cv.title != 'Default Title' and cv.title != blank
+          assign c_nm = c_nm | append: ' – ' | append: cv.title
+        endif
+      -%}
       <div class="pk-card">
-        <div class="pk-img">{%- if c.featured_image -%}{{ c.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c.title }}{%- endif -%}</div>
+        <div class="pk-img">{%- if c_img -%}{{ c_img | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '76px', alt: c_nm }}{%- endif -%}</div>
         <div class="pk-txt">
-          {%- if c.type != blank -%}<span class="pk-type">{{ c.type | escape }}</span>{%- endif -%}
-          <span class="pk-name">{{ c.title | escape }}</span>
-          <div class="pk-pr"><b>{{ c.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</b>{%- if c.compare_at_price > c.price -%}<s>{{ c.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s>{%- endif -%}<span>normalpris</span></div>
+          {%- if cp.type != blank -%}<span class="pk-type">{{ cp.type | escape }}</span>{%- endif -%}
+          <span class="pk-name">{{ c_nm | escape }}</span>
+          <div class="pk-pr"><b>{{ cv.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</b>{%- if cv.compare_at_price > cv.price -%}<s>{{ cv.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s>{%- endif -%}<span>normalpris</span></div>
         </div>
       </div>
       {%- endfor -%}
