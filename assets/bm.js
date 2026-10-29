@@ -17,8 +17,27 @@
   }
 
   var params = new URLSearchParams(window.location.search);
-  var override = params.get("bm_now");
   var preview = params.has("preview_theme_id") || (window.Shopify && (Shopify.designMode || Shopify.previewMode || Shopify.visualPreviewMode));
+  // Sticky test clock (preview/theme-editor only): ?bm_now=<ISO date> is stored in sessionStorage and re-applied on every page of this
+  // tab/session; ?bm_now=off|clear removes it. Without an explicit bm_now (and outside preview) nothing changes for customers.
+  var BM_NOW_KEY = "bm_now_test";
+  var override = null;
+  (function () {
+    var q = params.get("bm_now");
+    var stored = null;
+    try {
+      if (!preview) { sessionStorage.removeItem(BM_NOW_KEY); return; }
+      if (q !== null) {
+        q = q.trim().replace(/\s(\d\d:?\d\d)$/, "+$1"); // an unencoded "+" in the URL arrives as a space
+        if (!q || /^(off|clear|none|reset)$/i.test(q)) sessionStorage.removeItem(BM_NOW_KEY);
+        else if (parseTime(q)) sessionStorage.setItem(BM_NOW_KEY, q);
+      }
+      stored = sessionStorage.getItem(BM_NOW_KEY);
+    } catch (e) {
+      stored = preview && q && parseTime(q) ? q : null;
+    }
+    override = stored && parseTime(stored) ? stored : null;
+  })();
   var clockOffset = 0;
   if (override && preview && root.getAttribute("data-bm-enabled") === "true") {
     var parsed = parseTime(override);
@@ -28,6 +47,29 @@
       root.setAttribute("data-bm-phase", phase);
       root.classList.toggle("bm-on", phase === "pre" || phase === "live");
     }
+  }
+  if (override && preview) {
+    // visible marker so testers know the clock is simulated; click to leave test mode
+    var bmPill = document.createElement("div");
+    bmPill.setAttribute("data-bm-test-pill", "");
+    bmPill.setAttribute("style", "position:fixed;left:12px;bottom:64px;z-index:2147483000;background:#b00020;color:#fff;font:600 12px/1.3 system-ui,sans-serif;padding:7px 12px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;gap:10px;align-items:center;");
+    var bmPillDate = new Date(parseTime(override)).toLocaleString("da-DK", { timeZone: "Europe/Copenhagen", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    var bmPillText = document.createElement("span");
+    bmPillText.textContent = "TESTTILSTAND: dato " + bmPillDate;
+    var bmPillOff = document.createElement("a");
+    bmPillOff.textContent = "afslut";
+    bmPillOff.setAttribute("href", "#");
+    bmPillOff.setAttribute("style", "color:#fff;text-decoration:underline;");
+    bmPillOff.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      try { sessionStorage.removeItem(BM_NOW_KEY); } catch (e) {}
+      var u = new URL(window.location.href);
+      u.searchParams.set("bm_now", "off");
+      window.location.href = u.toString();
+    });
+    bmPill.appendChild(bmPillText);
+    bmPill.appendChild(bmPillOff);
+    document.body.appendChild(bmPill);
   }
 
   function pad(value) {
