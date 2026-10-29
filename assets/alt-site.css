@@ -318,3 +318,5 @@ html body.bm-on .alt-sec a.adan3:hover,html body.bm-on .alt-sec a[class*="an3"]:
 html body.bm-on footer a:hover,html body.bm-on .footer a:hover{color:#d2b99e!important}
 html body.bm-on a.bm-cat:hover{color:var(--alt-tx)!important}
 html body.bm-on a.bm-cat:hover *{color:inherit}
+html body.bm-on .alt-sec a.adhe12:hover,html body.bm-on .alt-sec a.amhe26:hover,html body.bm-on a.bm-pill:hover{color:#211a13!important}
+html body.bm-on .alt-sec a.adhe12:hover,html body.bm-on .alt-sec a.amhe26:hover{background:#c8a98a}
