@@ -340,7 +340,7 @@ body.bm-on .search-modal .modal__close-button:hover{background:#B59D88;color:#21
 /* results */
 body.bm-on .search-modal .predictive-search.predictive-search--header{position:static;inset:auto;display:block;width:100%;max-width:none;height:calc(100vh - 150px);height:calc(100dvh - 150px);margin:0;padding:0;border:0;box-shadow:none;background:transparent;color:#FCFAF5;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 body.bm-on .search-modal .predictive-search-scroll-content,body.bm-on .search-modal #predictive-search-results{position:static;height:auto;max-height:none;overflow:visible;background:transparent}
-body.bm-on .search-modal .predictive-search__results-groups-wrapper{display:flex;align-items:flex-start;gap:64px;width:100%;max-width:none;margin:0;padding:36px 0 24px;background:transparent}
+body.bm-on .search-modal .predictive-search__results-groups-wrapper{display:flex;align-items:flex-start;gap:64px;width:100%;max-width:none;margin:0;padding:44px 0 24px!important;background:transparent}
 body.bm-on .search-modal .predictive-search__result-group{margin:0;padding:0;border:0;background:transparent}
 body.bm-on .search-modal .predictive-search__result-group:first-child{flex:0 0 260px}
 body.bm-on .search-modal .predictive-search__result-group:only-child{flex:1 1 auto}
@@ -389,11 +389,11 @@ body.bm-on .search-modal .search-form__input-wrapper:has(input:placeholder-shown
 body.bm-on .search-modal .search__button.field__button{width:40px;height:40px}
 body.bm-on .search-modal .modal__close-button{height:38px;padding:0 16px;font-size:11px}
 body.bm-on .search-modal .predictive-search.predictive-search--header{height:calc(100vh - 100px);height:calc(100dvh - 100px)}
-body.bm-on .search-modal .predictive-search__results-groups-wrapper{padding:22px 0 12px}
+body.bm-on .search-modal .predictive-search__results-groups-wrapper{padding:28px 0 12px!important}
 body.bm-on .search-modal #predictive-search-results-products-list{grid-template-columns:1fr;gap:6px}
 body.bm-on .search-modal .predictive-search__image{flex-basis:72px;width:72px;height:72px}
 body.bm-on .search-modal .predictive-search__item-heading{font-size:15px}
 body.bm-on .search-modal .predictive-search__load-results{padding:14px 0 calc(20px + env(safe-area-inset-bottom,0px))}
-body.bm-on .search-modal .predictive-search__view-all{width:100%;justify-content:center}
+body.bm-on .search-modal .predictive-search__view-all,body.bm-on .search-modal .predictive-search__view-all.link{width:100%;justify-content:center}
 }
 /* ===== /BM search overlay ===== */
