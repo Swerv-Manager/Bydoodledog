@@ -88,7 +88,7 @@
     </div>
     {%- endif -%}
     <div class="ap-acc">
-      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-descw" data-ap-descw><div class="ap-desc">{{ product.description }}</div></div><button type="button" class="ap-more" data-ap-more hidden>Læs mere</button></section>
+      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-descw" data-ap-descw><div class="ap-desc">{{ product.description | replace: 'værdi 399 kr.', 'værdi 349 kr.' }}</div></div><button type="button" class="ap-more" data-ap-more hidden>Læs mere</button></section>
       <section class="ap-accs"><h2>Levering</h2><p>Levering 1–2 hverdage med GLS til pakkeshop. Fri fragt fra 899 kr. og 30 dages returret.</p></section>
     </div>
   </div>
