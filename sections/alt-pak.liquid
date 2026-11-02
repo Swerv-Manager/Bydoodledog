@@ -112,7 +112,7 @@
       <div class="pk-each"><span>Hver for sig</span><s data-ap-was>{{ pk_each | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</s></div>
       {%- endif -%}
       <div class="pk-deal"><span class="pk-lbl">Black Month-pris</span><span class="pk-price" data-ap-price>{{ pk_deal | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
-      <div class="pk-perk"><span class="pk-p1">Fri fragt</span><span class="pk-p2">+ gratis snackkurv (værdi {{ pk_snackv }})</span></div>
+      <div class="pk-perk"><span class="pk-p1">Fri fragt</span><span class="pk-p2">+ gratis snackkurv ved 1.699 kr. (værdi {{ pk_snackv }})</span></div>
       <div class="ap-pbb">
         <div class="pk-ship">
           <p>{%- if pk_deal >= pk_snack -%}Fri fragt og gratis snackkurv er dine 🥳{%- elsif pk_deal >= pk_ship -%}Fri fragt er din – gratis snackkurv fra {{ pk_snack | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- else -%}Fri fragt fra {{ pk_ship | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{%- endif -%}</p>

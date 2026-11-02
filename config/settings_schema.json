@@ -1370,7 +1370,7 @@
         "type": "text",
         "id": "bm_bundle_perk",
         "label": "bundle perk",
-        "default": "Fri fragt + gratis snackkurv (værdi [value])"
+        "default": "Fri fragt + gratis snackkurv ved 1.699 kr. (værdi [value])"
       },
       {
         "type": "text",
