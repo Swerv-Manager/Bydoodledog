@@ -1111,7 +1111,7 @@
         "type": "number",
         "id": "bm_snack_threshold",
         "label": "Snackkurv fra (hele kroner)",
-        "default": 1499
+        "default": 1699
       },
       {
         "type": "number",
