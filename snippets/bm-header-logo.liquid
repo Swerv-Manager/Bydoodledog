@@ -1,0 +1,29 @@
+{%- comment -%}
+  White campaign logo. image_picker bm_logo overrides the theme asset.
+  Accepts: width
+{%- endcomment -%}
+{%- liquid
+  assign bm_logo_width = width | default: 140
+  assign bm_logo_height = bm_logo_width | times: 100 | divided_by: 328
+-%}
+{%- if settings.bm_logo != blank -%}
+  {{
+    settings.bm_logo
+    | image_url: width: 500
+    | image_tag:
+      class: 'header__heading-logo',
+      widths: '80, 140, 180, 280, 420',
+      width: bm_logo_width,
+      height: bm_logo_height,
+      alt: shop.name,
+      sizes: '140px'
+  }}
+{%- else -%}
+  <img
+    src="{{ 'bm-logo-hvid.png' | asset_url }}"
+    alt="{{ shop.name | escape }}"
+    class="header__heading-logo"
+    width="{{ bm_logo_width }}"
+    height="{{ bm_logo_height }}"
+  >
+{%- endif -%}

@@ -1,0 +1,4 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' and settings.bm_cart_tax_note != blank -%}
+  <p class="bm-cart-tax-note">{{ settings.bm_cart_tax_note }}</p>
+{%- endif -%}

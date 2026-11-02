@@ -1,0 +1,13 @@
+{%- comment -%}
+  Cart-drawer recommendation heading. Isolated so the drawer snippet
+  does not grow an extra conditional.
+{%- endcomment -%}
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- assign bm_on = bm_on | strip -%}
+{%- if bm_on == 'true' and settings.bm_cart_upsell != blank -%}
+  {{- settings.bm_cart_upsell -}}
+{%- elsif source == 'complementary-products' -%}
+  {{- 'sections.cart.pairs_well' | t -}}
+{%- else -%}
+  {{- 'sections.cart.also_like' | t -}}
+{%- endif -%}

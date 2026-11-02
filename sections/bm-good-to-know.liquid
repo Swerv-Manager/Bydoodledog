@@ -1,0 +1,48 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-gtk">
+    <div class="bm-section__intro">
+      <p class="bm-eyebrow">{{ settings.bm_gtk_eyebrow }}</p>
+      <h2 class="bm-h2">{{ settings.bm_gtk_title }}</h2>
+      <p class="bm-lead">{{ settings.bm_gtk_sub }}</p>
+    </div>
+    {%- liquid
+      assign bm_save_body = settings.bm_gtk_save_body
+      if settings.bm_up_to_enabled == false
+        assign bm_phrase = settings.bm_up_to_text | replace: '.', ''
+        assign bm_save_body = bm_save_body | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
+      endif
+    -%}
+    <div class="bm-gtk__grid">
+      <article>
+        <h3>{{ settings.bm_gtk_when_title }}</h3>
+        <div class="bm-prose">{{ settings.bm_gtk_when_body | newline_to_br }}</div>
+      </article>
+      <article>
+        <h3>{{ settings.bm_gtk_save_title }}</h3>
+        <div class="bm-prose">{{ bm_save_body | newline_to_br }}</div>
+      </article>
+      <article>
+        <h3>{{ settings.bm_gtk_ship_title }}</h3>
+        <div class="bm-prose">{{ settings.bm_gtk_ship_body | newline_to_br }}</div>
+      </article>
+    </div>
+    <p class="bm-footnote">{{ settings.bm_gtk_footnote }}</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM godt at vide",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Al tekst styres af tema-indstillingerne under Black Month."
+    }
+  ],
+  "presets": [
+    { "name": "BM godt at vide" }
+  ]
+}
+{% endschema %}

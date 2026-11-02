@@ -1,0 +1,404 @@
+/* generated from Black Month ALT I ET */
+.alt-sec .adan1{position:relative;height:36px;background:rgb(43, 33, 25);display:flex;align-items:center;justify-content:center;gap:32px;border-bottom:1px solid rgba(252, 250, 245, 0.12)}
+.alt-sec .adan2{font-size:18px;line-height:20px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adan3{width:560px;height:20px;overflow:hidden;display:flex;justify-content:center;font-size:14px;line-height:20px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;color:rgb(181, 157, 136);text-decoration:none}
+.alt-sec .adan4{position:absolute;right:12px;top:0px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:rgba(252, 250, 245, 0.66);cursor:pointer}
+.alt-sec .adhe1{position:relative;height:568px;background:rgb(13, 10, 7);overflow:hidden}
+.alt-sec .adhe2{position:absolute;top:0px;height:568px;object-fit:cover;object-position:50% 50%;left:400px;width:auto;right:0px}
+.alt-sec .adhe3{position:absolute;inset:0px;background:linear-gradient(90deg, rgb(13, 10, 7) 0%, rgb(13, 10, 7) 28%, rgba(13, 10, 7, 0.72) 48%, rgba(13, 10, 7, 0.12) 78%, rgba(13, 10, 7, 0.3) 100%)}
+.alt-sec .adhe4{position:absolute;left:72px;top:40px;width:640px;display:flex;flex-direction:column;gap:16px}
+.alt-sec .adhe5{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adhe6{margin:0px;font-size:170px;line-height:146px;font-weight:900;letter-spacing:-0.03em;color:rgb(252, 250, 245)}
+.alt-sec .adhe7{color:rgb(181, 157, 136);display:inline-block;line-height:0.86}
+.alt-sec .adhe8{margin:4px 0px 0px;font-size:32px;line-height:40px;color:rgb(252, 250, 245)}
+.alt-sec .adhe9{display:block}
+.alt-sec .adhe10{display:block;font-style:italic;color:rgb(181, 157, 136)}
+.alt-sec .adhe11{display:flex;gap:12px;margin-top:8px}
+.alt-sec .adhe12{height:56px;padding:0px 32px;border-radius:999px;color:rgb(33, 26, 19);display:flex;align-items:center;font-size:15px;line-height:20px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;cursor:pointer;background-color:rgb(181, 157, 136)}
+.alt-sec .adhe13{height:56px;padding:0px 32px;border-radius:999px;color:rgb(252, 250, 245);display:flex;align-items:center;font-size:15px;line-height:20px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;cursor:pointer;box-shadow:rgba(252, 250, 245, 0.12) 0px 0px 0px 1px inset}
+.alt-sec .adhe14{position:absolute;right:72px;bottom:40px;background:rgba(43, 33, 25, 0.94);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;padding:20px 24px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .adhe15{display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+.alt-sec .adhe16{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adhe17{display:flex;align-items:flex-start;gap:10px}
+.alt-sec .adhe18{display:flex;flex-direction:column;align-items:center;gap:4px}
+.alt-sec .adhe19{width:88px;height:56px;border-radius:14px;background:rgb(58, 45, 35);border:1px solid rgba(252, 250, 245, 0.12);display:flex;align-items:center;justify-content:center;font-style:normal;font-variant:tabular-nums;font-size-adjust:none;font-language-override:normal;font-kerning:auto;font-optical-sizing:auto;font-feature-settings:normal;font-variation-settings:normal;font-weight:600;font-stretch:normal;font-size:36px;line-height:40px;font-family:"Hanken Grotesk", sans-serif;color:rgb(252, 250, 245)}
+.alt-sec .adhe20{height:56px;display:flex;align-items:center;font:600 28px / 32px "Hanken Grotesk", sans-serif;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adhe21{width:88px;height:56px;border-radius:14px;background:rgb(58, 45, 35);border:1px solid rgba(252, 250, 245, 0.12);display:flex;align-items:center;justify-content:center;font-style:normal;font-variant:tabular-nums;font-size-adjust:none;font-language-override:normal;font-kerning:auto;font-optical-sizing:auto;font-feature-settings:normal;font-variation-settings:normal;font-weight:600;font-stretch:normal;font-size:36px;line-height:40px;font-family:"Hanken Grotesk", sans-serif;color:rgb(181, 157, 136)}
+.alt-sec .adhe22{font-size:14px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adhe23{color:rgb(181, 157, 136)}
+.alt-sec .adhe24{position:absolute;width:280px;height:190px;z-index:3;left:auto;right:120px;top:0px}
+.alt-sec .adhe25{position:absolute;left:40px;top:0px;width:1px;height:57px;background:rgb(181, 157, 136)}
+.alt-sec .adhe26{position:absolute;left:240px;top:0px;width:1px;height:43px;background:rgb(181, 157, 136)}
+.alt-sec .adhe27{position:absolute;left:0px;top:48px;width:280px;height:132px;background:rgb(181, 157, 136);border-radius:12px;box-shadow:rgba(13, 10, 7, 0.45) 0px 18px 36px;transform:rotate(-4deg);transform-origin:50% 0px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;color:rgb(33, 26, 19);letter-spacing:0.08em}
+.alt-sec .adhe28{font-size:40px;line-height:48px;color:rgb(33, 26, 19)}
+.alt-sec .adhe29{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(33, 26, 19)}
+.alt-sec .amhe1{background:rgb(13, 10, 7);display:flex;flex-direction:column}
+.alt-sec .amhe2{position:relative;height:300px;overflow:hidden}
+.alt-sec .amhe3{display:block;width:100%;height:100%;object-fit:cover;object-position:55% 50%}
+.alt-sec .amhe4{position:absolute;inset:0px;background:linear-gradient(rgba(13, 10, 7, 0) 45%, rgb(13, 10, 7) 100%)}
+.alt-sec .amhe5{position:absolute;right:16px;top:0px;width:150px;height:118px}
+.alt-sec .amhe6{position:absolute;left:24px;top:0px;width:1px;height:40px;background:rgb(181, 157, 136)}
+.alt-sec .amhe7{position:absolute;left:124px;top:0px;width:1px;height:32px;background:rgb(181, 157, 136)}
+.alt-sec .amhe8{position:absolute;left:0px;top:34px;width:150px;height:76px;background:rgb(181, 157, 136);border-radius:12px;box-shadow:rgba(13, 10, 7, 0.45) 0px 14px 28px;transform:rotate(-4deg);transform-origin:50% 0px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:rgb(33, 26, 19);letter-spacing:0.08em}
+.alt-sec .amhe9{font-size:22px;line-height:28px}
+.alt-sec .amhe10{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase}
+.alt-sec .amhe11{position:relative;margin-top:-28px;padding:0px 16px 24px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .amhe12{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amhe13{margin:0px;font-size:76px;line-height:68px;font-weight:900;letter-spacing:-0.03em;color:rgb(252, 250, 245)}
+.alt-sec .amhe14{color:rgb(181, 157, 136)}
+.alt-sec .amhe15{margin:0px;font-size:20px;line-height:28px;color:rgb(252, 250, 245)}
+.alt-sec .amhe16{display:block}
+.alt-sec .amhe17{display:block;font-style:italic;color:rgb(181, 157, 136)}
+.alt-sec .amhe18{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.alt-sec .amhe19{display:flex;justify-content:space-between;align-items:baseline}
+.alt-sec .amhe20{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amhe21{display:grid;grid-template-columns:repeat(4, minmax(0px, 1fr));gap:6px}
+.alt-sec .amhe22{display:flex;flex-direction:column;align-items:center;gap:4px}
+.alt-sec .amhe23{width:100%;height:52px;border-radius:14px;background:rgb(58, 45, 35);border:1px solid rgba(252, 250, 245, 0.12);display:flex;align-items:center;justify-content:center;font-style:normal;font-variant:tabular-nums;font-size-adjust:none;font-language-override:normal;font-kerning:auto;font-optical-sizing:auto;font-feature-settings:normal;font-variation-settings:normal;font-weight:600;font-stretch:normal;font-size:26px;line-height:30px;font-family:"Hanken Grotesk", sans-serif;color:rgb(252, 250, 245)}
+.alt-sec .amhe24{width:100%;height:52px;border-radius:14px;background:rgb(58, 45, 35);border:1px solid rgba(252, 250, 245, 0.12);display:flex;align-items:center;justify-content:center;font-style:normal;font-variant:tabular-nums;font-size-adjust:none;font-language-override:normal;font-kerning:auto;font-optical-sizing:auto;font-feature-settings:normal;font-variation-settings:normal;font-weight:600;font-stretch:normal;font-size:26px;line-height:30px;font-family:"Hanken Grotesk", sans-serif;color:rgb(181, 157, 136)}
+.alt-sec .amhe25{display:grid;grid-template-columns:repeat(2, minmax(0px, 1fr));gap:8px;margin-top:4px}
+.alt-sec .amhe26{height:48px;padding:0px 12px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:13px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-family:"Hanken Grotesk", sans-serif;font-weight:600;cursor:pointer}
+.alt-sec .amhe27{height:48px;padding:0px 12px;color:rgb(252, 250, 245);box-shadow:rgba(252, 250, 245, 0.12) 0px 0px 0px 1px inset;font-size:13px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-family:"Hanken Grotesk", sans-serif;font-weight:600;cursor:pointer}
+.alt-sec .adma1{height:56px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);overflow:hidden;display:flex;align-items:center;font-style:italic;font-size:20px;line-height:28px}
+.alt-sec .adma2{display:flex;width:max-content;animation:40s linear 0s infinite normal none running sph-loeb}
+.alt-sec .adma3{white-space:pre;flex-shrink:0}
+.alt-sec .amma1{height:48px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);overflow:hidden;display:flex;align-items:center;font-style:italic;font-size:17px;line-height:24px}
+.alt-sec .amma2{display:flex;width:max-content;animation:40s linear 0s infinite normal none running sph-loeb}
+.alt-sec .amma3{white-space:pre;flex-shrink:0}
+.alt-sec .adca1{padding-top:96px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,0px),calc((100% - 1440px)/2));padding-right:max(clamp(16px,5vw,0px),calc((100% - 1440px)/2));display:flex;flex-direction:column;gap:28px}
+.alt-sec .adca2{padding:0px 72px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.alt-sec .adca3{display:flex;flex-direction:column;gap:12px}
+.alt-sec .adca4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adca5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .adca6{display:flex;gap:8px;flex-shrink:0}
+.alt-sec .adca7{width:48px;height:48px;border-radius:999px;background:rgb(58, 45, 35);color:rgb(252, 250, 245);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:24px;cursor:pointer}
+.alt-sec .adca8{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:72px;padding:0px 0px 4px 72px;scrollbar-width:none}
+.alt-sec .adca9{flex:0 0 290px;scroll-snap-align:start;background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;color:rgb(252, 250, 245);text-decoration:none}
+.alt-sec .adca10{position:relative}
+.alt-sec .adca11{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 55%;background-repeat:no-repeat}
+.alt-sec .adca12{position:absolute;left:10px;top:10px;height:32px;padding:0px 14px;border-radius:999px;background:rgb(33, 26, 19);color:rgb(252, 250, 245);display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+.alt-sec .adca13{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:999px;background:rgba(33, 26, 19, 0.86);color:rgb(181, 157, 136);display:flex;align-items:center;justify-content:center;font-size:16px;line-height:16px}
+.alt-sec .adca14{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px}
+.alt-sec .adca15{font-size:20px;line-height:24px}
+.alt-sec .adca16{font:700 20px / 26px "Hanken Grotesk", sans-serif;color:rgb(252, 250, 245)}
+.alt-sec .adca17{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:54% 50%;background-repeat:no-repeat}
+.alt-sec .adca18{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 45%;background-repeat:no-repeat}
+.alt-sec .adca19{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 32%;background-repeat:no-repeat}
+.alt-sec .adca20{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:62% 28%;background-repeat:no-repeat}
+.alt-sec .adca21{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 30%;background-repeat:no-repeat}
+.alt-sec .adca22{flex:0 0 56px}
+.alt-sec .amca1{padding:56px 0px 0px;display:flex;flex-direction:column;gap:18px}
+.alt-sec .amca2{padding:0px 16px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.alt-sec .amca3{display:flex;flex-direction:column;gap:8px}
+.alt-sec .amca4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amca5{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .amca6{display:flex;gap:8px;flex-shrink:0}
+.alt-sec .amca7{width:48px;height:48px;border-radius:999px;background:rgb(58, 45, 35);color:rgb(252, 250, 245);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:24px;cursor:pointer}
+.alt-sec .amca8{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:16px;padding:0px 0px 4px 16px;scrollbar-width:none}
+.alt-sec .amca9{flex:0 0 144px;scroll-snap-align:start;background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;color:rgb(252, 250, 245);text-decoration:none}
+.alt-sec .amca10{position:relative}
+.alt-sec .amca11{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 55%;background-repeat:no-repeat}
+.alt-sec .amca12{position:absolute;left:8px;top:14px;height:24px;padding:0px 6px;border-radius:999px;background:rgb(33, 26, 19);color:rgb(252, 250, 245);display:flex;align-items:center;font:600 10px / 12px "Hanken Grotesk", sans-serif;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap}
+.alt-sec .amca13{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:999px;background:rgba(33, 26, 19, 0.86);color:rgb(181, 157, 136);display:flex;align-items:center;justify-content:center;font-size:16px;line-height:16px}
+.alt-sec .amca14{padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px}
+.alt-sec .amca15{font-size:16px;line-height:24px}
+.alt-sec .amca16{font:700 16px / 22px "Hanken Grotesk", sans-serif;color:rgb(252, 250, 245)}
+.alt-sec .amca17{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:54% 50%;background-repeat:no-repeat}
+.alt-sec .amca18{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 45%;background-repeat:no-repeat}
+.alt-sec .amca19{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 32%;background-repeat:no-repeat}
+.alt-sec .amca20{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:62% 28%;background-repeat:no-repeat}
+.alt-sec .amca21{display:block;width:100%;aspect-ratio:4 / 5;background-size:cover;background-position:50% 30%;background-repeat:no-repeat}
+.alt-sec .amca22{flex:0 0 4px}
+.alt-sec .adpa1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:32px}
+.alt-sec .adpa2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.alt-sec .adpa3{display:flex;flex-direction:column;gap:12px}
+.alt-sec .adpa4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adpa5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .adpa6{max-width:420px;font-size:18px;line-height:28px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adpa7{display:grid;grid-template-columns:repeat(3, minmax(0px, 1fr));gap:24px;align-items:stretch}
+.alt-sec .adpa8{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:18px;min-width:0px}
+.alt-sec .adpa9{display:flex;align-items:center;gap:8px;min-height:28px}
+.alt-sec .adpa10{height:28px;padding:0px 12px;border-radius:999px;display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgb(33, 26, 19);color:rgb(252, 250, 245);box-shadow:rgba(252, 250, 245, 0.24) 0px 0px 0px 1px inset}
+.alt-sec .adpa11{height:28px;padding:0px 12px;border-radius:999px;display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgb(181, 157, 136);color:rgb(33, 26, 19)}
+.alt-sec .adpa12{margin-left:auto;font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66);white-space:nowrap}
+.alt-sec .adpa13{font-size:40px;line-height:44px;min-height:88px;color:rgb(252, 250, 245);text-wrap:balance}
+.alt-sec .adpa14{aspect-ratio:1 / 1;background:rgb(43, 33, 25);display:flex;flex-direction:column;justify-content:center;gap:10px}
+.alt-sec .adpa15{display:flex;justify-content:center;gap:10px}
+.alt-sec .adpa16{display:block;width:calc(50% - 5px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(43, 33, 25)}
+.alt-sec .adpa17{display:flex;flex-direction:column}
+.alt-sec .adpa18{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0px;border-bottom:1px solid rgba(252, 250, 245, 0.12);font-size:16px;line-height:22px}
+.alt-sec .adpa19{color:rgb(252, 250, 245);min-width:0px}
+.alt-sec .adpa20{color:rgba(252, 250, 245, 0.66);white-space:nowrap}
+.alt-sec .adpa21{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.alt-sec .adpa22{display:flex;flex-direction:column;gap:2px}
+.alt-sec .adpa23{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adpa24{font-size:16px;line-height:22px;color:rgba(252, 250, 245, 0.66);text-decoration:line-through;white-space:nowrap}
+.alt-sec .adpa25{display:flex;flex-direction:column;align-items:flex-end}
+.alt-sec .adpa26{font-family:"Hanken Grotesk", sans-serif;font-weight:800;font-variant-numeric:tabular-nums;font-size:40px;line-height:44px;color:rgb(252, 250, 245);white-space:nowrap}
+.alt-sec .adpa27{display:flex;flex-direction:column;gap:2px;min-height:44px;font-family:"Hanken Grotesk", sans-serif;font-size:15px;line-height:21px;font-weight:600;color:rgb(181, 157, 136)}
+.alt-sec .adpa28{height:56px;padding:0px 24px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:15px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;cursor:pointer}
+.alt-sec .adpa29{background:rgb(58, 45, 35);border:2px solid rgb(181, 157, 136);box-shadow:rgba(13, 10, 7, 0.45) 0px 24px 48px;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:18px;min-width:0px}
+.alt-sec .adpa30{aspect-ratio:1 / 1;background:rgb(58, 45, 35);display:flex;flex-direction:column;justify-content:center;gap:10px}
+.alt-sec .adpa31{display:block;width:calc(50% - 5px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(58, 45, 35)}
+.alt-sec .adpa32{display:block;width:calc(33.3333% - 6.66667px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(58, 45, 35)}
+.alt-sec .adpa33{display:block;width:calc(33.3333% - 6.66667px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(43, 33, 25)}
+.alt-sec .ampa1{padding:56px 16px 0px;display:flex;flex-direction:column;gap:16px}
+.alt-sec .ampa2{display:flex;flex-direction:column;gap:8px}
+.alt-sec .ampa3{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .ampa4{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .ampa5{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0px}
+.alt-sec .ampa6{display:flex;align-items:center;gap:8px;min-height:28px}
+.alt-sec .ampa7{height:28px;padding:0px 12px;border-radius:999px;display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgb(33, 26, 19);color:rgb(252, 250, 245);box-shadow:rgba(252, 250, 245, 0.24) 0px 0px 0px 1px inset}
+.alt-sec .ampa8{height:28px;padding:0px 12px;border-radius:999px;display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgb(181, 157, 136);color:rgb(33, 26, 19)}
+.alt-sec .ampa9{margin-left:auto;font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66);white-space:nowrap}
+.alt-sec .ampa10{font-size:32px;line-height:36px;color:rgb(252, 250, 245);text-wrap:balance}
+.alt-sec .ampa11{aspect-ratio:1 / 1;background:rgb(43, 33, 25);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.alt-sec .ampa12{display:flex;justify-content:center;gap:8px}
+.alt-sec .ampa13{display:block;width:calc(50% - 4px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(43, 33, 25)}
+.alt-sec .ampa14{display:flex;flex-direction:column}
+.alt-sec .ampa15{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0px;border-bottom:1px solid rgba(252, 250, 245, 0.12);font-size:16px;line-height:22px}
+.alt-sec .ampa16{color:rgb(252, 250, 245);min-width:0px}
+.alt-sec .ampa17{color:rgba(252, 250, 245, 0.66);white-space:nowrap}
+.alt-sec .ampa18{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.alt-sec .ampa19{display:flex;flex-direction:column;gap:2px}
+.alt-sec .ampa20{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .ampa21{font-size:16px;line-height:22px;color:rgba(252, 250, 245, 0.66);text-decoration:line-through;white-space:nowrap}
+.alt-sec .ampa22{display:flex;flex-direction:column;align-items:flex-end}
+.alt-sec .ampa23{font-family:"Hanken Grotesk", sans-serif;font-weight:800;font-variant-numeric:tabular-nums;font-size:32px;line-height:36px;color:rgb(252, 250, 245);white-space:nowrap}
+.alt-sec .ampa24{display:flex;flex-direction:column;gap:2px;font-family:"Hanken Grotesk", sans-serif;font-size:15px;line-height:21px;font-weight:600;color:rgb(181, 157, 136)}
+.alt-sec .ampa25{height:52px;padding:0px 24px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:15px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-family:"Hanken Grotesk", sans-serif;font-weight:600;cursor:pointer}
+.alt-sec .ampa26{background:rgb(58, 45, 35);border:2px solid rgb(181, 157, 136);box-shadow:rgba(13, 10, 7, 0.45) 0px 24px 48px;border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0px}
+.alt-sec .ampa27{aspect-ratio:1 / 1;background:rgb(58, 45, 35);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.alt-sec .ampa28{display:block;width:calc(50% - 4px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(58, 45, 35)}
+.alt-sec .ampa29{display:block;width:calc(33.3333% - 5.33333px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(58, 45, 35)}
+.alt-sec .ampa30{display:block;width:calc(33.3333% - 5.33333px);aspect-ratio:1 / 1;object-fit:contain;border-radius:12px;background:rgb(43, 33, 25)}
+.alt-sec .advi1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:32px}
+.alt-sec .advi2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.alt-sec .advi3{display:flex;flex-direction:column;gap:12px}
+.alt-sec .advi4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .advi5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .advi6{font-size:16px;line-height:24px;color:rgb(252, 250, 245);text-decoration:underline;text-underline-offset:4px;cursor:pointer;white-space:nowrap}
+.alt-sec .advi7{display:grid;grid-template-columns:repeat(4, minmax(0px, 1fr));gap:16px}
+.alt-sec .advi8{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .advi9{position:absolute;inset:0px;width:100%;height:100%;object-fit:cover}
+.alt-sec .advi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .advi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .advi12{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .amvi1{padding:56px 0px 0px;display:flex;flex-direction:column;gap:20px}
+.alt-sec .amvi2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0px 16px}
+.alt-sec .amvi3{display:flex;flex-direction:column;gap:8px}
+.alt-sec .amvi4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amvi5{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .amvi6{display:flex;gap:12px;overflow-x:auto;padding:0px 16px 4px;scrollbar-width:none;align-items:flex-start}
+.alt-sec .amvi7{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi8{position:absolute;inset:0px;width:100%;height:100%;object-fit:cover}
+.alt-sec .amvi9{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi10{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .amvi11{position:relative;aspect-ratio:9 / 16;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 200px}
+.alt-sec .adgi1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:32px}
+.alt-sec .adgi2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.alt-sec .adgi3{display:flex;flex-direction:column;gap:12px}
+.alt-sec .adgi4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adgi5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .adgi6{display:grid;grid-template-columns:repeat(3, minmax(0px, 1fr));gap:24px}
+.alt-sec .adgi7{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgb(43, 33, 25);color:rgb(252, 250, 245);text-decoration:none}
+.alt-sec .adgi8{height:300px;background:rgb(43, 33, 25);padding:16px 16px 0px}
+.alt-sec .adgi9{display:block;width:100%;height:100%;object-fit:contain;border-radius:14px}
+.alt-sec .adgi10{padding:24px 28px 28px;display:flex;flex-direction:column;gap:10px}
+.alt-sec .adgi11{font-size:72px;line-height:72px;font-weight:900;letter-spacing:-0.02em;color:rgb(252, 250, 245)}
+.alt-sec .adgi12{font-size:17px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adgi13{align-self:flex-start;margin-top:8px;height:48px;padding:0px 22px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:14px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;cursor:pointer}
+.alt-sec .amgi1{padding:56px 16px 0px;display:flex;flex-direction:column;gap:14px}
+.alt-sec .amgi2{display:flex;flex-direction:column;gap:8px}
+.alt-sec .amgi3{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amgi4{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .amgi5{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgb(43, 33, 25);color:rgb(252, 250, 245);text-decoration:none}
+.alt-sec .amgi6{height:200px;background:rgb(43, 33, 25);padding:12px 12px 0px}
+.alt-sec .amgi7{display:block;width:100%;height:100%;object-fit:contain;border-radius:14px}
+.alt-sec .amgi8{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.alt-sec .amgi9{font-size:48px;line-height:50px;font-weight:900;letter-spacing:-0.02em;color:rgb(252, 250, 245)}
+.alt-sec .amgi10{font-size:15px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amgi11{align-self:flex-start;margin-top:4px;height:44px;padding:0px 22px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:14px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-family:"Hanken Grotesk", sans-serif;font-weight:600;cursor:pointer}
+.alt-sec .adgo1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:28px}
+.alt-sec .adgo2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.alt-sec .adgo3{display:flex;flex-direction:column;gap:12px}
+.alt-sec .adgo4{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adgo5{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .adgo6{max-width:460px;font-size:18px;line-height:28px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adgo7{display:grid;grid-template-columns:repeat(3, minmax(0px, 1fr));border-top:1px solid rgba(252, 250, 245, 0.12);border-bottom:1px solid rgba(252, 250, 245, 0.12)}
+.alt-sec .adgo8{padding:32px 32px 32px 0px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .adgo9{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adgo10{display:flex;flex-direction:column}
+.alt-sec .adgo11{display:flex;justify-content:space-between;gap:12px;padding:8px 0px;border-bottom:1px solid rgba(252, 250, 245, 0.12);font-size:17px;line-height:24px}
+.alt-sec .adgo12{color:rgb(252, 250, 245)}
+.alt-sec .adgo13{color:rgb(181, 157, 136);white-space:nowrap}
+.alt-sec .adgo14{border-left:1px solid rgba(252, 250, 245, 0.12);padding:32px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .adgo15{font-size:48px;line-height:52px;font-weight:900;letter-spacing:-0.02em;color:rgb(252, 250, 245)}
+.alt-sec .adgo16{font-size:22px;line-height:30px;font-style:italic;color:rgb(181, 157, 136)}
+.alt-sec .adgo17{border-left:1px solid rgba(252, 250, 245, 0.12);padding:32px 0px 32px 32px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .adgo18{font-size:26px;line-height:34px;color:rgb(252, 250, 245)}
+.alt-sec .adgo19{font-size:15px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adgo20{margin:0px;max-width:880px;font-size:14px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amgo1{padding:56px 16px 0px;display:flex;flex-direction:column;gap:14px}
+.alt-sec .amgo2{display:flex;flex-direction:column;gap:8px}
+.alt-sec .amgo3{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amgo4{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .amgo5{margin:0px;font-size:16px;line-height:25px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amgo6{border-top:1px solid rgba(252, 250, 245, 0.12);display:flex;flex-direction:column}
+.alt-sec .amgo7{padding:20px 0px;border-bottom:1px solid rgba(252, 250, 245, 0.12);display:flex;flex-direction:column;gap:12px}
+.alt-sec .amgo8{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amgo9{display:flex;flex-direction:column}
+.alt-sec .amgo10{display:flex;justify-content:space-between;gap:12px;padding:8px 0px;border-bottom:1px solid rgba(252, 250, 245, 0.12);font-size:17px;line-height:24px}
+.alt-sec .amgo11{color:rgb(252, 250, 245)}
+.alt-sec .amgo12{color:rgb(181, 157, 136);white-space:nowrap}
+.alt-sec .amgo13{font-size:40px;line-height:44px;font-weight:900;letter-spacing:-0.02em;color:rgb(252, 250, 245)}
+.alt-sec .amgo14{font-size:20px;line-height:30px;font-style:italic;color:rgb(181, 157, 136)}
+.alt-sec .amgo15{font-size:22px;line-height:34px;color:rgb(252, 250, 245)}
+.alt-sec .amgo16{font-size:15px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amgo17{margin:0px;font-size:13px;line-height:20px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adbe1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:grid;grid-template-columns:repeat(12, minmax(0px, 1fr));gap:24px;align-items:stretch}
+.alt-sec .adbe2{grid-column:span 5;position:relative;min-height:640px;border-radius:22px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .adbe3{position:absolute;inset:0px;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.alt-sec .adbe4{position:absolute;left:16px;top:16px;height:32px;padding:0px 14px;border-radius:999px;background:linear-gradient(rgba(181, 157, 136, 0.16), rgba(181, 157, 136, 0.16)) rgb(33, 26, 19);color:rgb(181, 157, 136);display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.06em}
+.alt-sec .adbe5{grid-column:7 / span 6;display:flex;flex-direction:column;gap:24px}
+.alt-sec .adbe6{display:flex;flex-direction:column;gap:12px}
+.alt-sec .adbe7{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .adbe8{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .adbe9{margin:0px;font-size:18px;line-height:28px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adbe10{display:grid;grid-template-columns:repeat(2, minmax(0px, 1fr));gap:16px}
+.alt-sec .adbe11{position:relative;background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.alt-sec .adbe12{display:block;color:inherit;text-decoration:none}
+.alt-sec .adbe13{display:block;width:100%;aspect-ratio:1 / 1;object-fit:cover;object-position:50% 50%}
+.alt-sec .adbe14{flex:1 1 0%;padding:16px;display:flex;flex-direction:column;gap:6px}
+.alt-sec .adbe15{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.alt-sec .adbe16{font-family:"Hanken Grotesk", sans-serif;font-weight:800;font-variant-numeric:tabular-nums;font-size:20px;line-height:24px;color:rgb(181, 157, 136)}
+.alt-sec .adbe17{color:inherit;text-decoration:none}
+.alt-sec .adbe18{font-size:15px;line-height:20px;color:rgb(252, 250, 245);text-transform:uppercase;letter-spacing:0.04em}
+.alt-sec .ambe1{padding:56px 16px 0px;display:flex;flex-direction:column;gap:16px}
+.alt-sec .ambe2{display:flex;flex-direction:column;gap:8px}
+.alt-sec .ambe3{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .ambe4{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245)}
+.alt-sec .ambe5{margin:0px;font-size:16px;line-height:25px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .ambe6{position:relative;aspect-ratio:4 / 3;border-radius:20px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .ambe7{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.alt-sec .ambe8{position:absolute;left:12px;top:12px;height:30px;padding:0px 12px;border-radius:999px;background:linear-gradient(rgba(181, 157, 136, 0.16), rgba(181, 157, 136, 0.16)) rgb(33, 26, 19);color:rgb(181, 157, 136);display:flex;align-items:center;font:600 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.06em}
+.alt-sec .ambe9{display:grid;grid-template-columns:repeat(2, minmax(0px, 1fr));gap:12px}
+.alt-sec .ambe10{position:relative;background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.alt-sec .ambe11{display:block;color:inherit;text-decoration:none}
+.alt-sec .ambe12{display:block;width:100%;aspect-ratio:1 / 1;object-fit:cover;object-position:50% 50%}
+.alt-sec .ambe13{flex:1 1 0%;padding:12px;display:flex;flex-direction:column;gap:6px}
+.alt-sec .ambe14{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.alt-sec .ambe15{font-family:"Hanken Grotesk", sans-serif;font-weight:800;font-variant-numeric:tabular-nums;font-size:17px;line-height:24px;color:rgb(181, 157, 136)}
+.alt-sec .ambe16{color:inherit;text-decoration:none}
+.alt-sec .ambe17{font-size:13px;line-height:18px;color:rgb(252, 250, 245);text-transform:uppercase;letter-spacing:0.04em}
+.alt-sec .adso1{padding-top:120px;padding-bottom:0px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));display:flex;flex-direction:column;gap:32px}
+.alt-sec .adso2{margin:0px;font-size:32px;line-height:40px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245);text-align:center}
+.alt-sec .adso3{display:grid;grid-template-columns:repeat(5, minmax(0px, 1fr));gap:12px}
+.alt-sec .adso4{aspect-ratio:1 / 1;border-radius:14px;overflow:hidden;background:rgb(43, 33, 25)}
+.alt-sec .adso5{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.alt-sec .adso6{margin-top:24px;display:grid;grid-template-columns:240px minmax(0px, 1fr);gap:32px;align-items:center}
+.alt-sec .adso7{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.alt-sec .adso8{font-size:36px;line-height:40px;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .adso9{font-size:22px;line-height:24px;letter-spacing:4px;color:rgb(181, 157, 136)}
+.alt-sec .adso10{font-size:16px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adso11{display:flex;align-items:center;gap:12px}
+.alt-sec .adso12{width:44px;height:44px;flex-shrink:0;border-radius:999px;background:rgb(58, 45, 35);color:rgb(252, 250, 245);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:22px;cursor:pointer}
+.alt-sec .adso13{flex:1 1 0%;min-width:0px;display:grid;grid-template-columns:repeat(4, minmax(0px, 1fr));gap:16px}
+.alt-sec .adso14{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.alt-sec .adso15{font-size:16px;line-height:18px;letter-spacing:3px;color:rgb(181, 157, 136)}
+.alt-sec .adso16{font-size:17px;line-height:24px;font-weight:700;color:rgb(252, 250, 245)}
+.alt-sec .adso17{margin:0px;font-size:16px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adso18{margin-top:auto;display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(252, 250, 245, 0.12);padding-top:10px}
+.alt-sec .adso19{font-size:16px;line-height:22px;font-weight:700;color:rgb(252, 250, 245)}
+.alt-sec .adso20{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.06em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adso21{font-size:13px;line-height:18px;font-style:italic;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adso22{display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(252, 250, 245, 0.12);padding-top:32px}
+.alt-sec .adso23{font-size:20px;line-height:28px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;color:rgb(252, 250, 245)}
+.alt-sec .adso24{margin:0px;max-width:1100px;font-size:17px;line-height:28px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adso25{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136);display:flex;gap:8px;align-items:center}
+.alt-sec .adso26{font-size:16px;line-height:16px}
+.alt-sec .amso1{padding:56px 0px 0px;display:flex;flex-direction:column;gap:20px}
+.alt-sec .amso2{margin:0px;font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;font-weight:400;color:rgb(252, 250, 245);text-align:center;padding:0px 16px}
+.alt-sec .amso3{display:flex;gap:8px;overflow-x:auto;padding:0px 16px 4px;scrollbar-width:none;align-items:flex-start}
+.alt-sec .amso4{aspect-ratio:1 / 1;border-radius:14px;overflow:hidden;background:rgb(43, 33, 25);flex:0 0 150px}
+.alt-sec .amso5{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.alt-sec .amso6{margin-top:12px;padding:0px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.alt-sec .amso7{font-size:28px;line-height:32px;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .amso8{font-size:20px;line-height:22px;letter-spacing:4px;color:rgb(181, 157, 136)}
+.alt-sec .amso9{font-size:15px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amso10{display:flex;gap:12px;overflow-x:auto;padding:0px 16px 4px;scrollbar-width:none;align-items:stretch}
+.alt-sec .amso11{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;flex:0 0 260px;align-self:stretch}
+.alt-sec .amso12{font-size:16px;line-height:18px;letter-spacing:3px;color:rgb(181, 157, 136)}
+.alt-sec .amso13{font-size:17px;line-height:24px;font-weight:700;color:rgb(252, 250, 245)}
+.alt-sec .amso14{margin:0px;font-size:16px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amso15{margin-top:auto;display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(252, 250, 245, 0.12);padding-top:10px}
+.alt-sec .amso16{font-size:16px;line-height:22px;font-weight:700;color:rgb(252, 250, 245)}
+.alt-sec .amso17{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.06em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amso18{font-size:13px;line-height:18px;font-style:italic;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amso19{padding:24px 16px 0px;display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(252, 250, 245, 0.12)}
+.alt-sec .amso20{font-size:17px;line-height:28px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;color:rgb(252, 250, 245)}
+.alt-sec .amso21{margin:0px;max-width:1100px;font-size:15px;line-height:24px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amso22{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136);display:flex;gap:8px;align-items:center}
+.alt-sec .amso23{font-size:16px;line-height:16px}
+.alt-sec .adfa1{padding-top:120px;padding-bottom:96px;padding-left:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2));padding-right:max(clamp(16px,5vw,72px),calc((100% - 1296px)/2))}
+.alt-sec .adfa2{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:22px;padding:56px 64px;display:grid;grid-template-columns:repeat(2, minmax(0px, 1fr));gap:48px;align-items:start}
+.alt-sec .adfa3{display:flex;flex-direction:column;gap:24px}
+.alt-sec .adfa4{margin:0px;font-size:72px;line-height:72px;font-weight:400;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .adfa5{margin:0px;font-size:20px;line-height:30px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adfa6{display:flex;flex-direction:column;gap:18px}
+.alt-sec .adfa7{display:flex;flex-direction:column;gap:2px}
+.alt-sec .adfa8{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adfa9{font-size:18px;line-height:26px;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .adfa10{display:flex;flex-direction:column;gap:12px;padding-top:8px}
+.alt-sec .adfa11{padding:14px 20px 14px 28px;border-radius:32px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.alt-sec .adfa12{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.alt-sec .adfa13{font-size:20px;line-height:26px}
+.alt-sec .adfa14{width:32px;height:32px;flex-shrink:0;border-radius:999px;border:2px solid;display:flex;align-items:center;justify-content:center;font:600 20px / 20px "Hanken Grotesk", sans-serif}
+.alt-sec .amfa1{padding:56px 16px 48px}
+.alt-sec .amfa2{background:rgb(43, 33, 25);border:1px solid rgba(252, 250, 245, 0.12);border-radius:22px;padding:28px 18px;display:flex;flex-direction:column;gap:16px}
+.alt-sec .amfa3{margin:0px;font-size:40px;line-height:42px;font-weight:400;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .amfa4{margin:0px;font-size:17px;line-height:26px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amfa5{display:flex;flex-direction:column;gap:10px}
+.alt-sec .amfa6{padding:12px 14px 12px 20px;border-radius:22px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.alt-sec .amfa7{min-height:40px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.alt-sec .amfa8{font-size:17px;line-height:23px}
+.alt-sec .amfa9{width:32px;height:32px;flex-shrink:0;border-radius:999px;border:2px solid;display:flex;align-items:center;justify-content:center;font:600 20px / 20px "Hanken Grotesk", sans-serif}
+.alt-sec .amfa10{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.alt-sec .amfa11{display:flex;flex-direction:column;gap:2px}
+.alt-sec .amfa12{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amfa13{font-size:16px;line-height:24px;text-transform:uppercase;color:rgb(252, 250, 245)}
+.alt-sec .adfo1{background:rgb(13, 10, 7);color:rgb(252, 250, 245)}
+.alt-sec .adfo2{padding:64px 72px;display:grid;grid-template-columns:2fr 2fr 2fr 3fr;gap:24px}
+.alt-sec .adfo3{display:flex;flex-direction:column;gap:10px}
+.alt-sec .adfo4{font-size:24px;line-height:32px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px}
+.alt-sec .adfo5{font-size:14px;line-height:22px;letter-spacing:0.04em;text-transform:uppercase;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adfo6{display:flex;flex-direction:column;gap:8px;align-items:flex-end;text-align:right}
+.alt-sec .adfo7{font-size:16px;line-height:26px}
+.alt-sec .adfo8{display:flex;gap:8px;margin-top:6px}
+.alt-sec .adfo9{width:36px;height:36px;border-radius:999px;background:rgb(58, 45, 35);display:flex;align-items:center;justify-content:center;color:rgb(252, 250, 245)}
+.alt-sec .adfo10{padding:24px 72px;border-top:1px solid rgba(252, 250, 245, 0.12);display:flex;justify-content:space-between;align-items:center;gap:24px}
+.alt-sec .adfo11{font-size:14px;line-height:22px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .adfo12{display:flex;gap:8px}
+.alt-sec .adfo13{display:block;width:38px;height:24px;flex-shrink:0}
+.alt-sec .amfo1{background:rgb(13, 10, 7);padding:40px 16px 32px;display:flex;flex-direction:column;gap:24px}
+.alt-sec .amfo2{height:32px;width:auto;align-self:flex-start}
+.alt-sec .amfo3{display:grid;grid-template-columns:repeat(2, minmax(0px, 1fr));gap:20px 12px}
+.alt-sec .amfo4{display:flex;flex-direction:column;gap:2px}
+.alt-sec .amfo5{font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136);margin-bottom:6px}
+.alt-sec .amfo6{min-height:36px;display:flex;align-items:center;font-size:15px;color:rgb(252, 250, 245)}
+.alt-sec .amfo7{display:flex;flex-direction:column;gap:4px}
+.alt-sec .amfo8{font-size:15px;line-height:24px}
+.alt-sec .amfo9{display:flex;gap:8px;margin-top:6px}
+.alt-sec .amfo10{width:36px;height:36px;border-radius:999px;background:rgb(58, 45, 35);display:flex;align-items:center;justify-content:center;color:rgb(252, 250, 245)}
+.alt-sec .amfo11{border-top:1px solid rgba(252, 250, 245, 0.12);padding-top:16px;display:flex;flex-direction:column;gap:12px}
+.alt-sec .amfo12{display:flex;gap:6px}
+.alt-sec .amfo13{display:block;width:38px;height:24px;flex-shrink:0}
+.alt-sec .amfo14{font-size:13px;line-height:19px;color:rgba(252, 250, 245, 0.66)}
+.alt-sec .amst1{position:sticky;bottom:0px;height:72px;background:rgba(33, 26, 19, 0.94);border-top:1px solid rgba(252, 250, 245, 0.12);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0px 16px}
+.alt-sec .amst2{display:flex;flex-direction:column;gap:2px}
+.alt-sec .amst3{display:flex;align-items:center;gap:8px;font:500 12px / 16px "Hanken Grotesk", sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:rgb(181, 157, 136)}
+.alt-sec .amst4{position:relative;width:8px;height:8px;flex-shrink:0;display:inline-block}
+.alt-sec .amst5{position:absolute;inset:0px;border-radius:4px;background:rgb(181, 157, 136);animation:1.8s cubic-bezier(0, 0, 0.2, 1) 0s infinite normal none running sph-ping}
+.alt-sec .amst6{position:absolute;inset:0px;border-radius:4px;background:rgb(181, 157, 136)}
+.alt-sec .amst7{font-style:normal;font-variant:tabular-nums;font-size-adjust:none;font-language-override:normal;font-kerning:auto;font-optical-sizing:auto;font-feature-settings:normal;font-variation-settings:normal;font-weight:600;font-stretch:normal;font-size:18px;line-height:24px;font-family:"Hanken Grotesk", sans-serif;color:rgb(252, 250, 245);white-space:nowrap}
+.alt-sec .amst8{height:48px;padding:0px 24px;background:rgb(181, 157, 136);color:rgb(33, 26, 19);font-size:15px;line-height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;letter-spacing:0.06em;text-transform:uppercase;font-family:"Hanken Grotesk", sans-serif;font-weight:600;cursor:pointer;white-space:nowrap}

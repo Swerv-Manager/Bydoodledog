@@ -1,0 +1,67 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-signup">
+    <div class="bm-signup__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1400
+          | image_tag: loading: 'eager', widths: '400, 800, 1400', sizes: '(min-width: 750px) 50vw, 100vw', alt: settings.bm_signup_title, class: 'bm-signup__img'
+        }}
+      {%- else -%}
+        <div class="bm-media-fallback" aria-hidden="true"></div>
+      {%- endif -%}
+    </div>
+    <div class="bm-signup__panel">
+      <p class="bm-eyebrow">{{ settings.bm_menu_label }}</p>
+      <h1 class="bm-h2">{{ settings.bm_signup_title }}</h1>
+      <p class="bm-lead">{{ settings.bm_signup_text }}</p>
+      {%- if bm_phase_now == 'pre' -%}
+        <p class="bm-hero__phase">{{ settings.bm_phase_a_line }}</p>
+      {%- endif -%}
+      {%- assign bm_form_id = settings.bm_klaviyo_form_id | strip -%}
+      {%- if bm_form_id != blank -%}
+        <div class="klaviyo-form-{{ bm_form_id }}"></div>
+      {%- endif -%}
+      {% form 'customer', class: 'bm-signup__form' %}
+        <input type="hidden" name="contact[tags]" value="black-month,newsletter">
+        <label class="visually-hidden" for="BmEmail-{{ section.id }}">{{ settings.bm_signup_placeholder }}</label>
+        <input
+          id="BmEmail-{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          required
+          autocomplete="email"
+          placeholder="{{ settings.bm_signup_placeholder }}"
+        >
+        <button type="submit" class="bm-btn bm-btn--primary">{{ settings.bm_signup_cta }}</button>
+        {%- if form.posted_successfully? -%}
+          <p class="bm-signup__success" role="status">{{ settings.bm_signup_success }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <p class="bm-signup__error" role="alert">{{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {% endform %}
+      <p class="bm-signup__legal">
+        {{ settings.bm_signup_legal }}
+        <a href="{{ shop.privacy_policy.url | default: settings.bm_privacy_url }}">{{ settings.bm_privacy_label }}</a>
+      </p>
+      <a class="bm-signup__dismiss" href="{{ routes.root_url }}">{{ settings.bm_signup_dismiss }}</a>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM signup",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Foto",
+      "info": "Intet produktionsbillede er leveret. Placeholder beholdes, indtil et foto vælges her."
+    }
+  ]
+}
+{% endschema %}

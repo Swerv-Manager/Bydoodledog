@@ -1,0 +1,25 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+<div class="alt-sec alt-videos"><div class="alt-d"><div class="advi1"><div class="advi2"><div class="advi3"><span class="advi4">Video · hunden i hjemmet</span><h2 class="advi5">Se Black Month i hjemmet</h2></div><a class="scp5 advi6" href="https://www.instagram.com/bydoodledog/" rel="noopener" target="_blank">Følg @bydoodledog →</a></div><div class="advi7"><div class="advi8"><img alt="Laura og hunden i en åben bil" class="advi9" loading="lazy" src="{{ 'alt-bm-video1-laura-bil-t8.0s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_1, poster_asset: 'alt-bm-video1-laura-bil-t8.0s.jpg', label: "Laura og hunden i en åben bil" -%}</div><div class="advi10"><img alt="Laura med Black Month-skiltet på gaden" class="advi9" loading="lazy" src="{{ 'alt-bm-video3-laura-skilt-t2.25s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_3, poster_asset: 'alt-bm-video3-laura-skilt-t2.25s.jpg', label: "Laura med Black Month-skiltet på gaden" -%}</div><div class="advi11"><img alt="Laura med hunden i Julius slyngen ved bilen" class="advi9" loading="lazy" src="{{ 'alt-bm-video2-laura-outfit-t11.25s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_2, poster_asset: 'alt-bm-video2-laura-outfit-t11.25s.jpg', label: "Laura med hunden i Julius slyngen ved bilen" -%}</div><div class="advi12"><img alt="Black Month-skilt i en have" class="advi9" loading="lazy" src="{{ 'alt-bm-video4-torben-skilt-t8.0s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_4, poster_asset: 'alt-bm-video4-torben-skilt-t8.0s.jpg', label: "Black Month-skilt i en have" -%}</div></div></div></div><div class="alt-m"><div class="amvi1"><div class="amvi2"><div class="amvi3"><span class="amvi4">Video · hunden i hjemmet</span><h2 class="amvi5">Se Black Month i hjemmet</h2></div></div><div class="amvi6"><div class="amvi7"><img alt="Laura og hunden i en åben bil" class="amvi8" loading="lazy" src="{{ 'alt-bm-video1-laura-bil-t8.0s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_1, poster_asset: 'alt-bm-video1-laura-bil-t8.0s.jpg', label: "Laura og hunden i en åben bil" -%}</div><div class="amvi9"><img alt="Laura med Black Month-skiltet på gaden" class="amvi8" loading="lazy" src="{{ 'alt-bm-video3-laura-skilt-t2.25s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_3, poster_asset: 'alt-bm-video3-laura-skilt-t2.25s.jpg', label: "Laura med Black Month-skiltet på gaden" -%}</div><div class="amvi10"><img alt="Laura med hunden i Julius slyngen ved bilen" class="amvi8" loading="lazy" src="{{ 'alt-bm-video2-laura-outfit-t11.25s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_2, poster_asset: 'alt-bm-video2-laura-outfit-t11.25s.jpg', label: "Laura med hunden i Julius slyngen ved bilen" -%}</div><div class="amvi11"><img alt="Black Month-skilt i en have" class="amvi8" loading="lazy" src="{{ 'alt-bm-video4-torben-skilt-t8.0s.jpg' | asset_url }}"/>{%- render 'bm-tile-video', file: section.settings.video_4, poster_asset: 'alt-bm-video4-torben-skilt-t8.0s.jpg', label: "Black Month-skilt i en have" -%}</div></div></div></div></div>
+{%- endif -%}
+<script>
+(function(){
+  if(window.__bmTileVid)return;window.__bmTileVid=true;
+  function init(){
+    var vs=[].slice.call(document.querySelectorAll('video[data-bm-tile]'));
+    if(!vs.length||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    function start(v){
+      if(!v.getAttribute('src')){v.setAttribute('src',v.getAttribute('data-bm-tile'));v.muted=true;v.load();}
+      var p=v.play();if(p&&p.catch)p.catch(function(){});
+    }
+    if(!('IntersectionObserver' in window)){vs.forEach(start);return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting)start(e.target);else{try{e.target.pause();}catch(x){}}
+    });},{rootMargin:'200px',threshold:0.1});
+    vs.forEach(function(v){io.observe(v);});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+{% schema %}
+{"name": "ALT videos", "settings": [{"type": "video", "id": "video_1", "label": "Video 1 – Laura og hunden i en åben bil"}, {"type": "video", "id": "video_2", "label": "Video 2 – Laura med hunden i Julius slyngen ved bilen"}, {"type": "video", "id": "video_3", "label": "Video 3 – Laura med Black Month-skiltet på gaden"}, {"type": "video", "id": "video_4", "label": "Video 4 – Black Month-skilt i en have"}], "presets": [{"name": "ALT videos"}]}
+{% endschema %}

@@ -1,0 +1,4 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- if bm_on == 'true' -%}
+  <span class="bm-badge bm-badge--campaign bm-badge--cart">{{ settings.bm_badge_campaign }}</span>
+{%- endif -%}

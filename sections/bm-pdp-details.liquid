@@ -1,0 +1,64 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- liquid
+    assign bm_measures = product.metafields.custom.bm_measures.value | default: product.metafields.custom.bm_measures
+    assign bm_care = product.metafields.custom.bm_care.value | default: product.metafields.custom.bm_care
+    if bm_measures == blank
+      assign bm_measures = settings.bm_pdp_measures_fallback
+    endif
+    if bm_care == blank
+      assign bm_care = settings.bm_pdp_care_fallback
+    endif
+    assign sph_about = 'Om produktet'
+    assign sph_type = product.type | downcase
+    if sph_type contains 'ilsæde'
+      assign sph_about = 'Om bilsædet'
+    endif
+    assign sph_rv = product.metafields.reviews.rating.value
+    assign sph_rc = product.metafields.reviews.rating_count
+  -%}
+  <section class="bm-section bm-pdp-details sph-about">
+    <div class="sph-about__l">
+      <h2 class="sph-about__h">{{ sph_about }}</h2>
+      <details class="sph-about__d" open>
+        <summary><span>Beskrivelse</span><i aria-hidden="true"></i></summary>
+        <div class="sph-about__b rte">{{ product.description }}</div>
+      </details>
+      <details class="sph-about__d">
+        <summary><span>Mål og størrelse</span><i aria-hidden="true"></i></summary>
+        <div class="sph-about__b rte">{{ bm_measures }}</div>
+      </details>
+      <details class="sph-about__d">
+        <summary><span>Materiale og vask</span><i aria-hidden="true"></i></summary>
+        <div class="sph-about__b rte">{{ bm_care }}</div>
+      </details>
+      <details class="sph-about__d">
+        <summary><span>Levering og retur</span><i aria-hidden="true"></i></summary>
+        <div class="sph-about__b rte">{{ settings.bm_pdp_delivery_long }}</div>
+      </details>
+    </div>
+    {%- if sph_rv != blank and sph_rc != blank -%}
+    <div class="sph-about__r">
+      <div class="sph-about__score">
+        <span class="sph-about__big">{{ sph_rv.rating | round: 1 | replace: '.', ',' }}</span>
+        <div><span class="sph-about__stars">★★★★★</span><span class="sph-about__cnt">{{ sph_rc }} produktanmeldelser</span></div>
+      </div>
+      <a class="sph-about__more" href="#judgeme_product_reviews">Læs alle anmeldelser →</a>
+    </div>
+    {%- endif -%}
+  </section>
+  <h2 class="bm-h2 sph-reviews-h">{{ settings.bm_acc_reviews }}</h2>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM PDP detaljer",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Beskrivelse er produktets beskrivelse. Mål og vask bruger metafelterne custom.bm_measures og custom.bm_care, ellers en generel fallback."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,115 @@
+{%- capture alt_on -%}{%- render 'bm-active' -%}{%- endcapture -%}{%- assign alt_on = alt_on | strip -%}{%- if alt_on == 'true' -%}
+{%- liquid
+  assign ap_v = product.selected_or_first_available_variant
+  assign ap_rc = product.metafields.reviews.rating_count | plus: 0
+  assign ap_rv = product.metafields.reviews.rating.value.rating | plus: 0
+  assign ap_multi = false
+  if product.has_only_default_variant == false
+    assign ap_multi = true
+  endif
+  assign ap_col = product.collections | first
+-%}
+<div class="alt-sec alt-pdp product-page-section" id="alt-pdp-{{ section.id }}" data-section-type="product" data-ap data-ap-name="{{ product.title | escape }}">
+<nav class="ap-crumb" aria-label="Brødkrumme"><a href="{{ routes.root_url }}">Forside</a> › <span>{{ product.title | escape }}</span></nav>
+<div class="ap-grid">
+  <div class="ap-gal" data-ap-gal>
+    <div class="ap-main">
+      {%- for m in product.media -%}
+        <div class="ap-slide{% if forloop.first %} is-on{% endif %}" data-ap-slide="{{ forloop.index0 }}" data-ap-mid="{{ m.id }}">
+        {%- if m.media_type == 'image' -%}
+          {{ m | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width:1024px) 700px, 100vw', alt: m.alt | default: product.title }}
+        {%- else -%}
+          {{ m | media_tag: image_size: '1200x', controls: true, autoplay: false, loop: false, muted: false }}
+        {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if product.media.size > 1 -%}
+    <div class="ap-thumbs" role="tablist">
+      {%- for m in product.media -%}
+        <button type="button" class="ap-th{% if forloop.first %} is-on{% endif %}" data-ap-th="{{ forloop.index0 }}" aria-label="Billede {{ forloop.index }}">
+          {{ m.preview_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '96px', alt: '' }}
+          {%- if m.media_type != 'image' -%}<span class="ap-play" aria-hidden="true">▶</span>{%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+    <div class="ap-acc">
+      <section class="ap-accs"><h2>Beskrivelse</h2><div class="ap-descw" data-ap-descw><div class="ap-desc">{{ product.description }}</div></div><button type="button" class="ap-more" data-ap-more hidden>Læs mere</button></section>
+      <section class="ap-accs"><h2>Levering</h2><p>Levering 1–2 hverdage med GLS til pakkeshop. Fri fragt fra 899 kr. og 30 dages returret.</p></section>
+    </div>
+  </div>
+  <div class="ap-info">
+    <div class="ap-chips"><span class="ap-chip">BLACK MONTH</span></div>
+    <div class="ap-head">
+      {%- if ap_rc > 0 -%}
+      <a class="ap-rate" href="#alt-reviews"><span class="ap-stars" aria-hidden="true">★★★★★</span><span>{{ ap_rc }} {% if ap_rc == 1 %}anmeldelse{% else %}anmeldelser{% endif %}</span></a>
+      {%- endif -%}
+      <h1 class="ap-title">{{ product.title | escape }}</h1>
+    </div>
+    <div class="ap-pricebox">
+      <div class="ap-pbt">
+        <div class="ap-prices">
+          <span class="ap-price" data-ap-price>{{ ap_v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span>
+          <span class="ap-was" data-ap-was{% unless ap_v.compare_at_price > ap_v.price %} hidden{% endunless %}>{% if ap_v.compare_at_price > ap_v.price %}{{ ap_v.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{% endif %}</span>
+          <span class="ap-save" data-ap-save{% unless ap_v.compare_at_price > ap_v.price %} hidden{% endunless %}>{% if ap_v.compare_at_price > ap_v.price %}Spar {{ ap_v.compare_at_price | minus: ap_v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}{% endif %}</span>
+        </div>
+      </div>
+      <div class="ap-pbb">
+        <span class="ap-timer"><span class="ap-ping"><i></i><i></i></span>Black Month slutter om</span>
+        <div class="ap-cd" data-bm-countdown data-bm-end="{{ settings.bm_end | escape }}" data-bm-start="{{ settings.bm_start | escape }}">
+          <div><b data-bm-days>00</b><em>Dage</em></div><i>:</i><div><b data-bm-hours>00</b><em>Timer</em></div><i>:</i><div><b data-bm-minutes>00</b><em>Minuter</em></div><i>:</i><div><b data-bm-seconds>00</b><em>Sekunder</em></div>
+        </div>
+      </div>
+    </div>
+    <noscript class="product-form__noscript-wrapper-{{ section.id }}"></noscript>
+    {%- if ap_multi -%}
+    <div class="ap-opts">
+      {%- for o in product.options_with_values -%}
+      {%- assign ap_pos = forloop.index0 -%}
+      <div class="ap-opt" data-ap-opt="{{ ap_pos }}">
+        <div class="ap-optl">{{ o.name | escape }}: <b data-ap-optv>{{ o.selected_value | escape }}</b></div>
+        <div class="ap-pills" role="radiogroup">
+          {%- for val in o.values -%}
+          <label class="ap-pill"><input type="radio" name="ap-o{{ ap_pos }}-{{ section.id }}" value="{{ val | escape }}"{% if val == o.selected_value %} checked{% endif %}><span>{{ val | escape }}</span></label>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+    <span class="ap-stock" data-ap-stock>
+      <i class="ap-dot{% unless ap_v.available %} is-off{% endunless %}"></i><span data-ap-stocktxt>{% if ap_v.available %}På lager{% else %}Udsolgt{% endif %}</span><span class="ap-sep" data-ap-sep{% unless ap_v.available %} hidden{% endunless %}>·</span><span data-ap-del{% unless ap_v.available %} hidden{% endunless %}>🚛 1-2 dages levering</span>
+    </span>
+    <div class="ap-buywrap">
+    <span class="ap-ql">Vælg antal</span>
+    <div class="ap-buy">
+      <div class="ap-qty"><button type="button" data-ap-q="-1" aria-label="Færre">−</button><span data-ap-qv>1</span><button type="button" data-ap-q="1" aria-label="Flere">+</button></div>
+      <button type="button" name="add" class="ap-add product-form__cart-submit" data-ap-add{% unless ap_v.available %} disabled{% endunless %}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h2.5l2.2 10.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20 7H6"></path><circle cx="9.5" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle><path d="M13 8.5v4M11 10.5h4"></path></svg>
+        <span class="product-form__add-text" data-ap-addt>{% if ap_v.available %}Tilføj til kurven{% else %}Udsolgt{% endif %}</span>
+      </button>
+    </div>
+    <p class="ap-err" data-ap-err hidden></p>
+    <div class="ap-pay"><img src="{{ 'alt-pay-visa.svg' | asset_url }}" alt="Visa" height="24" loading="lazy"><img src="{{ 'alt-pay-mastercard.svg' | asset_url }}" alt="Mastercard" height="24" loading="lazy"><img src="{{ 'alt-pay-mobilepay.svg' | asset_url }}" alt="MobilePay" height="24" loading="lazy"></div>
+    </div>
+    {%- assign ap_lis = product.description | split: '<li>' -%}
+    {%- if ap_lis.size > 1 -%}
+    <ul class="ap-checks">
+      {%- for i in (1..3) -%}{%- assign ap_li = ap_lis[i] | split: '</li>' | first | strip_html | strip -%}{%- if ap_li != blank -%}
+      <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B59D88" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 21.5l-2.4-1.8-3 .2-.9-2.9L3.2 15.3l1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"></path><path d="M8.6 12.2l2.3 2.3 4.6-4.8"></path></svg><span>{{ ap_li }}</span></li>
+      {%- endif -%}{%- endfor -%}
+    </ul>
+    {%- endif -%}
+  </div>
+</div>
+<div class="ap-sticky" data-ap-sticky>
+  <div class="ap-st1"><span class="ap-st2">{{ product.title | escape }} · Black Month-pris</span><span class="ap-st3" data-ap-price2>{{ ap_v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' }}</span></div>
+  <button type="button" class="ap-st4" data-ap-add2{% unless ap_v.available %} disabled{% endunless %}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h2.5l2.2 10.6a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.2L20 7H6"></path><circle cx="9.5" cy="19.5" r="1.4"></circle><circle cx="17" cy="19.5" r="1.4"></circle><path d="M13 8.5v4M11 10.5h4"></path></svg><span data-ap-addt2>{% if ap_v.available %}Tilføj til kurven{% else %}Udsolgt{% endif %}</span></button>
+</div>
+<script type="application/json" data-ap-json>[{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }},"was":{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }}{% else %}""{% endif %},"save":{% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | money_without_trailing_zeros | replace: ' kr', ' kr.' | replace: 'kr..', 'kr.' | json }}{% else %}""{% endif %},"mid":{{ v.featured_media.id | default: 0 }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]</script>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"ALT produktside","settings":[],"presets":[{"name":"ALT produktside"}]}
+{% endschema %}

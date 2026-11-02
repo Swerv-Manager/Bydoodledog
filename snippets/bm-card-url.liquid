@@ -1,0 +1,15 @@
+{%- comment -%}
+  Product-card URL. On Black Month collection templates, link into the
+  alternate product template so badges and PDP chrome stay in campaign mode.
+{%- endcomment -%}
+{%- liquid
+  assign card_url = product.url | within: collection
+  if settings.bm_enabled and template.name == 'collection' and template.suffix contains 'black-month'
+    assign bm_view = 'black-month'
+    if product.tags contains 'bm-bundle'
+      assign bm_view = 'black-month-bundle'
+    endif
+    assign card_url = card_url | append: '?view=' | append: bm_view
+  endif
+  echo card_url
+-%}

@@ -1,0 +1,24 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- if settings.bm_up_to_enabled and settings.bm_promo_text != blank -%}
+    <section class="bm-section bm-promo">
+      <p>{{ settings.bm_promo_text }}</p>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM promo",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Teksten styres af Black Month → Promo. Skjules hvis Spar op til 80 % slås fra."
+    }
+  ],
+  "presets": [
+    { "name": "BM promo" }
+  ]
+}
+{% endschema %}

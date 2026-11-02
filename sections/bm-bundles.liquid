@@ -1,0 +1,100 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  <section class="bm-section bm-bundles">
+    <div class="bm-section__intro">
+      <p class="bm-eyebrow">{{ settings.bm_bundle_eyebrow }}</p>
+      <h2 class="bm-h2">{{ settings.bm_bundle_title }}</h2>
+      <p class="bm-lead">{{ settings.bm_bundle_sub }}</p>
+    </div>
+    <div class="bm-bundles__grid">
+      {%- if section.settings.use_collection and collection != blank -%}
+        {%- for bm_product in collection.products limit: section.settings.limit -%}
+          {%- liquid
+            assign bm_components = bm_product.metafields.custom.bm_components.value
+            assign bm_parts = settings.bm_bundle_parts
+            if bm_components != blank
+              assign bm_size = bm_components.size
+              assign bm_parts = bm_size | append: ' ' | append: settings.bm_bundle_parts_word
+            endif
+          -%}
+          {% render 'bm-bundle-card',
+            title: bm_product.title,
+            parts_label: bm_parts,
+            products: bm_components,
+            fallback: bm_product,
+            image: bm_product.featured_image
+          %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign bm_parts = block.settings.parts
+            if bm_parts == blank
+              assign bm_parts = settings.bm_bundle_parts
+            endif
+          -%}
+          {%- liquid
+            assign bm_bundle_asset = ''
+            case forloop.index
+              when 1
+                assign bm_bundle_asset = 'bm-product-hjalmar.jpg'
+              when 2
+                assign bm_bundle_asset = 'bm-product-ingolf-kurv.jpg'
+              when 3
+                assign bm_bundle_asset = 'bm-bundle-carl.jpg'
+            endcase
+          -%}
+          <div {{ block.shopify_attributes }}>
+            {% render 'bm-bundle-card',
+              title: block.settings.title,
+              parts_label: bm_parts,
+              products: block.settings.products,
+              image: block.settings.image,
+              asset: bm_bundle_asset
+            %}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM pakker",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_collection",
+      "label": "Brug produkterne i den aktuelle kollektion",
+      "default": false,
+      "info": "Til sæt-siden. Delprodukter læses fra metafeltet custom.bm_components (liste af produkter) på hvert pakkeprodukt."
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Maks. pakker fra kollektion",
+      "default": 6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Pakke",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Pakke" },
+        { "type": "text", "id": "parts", "label": "Dele-linje", "default": "4 dele", "info": "Fx 4 dele. Vises som PAKKE · 4 dele." },
+        { "type": "image_picker", "id": "image", "label": "Billede", "info": "Tom = standardbilledet, hvor der er et (Hjalmar og Carl). Den midterste pakke har intet produktionsbillede endnu." },
+        { "type": "product_list", "id": "products", "label": "Delprodukter", "limit": 8 }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "BM pakker" }
+  ]
+}
+{% endschema %}

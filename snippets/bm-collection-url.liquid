@@ -1,0 +1,18 @@
+{%- comment -%}
+  Resolves a collection handle to a URL.
+  Blank handle outputs nothing, so the caller can hide the link.
+  An existing collection uses its own url.
+  A missing collection falls back to /collections/{handle} so the link is ready
+  before the collection is created in Shopify.
+{%- endcomment -%}
+{%- liquid
+  assign bm_handle = handle | strip
+  if bm_handle != blank
+    assign bm_collection = collections[bm_handle]
+    if bm_collection.handle != blank
+      echo bm_collection.url
+    else
+      echo routes.collections_url | append: '/' | append: bm_handle
+    endif
+  endif
+-%}

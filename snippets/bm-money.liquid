@@ -1,0 +1,8 @@
+{%- comment -%}
+  Formats a major-unit amount (899) with the shop money format.
+  Accepts amount.
+{%- endcomment -%}
+{%- liquid
+  assign bm_cents = amount | times: 100
+  echo bm_cents | money_without_trailing_zeros
+-%}

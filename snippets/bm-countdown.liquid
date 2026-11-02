@@ -1,0 +1,49 @@
+{%- comment -%}
+  Countdown box. label_mode: auto | live | pre. compact: true for PDP.
+{%- endcomment -%}
+{%- liquid
+  capture bm_phase_raw
+    render 'bm-phase'
+  endcapture
+  assign bm_phase_now = bm_phase_raw | strip
+  assign bm_label = settings.bm_countdown_live
+  if bm_phase_now == 'pre'
+    assign bm_label = settings.bm_countdown_pre
+  endif
+  if label != blank
+    assign bm_label = label
+  endif
+-%}
+<div
+  class="bm-countdown{% if compact %} bm-countdown--compact{% endif %}"
+  data-bm-countdown
+  data-bm-start="{{ settings.bm_start | escape }}"
+  data-bm-end="{{ settings.bm_end | escape }}"
+  role="timer"
+  aria-label="{{ bm_label | escape }}"
+>
+  <p class="bm-countdown__label" data-bm-countdown-label data-label-live="{{ settings.bm_countdown_live | escape }}" data-label-pre="{{ settings.bm_countdown_pre | escape }}">
+    {{ bm_label }}
+  </p>
+  <div class="bm-countdown__grid">
+    <div class="bm-countdown__unit">
+      <span data-bm-days>00</span>
+      <small>{{ settings.bm_unit_days }}</small>
+    </div>
+    <span class="bm-countdown__sep" aria-hidden="true">:</span>
+    <div class="bm-countdown__unit">
+      <span data-bm-hours>00</span>
+      <small>{{ settings.bm_unit_hours }}</small>
+    </div>
+    <span class="bm-countdown__sep" aria-hidden="true">:</span>
+    <div class="bm-countdown__unit">
+      <span data-bm-minutes>00</span>
+      <small>{{ settings.bm_unit_minutes }}</small>
+    </div>
+    <span class="bm-countdown__sep" aria-hidden="true">:</span>
+    <div class="bm-countdown__unit">
+      <span data-bm-seconds>00</span>
+      <small>{{ settings.bm_unit_seconds }}</small>
+    </div>
+  </div>
+</div>

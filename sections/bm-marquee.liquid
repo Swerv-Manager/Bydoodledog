@@ -1,0 +1,35 @@
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_phase_now == 'pre' or bm_phase_now == 'live' -%}
+  {%- if settings.bm_marquee_text != blank -%}
+    {%- liquid
+      assign bm_marquee = settings.bm_marquee_text
+      if settings.bm_up_to_enabled == false
+        assign bm_phrase = settings.bm_up_to_text | replace: '.', ''
+        assign bm_marquee = bm_marquee | replace: settings.bm_up_to_text, '' | replace: bm_phrase, ''
+      endif
+    -%}
+    <section class="bm-section bm-marquee" aria-hidden="false">
+      <div class="bm-marquee__track">
+        {%- for i in (1..8) -%}
+          <span>{{ bm_marquee }}</span>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "BM marquee",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Teksten styres af tema-indstillingen Black Month → Marquee."
+    }
+  ],
+  "presets": [
+    { "name": "BM marquee" }
+  ]
+}
+{% endschema %}

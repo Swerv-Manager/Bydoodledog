@@ -1,0 +1,9 @@
+{%- capture bm_on -%}{%- render 'bm-active' -%}{%- endcapture -%}
+{%- capture bm_phase_raw -%}{%- render 'bm-phase' -%}{%- endcapture -%}
+{%- assign bm_phase_now = bm_phase_raw | strip -%}
+{%- if bm_on == 'true' and bm_phase_now == 'live' and item.variant.compare_at_price > item.final_price -%}
+  {%- assign bm_compare_line = item.variant.compare_at_price | times: item.quantity -%}
+  {%- if bm_compare_line > item.original_line_price or item.original_line_price == item.final_line_price -%}
+    <s class="bm-cart-compare">{{ bm_compare_line | money }}</s>
+  {%- endif -%}
+{%- endif -%}
